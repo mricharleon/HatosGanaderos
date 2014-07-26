@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link rel="stylesheet" href="{{STATIC_URL}}css/normalize.css">
+	<link rel="stylesheet" href="{{STATIC_URL}}css/style.css">
+
+	<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/jquery.datetimepicker.css"/>
+
+	<script type="text/javascript" src="{{STATIC_URL}}js/jquery-2.1.1.js"></script>
+	<script type="text/javascript" src="{{STATIC_URL}}js/web_services.js"></script>
+
+	<script src="{{STATIC_URL}}js/jquery.datetimepicker.js"></script>
+	
+	<title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+<header>
+{% if user.is_authenticated %}
+	<div class="logo left">
+		<img src="{{STATIC_URL}}img/logo.png" alt="SID_GV">
+	</div>
+{% endif %}
+	<div class="titular">
+		<h1 class="titulo">HatosGanaderos</h1>
+		<span class="subtitulo">Sistema que mejora tu entidad ganadera</span>
+	</div>
+	{% block header %} 
+	<nav>
+		{% block nav %}
+		{% if user.is_authenticated %}
+			<div class="usuario">
+				<figure class="avatar">
+					<img class="mugshot" src="{{ user.profile.get_mugshot_url }}" />
+				</figure>
+				<div class="menu" href="#">
+					<div class="menu_expan">
+
+						<div class="espacio_menu1">
+							<div class="titulo_menu_expan">Módulos</div>
+							<hr>
+							<a class="items" href="{% url 'agrega_ganado' user.username %}">Reproducción</a>
+							<a class="items" href="#">Sanidad</a>
+							<a class="items" href="{% url 'lista_ganado_produccion' user.username %}">Producción</a>
+							<a class="items" href="{% url 'agrega_alimento' user.username %}">Alimentación</a>
+						</div>
+						
+						<div class="espacio_menu2">
+							<div class="titulo_menu_expan">Configuración</div>
+							<hr>
+							<a class="items" href="{% url 'userena_profile_detail' user.username %}">Mi Cuenta</a>
+							<a class="items" href="{% url 'userena_profile_list' %}">Técnicos</a>
+							<a class="items" href="{% url 'userena_umessages_list' %}">Mensajes</a>
+						</div>
+
+						<div class="espacio_menu3">
+							<div class="titulo_menu_expan">Sesión</div>
+							<hr>
+							<a class="items" href="{% url 'userena_signout' %}">Salir</a>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		{% else %}
+		{% endif %}
+		{% endblock nav %}
+	</nav>
+	{% endblock header %}
+</header>	
+
+<section>
+	
+	<article>
+		{% block presentation %} 
+
+		{% endblock %}
+	</article>
+
+	<article>
+		{% block content %}
+			
+		{% endblock %}
+	</article>
+
+</section>
+
+<footer>
+	{% block footer %}
+		
+	{% endblock %}
+</footer>
+	
+</body>
+<script>
+$('#default_datetimepicker').datetimepicker({
+	formatTime:'H:i',
+	formatDate:'d.m.Y',
+	defaultDate:'8.12.1986', // it's my birthday
+	defaultTime:'10:00'
+});
+
+$('#datetimepicker10').datetimepicker({
+	step:5,
+	inline:true
+});
+$('#datetimepicker_mask').datetimepicker({
+	mask:'9999/19/39 29:59'
+});
+$('.datetimepicker').datetimepicker();
+$('.datetimepicker').datetimepicker({
+	format:'d/m/Y H:i',
+	timepicker:true,
+	value:'',
+	step:60
+});
+$('#datetimepicker1').datetimepicker({
+	datepicker:false,
+	format:'H:i',
+	step:5
+});
+$('.datetimepicker2').datetimepicker({
+	lang:'es',
+	timepicker:false,
+	format:'d/m/Y',
+	formatDate:'Y/m/d',
+});
+$('#datetimepicker3').datetimepicker({
+	inline:true
+});
+$('#datetimepicker4').datetimepicker();
+$('#open').click(function(){
+	$('#datetimepicker4').datetimepicker('show');
+});
+$('#close').click(function(){
+	$('#datetimepicker4').datetimepicker('hide');
+});
+$('#reset').click(function(){
+	$('#datetimepicker4').datetimepicker('reset');
+});
+$('#datetimepicker5').datetimepicker({
+	datepicker:false,
+	allowTimes:['12:00','13:00','15:00','17:00','17:05','17:20','19:00','20:00'],
+	step:5
+});
+$('#datetimepicker6').datetimepicker();
+$('#destroy').click(function(){
+	if( $('#datetimepicker6').data('xdsoft_datetimepicker') ){
+		$('#datetimepicker6').datetimepicker('destroy');
+		this.value = 'create';
+	}else{
+		$('#datetimepicker6').datetimepicker();
+		this.value = 'destroy';
+	}
+});
+var logic = function( currentDateTime ){
+	if( currentDateTime.getDay()==6 ){
+		this.setOptions({
+			minTime:'11:00'
+		});
+	}else
+		this.setOptions({
+			minTime:'8:00'
+		});
+};
+$('#datetimepicker7').datetimepicker({
+	onChangeDateTime:logic,
+	onShow:logic
+});
+$('#datetimepicker8').datetimepicker({
+	onGenerate:function( ct ){
+		$(this).find('.xdsoft_date')
+			.toggleClass('xdsoft_disabled');
+	},
+	minDate:'-1970/01/2',
+	maxDate:'+1970/01/2',
+	timepicker:false
+});
+$('#datetimepicker9').datetimepicker({
+	onGenerate:function( ct ){
+		$(this).find('.xdsoft_date.xdsoft_weekend')
+			.addClass('xdsoft_disabled');
+	},
+	weekends:['01.01.2014','02.01.2014','03.01.2014','04.01.2014','05.01.2014','06.01.2014'],
+	timepicker:false
+});
+var dateToDisable = new Date();
+	dateToDisable.setDate(dateToDisable.getDate() + 2);
+$('#datetimepicker11').datetimepicker({
+	beforeShowDay: function(date) {
+		if (date.getMonth() == dateToDisable.getMonth() && date.getDate() == dateToDisable.getDate()) {
+			return [false, ""]
+		}
+
+		return [true, ""];
+	}
+});
+$('#datetimepicker12').datetimepicker({
+	beforeShowDay: function(date) {
+		if (date.getMonth() == dateToDisable.getMonth() && date.getDate() == dateToDisable.getDate()) {
+			return [true, "custom-date-style"];
+		}
+
+		return [true, ""];
+	}
+});
+</script>
+</html>

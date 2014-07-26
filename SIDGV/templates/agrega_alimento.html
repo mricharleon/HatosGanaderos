@@ -1,0 +1,38 @@
+{% extends 'userena/base_userena.html' %}
+{% load i18n %}
+{% load url from future %}
+
+{% block title %}Listado de alimentos{% endblock %}
+
+{% block content_title %}<h2 class="content-title">{% trans 'Profiles' %}</h2>{% endblock %}
+
+{% block presentation %}
+    <div class="presentacionSignup">
+        <h3>Agrega el alimento</h3>
+    <h4>Ahora podras agregar los datos del alimento.</h4>
+    <ul id="profile-nav">
+      <li class="selected"><a href="{% url 'agrega_alimento' user.username %}">Agregar Alimento</a></li>
+      <li><a href="{% url 'lista_alimento' user.username %}">Listar Alimentos</a></li>      
+    </ul>
+    </div>
+{% endblock presentation %}
+
+
+{% block content %}
+    <div class="formSignup">
+      <span class="crearCuenta">
+          Agregar Alimento
+      </span>
+       <form action="" enctype="multipart/form-data" method="post">     
+          
+          {% csrf_token %}
+          
+          {{ formAlimento }}
+          
+            
+            <input type="submit" value="{% trans "Save" %}" />
+            <a href="{% url 'lista_alimento' user.username %}"><input type="button" value="Atrás" /></a>
+            
+        </form>
+    </div>
+{% endblock %}

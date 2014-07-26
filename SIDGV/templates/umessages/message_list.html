@@ -1,0 +1,79 @@
+{% extends 'umessages/base_message.html' %}
+{% load i18n umessages_tags %}
+{% load url from future %}
+
+{% block title %}{% trans 'Messages' %}{% endblock %}
+
+{% block content_title %}{% get_unread_message_count_for user as unread_message_count %}
+<h2 class="content-title">Messages ({{ unread_message_count }} )</h2>{% endblock %}
+
+{% block presentation %}
+
+    <div class="presentacionSignup">
+        <h3>Sistema de mensajes</h3>
+        <ul id="profile-nav">
+            <li><a href="{% url 'userena_umessages_compose' %}">Nuevo Mensaje</a></li>
+        </ul>
+        
+        {% if user.is_authenticated %}
+        
+        {% else %}
+            <spam>
+                <a href="{% url 'userena_signup' %}" class="btnRegistroEntidad">Registrar</a>
+            </spam>
+            <spam>
+                <a href="{% url 'userena_signin' %}" class="btnIngresar">Ingresar</a>
+            </spam>
+        {% endif %}
+    </div>
+
+{% endblock presentation %}
+
+
+
+{% block content %}
+
+<div class="formSignup">
+  <span class="crearCuenta">
+      {% trans "Messages" %}
+  </span>
+  <div id="details">
+
+  <ul id="messages" class="list-view">
+    {% for message in message_list %}
+      <li>
+        {% if message.um_from_user == user %}
+          <a href="{% url 'userena_umessages_detail' message.um_to_user.username %}">
+            <img src="{{ message.um_to_user.profile.get_mugshot_url }}" class="avatar" />
+            
+            
+            <span class="nNotificaciones">
+              {% get_unread_message_count_between user and message.um_to_user as unread_between_count %}
+            </span>
+            </p>
+        {% else %}
+          <a href="{% url 'userena_umessages_detail' message.um_from_user.username %}">
+          <img src="{{ message.um_from_user.profile.get_mugshot_url }}" class="avatar" />
+          {% get_unread_message_count_between user and message.um_from_user as unread_between_count %}
+        {% endif %}
+          <span class="nNotificaciones">
+            ( {{ unread_between_count }}
+            {% if unread_between_count == 1 %}
+              {% trans 'Message' %}
+            {% else %}
+              {% trans 'Messages' %}
+            {% endif %}
+            )
+          </span>
+
+          <span class="destinatario">{{ message.um_from_user }}</span><br>
+          <p>        
+            {{ message.latest_message }}<br>
+          </p>
+          </a>
+
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}

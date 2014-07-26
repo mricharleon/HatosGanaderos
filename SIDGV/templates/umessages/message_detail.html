@@ -1,0 +1,53 @@
+{% extends 'umessages/base_message.html' %}
+{% load i18n %}
+{% load url from future %}
+
+{% block title %}{% trans 'Messages' %}{% endblock %}
+
+{% block presentation %}
+
+
+    <div class="presentacionSignup">
+        <h3>Sistema de mensajes</h3>
+        <ul id="profile-nav">
+            <li><a href="{% url 'userena_umessages_compose' %}">Nuevo Mensaje</a></li>
+            <li><a href="{% url 'userena_umessages_compose_to' recipient.username %}" class="button">Responder</a></li>
+        </ul>
+        
+        {% if user.is_authenticated %}
+        
+        {% else %}
+            <spam>
+                <a href="{% url 'userena_signup' %}" class="btnRegistroEntidad">Registrar</a>
+            </spam>
+            <spam>
+                <a href="{% url 'userena_signin' %}" class="btnIngresar">Ingresar</a>
+            </spam>
+        {% endif %}
+    </div>
+
+{% endblock presentation %}
+
+{% block content %}
+<div class="formSignup">
+  <span class="crearCuenta">
+      {% trans "Messages" %}
+  </span>
+  <div id="details">
+	
+	<ul id="messages">
+	{% for message in message_list %}
+	<li class="{% if message.sender == user %}send{% else %}received{% endif %}">
+	  <img src="{{ message.sender.profile.get_mugshot_url }}" class="avatar {% if message.sender == user %}send{% else %}received{% endif %}" />
+	  <div class="message-content">
+	    <span class="destinatario">{{ message.sender }}</span>
+	    <br>
+	    <p>{{ message }}</p>
+	    <p class="date">{{ message.sent_at }}</p>
+	  </div>
+
+	</li>
+	{% endfor %}
+	</ul>
+</div>
+{% endblock %}

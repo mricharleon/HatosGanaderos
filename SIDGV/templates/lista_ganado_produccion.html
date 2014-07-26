@@ -1,0 +1,65 @@
+{% extends 'userena/base_userena.html' %}
+{% load i18n %}
+{% load url from future %}
+
+{% block title %}Listado de ganados{% endblock %}
+
+{% block content_title %}<h2 class="content-title">{% trans 'Profiles' %}</h2>{% endblock %}
+
+{% block presentation %}
+<div class="presentacion">
+    <h3>Lista de Ganados en Producción</h3>
+        <h4>Listado de ganados registrados en la ganadería..</h4>
+</div>
+{% endblock %}
+
+{% block content %}
+
+
+
+<div class="account_list">
+    
+    {% for g in ganado %}
+
+        <a href="{% url 'agrega_ganado_ordenio' user.username g.id %}">
+            <div>                
+                
+                <img src="{{MEDIA_URL}}{{ g.imagen }}" />
+                <h4 class="texto_propiedades1">{{ g.identificacion_simple.nombre | capfirst }}</h4>
+                <h4 class="texto_propiedades1">{{ g.identificacion_ecuador.nombre | capfirst }}</h4>
+
+                {% for c in g.celos.all %}
+                    {% if c.estado == 0 and c.is_active %}
+                        <h4 class="texto_propiedades1">Sin Celo</h4> 
+                    {% elif c.estado == 1 and c.is_active %}
+                        <h4 class="texto_propiedades1">En Celo</h4> 
+                    {% endif %}
+                {% endfor %}
+
+                {% if not g.celos.all %}
+                        <h4 class="texto_propiedades1">Celo no registrado</h4>
+                    {% endif %}
+                
+                {% for t in g.etapas.all %}
+                    {% if t.nombre == 0 and t.is_active %}
+                        <h4 class="texto_propiedades2">Ternera</h4>
+                    {% elif t.nombre == 1 and t.is_active %}
+                        <h4 class="texto_propiedades2">Vacona</h4>
+                    {% elif t.nombre == 2 and t.is_active %}
+                        <h4 class="texto_propiedades2">Vientre</h4>
+                    {% endif %}
+                {% endfor %}
+
+                <hr>
+                <h4 class="texto_propiedades3">{{ g.edad_anios }} {%if g.edad_anios == 1%}año{%else%}años{%endif%},
+                                              {{ g.edad_meses }} {%if g.edad_meses == 1%}mes{%else%}meses{%endif%}
+                                              y {{ g.edad_dias }} {%if g.edad_dias == 1%}día{%else%}días{%endif%}
+                </h4>
+            </div>
+        </a>        
+    {% endfor %}
+    
+</div>
+
+
+{% endblock %}

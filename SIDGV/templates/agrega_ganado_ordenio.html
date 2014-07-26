@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load url from future %}
+
+{% block title %} Agregar Ordeño Diario {% endblock %}
+
+
+{% block presentation %}
+ <script>
+$(function() {
+$( "#id_nacimiento" ).datepicker();
+});
+</script>
+{% comment %}Dirty hack. Will use django-guardian in the future.{% endcomment %}
+    <div class="presentacionSignup">
+        <ul id="profile-nav">
+            <li class="selected"><a href="{% url 'agrega_ganado_ordenio' user.username ganado_id %}">Agregar Ordeño Diario</a></li>
+            
+            {% for o in range %}
+             {% if o == 0 %}
+             {% else %}
+              <li><a href="{% url 'edita_ganado_ordenio' user.username ganado_id o %}">Editar Ordeño {{o}}</a></li>
+             {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock presentation %}
+
+{% block content %}
+
+<div class="formSignup">
+  <span class="crearCuenta">
+      Agregar Ordeño 
+  </span>
+
+  {% if msj == 'False' %}
+   <form action="" enctype="multipart/form-data" method="post">     
+      
+      {% csrf_token %}
+      <center><b>Hoy:</b> {{ fecha }}</center>
+      <center>( {{ num_ordenios }} de {{ total_ordenios }} )</center>
+      
+      {{ formOrdenio.as_p }}      
+        
+        <input type="submit" value="{% trans "Save" %}" />
+        <a href="{% url 'lista_ganado' user.username %}"><input type="button" value="Atrás" /></a>
+        
+    </form>
+  {% else %}
+    <center><h4>{{ msj }}</h4></center>
+  {% endif %}
+</div>
+{% endblock %}

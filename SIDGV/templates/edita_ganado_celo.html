@@ -1,0 +1,37 @@
+{% extends 'userena/base_userena.html' %}
+{% load i18n %}
+{% load url from future %}
+
+{% block title %}Editar ganado{% endblock %}
+
+{% block content_title %}<h2 class="content-title">{% trans 'Profiles' %}</h2>{% endblock %}
+
+{% block presentation %}
+<div class="presentacionSignup">
+    <h3>Edita tu ganado</h3>
+    <h4>Ahora podras actualizar los datos de tu ganado.</h4>
+    <ul id="profile-nav">
+      <li><a href="{% url 'lista_ganado' user.username %}">Listar Ganado</a></li>
+      <li><a href="{% url 'edita_ganado_celo' user.username ganado_id %}">Editar Celo</a></li>
+    </ul>
+</div>
+{% endblock presentation %}
+
+{% block content %}
+<div class="formSignup">
+  <span class="crearCuenta">
+      Editar Celo {{ h }}
+  </span>
+   <form action="" enctype="multipart/form-data" method="post">
+      
+      {% csrf_token %}
+      
+      <center><h4>{{ fecha_inicio }}</h4></center>
+      {{ form.as_p }}
+        
+        <input type="submit" value="{% trans "Save" %}" />
+        <a href="{% url 'lista_ganado' user.username %}"><input type="button" value="Atrás" /></a>
+        
+    </form>
+</div>
+{% endblock %}

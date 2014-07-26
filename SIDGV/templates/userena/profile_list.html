@@ -1,0 +1,60 @@
+{% extends 'userena/base_userena.html' %}
+{% load i18n %}
+{% load url from future %}
+
+{% block title %}{% trans 'Profiles' %} de Técnicos{% endblock %}
+
+{% block content_title %}<h2 class="content-title">{% trans 'Profiles' %}</h2>{% endblock %}
+
+{% block presentation %}
+<div class="presentacion">
+    <h3>Administrador de técnicos</h3>
+        <h4>Registro de técnicos que administran los registros de producción, alimentación, sanidad y producción. Además alertas y sugerencias oportunas.</h4>
+        
+        {% if user.is_authenticated %}
+        
+        {% else %}
+            <spam>
+                <a href="{% url 'userena_signup' %}" class="btnRegistroEntidad">Registrar</a>
+            </spam>
+            <spam>
+                <a href="{% url 'userena_signin' %}" class="btnIngresar">Ingresar</a>
+            </spam>
+        {% endif %}
+    
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="account_list">
+    {% for profile in profile_list %}
+    
+        <a href="{% url 'userena_profile_detail' profile.user.username %}">
+            <div>
+                <img src="{{ profile.get_mugshot_url }}" />
+                <h4 class="texto_propiedades">{{ profile.user.get_full_name }}</h4>
+            </div>
+        </a>
+    
+    {% endfor %}
+
+</div>
+
+{% if is_paginated %}
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="{% url 'userena_profile_list_paginated' page_obj.previous_page_number %}">{% trans 'previous' %}</a>
+        {% endif %}
+
+        <span class="current">
+            {% trans 'Page' %} {{ page_obj.number }} {% trans 'of' %} {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="{% url 'userena_profile_list_paginated'  page_obj.next_page_number %}">{% trans 'next' %}</a>
+        {% endif %}
+    </span>
+</div>
+{% endif %}
+{% endblock %}

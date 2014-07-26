@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% block title %} Home {% endblock %}
+
+{% block presentation %}
+<div class="presentacion">
+	<h3>Ayuda a mejorar tu Entidad Ganadera</h3>
+		<h4>Administra tus registros de producción, alimentación, sanidad y producción. Además alertas y sugerencias oportunas.</h4>
+		
+      	{% if user.is_authenticated %}
+      	
+        {% else %}
+	        <spam>
+				<a href="{% url 'userena_signup' %}" class="btnRegistroEntidad">Registrar</a>
+			</spam>
+			<spam>
+				<a href="{% url 'userena_signin' %}" class="btnIngresar">Ingresar</a>
+			</spam>
+        {% endif %}
+	
+</div>
+{% endblock %}
+
+{% block content %}
+	<section class="posts">
+		<article class="post">
+			<div class="caja1">
+				<div class="img_titulo left">
+					<img src="{{STATIC_URL}}img/img_reproduccion.png">
+				</div>
+				<h2 class="titulo_post left">
+					Módulo de Reproducción
+				</h2>
+				<h3 class="subtitulo_post">El módulo de reproducción esta disponible con el objetivo de mejorar el control de tus ganados en los apectos siguientes: agregar, editar, manejo de etapas, ciclos, celo, gestación. Es un módulo que debe estar a tu alcance.
+				</h3>
+			</div>
+		</article>
+
+		<article class="post">
+			<div class="caja1">
+			<div class="img_titulo right">
+					<img src="{{STATIC_URL}}img/img_alimentacion.png">
+				</div>
+				<h2 class="titulo_post right">
+					Módulo de Alimentación
+				</h2>
+				<h3 class="subtitulo_post">El módulo de alimentación tiene la finalidad de registrar y editar el alimento que suministras a tus ganados con atributos como fecha de caducidad, cantidad de producto, etc. Además se mantiene un registro del consumo de alimento de cada animal. 
+				</h3>
+			</div>
+		</article>
+
+		<article class="post">
+			<div class="caja1">
+			<div class="img_titulo left">
+					<img src="{{STATIC_URL}}img/img_sanidad.png">
+				</div>
+				<h2 class="titulo_post left">
+					Módulo de Sanidad
+				</h2>
+				<h3 class="subtitulo_post">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+				consequat.
+				</h3>
+			</div>
+		</article>
+
+		<article class="post">
+			<div class="caja1">
+			<div class="img_titulo right">
+					<img src="{{STATIC_URL}}img/img_produccion.png">
+				</div>
+				<h2 class="titulo_post right">
+					Módulo de Producción
+				</h2>
+				<h3 class="subtitulo_post">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+				consequat.
+				</h3>
+			</div>
+		</article>
+
+		<article class="post">
+			<div class="caja1">
+			<div class="img_titulo left">
+					<img src="{{STATIC_URL}}img/img_alertas.png">
+				</div>
+				<h2 class="titulo_post left">
+					Alertas y Sugerencias
+				</h2>
+				<h3 class="subtitulo_post">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+				consequat.
+				</h3>
+			</div>
+		</article>
+		
+	</section>
+{% endblock content %}

@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load url from future %}
+
+{% block title %} Agregar Ganaderia {% endblock %}
+
+
+{% block presentation %}
+{% comment %}Dirty hack. Will use django-guardian in the future.{% endcomment %}
+    <div class="presentacionSignup">
+        <ul id="profile-nav">
+            <li><a href="{% url 'userena_profile_detail' user.username %}">{% trans "View profile" %}</a></li>
+            <li class="selected"><a href="{% url 'userena_profile_edit' user.username %}">{% trans "Edit details" %}</a></li>
+            <li><a href="{% url 'userena_password_change' user.username %}">{% trans "Change password" %}</a></li>
+            <li><a href="{% url 'userena_email_change' user.username %}">{% trans "Change email" %}</a></li>
+            <li><a href="{% url 'agrega_ganaderia_config' user.username %}">Registrar Ganadería</a></li>
+        </ul>
+    </div>
+{% endblock presentation %}
+
+{% block content %}
+<div class="formSignup">
+  <span class="crearCuenta">
+      Crear ganaderia
+  </span>
+   <form action="" enctype="multipart/form-data" method="post">     
+      
+      {% csrf_token %}
+      
+	{{ form.as_p }}
+
+  {{ form2.as_p }}
+
+        
+        <input type="submit" value="{% trans "Save" %}" />
+        <a href="{% url 'userena_profile_detail' user.username %}"><input type="button" value="Atrás" /></a>
+        
+    </form>
+</div>
+{% endblock %}
