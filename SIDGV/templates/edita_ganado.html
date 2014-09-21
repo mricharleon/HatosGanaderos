@@ -8,13 +8,15 @@
 
 {% block presentation %}
 <div class="presentacionSignup">
-    <h3>Edita tu ganado</h3>
+    <h3>Edita tu Ganado</h3>
     <h4>Ahora podras actualizar los datos de tu ganado.</h4>
     <ul id="profile-nav">
-      <li><a href="{% url 'lista_ganado' user.username %}">Listar Ganado</a></li>
-      
-      <li><a href="{% url 'edita_ganado_celo' user.username ganado_id %}">Editar Celo</a></li>
-      
+      <li><a href="{% url 'lista_ganado' %}">Listar Ganado</a></li>
+      {% for c in ganado.ciclos.all %}
+        {% if c.nombre != 3 and c.is_active %}
+            <li><a href="{% url 'edita_ganado_celo' user.username id_cattle %}">Editar Celo</a></li>
+        {% endif %}
+      {% endfor %}
     </ul>
        
 </div>
@@ -24,15 +26,116 @@
 {% block content %}
 <div class="formSignup">
   <span class="crearCuenta">
-      Editar Ganado
+      Editar Ganado  [{{id_cattle}}]
   </span>
    <form action="" enctype="multipart/form-data" method="post">     
       
       {% csrf_token %}
-      
-    {{ form.as_p }}
 
-    {{ form2.as_p }}
+      <section class="container">
+        <div class="user">
+          <img src="{{STATIC_URL}}img/help.png"/>
+          <ul>
+            <h5 class="sep">{{formIdentificacion.nombre.label_tag}}</h5>
+          </ul>
+        </div>
+      </section>
+      {{formIdentificacion.nombre.errors}}
+      {{formIdentificacion.nombre}}
+
+      <section class="container">
+        <div class="user">
+          <img src="{{STATIC_URL}}img/help.png"/>
+          <ul>
+            <h5 class="sep">{{formIdentificacion.rp_madre.label_tag}}</h5>
+          </ul>
+        </div>
+      </section>
+      {{formIdentificacion.rp_madre.errors}}
+      {{formIdentificacion.rp_madre}}
+
+      <section class="container">
+        <div class="user">
+          <img src="{{STATIC_URL}}img/help.png"/>
+          <ul>
+            <h5 class="sep">{{formIdentificacion.rp_padre.label_tag}}</h5>
+          </ul>
+        </div>
+      </section>
+      {{formIdentificacion.rp_padre.errors}}
+      {{formIdentificacion.rp_padre}}
+      
+      <section class="container">
+        <div class="user">
+          <img src="{{STATIC_URL}}img/help.png"/>
+          <ul>
+            <h5 class="sep">{{formGanado.imagen.label_tag}}</h5>
+          </ul>
+        </div>
+      </section>
+      {{formGanado.imagen.errors}}
+      {{formGanado.imagen}}
+      
+      <section class="container">
+        <div class="user">
+          <img src="{{STATIC_URL}}img/help.png"/>
+          <ul>
+            <h5 class="sep">{{formGanado.nacimiento.label_tag}}</h5>
+          </ul>
+        </div>
+      </section>
+      {{formGanado.nacimiento.errors}}
+      {{formGanado.nacimiento}}
+      
+      <section class="container">
+        <div class="user">
+          <img src="{{STATIC_URL}}img/help.png"/>
+          <ul>
+            <h5 class="sep">{{formGanado.genero.label_tag}}</h5>
+          </ul>
+        </div>
+      </section>
+        <label for="select" class="select">
+          {{formGanado.genero.errors}}
+          {{formGanado.genero}}
+        </label>
+
+      <section class="container">
+        <div class="user">
+          <img src="{{STATIC_URL}}img/help.png"/>
+          <ul>
+            <h5 class="sep">{{formGanado.raza.label_tag}}</h5>
+          </ul>
+        </div>
+      </section>
+        <label for="select" class="select">
+          {{formGanado.raza.errors}}
+          {{formGanado.raza}}
+        </label>
+
+      <section class="container">
+        <div class="user">
+          <img src="{{STATIC_URL}}img/help.png"/>
+          <ul>
+            <h5 class="sep">{{formGanado.forma_concepcion.label_tag}}</h5>
+          </ul>
+        </div>
+      </section>
+        <label for="select" class="select">
+          {{formGanado.forma_concepcion.errors}}
+          {{formGanado.forma_concepcion}}
+        </label>
+
+      <section class="container">
+        <div class="user">
+          <img src="{{STATIC_URL}}img/help.png"/>
+          <ul>
+            <h5 class="sep">{{formGanado.observaciones.label_tag}}</h5>
+          </ul>
+        </div>
+      </section>
+      {{formGanado.observaciones.errors}}
+      {{formGanado.observaciones}}
 
         
         <input type="submit" value="{% trans "Save" %}" />

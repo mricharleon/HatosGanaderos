@@ -8,11 +8,10 @@
 
 {% block presentation %}
 <div class="presentacionSignup">
-    <h3>Edita tu ganado</h3>
+    <h3>Edita el Celo</h3>
     <h4>Ahora podras actualizar los datos de tu ganado.</h4>
     <ul id="profile-nav">
-      <li><a href="{% url 'lista_ganado' user.username %}">Listar Ganado</a></li>
-      <li><a href="{% url 'edita_ganado_celo' user.username ganado_id %}">Editar Celo</a></li>
+      <li><a href="{% url 'lista_ganado' %}">Listar Ganado</a></li>
     </ul>
 </div>
 {% endblock presentation %}
@@ -25,12 +24,31 @@
    <form action="" enctype="multipart/form-data" method="post">
       
       {% csrf_token %}
-      
-      <center><h4>{{ fecha_inicio }}</h4></center>
-      {{ form.as_p }}
+
+      <section class="container">
+        <div class="user">
+          <img src="{{STATIC_URL}}img/help.png"/>
+          <ul>
+            <h5 class="sep">{{form.fecha_inicio.label_tag}}</h5>
+          </ul>
+        </div>
+      </section>
+      {{form.fecha_inicio.errors}}
+      {{form.fecha_inicio}}
+
+      <section class="container">
+        <div class="user">
+          <img src="{{STATIC_URL}}img/help.png"/>
+          <ul>
+            <h5 class="sep">{{form.observaciones.label_tag}}</h5>
+          </ul>
+        </div>
+      </section>
+      {{form.observaciones.errors}}
+      {{form.observaciones}}
         
         <input type="submit" value="{% trans "Save" %}" />
-        <a href="{% url 'lista_ganado' user.username %}"><input type="button" value="Atrás" /></a>
+        <a href="{% url 'lista_ganado'  %}"><input type="button" value="Atrás" /></a>
         
     </form>
 </div>

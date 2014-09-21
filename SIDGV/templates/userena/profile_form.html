@@ -8,12 +8,15 @@
 
 {% block presentation %}
 <div class="presentacionSignup">
+    <h3>Editar perfil</h3>
+    <h4>Bienvenido a tu perfil en Hatos Ganaderos.</h4>
     <ul id="profile-nav">
         <li><a href="{% url 'userena_profile_detail' user.username %}">{% trans "View profile" %}</a></li>
-        <li class="selected"><a href="{% url 'userena_profile_edit' user.username %}">{% trans "Edit details" %}</a></li>
         <li><a href="{% url 'userena_password_change' user.username %}">{% trans "Change password" %}</a></li>
         <li><a href="{% url 'userena_email_change' user.username %}">{% trans "Change email" %}</a></li>
-        <li><a href="{% url 'agrega_ganaderia_config' user.username %}">Mi Ganadería</a></li>
+        {% if user.is_staff %}
+            <li><a href="{% url 'agrega_ganaderia_config' %}">Mi Ganadería</a></li>
+        {% endif %}
     </ul>
 </div>
 {% endblock presentation %}
@@ -38,8 +41,101 @@
           {% endif %}
        {% csrf_token %}
       
-      {{ form.as_p }}
-        
+      <section class="container">
+        <div class="user">
+          <img src="{{STATIC_URL}}img/help.png"/>
+          <ul>
+            <h5 class="sep">{{form.first_name.label_tag}}</h5>
+          </ul>
+        </div>
+      </section>
+      {{form.first_name.errors}}
+      {{form.first_name}}
+
+      <section class="container">
+        <div class="user">
+          <img src="{{STATIC_URL}}img/help.png"/>
+          <ul>
+            <h5 class="sep">{{form.last_name.label_tag}}</h5>
+          </ul>
+        </div>
+      </section>
+      {{form.last_name.errors}}
+      {{form.last_name}}
+
+      <section class="container">
+        <div class="user">
+          <img src="{{STATIC_URL}}img/help.png"/>
+          <ul>
+            <h5 class="sep">{{form.mugshot.label_tag}}</h5>
+          </ul>
+        </div>
+      </section>
+      {{form.mugshot.errors}}
+      {{form.mugshot}}
+
+      <section class="container">
+        <div class="user">
+          <img src="{{STATIC_URL}}img/help.png"/>
+          <ul>
+            <h5 class="sep">{{form.privacy.label_tag}}</h5>
+          </ul>
+        </div>
+      </section>
+      <label for="select" class="select">
+        {{form.privacy.errors}}
+        {{form.privacy}}
+      </label>
+
+      <section class="container">
+        <div class="user">
+          <img src="{{STATIC_URL}}img/help.png"/>
+          <ul>
+            <h5 class="sep">{{form.language.label_tag}}</h5>
+          </ul>
+        </div>
+      </section>
+      <label for="select" class="select">
+        {{form.language.errors}}
+        {{form.language}}
+      </label>
+
+      <section class="container">
+        <div class="user">
+          <img src="{{STATIC_URL}}img/help.png"/>
+          <ul>
+            <h5 class="sep">{{form.gender.label_tag}}</h5>
+          </ul>
+        </div>
+      </section>
+      <label for="select" class="select">
+        {{form.gender.errors}}
+        {{form.gender}}
+      </label>
+
+      <section class="container">
+        <div class="user">
+          <img src="{{STATIC_URL}}img/help.png"/>
+          <ul>
+            <h5 class="sep">{{form.direccion.label_tag}}</h5>
+          </ul>
+        </div>
+      </section>
+      {{form.direccion.errors}}
+      {{form.direccion}}
+
+      <section class="container">
+        <div class="user">
+          <img src="{{STATIC_URL}}img/help.png"/>
+          <ul>
+            <h5 class="sep">{{form.telefono.label_tag}}</h5>
+          </ul>
+        </div>
+      </section>
+      {{form.telefono.errors}}
+      {{form.telefono}}
+      
+
         <input type="submit" value="{% trans "Save" %}" />
         <a href="{% url 'userena_profile_detail' user.username %}"><input type="button" value="Atrás" /></a>
         

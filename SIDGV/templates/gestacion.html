@@ -1,0 +1,81 @@
+{% extends 'userena/base_userena.html' %}
+{% load i18n %}
+{% load url from future %}
+
+{% block title %}Gestación{% endblock %}
+
+{% block content_title %}<h2 class="content-title">{% trans 'Profiles' %}</h2>{% endblock %}
+
+{% block presentation %}
+<div class="presentacionSignup">
+    <h3>Gestación</h3>
+    <h4>Ahora podras actualizar los datos de tu ganado.</h4>
+    <ul id="profile-nav">
+      <li><a href="{% url 'lista_ganado' %}">Listar Ganado</a></li>
+      <li><a href="{% url 'problem_gestacion' id_cattle %}">Reportar Problema</a></li>
+    </ul>
+</div>
+{% endblock presentation %}
+
+
+{% block content %}
+<div class="formSignup">
+  <span class="crearCuenta">
+      Editar Gestación [{{id_cattle}}]
+  </span>
+   <form action="" enctype="multipart/form-data" method="POST">     
+      
+      {% csrf_token %}
+
+      <section class="container">
+        <div class="user">
+          <img src="{{STATIC_URL}}img/help.png"/>
+          <ul>
+            <h5 class="sep">{{formGestacion.fecha_servicio.label_tag}}</h5>
+          </ul>
+        </div>
+      </section>
+      {{formGestacion.fecha_servicio.errors}}
+      {{formGestacion.fecha_servicio}}
+
+      <section class="container">
+        <div class="user">
+          <img src="{{STATIC_URL}}img/help.png"/>
+          <ul>
+            <h5 class="sep">{{formGestacion.fecha_parto.label_tag}}</h5>
+          </ul>
+        </div>
+      </section>
+      {{formGestacion.fecha_parto.errors}}
+      {{formGestacion.fecha_parto}}
+      
+      <section class="container">
+        <div class="user">
+          <img src="{{STATIC_URL}}img/help.png"/>
+          <ul>
+            <h5 class="sep">{{formGestacion.tipo_parto.label_tag}}</h5>
+          </ul>
+        </div>
+      </section>
+        <label for="select" class="select">
+          {{formGestacion.tipo_parto.errors}}
+          {{formGestacion.tipo_parto}}
+        </label>
+
+        <section class="container">
+        <div class="user">
+          <img src="{{STATIC_URL}}img/help.png"/>
+          <ul>
+            <h5 class="sep">{{formGestacion.observaciones.label_tag}}</h5>
+          </ul>
+        </div>
+      </section>
+      {{formGestacion.observaciones.errors}}
+      {{formGestacion.observaciones}}
+
+        
+        <input type="submit" value="{% trans "Save" %}" />
+        
+    </form>
+</div>
+{% endblock %}

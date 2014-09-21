@@ -34,10 +34,31 @@ $( "#id_nacimiento" ).datepicker();
    <form action="" enctype="multipart/form-data" method="post">     
       
       {% csrf_token %}
-      
-      {{ formOrdenio.as_p }}              
+
+      <section class="container">
+        <div class="user">
+          <img src="{{STATIC_URL}}img/help.png"/>
+          <ul>
+            <h5 class="sep">{{formOrdenio.cantidad.label_tag}}</h5>
+          </ul>
+        </div>
+      </section>
+      {{formOrdenio.cantidad.errors}}
+      {{formOrdenio.cantidad}}
+
+      <section class="container">
+        <div class="user">
+          <img src="{{STATIC_URL}}img/help.png"/>
+          <ul>
+            <h5 class="sep">{{formOrdenio.observaciones.label_tag}}</h5>
+          </ul>
+        </div>
+      </section>
+      {{formOrdenio.observaciones.errors}}
+      {{formOrdenio.observaciones}}
+                   
         <input type="submit" value="{% trans "Save" %}" />
-        <a href="{% url 'lista_ganado' user.username %}"><input type="button" value="Atrás" /></a>
+        <a href="{% url 'lista_ganado' %}"><input type="button" value="Atrás" /></a>
         
     </form>
 </div>

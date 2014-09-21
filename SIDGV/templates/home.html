@@ -4,7 +4,8 @@
 
 {% block presentation %}
 <div class="presentacion">
-	<h3>Ayuda a mejorar tu Entidad Ganadera</h3>
+	<div class="login_principal">
+		<h3>Ayuda a mejorar tu Entidad Ganadera</h3>
 		<h4>Administra tus registros de producción, alimentación, sanidad y producción. Además alertas y sugerencias oportunas.</h4>
 		
       	{% if user.is_authenticated %}
@@ -16,61 +17,75 @@
 			<spam>
 				<a href="{% url 'userena_signin' %}" class="btnIngresar">Ingresar</a>
 			</spam>
-        {% endif %}
-	
+        {% endif %}	
+    </div>
+    <div class="img_portada">
+		<img src="{{STATIC_URL}}img/vaca_portada.jpg" alt="HatosGanaderos">
+	</div>
 </div>
+
+<div class="mensaje">
+	<div class="titulo_mensaje">Conoce nuestros modulos</div>
+	<div class="subtitulo_mensaje">Disfruta de una interfaz limpia y funcional, que satisfaga todas las necesidades de una entidad ganadera.</div>
+</div>
+
+<hr>
 {% endblock %}
 
 {% block content %}
-	<section class="posts">
-		<article class="post">
-			<div class="caja1">
-				<div class="img_titulo left">
+	<div class="posts">
+		<article class="post1">
+				<div class="img_titulo">
 					<img src="{{STATIC_URL}}img/img_reproduccion.png">
 				</div>
-				<h2 class="titulo_post left">
+				<h2 class="titulo_post">
 					Módulo de Reproducción
 				</h2>
 				<h3 class="subtitulo_post">El módulo de reproducción esta disponible con el objetivo de mejorar el control de tus ganados en los apectos siguientes: agregar, editar, manejo de etapas, ciclos, celo, gestación. Es un módulo que debe estar a tu alcance.
 				</h3>
-			</div>
 		</article>
 
-		<article class="post">
-			<div class="caja1">
-			<div class="img_titulo right">
+		<hr>
+
+		<article class="post2">
+			
+				<div class="img_titulo">
 					<img src="{{STATIC_URL}}img/img_alimentacion.png">
 				</div>
-				<h2 class="titulo_post right">
+				<h2 class="titulo_post">
 					Módulo de Alimentación
 				</h2>
 				<h3 class="subtitulo_post">El módulo de alimentación tiene la finalidad de registrar y editar el alimento que suministras a tus ganados con atributos como fecha de caducidad, cantidad de producto, etc. Además se mantiene un registro del consumo de alimento de cada animal. 
 				</h3>
-			</div>
+			
 		</article>
 
-		<article class="post">
-			<div class="caja1">
-			<div class="img_titulo left">
-					<img src="{{STATIC_URL}}img/img_sanidad.png">
-				</div>
-				<h2 class="titulo_post left">
-					Módulo de Sanidad
-				</h2>
-				<h3 class="subtitulo_post">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-				consequat.
-				</h3>
+		<hr>
+
+		<article class="post3">
+			
+			<div class="img_titulo">
+				<img src="{{STATIC_URL}}img/img_sanidad.png">
 			</div>
+			<h2 class="titulo_post">
+				Módulo de Sanidad
+			</h2>
+			<h3 class="subtitulo_post">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+			consequat.
+			</h3>
+			
 		</article>
 
-		<article class="post">
-			<div class="caja1">
-			<div class="img_titulo right">
+		<hr>
+
+		<article class="post4">
+			
+			<div class="img_titulo">
 					<img src="{{STATIC_URL}}img/img_produccion.png">
 				</div>
-				<h2 class="titulo_post right">
+				<h2 class="titulo_post">
 					Módulo de Producción
 				</h2>
 				<h3 class="subtitulo_post">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
@@ -78,15 +93,17 @@
 				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
 				consequat.
 				</h3>
-			</div>
+			
 		</article>
 
-		<article class="post">
-			<div class="caja1">
-			<div class="img_titulo left">
+		<hr>
+
+		<article class="post5">
+			
+			<div class="img_titulo">
 					<img src="{{STATIC_URL}}img/img_alertas.png">
 				</div>
-				<h2 class="titulo_post left">
+				<h2 class="titulo_post">
 					Alertas y Sugerencias
 				</h2>
 				<h3 class="subtitulo_post">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
@@ -94,8 +111,8 @@
 				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
 				consequat.
 				</h3>
-			</div>
+			
 		</article>
 		
-	</section>
+	</div>
 {% endblock content %}

@@ -6,38 +6,156 @@
 
 {% block content_title %}<h2 class="content-title">{% trans 'Profiles' %}</h2>{% endblock %}
 
+{% block js %}
+<script type='text/javascript'>
+  $(document).ready(function() {
+
+      function listCattle(){
+        var antes;
+
+        var busqueda = $("#busqueda").val();
+          $.ajax({
+            data: {'search': busqueda},
+            type:'GET',
+            contentType: 'application/json; charset=utf-8',
+            dateType:'json',
+            url:'/ws/ganados_produccion/',
+            beforeSend: function(objeto){
+              antes = (new Date()).getTime(); 
+              $('.message_results').html('Buscando "'+busqueda+'"');
+            },
+            
+            success:function(response){
+              var despues = (new Date()).getTime();
+              tiempo = (despues - antes) / 1000;
+              $('.account_list').empty();
+              if(response!=''){
+                for (var i = 0; i < response.length; i++) {
+                  
+                  var anios, meses, dias;
+                  if(response[i].fields.edad_anios == 1) anios = ' año, '; else  anios = ' años, ';
+                  if(response[i].fields.edad_meses == 1) meses = ' mes y '; else meses = ' meses y ';
+                  if(response[i].fields.edad_dias == 1) dias = ' día'; else dias = ' dias';
+
+                  var nombre = response[i].fields.nombre.charAt(0).toUpperCase() + response[i].fields.nombre.slice(1); 
+                  var link_add_ordenio = '{% url 'agrega_ganado_ordenio' user.username 'NEWVALUESTUB' %}';
+                  link_add_ordenio = link_add_ordenio.replace('NEWVALUESTUB', response[i].pk);
+
+                  /*formatear el celo y etapa*/
+                  var etapa, celo;
+                  if ( (response[i].fields.etapa=='Ternera') || (response[i].fields.etapa=='Vacona') && (response[i].fields.ciclo!=0) ){
+                    etapa = response[i].fields.etapa;
+                    celo = '';
+                  } else if( (response[i].fields.verificacion=='True') ){
+                    etapa = 'En verificación';
+                    celo = response[i].fields.celo;
+                  } else if( (response[i].fields.ciclo == 3) ){
+                    etapa = 'Gestación';
+                    celo = '';
+                  }else{
+                    etapa = response[i].fields.etapa;
+                    celo = response[i].fields.celo;
+                  }
+
+                  $('.account_list').append(
+                    "<div class=cinta>"+
+                      "<div class=context_menu>"+
+                        "<ul>"+ 
+                          "<a href='"+link_add_ordenio+"'>"+
+                            "<li>Ordeño</li></a>"+
+                        "</ul>"+
+                      "</div>"+
+                      "<a>"+ 
+                        "<div>"+
+                        "<span class=id_cattle>"+response[i].pk+"</span>"+
+                          "<img src={{MEDIA_URL}}"+response[i].fields.imagen+" />"+
+                                "<h4 class=texto_propiedades1>" + nombre+ "</h4>" +
+                                "<hr>"+
+                                "<h4 class=texto_propiedades4>" + response[i].fields.celo + "</h4>" +
+                                "<h4 class=texto_propiedades2>" + etapa + "</h4>" +
+                                "<h4 class=texto_propiedades3>" + response[i].fields.edad_anios+ anios +
+                                  + response[i].fields.edad_meses+ meses +
+                                  + response[i].fields.edad_dias+ dias +"</h4>" +
+                          "</div>"+
+                      "</a>"+
+                      "<p>"+
+                      "<span>"+response[i].pk+"</span>"+
+                    "</p>"+
+                  "</div>"
+                    ); 
+                  if(response.length == 1){
+                    $('.message_results').html(response.length + ' resultado encontrado. (');
+                    $('.message_results').append(tiempo + ' segundos)');
+                  }else{
+                    $('.message_results').html(response.length + ' resultados encontrados. (');
+                    $('.message_results').append(tiempo + ' segundos)');
+                  }
+                }
+              }else{
+                $('.message_results').html('No se encuentra "'+busqueda+'"');
+              }
+            },
+
+            error: function(objeto, error){
+              $('.message_results').html('<strong>¡Se produjo un error!</strong> &nbsp; Verifica tu conexión a internet ó Contacta al administrador.');
+            },
+
+          });
+        
+      }
+
+    $( "#busqueda" ).on('keyup', function(tecla) {
+      listCattle();
+    });
+});
+
+</script>
+{% endblock %}
+
 {% block presentation %}
-<div class="presentacion">
+<div class="presentacion_principal">
     <h3>Lista de Ganados en Producción</h3>
-        <h4>Listado de ganados registrados en la ganadería..</h4>
+    <h4>Listado de ganados registrados en la ganadería..</h4>
+    <input type="text" class="busqueda" id="busqueda"  placeholder="RP, nombre o año de nacimiento" >
+    <div class="message_results">
+      
+    </div>
 </div>
 {% endblock %}
 
 {% block content %}
 
-
+<div class="content">
+  
+</div>
 
 <div class="account_list">
     
     {% for g in ganado %}
-
-        <a href="{% url 'agrega_ganado_ordenio' user.username g.id %}">
+      <div class="cinta">
+        <div class="context_menu">
+          <ul>
+            <a href="{% url 'agrega_ganado_ordenio' user.username g.id %}"><li>Ordeño</li></a>
+          </ul>
+        </div>
+        <a>
             <div>                
-                
+                <span class="id_cattle">{{g.id}}</span>
                 <img src="{{MEDIA_URL}}{{ g.imagen }}" />
                 <h4 class="texto_propiedades1">{{ g.identificacion_simple.nombre | capfirst }}</h4>
                 <h4 class="texto_propiedades1">{{ g.identificacion_ecuador.nombre | capfirst }}</h4>
+                <hr>
 
                 {% for c in g.celos.all %}
                     {% if c.estado == 0 and c.is_active %}
-                        <h4 class="texto_propiedades1">Sin Celo</h4> 
+                        <h4 class="texto_propiedades4">Sin Celo</h4> 
                     {% elif c.estado == 1 and c.is_active %}
-                        <h4 class="texto_propiedades1">En Celo</h4> 
+                        <h4 class="texto_propiedades4">En Celo</h4> 
                     {% endif %}
                 {% endfor %}
 
                 {% if not g.celos.all %}
-                        <h4 class="texto_propiedades1">Celo no registrado</h4>
+                        <h4 class="texto_propiedades4">Celo no registrado</h4>
                     {% endif %}
                 
                 {% for t in g.etapas.all %}
@@ -50,13 +168,16 @@
                     {% endif %}
                 {% endfor %}
 
-                <hr>
                 <h4 class="texto_propiedades3">{{ g.edad_anios }} {%if g.edad_anios == 1%}año{%else%}años{%endif%},
                                               {{ g.edad_meses }} {%if g.edad_meses == 1%}mes{%else%}meses{%endif%}
                                               y {{ g.edad_dias }} {%if g.edad_dias == 1%}día{%else%}días{%endif%}
                 </h4>
             </div>
         </a>        
+        <p>
+          <span>{{g.id}}</span>
+        </p>
+      </div>
     {% endfor %}
     
 </div>

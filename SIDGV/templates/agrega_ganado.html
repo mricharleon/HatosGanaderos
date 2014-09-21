@@ -5,17 +5,99 @@
 {% block title %} Agregar Ganaderia {% endblock %}
 
 
-{% block presentation %}
- <script>
-$(function() {
-$( "#id_nacimiento" ).datepicker();
-});
+{% block js %}
+<script type='text/javascript'>
+  $(document).ready(function() {
+    $( "#busqueda" ).on('keyup', function(tecla) {
+      var busqueda = $("#busqueda").val()
+        $.ajax({
+          data: {'search': busqueda},
+          type:'GET',
+          contentType: 'application/json; charset=utf-8',
+          dateType:'json',
+          url:'/ws/ganados_hembras/',
+          beforeSend: function(objeto){
+            $('.content').html('<h5>Buscando "'+busqueda+'"</h5>');
+          },
+
+          success:function(response){
+            $('.content').empty();
+            if(response!=''){
+              for (var i = 0; i < response.length; i++) {
+                $('.content').append(
+                    "<a>"+ 
+                          "<div class='searching_cattle close_reveal_modal2' onclick=asigna_rp_madre("+response[i].fields.rp+");>"+ 
+                              "<h5>#" + response[i].fields.rp + "</h5>" +
+                              "<h5>(" + response[i].fields.nombre + ")</h5>" +
+                          "</div>"+
+                      "</a>"
+                  ); 
+              }
+            }else{
+              $('.content').html('<h5>No se encuentra "'+busqueda+'"</h5>');
+            }
+          },
+
+          error: function(objeto, error){
+            $('.content').html('<h5>¡Se produjo un error!</h5><h6>Verifica tu conexión e intenta de nuevo. o Contacta al administrador</h6>');
+          },  
+
+        });
+    });
+
+    $( "#busqueda2" ).on('keyup', function(tecla) {
+      var busqueda2 = $("#busqueda2").val()
+        $.ajax({
+          data: {'search': busqueda2},
+          type:'GET',
+          contentType: 'application/json; charset=utf-8',
+          dateType:'json',
+          url:'/ws/ganados_machos/',
+          beforeSend: function(objeto){
+            $('.content2').html('<h5>Buscando "'+busqueda+'"</h5>');
+          },
+          success:function(response){
+            $('.content2').empty();
+            if(response!=''){
+              for (var i = 0; i < response.length; i++) {
+                $('.content2').append(
+                    "<a>"+ 
+                          "<div class='searching_cattle close_reveal_modal2' onclick=asigna_rp_padre("+response[i].fields.rp+");>"+ 
+                              "<h5>#" + response[i].fields.rp + "</h5>" +
+                              "<h5>(" + response[i].fields.nombre + ")</h5>" +
+                          "</div>"+
+                      "</a>"
+                  ); 
+              }
+            }else{
+              $('.content2').html('<h5>No se encuentra "'+busqueda2+'"</h5>');
+            }
+          },
+          error: function(objeto, error){
+            $('.content2').html('<h5>¡Se produjo un error!</h5><h6>Verifica tu conexión e intenta de nuevo. o Contacta al administrador</h6>');
+          },  
+        });
+    });
+  }); 
+
+  function asigna_rp_madre(valor){
+    $('#id_rp_madre').val(valor);
+  }
+  function asigna_rp_padre(valor){
+    $('#id_rp_padre').val(valor);
+
+  }
+
 </script>
-{% comment %}Dirty hack. Will use django-guardian in the future.{% endcomment %}
+{% endblock %}
+
+
+{% block presentation %}
     <div class="presentacionSignup">
+        <h3>Agrega Ganado</h3>
+        <h4>Bienvenido registra tus ganados.</h4>
         <ul id="profile-nav">
-            <li class="selected"><a href="{% url 'agrega_ganado' user.username %}">Agregar ganado</a></li>
-            <li><a href="{% url 'lista_ganado' user.username %}">Listar Ganado</a></li>
+            <li><a href="{% url 'lista_ganado' %}">Listar Ganado</a></li>
         </ul>
     </div>
 {% endblock presentation %}
@@ -24,19 +106,145 @@ $( "#id_nacimiento" ).datepicker();
 
 <div class="formSignup">
   <span class="crearCuenta">
-      Registrar Ganado ( RP - {{rp_generado}} )
+      Registrar Ganado 
   </span>
    <form action="" enctype="multipart/form-data" method="post">     
-      
       {% csrf_token %}
+
+      {% for form in formIdentificacion %}
+        <section class="container">
+          <div class="user">
+            <img src="{{STATIC_URL}}img/help.png"/>
+            <ul>
+              <h5 class="sep">{{form.label_tag}}</h5>
+            </ul>
+          </div>
+        </section>
+        {{form.errors}}
+        {{form}}
+      {% endfor %}
+
+      <section class="container">
+        <div class="user">
+          <img src="{{STATIC_URL}}img/help.png"/>
+          <ul>
+            <h5 class="sep">{{formGanado.imagen.label_tag}}</h5>
+          </ul>
+        </div>
+      </section>
+      {{formGanado.imagen.errors}}
+      {{formGanado.imagen}}
       
-      {{ formIdentificacion }}
-      {{ formGanado.as_p }}
+      <section class="container">
+        <div class="user">
+          <img src="{{STATIC_URL}}img/help.png"/>
+          <ul>
+            <h5 class="sep">{{formGanado.nacimiento.label_tag}}</h5>
+          </ul>
+        </div>
+      </section>
+      {{formGanado.nacimiento.errors}}
+      {{formGanado.nacimiento}}
       
-        
-        <input type="submit" value="{% trans "Save" %}" />
-        <a href="{% url 'lista_ganado' user.username %}"><input type="button" value="Atrás" /></a>
-        
+      <section class="container">
+        <div class="user">
+          <img src="{{STATIC_URL}}img/help.png"/>
+          <ul>
+            <h5 class="sep">{{formGanado.genero.label_tag}}</h5>
+          </ul>
+        </div>
+      </section>
+        <label for="select" class="select">
+          {{formGanado.genero.errors}}
+          {{formGanado.genero}}
+        </label>
+
+      <section class="container">
+        <div class="user">
+          <img src="{{STATIC_URL}}img/help.png"/>
+          <ul>
+            <h5 class="sep">{{formGanado.raza.label_tag}}</h5>
+          </ul>
+        </div>
+      </section>
+        <label for="select" class="select">
+          {{formGanado.raza.errors}}
+          {{formGanado.raza}}
+        </label>
+
+      <section class="container">
+        <div class="user">
+          <img src="{{STATIC_URL}}img/help.png"/>
+          <ul>
+            <h5 class="sep">{{formGanado.forma_concepcion.label_tag}}</h5>
+          </ul>
+        </div>
+      </section>
+        <label for="select" class="select">
+          {{formGanado.forma_concepcion.errors}}
+          {{formGanado.forma_concepcion}}
+        </label>
+
+      <section class="container">
+        <div class="user">
+          <img src="{{STATIC_URL}}img/help.png"/>
+          <ul>
+            <h5 class="sep">{{formGanado.live_weight.label_tag}}</h5>
+          </ul>
+        </div>
+      </section>
+      {{formGanado.live_weight.errors}}
+      {{formGanado.live_weight}}
+
+      <section class="container">
+        <div class="user">
+          <img src="{{STATIC_URL}}img/help.png"/>
+          <ul>
+            <h5 class="sep">{{formGanado.unit_live_weight.label_tag}}</h5>
+          </ul>
+        </div>
+      </section>
+        <label for="select" class="select">
+          {{formGanado.unit_live_weight.errors}}
+          {{formGanado.unit_live_weight}}
+        </label>
+
+      <section class="container">
+        <div class="user">
+          <img src="{{STATIC_URL}}img/help.png"/>
+          <ul>
+            <h5 class="sep">{{formGanado.observaciones.label_tag}}</h5>
+          </ul>
+        </div>
+      </section>
+      {{formGanado.observaciones.errors}}
+      {{formGanado.observaciones}}
+
+      <input type="submit" value="{% trans "Save" %}" />
+      <a href="{% url 'lista_ganado' %}"><input type="button" value="Atrás" /></a>
     </form>
 </div>
+
+    <div id="myModal" class="reveal-modal">
+         <h2>Buscar RP de la madre </h2>
+          
+          <input type="text" id="busqueda"  placeholder="RP, nombre o año de nacimiento" >
+
+          <div class="content">
+            <h5>Aquí estará tu Búsqueda</h5>
+          </div>
+         <a class="close-reveal-modal">&#215;</a>
+    </div>
+
+    <div id="myModal2" class="reveal-modal">
+         <h2>Buscar RP del padre </h2>
+         {% csrf_token %}
+          
+          <input type="text" id="busqueda2"  placeholder="RP, nombre o año de nacimiento" >
+
+          <div class="content2">
+            <h5>Aquí estará tu Búsqueda</h5>
+          </div>
+         <a class="close-reveal-modal">&#215;</a>
+    </div>
 {% endblock %}

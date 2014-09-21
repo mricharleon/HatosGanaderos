@@ -18,84 +18,74 @@ import calendar
 
 from dateutil.relativedelta import *
 
-
 @login_required
-def agrega_alimento(request, username):
-	id_user = User.objects.filter(username=username)
-	ganaderia = Ganaderia.objects.get(perfil_id=id_user)
-	configuracion = Configuracion.objects.get(id=ganaderia.configuracion_id)
+def add_food(request):
+	user = request.user
+	ganaderia = Ganaderia.objects.get(perfil=user)
 
 	if request.method == 'POST':
 		formAlimento = alimentoForm(request.POST)
 		if formAlimento.is_valid():
-			formAlimento = formAlimento.save(commit=False)
-			formAlimento.ganaderia = ganaderia
-			formAlimento.save()
-			return redirect(reverse('lista_alimento', kwargs={'username': username}))
+			formAliment = formAlimento.save(commit=False)
+			formAliment.farm = ganaderia
+			formAliment.is_active = True
+			formAliment.save()
+			return redirect(reverse('list_food'))
 		
-	else:
+	elif request.method == 'GET':
 		formAlimento = alimentoForm()
-	return render_to_response('agrega_alimento.html',
-		{'formAlimento': formAlimento
-		},
+
+	return render_to_response('add_food.html',
+		{'formAlimento': formAlimento},
 		context_instance=RequestContext(request))
 
 @login_required
-def lista_alimento(request, username):
+def list_food(request):
+	username = request.user.username
 	id_user = User.objects.filter(username=username)
-	ganaderia = Ganaderia.objects.get(perfil_id=id_user)
-	configuracion = Configuracion.objects.get(id=ganaderia.configuracion_id)
+	ganaderia = Ganaderia.objects.get(perfil=id_user)
 
 	if request.method == 'GET':
-		alimentos = ganaderia.alimentos.all()
+		alimentos = Food.objects.all().filter(farm=ganaderia)
 
-	return render_to_response('lista_alimento.html',
+	return render_to_response('list_food.html',
 		{'alimentos': alimentos},
 		context_instance=RequestContext(request))
 
 @login_required
-def edita_alimento(request, username, alimento_id):
-	id_user = User.objects.filter(username=username)
-	ganaderia = Ganaderia.objects.get(perfil_id=id_user)
-	configuracion = Configuracion.objects.get(id=ganaderia.configuracion_id)
+def edit_food(request, alimento_id):
+	user = request.user
+	ganaderia = Ganaderia.objects.get(perfil=user)
 
-	alimento = ganaderia.alimentos.get(id=alimento_id)
+	alimento = Food.objects.get(id=alimento_id)
 
 	if request.method == 'POST':
 		formAlimento = alimentoForm(request.POST, instance=alimento)
 		if formAlimento.is_valid():
 			formAlimento = formAlimento.save(commit=False)
 			formAlimento.ganaderia = ganaderia
+			formAlimento.farm = ganaderia
+			formAlimento.is_active = True
 			formAlimento.save()
-			return redirect(reverse('lista_alimento', kwargs={'username': username}))
+			return redirect(reverse('list_food'))
 	else:
 		formAlimento = alimentoForm(instance=alimento)
 
-	return render_to_response('edita_alimento.html',
+	return render_to_response('edit_food.html',
 		{'formAlimento': formAlimento,
 		 'alimento_id': alimento_id},
 		context_instance=RequestContext(request))	
 
 @login_required
-def asigna_alimento(request, username, alimento_id, ganado_id):
-	id_user = User.objects.filter(username=username)
-	ganaderia = Ganaderia.objects.get(perfil_id=id_user)
+def asigna_alimento(request, alimento_id):
+	user = request.user
+	ganaderia = Ganaderia.objects.get(perfil=user)
 	configuracion = Configuracion.objects.get(id=ganaderia.configuracion_id)
-
-	ganados = ganaderia.ganados.all()
-
-	if ganado_id != '0':
-		ganado = ganaderia.ganados.get(id=ganado_id)
-		alimento = ganaderia.alimentos.get(id=alimento_id)
-		
-	else:
-		alimento = ''
-		ganado = '0'
-
 	
 	return render_to_response('asigna_alimento.html',
-		{'ganados': ganados,
-		 'alimento_id': alimento_id,
-		 'ganado': ganado,
-		 'alimento': alimento},
+		{'id_food': alimento_id,
+		},
 		context_instance=RequestContext(request))
+
+
+	

@@ -8,7 +8,6 @@ from django.contrib.auth.models import User
 
 import datetime
 
-
 class Configuracion(models.Model):
     IDENTIFICACION_CHOICES = (
         ('simple', 'Simple'),
@@ -16,33 +15,34 @@ class Configuracion(models.Model):
         )
     tipo_identificacion = models.CharField("Tipo de identificacion", 
                                             max_length=15, 
-                                            choices = IDENTIFICACION_CHOICES
+                                            choices = IDENTIFICACION_CHOICES,
+                                            default=0
                                             )
     celo_frecuencia = models.IntegerField("Frecuencia de celo", 
                                             max_length=2
                                             )
-    celo_frecuencia_error = models.IntegerField("Error en frecuencia de celo", 
+    celo_frecuencia_error = models.IntegerField("Error frecuencia en celo", 
                                             max_length=2
                                             )
-    celo_duracion = models.IntegerField("Horas de celo", 
+    celo_duracion = models.IntegerField("Duración de celo", 
                                             max_length=2
                                             )
-    celo_duracion_error = models.IntegerField("Error en duracion de celo", 
+    celo_duracion_error = models.IntegerField("Error (+/-)", 
                                             max_length=2
                                             )
-    celo_despues_parto = models.IntegerField(u"Celo despues de parto (días)", 
+    celo_despues_parto = models.IntegerField(u"Celo despues de parto", 
                                             max_length=2
                                             )
-    celo_despues_parto_error = models.IntegerField("Error en celo despues de parto", 
+    celo_despues_parto_error = models.IntegerField("Error (+/-)", 
                                             max_length=2
                                             )
-    intentos_verificacion_celo = models.IntegerField("Intentos de Verificacion", 
+    intentos_verificacion_celo = models.IntegerField("Intentos de Verificación Celo", 
                                             max_length=1
                                             )
-    etapa_ternera = models.IntegerField("Edad maxima de una ternera", 
+    etapa_ternera = models.IntegerField("Edad máxima de una ternera", 
                                             max_length=2
                                             )
-    etapa_vacona = models.IntegerField("Edad maxima de una vacona", 
+    etapa_vacona = models.IntegerField("Edad máxima de una vacona", 
                                             max_length=2
                                             )
     etapa_vientre = models.IntegerField("Edad minima de una vientre", 
@@ -60,7 +60,7 @@ class Configuracion(models.Model):
     periodo_vacio = models.IntegerField("Dias de periodo vacio", 
                                             max_length=3
                                             )
-    numero_ordenios = models.IntegerField("Numero de ordenios", 
+    numero_ordenios = models.IntegerField("Numero de ordeños", 
                                             max_length=1
                                             )
 
@@ -97,10 +97,10 @@ class Profile(UserenaLanguageBaseProfile):
 
 class Ganaderia(models.Model):
     nombreEntidad = models.CharField(_(u'Nombre de Ganadería'), max_length=75)
-    direccion = models.CharField(_('Direccion'), max_length=50)
-    perfil = models.OneToOneField(Profile, 
+    direccion = models.CharField(_(u'Direccion de Ganadería'), max_length=50)
+    perfil = models.ManyToManyField(Profile, 
                                         verbose_name=_('perfil'), 
-                                        related_name='ganaderia'
+                                        related_name='ganaderia_perfil'
                                         )    
     configuracion = models.OneToOneField(Configuracion, 
                                         verbose_name=_('configuracion'), 

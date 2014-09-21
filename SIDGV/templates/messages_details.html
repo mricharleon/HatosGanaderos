@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+
+{% block title %}Mensajes{% endblock %}
+
+{% block presentation %}
+    <div class="presentacionSignup">
+      <h3>Mensajes</h3>
+      <h4>{{user.username|capfirst}}, administra tus mensajes</h4>
+        <ul id="profile-nav">
+            <li><a href="{% url 'messages_list' %}">Lista de mensajes</a></li>
+        </ul>
+    </div>
+{% endblock presentation %}
+
+{% block content %}
+<div class="formSignup">
+  <span class="crearCuenta">
+      Mensajes de {% if user_sender.username == user.username %}
+                    {{user_receiver.username}}
+                  {% else %}
+                    {{user_sender.username}}
+                  {% endif %}
+  </span>
+
+  <div id="details">
+    <ul id="messages" class="list-view">
+      <form method="POST">
+        {% csrf_token %}
+        
+        {{form}}
+        <input type="submit" value="Responder">
+      </form>
+      <hr><hr>
+      {% for message in messages %}
+        <li>
+          <a href="">
+            
+            <img src="{{ message.sender.get_mugshot_url }}" class="avatar" />
+            <span class="destinatario">{{message.sender.user.username}}</span><br>
+
+              <span class="nNotificaciones">
+              {% if message.sender_id != user.id %}
+                {% if message.read_at == False %}
+                  Nuevo!
+                {% endif %}
+              {% endif %}
+              </span>
+              <!--receptor-->
+              {% if message.sender_id != user.id %}
+                  <p>        
+                    {{ message.content }}
+                  </p>
+                  <spam>
+                    {{message.sent_at|date:"d M Y"}}
+                    {{message.sent_at|time:"H:i"}}
+                  </spam>
+              <!--envia-->
+              {% else %}
+                  <p>        
+                    {{ message.content }}
+                  </p>
+                  <spam>
+                    {{message.sent_at|date:"d M Y"}}
+                    {{message.sent_at|time:"H:i"}}
+                  </spam>
+              {% endif %}
+              
+          </a>
+        </li>
+      {% endfor %}
+
+  </ul>
+  </div>
+
+</div>
+{% endblock %}

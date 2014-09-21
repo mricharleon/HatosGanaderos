@@ -5,32 +5,52 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	<link rel="stylesheet" href="{{STATIC_URL}}css/normalize.css">
 	<link rel="stylesheet" href="{{STATIC_URL}}css/style.css">
+	<link rel="stylesheet" href="{{STATIC_URL}}css/landing_page.css">
 
 	<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/jquery.datetimepicker.css"/>
 
-	<script type="text/javascript" src="{{STATIC_URL}}js/jquery-2.1.1.js"></script>
-	<script type="text/javascript" src="{{STATIC_URL}}js/web_services.js"></script>
+	<!--fuentes-->
+	<link href='http://fonts.googleapis.com/css?family=Abel' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+	<!--modal reveal-->
+	<link rel="stylesheet" href="{{STATIC_URL}}css/reveal.css">
 
-	<script src="{{STATIC_URL}}js/jquery.datetimepicker.js"></script>
 	
 	<title>{% block title %}{% endblock %}</title>
 </head>
 <body>
 <header>
-{% if user.is_authenticated %}
 	<div class="logo left">
-		<img src="{{STATIC_URL}}img/logo.png" alt="SID_GV">
+		<a href="/" alt='Home'><img src="{{STATIC_URL}}img/logo.png" alt="SID_GV">
 	</div>
-{% endif %}
-	<div class="titular">
-		<h1 class="titulo">HatosGanaderos</h1>
-		<span class="subtitulo">Sistema que mejora tu entidad ganadera</span>
-	</div>
+
+	{% if user.is_authenticated %}
+		<div class="titular2">
+			<h1 class="titulo">HatosGanaderos</h1>
+			<h1 class="subtitulo">Sistema que mejora tu ganadería</h1>
+		</div>
+	{% else %}
+		<div class="titular">
+			<h1 class="titulo">HatosGanaderos</h1>
+			<h1 class="subtitulo">Sistema que mejora tu ganadería</h1>
+		</div>		
+	{% endif %}
+	</a>
+
 	{% block header %} 
 	<nav>
 		{% block nav %}
 		{% if user.is_authenticated %}
 			<div class="usuario">
+				{% if number_alerts > 0 %}
+					<a href=""> 
+						<figure class="alerts"></figure>
+					</a>
+				{% endif %}
+
+					<a href="{% url 'messages_list' %}">
+						<figure id="messages">{{number_messages}}</figure>
+					</a>
 				<figure class="avatar">
 					<img class="mugshot" src="{{ user.profile.get_mugshot_url }}" />
 				</figure>
@@ -41,17 +61,19 @@
 							<div class="titulo_menu_expan">Módulos</div>
 							<hr>
 							<a class="items" href="{% url 'agrega_ganado' user.username %}">Reproducción</a>
-							<a class="items" href="#">Sanidad</a>
+							<a class="items" href="{% url 'add_wormer' %}">Sanidad</a>
 							<a class="items" href="{% url 'lista_ganado_produccion' user.username %}">Producción</a>
-							<a class="items" href="{% url 'agrega_alimento' user.username %}">Alimentación</a>
+							<a class="items" href="{% url 'add_food' %}">Alimentación</a>
 						</div>
 						
 						<div class="espacio_menu2">
 							<div class="titulo_menu_expan">Configuración</div>
 							<hr>
 							<a class="items" href="{% url 'userena_profile_detail' user.username %}">Mi Cuenta</a>
-							<a class="items" href="{% url 'userena_profile_list' %}">Técnicos</a>
-							<a class="items" href="{% url 'userena_umessages_list' %}">Mensajes</a>
+							{% if user.is_staff %}
+								<a class="items" href="{% url 'add_profile' %}">Técnicos</a>
+							{% endif %}
+							<a class="items" href="{% url 'messages_list' %}">Mensajes</a>
 						</div>
 
 						<div class="espacio_menu3">
@@ -91,8 +113,42 @@
 		
 	{% endblock %}
 </footer>
+	<script src="{{STATIC_URL}}js/jquery-1.4.4.min.js" type="text/javascript"></script>
+	<script src="{{STATIC_URL}}js/jquery.reveal.js" type="text/javascript"></script>
+
+	{% block js %} {% endblock js %}
+
+	<script type="text/javascript" src="{{STATIC_URL}}js/jquery-2.1.1.min.js"></script>
+	<!--<script type="text/javascript" src="{{STATIC_URL}}js/web_services.js"></script>-->
+
+	<!--datetime picker-->
+	<script src="{{STATIC_URL}}js/jquery.datetimepicker.js"></script>
 	
-</body>
+	{% load drealtimetags %}
+	{% ishout_js %}
+	<script type='text/javascript'>
+		$(document).ready(function() {
+			
+
+            if({{number_messages}} > 0){
+           		$("#messages").css("visibility", "visible");
+            }
+		    // use .on() to add a listener. you can add as many listeners as you want.
+		    ishout.on('alertchannel', function(data){
+		      var dt = eval('(' + data.msg + ')');
+		      if(data.number_messages > 0){
+		      	document.getElementById("messages").style.visibility = "visible";
+		      	$('#messages').html(data.number_messages);
+		      }else{
+		      	document.getElementById("messages").style.visibility = "hidden";
+		      }
+		    });
+
+		    // .init() will authenticate against the ishout.js server, and open the WebSocket connection.
+		    ishout.init();
+        });
+	  </script>
+	  
 <script>
 $('#default_datetimepicker').datetimepicker({
 	formatTime:'H:i',
@@ -206,4 +262,5 @@ $('#datetimepicker12').datetimepicker({
 	}
 });
 </script>
+</body>
 </html>

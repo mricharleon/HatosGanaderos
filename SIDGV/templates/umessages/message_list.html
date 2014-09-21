@@ -4,6 +4,24 @@
 
 {% block title %}{% trans 'Messages' %}{% endblock %}
 
+{% block js %}
+  {% load drealtimetags %}
+  {% ishout_js %}
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+
+    <script type='text/javascript'>
+      // use .on() to add a listener. you can add as many listeners as you want.
+      ishout.on('alertchannel', function(data){
+          
+          $('#comentarios').html( $('#comentarios').html() + '<li> '+data.msg+'</li>');
+      });
+
+      // .init() will authenticate against the ishout.js server, and open the WebSocket connection.
+      ishout.init();
+    </script>
+{% endblock js %}
+
+
 {% block content_title %}{% get_unread_message_count_for user as unread_message_count %}
 <h2 class="content-title">Messages ({{ unread_message_count }} )</h2>{% endblock %}
 
@@ -11,6 +29,7 @@
 
     <div class="presentacionSignup">
         <h3>Sistema de mensajes</h3>
+        <spam id="comentarios">hhy</spam>
         <ul id="profile-nav">
             <li><a href="{% url 'userena_umessages_compose' %}">Nuevo Mensaje</a></li>
         </ul>

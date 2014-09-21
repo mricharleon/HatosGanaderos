@@ -1,0 +1,266 @@
+//variables de colores
+blanco = #fff
+fondo_principal = #ededed
+gris_oscuro = #444
+gris_medio = #88a
+gris_claro = #B4B49A
+azul = #90bbf1
+azul_oscuro = #10738E
+facebook = #4862A3
+twitter = #55ACEE
+googleplus = #DF5138
+menu = #25B9D5
+menu_claro = rgba(37, 185, 213, .1) 
+amarillo = #F7D443
+naranja = #E05421
+hueso = #F8F8F8
+verde = #2ECC71
+rosado = #EC6F6D
+
+
+header
+	background-color hueso
+	border-bottom 1px solid gris_claro
+	height 70px
+	position fixed
+	width 100%
+	z-index 5
+section
+	padding-top 70px
+
+.logo img
+	border-radius 10px
+	height 50px
+	margin 10px 0 10px 10px
+
+.titular 
+	margin-left 60px
+	.titulo
+		color gris_oscuro
+		font-family 'Raleway', sans-serif;
+		font-size 23px
+		font-weight normal
+		margin-bottom 0
+		margin-top 12px
+		text-align center
+		transition: all .5s;
+	.subtitulo
+		color gris_oscuro
+		font-family arial
+		font-size 13px
+		font-weight 100
+		margin-top 0
+		text-align center
+		transition: all .5s;
+.titular2
+	margin-right 90px
+	margin-left 60px
+	.titulo
+		color gris_oscuro
+		font-family 'Raleway', sans-serif;
+		font-size 23px
+		font-weight normal
+		margin-bottom 0
+		margin-top 12px
+		text-align center
+		transition: all .5s;
+	.subtitulo
+		color gris_oscuro
+		font-family arial
+		font-size 13px
+		font-weight 100
+		margin-top 0
+		text-align center
+		transition: all .5s;
+
+.mensaje
+	text-align center
+	&:after
+		content "\e601  "
+		color gris_claro
+		font-family "icomoon"
+		font-size 100px		
+		opacity .5
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+
+.titulo_mensaje
+	color gris_oscuro
+	font-family 'Raleway', sans-serif;
+	font-size 27px
+	height 100%
+	line-height 1
+	padding 20px 5% 10px 5%
+	margin 10px 0 0 0
+	text-align center
+	width 90%
+
+.subtitulo_mensaje
+	color gris_oscuro
+	font-family arial, sans-serif;
+	font-size 16px
+	height 100%
+	padding 0px 5% 10px 5%
+	margin 0
+	text-align center
+	width 90%
+
+hr
+	border 1px solid #2C7AC7
+	border-style solid none none
+	margin 0 0 2% 5%
+	opacity .3
+	padding 0
+	width 90%
+
+// modulos
+.post1
+	background-color #34495E
+	.subtitulo_post
+		background-color #1C2C3D
+
+.post2
+	background-color rosado
+	.subtitulo_post
+			background-color #C55E5D
+
+.post3
+	background-color #7F8C8D
+	.subtitulo_post
+			background-color #465A5B
+
+.post4
+	background-color verde
+	.subtitulo_post
+			background-color #1EA256
+
+.post5
+	background-color #FBB90B
+	transition: all .5s;
+	.subtitulo_post
+			background-color #DE9B27
+
+
+.posts
+	margin 15px 0 0 0 
+	transition: all .5s;
+	.post1
+	.post2
+	.post3
+	.post4
+	.post5
+		padding 25px 0 2px 0
+		margin-bottom 20px
+		text-align center
+		transition: all .5s;
+		.img_titulo 
+			img
+				border 2px solid blanco
+				border-radius 25%
+				transition: all .5s;
+				width 150px
+				
+		.titulo_post
+			color blanco
+			font-family 'Raleway', sans-serif;
+			font-weight normal
+			margin 0
+			padding 0 5% 0 5%
+			text-align center
+			transition: all .5s;
+		.subtitulo_post
+			color blanco
+			font-family arial
+			font-size 15px
+			font-weight normal
+			padding 5%
+			text-align center
+			transition: all .5s;
+
+.login_principal
+	display inline-block
+	margin 0 0 0 0
+	width 50%
+
+.img_portada
+	display inline
+	float right
+	margin 0
+	width 40%
+	img
+		padding 0
+		width 60%
+		
+
+// media query
+// panatalla mediana
+@media screen and (min-width: 480px)	
+	.posts
+		.post1
+		.post2
+		.post3
+		.post4
+		.post5
+			.subtitulo_post
+				padding 2% 15% 2% 15%
+
+	.titulo_mensaje
+		padding 20px 15% 10px 15%
+		width 70%
+
+	.subtitulo_mensaje
+		padding 0px 15% 10px 15%
+		width 70%			
+	
+
+// panatalla grande
+@media screen and (min-width: 768px)
+	.posts
+		.post1
+		.post3
+		.post5
+			text-align left
+			.img_titulo 
+				img
+					border-radius 8px
+					margin-left 15%
+					
+			.titulo_post
+				margin 0
+				padding 0 5% 0 15%
+				text-align left
+			.subtitulo_post
+				font-size 17px
+				padding 2% 30% 2% 15%
+				text-align justify
+
+		.post2
+		.post4
+			text-align right
+			.img_titulo 
+				img
+					border-radius 8px
+					margin-right 15%
+					
+			.titulo_post
+				margin 0
+				padding 0 15% 0 5%
+				text-align right
+			.subtitulo_post
+				font-size 17px
+				padding 2% 15% 2% 30%
+				text-align justify
+
+	.mensaje
+		padding-top 2%
+		padding-bottom 2%
+	
+	.titulo_mensaje
+		font-size 26px
+		padding 20px 15% 10px 15%
+		width 70%
+
+	.subtitulo_mensaje
+		padding 0px 15% 10px 15%
+		width 70%	
+	

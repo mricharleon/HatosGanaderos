@@ -1,0 +1,214 @@
+{% extends 'userena/base_userena.html' %}
+{% load i18n %}
+{% load url from future %}
+
+{% block title %}Agregar Desparacitador{% endblock %}
+
+{% block js %}
+<script type='text/javascript'>
+  $(document).ready(function() {
+    $( ".close-reveal-modal2" ).click(function() {
+      var valorInput = '1, 2, 3';
+      $("#id_cattle").val(valorInput + " ... Nuevo");
+    });
+    
+  }); 
+</script>
+{% endblock %}
+
+{% block content_title %}<h2 class="content-title">{% trans 'Profiles' %}</h2>{% endblock %}
+
+{% block presentation %}
+    <div class="presentacionSignup">
+      <h3>Agrega el desparasitador</h3>
+      <h4>Ahora podras agregar los datos del desparasitador.</h4>
+      <ul id="profile-nav">
+      <li><a href="{% url 'list_wormer' %}">Listar Desparacitadores</a></li>
+        <li><a href="{% url 'add_vaccine' %}">Agregar Vacuna</a></li>
+        <li><a href="{% url 'list_vaccine' %}">Listar Vacunas</a></li>  
+      </ul>
+    </div>
+{% endblock presentation %}
+
+
+{% block content %}
+    <div class="formSignup">
+      <span class="crearCuenta">
+          Agregar Desparasitador
+      </span>
+       <form action="" enctype="multipart/form-data" method="post">     
+
+          {% csrf_token %}
+
+          <section class="container">
+            <div class="user">
+              <img src="{{STATIC_URL}}img/help.png"/>
+              <ul>
+                <h5 class="sep">{{form_wormer.name.label_tag}}</h5>
+              </ul>
+            </div>
+          </section>
+          {{form_wormer.name.errors}}
+          {{form_wormer.name}}
+
+          <section class="container">
+            <div class="user">
+              <img src="{{STATIC_URL}}img/help.png"/>
+              <ul>
+                <h5 class="sep">{{form_wormer.expiration_date.label_tag}}</h5>
+              </ul>
+            </div>
+          </section>
+          {{form_wormer.expiration_date.errors}}
+          {{form_wormer.expiration_date}}
+
+          <section class="container">
+            <div class="user">
+              <img src="{{STATIC_URL}}img/help.png"/>
+              <ul>
+                <h5 class="sep">{{form_wormer.amount.label_tag}}</h5>
+              </ul>
+            </div>
+          </section>
+          {{form_wormer.amount.errors}}
+          {{form_wormer.amount}}
+
+          <section class="container">
+            <div class="user">
+              <img src="{{STATIC_URL}}img/help.png"/>
+              <ul>
+                <h5 class="sep">{{form_wormer.unit.label_tag}}</h5>
+              </ul>
+            </div>
+          </section>
+          <label for="select" class="select">
+            {{form_wormer.unit.errors}}
+            {{form_wormer.unit}}
+          </label>
+
+          <section class="container">
+            <div class="user">
+              <img src="{{STATIC_URL}}img/help.png"/>
+              <ul>
+                <h5 class="sep">{{form_wormer.sex.label_tag}}</h5>
+              </ul>
+            </div>
+          </section>
+          <label for="select" class="select">
+            {{form_wormer.sex.errors}}
+            {{form_wormer.sex}}
+          </label>
+
+          <section class="container">
+            <div class="user">
+              <img src="{{STATIC_URL}}img/help.png"/>
+              <ul>
+                <h5 class="sep">{{form_wormer.application_age.label_tag}}</h5>
+              </ul>
+            </div>
+          </section>
+          {{form_wormer.application_age.errors}}
+          {{form_wormer.application_age}}
+
+          <section class="container">
+            <div class="user">
+              <img src="{{STATIC_URL}}img/help.png"/>
+              <ul>
+                <h5 class="sep">{{form_wormer.time_application_age.label_tag}}</h5>
+              </ul>
+            </div>
+          </section>
+          <label for="select" class="select">
+            {{form_wormer.time_application_age.errors}}
+            {{form_wormer.time_application_age}}
+          </label>
+
+          <section class="container">
+            <div class="user">
+              <img src="{{STATIC_URL}}img/help.png"/>
+              <ul>
+                <h5 class="sep">{{form_wormer.amount_application.label_tag}}</h5>
+              </ul>
+            </div>
+          </section>
+          {{form_wormer.amount_application.errors}}
+          {{form_wormer.amount_application}}
+
+          <section class="container">
+            <div class="user">
+              <img src="{{STATIC_URL}}img/help.png"/>
+              <ul>
+                <h5 class="sep">{{form_wormer.option_number_application.label_tag}}</h5>
+              </ul>
+            </div>
+          </section>
+          <label for="select" class="select">
+            {{form_wormer.option_number_application.errors}}
+            {{form_wormer.option_number_application}}
+          </label>
+
+          <section class="container">
+            <div class="user">
+              <img src="{{STATIC_URL}}img/help.png"/>
+              <ul>
+                <h5 class="sep">{{form_wormer.number_application.label_tag}}</h5>
+              </ul>
+            </div>
+          </section>
+          {{form_wormer.number_application.errors}}
+          {{form_wormer.number_application}}
+
+          <section class="container">
+            <div class="user">
+              <img src="{{STATIC_URL}}img/help.png"/>
+              <ul>
+                <h5 class="sep">{{form_wormer.interval.label_tag}}</h5>
+              </ul>
+            </div>
+          </section>
+          {{form_wormer.interval.errors}}
+          {{form_wormer.interval}}
+
+          <section class="container">
+            <div class="user">
+              <img src="{{STATIC_URL}}img/help.png"/>
+              <ul>
+                <h5 class="sep">{{form_wormer.time_interval.label_tag}}</h5>
+              </ul>
+            </div>
+          </section>
+          <label for="select" class="select">
+            {{form_wormer.time_interval.errors}}
+            {{form_wormer.time_interval}}
+          </label>
+
+          <section class="container">
+            <div class="user">
+              <img src="{{STATIC_URL}}img/help.png"/>
+              <ul>
+                <h5 class="sep">{{form_wormer.administration_route.label_tag}}</h5>
+              </ul>
+            </div>
+          </section>
+          <label for="select" class="select">
+            {{form_wormer.administration_route.errors}}
+            {{form_wormer.administration_route}}
+          </label>
+          
+          <section class="container">
+            <div class="user">
+              <img src="{{STATIC_URL}}img/help.png"/>
+              <ul>
+                <h5 class="sep">{{form_wormer.observations.label_tag}}</h5>
+              </ul>
+            </div>
+          </section>
+          {{form_wormer.observations.errors}}
+          {{form_wormer.observations}}
+  
+            <input type="submit" value="{% trans "Save" %}" />
+            
+        </form>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+
+{% block title %}Mensajes{% endblock %}
+
+{% block presentation %}
+    <div class="presentacionSignup">
+      <h3>Nuevo Mensaje</h3>
+      <h4>{{user.username|capfirst}}, administra tus mensajes</h4>
+        <ul id="profile-nav">
+            <li><a href="{% url 'messages_list' %}">Lista de mensajes</a></li>
+            <li><a href="{% url 'messages_list_no_read' %}">No leídos</a></li>
+            <li><a href="{% url 'messages_list_read' %}">Leidos</a></li>
+        </ul>
+    </div>
+{% endblock presentation %}
+
+{% block content %}
+<div class="formSignup">
+  <span class="crearCuenta">
+      Mensaje Nuevo
+  </span>
+  <form method="POST">
+    {% csrf_token %}
+
+    
+    <section class="container">
+      <div class="user">
+        <img src="{{STATIC_URL}}img/help.png"/>
+        <ul>
+          <h5 class="sep">{{form.receiver.label_tag}}</h5>
+        </ul>
+      </div>
+    </section>
+    <label for="select" class="select">
+      {{form.receiver.errors}}
+      <select id="id_receiver" name="receiver">
+        {% for r in receivers %}
+          <option value="{{r.id}}">{{r.user.username }} ({{r.user.get_full_name}})</option>
+        {% endfor %}
+      </select>
+    </label>
+
+    <section class="container">
+      <div class="user">
+        <img src="{{STATIC_URL}}img/help.png"/>
+        <ul>
+          <h5 class="sep">{{form.content.label_tag}}</h5>
+        </ul>
+      </div>
+    </section>
+    {{form.content.errors}}
+    {{form.content}}
+
+
+    <input type="submit" value="Enviar">
+  </form>
+
+</div>
+{% endblock %}

@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+
+{% block title %}Mensajes{% endblock %}
+
+{% block presentation %}
+{% comment %}Dirty hack. Will use django-guardian in the future.{% endcomment %}
+    <div class="presentacionSignup">
+      <h3>Mensajes No Leídos</h3>
+      <h4>{{user.username|capfirst}}, administra tus mensajes</h4>
+        <ul id="profile-nav">
+            <li><a href="{% url 'messages_list' %}">Lista de mensajes</a></li>
+            <li><a href="{% url 'messages_list_read' %}">Leídos</a></li>
+            <li><a href="{% url 'new_message' %}">Nuevo Mensaje</a></li>
+        </ul>
+    </div>
+{% endblock presentation %}
+
+{% block content %}
+<div class="formSignup">
+  <span class="crearCuenta">
+      Mensajes no leídos
+  </span>
+  
+  <div id="details">
+
+  <ul id="messages" class="list-view">
+      
+      {% for message in messages %}
+        <li>
+          <a href="{% url 'messages_details' user.id message.sender_id message.receiver.id %}">
+            {% if message.receiver_id == user.id %}
+                <img src="{{ message.sender.get_mugshot_url }}" class="avatar" />
+                <span class="destinatario">{{message.sender.user.username}}</span><br>
+            {% else %}
+                <img src="{{ message.receiver.get_mugshot_url }}" class="avatar" />
+                <span class="destinatario">{{message.receiver.user.username}}</span><br>
+            {% endif %}
+
+              {% if message.receiver_id == user.id %}
+                {% if message.read_at == False %}
+                  <span class="nNotificaciones">
+                    nuevo!
+                  </span>
+                {% endif %}
+              {% else %}
+                {% if message.read_at == True %}
+                  <span class="vistos">
+                    visto
+                  </span>
+                {% else %}
+                  <span class="vistos">
+                    no visto
+                  </span>
+                {% endif %}
+              {% endif %}
+            
+              <!--receptor-->
+              {% if message.sender_id != user.id %}
+                <p>
+                {% if message.content|length > 40 %}
+                    <p>
+                        {{ message.content|slice:":40" }}...  
+                    </p>
+                    <spam>
+                    {{message.sent_at|date:"d M Y"}}
+                    {{message.sent_at|time:"H:i"}}                    
+                  </spam>
+                    
+                {% else %}
+                  <p>        
+                    {{ message.content }}
+                  </p>
+                  <spam>
+                    {{message.sent_at|date:"d M Y"}}
+                    {{message.sent_at|time:"H:i"}}
+                  </spam>
+                {% endif %}
+                </p>
+              <!--envia-->
+              {% else %}
+                <p>
+                {% if message.content|length > 40 %}
+                  <p>
+                    <span>
+                      {{ message.content|slice:":40" }}...  
+                    </span>
+                  </p>
+                    <spam>
+                    {{message.sent_at|date:"d M Y"}}                  
+                    {{message.sent_at|time:"H:i"}}
+                  </spam>
+                {% else %}
+                  <p>        
+                    <span>
+                      {{ message.content }}
+                    </span>
+                  </p>
+                  <spam>
+                    {{message.sent_at|date:"d M Y"}}
+                    {{message.sent_at|time:"H:i"}}
+                  </spam>
+
+                {% endif %}
+              {% endif %}
+              
+          </a>
+        </li>
+        
+      {% endfor %}
+
+  </ul>
+
+</div>
+{% endblock %}

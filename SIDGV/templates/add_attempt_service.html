@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load url from future %}
+
+{% block title %} Verificar Servicio{% endblock %}
+
+
+
+{% block presentation %}
+    <div class="presentacionSignup">
+        <h3>Verifica el servicio</h3>
+        <h4>Bienvenido, verifica el servicio.</h4>
+        <ul id="profile-nav">
+            <li><a href="{% url 'lista_ganado' %}">Listar Ganado</a></li>
+        </ul>
+    </div>
+{% endblock presentation %}
+
+{% block content %}
+
+
+<div class="formSignup">
+  <span class="crearCuenta">
+      Verificar el servicio
+  </span>
+  <div class="account_list2">
+    
+    {% for attempt in attempts %}
+      <div class="cinta">
+        <div class="context_menu">
+          <ul>
+            <a href="{% url 'verify_attempt' attempt.id %}"><li>Verificar</li></a>
+          </ul>
+        </div>
+        {% if attempt.state == 1 %}
+          <div class="incorrect_attempt">&mdash;</div>
+        {% elif attempt.state == 0 %}
+          <div class="correct_attempt">+</div>
+        {% endif %}
+        <a>
+            <div class="list_attempt"> 
+              <h2>{{attempt.verification.cattle.identificacion_simple.nombre}}</h2>
+              <h3>{{attempt.verification.initial_date}}</h3>
+              <hr>
+              <span><center>Verificación</center></span>
+              <h3>{{attempt.attempt_date}}</h3>
+            
+            </div>
+        </a>        
+        <p>
+          <span>{{attempt.attempt}}</span>
+        </p>
+      </div>
+    {% endfor %}
+  </div>
+
+</div>
+{% endblock %}

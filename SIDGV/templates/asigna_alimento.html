@@ -4,76 +4,196 @@
 
 {% block title %}Listado de ganados{% endblock %}
 
-{% block content_title %}<h2 class="content-title">{% trans 'Profiles' %}</h2>{% endblock %}
+{% block js %}
+<script type='text/javascript'>
 
-{% block presentation %}
-{% if ganado == '0' %}
-    <div class="presentacion">
-        <h3>Lista de Ganados a Asignar Alimento</h3>
-        <h4>Listado de ganados registrados en la ganadería..</h4>
-    </div>
-{% else %}
-    <div class="presentacion">
-        <h3>Se realizo con éxito la asignación</h3>
-        <h4>{{ alimento.nombre }}, asignado a "{{ ganado.identificacion_simple.nombre }}{{ ganado.identificacion_ecuador.nombre }}"</h4>
+    var listCattle = new Array();
+    function listAssignCattleFood(new_cattle){
+        listCattle.push(new_cattle);
+    }
 
-        <spam>
-            <a href="{% url 'lista_alimento' user.username %}" class="btnIngresar">Regresar</a>
-        </spam>
-    </div>
-{% endif %}
+    function removeCattleFood(id){
+        var indice = $.inArray( id, listCattle );
+        listCattle = $.grep(listCattle, function(value) {
+                return value != id;
+            });
+        viewAssignCattleFood();
+        $('li.'+id).remove();
+
+        if(listCattle.length < 1){
+            $('.tags').append('<center><h5>Lista aún vacía</h5></center>');
+        }
+    }
+
+    function assignCattleFood(id, nombre){
+        var link = 'onclick="removeCattleFood(pk)"';
+        link = link.replace('pk', id);
+        var link2 = 'class="pk"';
+        link2 = link2.replace('pk', id);
+        
+        $('.tags').append('<li '+link2+'> #'+id+' '+nombre+'<span '+link+' >X</span></li>')
+        listAssignCattleFood(id);
+        $('#'+id+'').parent().empty();
+
+        if(listCattle.length > 0){
+            $('.tags h5').empty().remove();
+        }
+    }
+
+
+    function viewAssignCattleFood(){
+      var antes;
+      var busqueda = $("#busqueda").val();
+      var jsonlistCattle = JSON.stringify(listCattle);
+        $.ajax({
+          data: {'search': busqueda, 'listCattle': jsonlistCattle},
+          type:'GET',
+          contentType: 'application/json; charset=utf-8',
+          dateType:'json',
+          url:'/ajax/assign_cattle_food/',
+          beforeSend: function(objeto){
+            antes = (new Date()).getTime(); 
+            $('.message_results').html('Buscando "'+busqueda+'"');
+          },
+          
+          success:function(response){
+            var despues = (new Date()).getTime();
+            tiempo = (despues - antes) / 1000;
+            $('.content').empty();
+            if(response!=''){
+              for (var i = 0; i < response.length; i++) {
+                if($.inArray( response[i].pk, listCattle ) < 0){
+                    age = "" + response[i].fields.edad_anios + " años, " + response[i].fields.edad_meses + " meses y " + response[i].fields.edad_dias + " días";
+
+                    var name = response[i].fields.nombre.charAt(0).toUpperCase() + response[i].fields.nombre.slice(1); 
+                    
+                    var link = 'onclick="assignCattleFood(pk, nombre)"';
+                    link = link.replace('pk', response[i].pk);
+                    link = link.replace("nombre", "'"+response[i].fields.nombre+"'");            
+
+                    $('.content').append(
+                        "<div class=cinta>"+
+                        "<a>"+ 
+                          "<div id="+response[i].pk+" "+link+">"+
+                          "<span class=id_cattle>"+response[i].pk+"</span>"+
+                                  "<img src={{MEDIA_URL}}"+response[i].fields.imagen+" />"+
+                                  "<h4 class=texto_propiedades1>" + name+ "</h4>" +
+                                  "<hr>"+
+                                  "<h4 class=texto_propiedades3>" + age + "</h4>" +
+                                  "<div class=icon_assign_cattle>"+
+                                  "</div>"+
+                          "</div>"+
+                        "</a>"+
+                        "<p>"+
+                          "<span>"+response[i].pk+"</span>"+
+                        "</p>"+
+                      "</div>"
+                      ); 
+                    if(response.length == 1){
+                      $('.message_results').html(response.length - listCattle.length + ' resultado encontrado. (');
+                      $('.message_results').append(tiempo + ' segundos)');
+                    }else{
+                      $('.message_results').html(response.length -listCattle.length + ' resultados encontrados. (');
+                      $('.message_results').append(tiempo + ' segundos)');
+                    }                
+                }
+              }
+            }else{
+              $('.message_results').html('No se encuentra "'+busqueda+'"');
+            }
+          },
+
+          error: function(objeto, error){
+            $('.message_results').html('<strong>¡Se produjo un error!</strong> &nbsp; Verifica tu conexión a internet ó Contacta al administrador.');
+          },
+        });   
+    }
+
+    function ajaxAssignCattleFoodFinal(id_food){
+      var jsonlistCattle = JSON.stringify(listCattle);
+        $.ajax({
+          data: {'id_food': id_food, 'listCattle': jsonlistCattle},
+          type:'GET',
+          contentType: 'application/json; charset=utf-8',
+          dateType:'json',
+          url:'/ajax/assign_cattle_food_final/',
+
+          beforeSend: function(objeto){
+            $('.message_results').html('Guardando...');
+          },
+
+          success:function(response){
+            for (var i = 0; i < response.length; i++) {
+              if(response[i].state == 0){
+                $('.message_results').html('Se han asignado los ganados CORRECTAMENTE!');  
+                window.setTimeout(function(){
+                  window.location.replace("{% url 'list_food' %}");
+                }, 2000);
+              }else if(response[i].state == 1){
+                $('.message_results').html('<strong>Insuficiente Alimento</strong> (Existente: '+response[i].amount+' '+response[i].unit+' - Solicitado: '+response[i].amount_now+' '+response[i].unit+') - c/g: '+response[i].consumer_amount+' '+response[i].unit+'');
+              }else if(response[i].state == 2){
+                $('.message_results').html('<strong>Advertencia </strong>No hay ganados seleccionados para asignar el alimento!');  
+              }
+            }
+          },
+
+          error: function(objeto, error){
+            $('.message_results').html('<strong>¡Se produjo un error!</strong> &nbsp; Verifica tu conexión a internet ó Contacta al administrador.');
+          },
+        });
+    }
+
+    function assignCattleFoodFinal(id_food){
+        ajaxAssignCattleFoodFinal(id_food);
+    }
+
+  $(document).ready(function() {
+    $('.busqueda').focus();
+
+    $( "#busqueda" ).on('keyup', function(tecla) {
+        viewAssignCattleFood();
+    });
+});
+
+</script>
 {% endblock %}
 
+<!--window.setTimeout(function(){
+                window.location.replace("{% url 'list_food' %}");
+              }, 2500);-->
+
+{% block presentation %}
+    <div class="presentacion_principal">
+        <h3>Lista de Ganados a Asignar Alimento</h3>
+        <input type="text" class="busqueda" id="busqueda"  placeholder="RP, Nombre o año de nacimiento" >
+        <span class="btnAssign" onclick="assignCattleFoodFinal({{id_food}});">Asignar</span>
+    <div class="message_results">
+      
+    </div>
+    </div>
+
+    <div class="presentacionAssign">
+    <h3>Ganados</h3>
+    
+    <section class="container_tags">
+        <ul class="tags">
+            <center><h5>Lista aún vacía</h5></center>
+        </ul>
+      </section>
+    </div>
+{% endblock %}
+
+
 {% block content %}
-
-
-
-<div class="account_list">
-    
-{% if ganado == '0' %}
-    {% for g in ganados %}
-
-        <a href="{% url 'asigna_alimento' user.username alimento_id g.id %}">
-            <div>                
-                
-                <img src="{{MEDIA_URL}}{{ g.imagen }}" />
-                <h4 class="texto_propiedades1">{{ g.identificacion_simple.nombre | capfirst }}</h4>
-                <h4 class="texto_propiedades1">{{ g.identificacion_ecuador.nombre | capfirst }}</h4>
-
-                {% for c in g.celos.all %}
-                    {% if c.estado == 0 and c.is_active %}
-                        <h4 class="texto_propiedades1">En Celo</h4> 
-                    {% elif c.estado == 1 and c.is_active %}
-                        <h4 class="texto_propiedades1">Sin Celo</h4> 
-                    {% endif %}
-                {% endfor %}
-
-                {% if not g.celos.all %}
-                        <h4 class="texto_propiedades1">Celo no registrado</h4>
-                    {% endif %}
-                
-                {% for t in g.etapas.all %}
-                    {% if t.nombre == 0 and t.is_active %}
-                        <h4 class="texto_propiedades2">Ternera</h4>
-                    {% elif t.nombre == 1 and t.is_active %}
-                        <h4 class="texto_propiedades2">Vacona</h4>
-                    {% elif t.nombre == 2 and t.is_active %}
-                        <h4 class="texto_propiedades2">Vientre</h4>
-                    {% endif %}
-                {% endfor %}
-
-                <hr>
-                <h4 class="texto_propiedades3">{{ g.edad_anios }} {%if g.edad_anios == 1%}año{%else%}años{%endif%},
-                                              {{ g.edad_meses }} {%if g.edad_meses == 1%}mes{%else%}meses{%endif%}
-                                              y {{ g.edad_dias }} {%if g.edad_dias == 1%}día{%else%}días{%endif%}
-                </h4>
-            </div>
-        </a>        
-    {% endfor %}
-{% endif %}
-
-    
+<div class="panel_assign_cattle">
+    <div class="container_assign_cattle">
+          <span class="title_container">
+              Seleccionar Ganados
+          </span>
+        <div class="content">
+            <center><h5>Los resultados estarán aquí</h5></center>
+        </div>
+    </div>
 </div>
-
 
 {% endblock %}

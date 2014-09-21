@@ -9,33 +9,33 @@ class ConfiguracionForm(forms.ModelForm):
     class Meta:
         model = Configuracion
         exclude = ['etapa_vientre']
-        '''widgets = {
-                  'celo_frecuencia':forms.NumberInput(attrs={'placeholder': 'Frecuencia de celo'}),
-                  'celo_frecuencia_error':forms.NumberInput(attrs={'placeholder': 'Error de frecuencia'}),
-                  'celo_duracion':forms.NumberInput(attrs={'placeholder': 'Duracion del celo'}),
-                  'celo_duracion_error':forms.NumberInput(attrs={'placeholder': 'Error de duracion'}),
-                  'celo_despues_parto':forms.NumberInput(attrs={'placeholder': 'Celo despues del parto'}),
-                  'celo_despues_parto_error':forms.NumberInput(attrs={'placeholder': 'Error despues del parto'}),
-                  'intentos_verificacion_celo':forms.NumberInput(attrs={'placeholder': 'Intentos verifica celo'}),
-                  'etapa_ternera':forms.NumberInput(attrs={'placeholder': 'Edad max. de ternera'}),
-                  'etapa_vacona':forms.NumberInput(attrs={'placeholder': 'Edad max. de vacona'}),
-                  'etapa_vientre':forms.NumberInput(attrs={'placeholder': 'Edad max. de vientre'}),
-                  'periodo_gestacion':forms.NumberInput(attrs={'placeholder': 'Periodo de gestacion'}),
-                  'periodo_seco':forms.NumberInput(attrs={'placeholder': 'Periodo dseco'}),
-                  'periodo_lactancia':forms.NumberInput(attrs={'placeholder': 'Periodo de lactancia'}),
-                  'periodo_vacio':forms.NumberInput(attrs={'placeholder': 'Periodo vacio'}),
-                  'numero_ordenios':forms.NumberInput(attrs={'placeholder': 'Numero de ordenios diarios'}),
+        widgets = {
+                  'celo_frecuencia':forms.TextInput(attrs={}),
+                  'celo_frecuencia_error':forms.TextInput(attrs={}),
+                  'celo_duracion':forms.TextInput(attrs={}),
+                  'celo_duracion_error':forms.TextInput(attrs={}),
+                  'celo_despues_parto':forms.TextInput(attrs={}),
+                  'celo_despues_parto_error':forms.TextInput(attrs={}),
+                  'intentos_verificacion_celo':forms.TextInput(attrs={}),
+                  'etapa_ternera':forms.TextInput(attrs={}),
+                  'etapa_vacona':forms.TextInput(attrs={}),
+                  'etapa_vientre':forms.TextInput(attrs={}),
+                  'periodo_gestacion':forms.TextInput(attrs={}),
+                  'periodo_seco':forms.TextInput(attrs={}),
+                  'periodo_lactancia':forms.TextInput(attrs={}),
+                  'periodo_vacio':forms.TextInput(attrs={}),
+                  'numero_ordenios':forms.TextInput(attrs={}),
                   
-        }'''
+        }
 
 class GanaderiaForm(forms.ModelForm):
     class Meta:
         model = Ganaderia
         fields = ('nombreEntidad', 'direccion')
-        '''widgets = {
-                  'nombreEntidad':forms.TextInput(attrs={'placeholder': 'Nombre de la Entidad'}),
-                  'direccion':forms.TextInput(attrs={'placeholder': 'Direccion'}),
-        }'''
+        widgets = {
+                  'nombreEntidad':forms.TextInput(attrs={'placeholder': 'Nombre de la ganadería'}),
+                  'direccion':forms.TextInput(attrs={'placeholder': 'Direccion de la ganadería'}),
+        }
 
 class SignupFormExtra(SignupForm):
     """ 
@@ -82,3 +82,6 @@ class SignupFormExtra(SignupForm):
         # Userena expects to get the new user from this form, so return the new
         # user.
         return new_user
+
+
+

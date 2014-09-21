@@ -1,0 +1,140 @@
+{% extends 'userena/base_userena.html' %}
+{% load i18n %}
+{% load url from future %}
+
+{% block title %}Listado de Desparacitadores{% endblock %}
+
+{% block content_title %}<h2 class="content-title">{% trans 'Profiles' %}</h2>{% endblock %}
+
+{% block js %}
+<script type='text/javascript'>
+  $(document).ready(function() {
+
+    $( "#busqueda" ).on('keyup', function(tecla) {
+      var antes;
+
+      var busqueda = $("#busqueda").val();
+        $.ajax({
+          data: {'search': busqueda},
+          type:'GET',
+          contentType: 'application/json; charset=utf-8',
+          dateType:'json',
+          url:'/ws/wormer/',
+          beforeSend: function(objeto){
+            antes = (new Date()).getTime(); 
+            $('.message_results').html('Buscando "'+busqueda+'"');
+          },
+          
+          success:function(response){
+            var despues = (new Date()).getTime();
+            tiempo = (despues - antes) / 1000;
+            $('.account_list2').empty();
+            if(response!=''){
+              for (var i = 0; i < response.length; i++) {
+                var link = '{% url 'edit_wormer' 'NEWVALUESTUB' %}';
+                link = link.replace('NEWVALUESTUB', response[i].pk);
+                
+                var sex, unit, expiration_date;
+                if(response[i].fields.sex == '0') sex='Hembra'; else if(response[i].fields.sex == '1') sex='Macho'; else if(response[i].fields.sex == '2') sex='Hembra y Macho';
+                if(response[i].fields.unit == '0') unit='ml'; else if(response[i].fields.unit == '1') unit='gr'; else if(response[i].fields.unit == '2') unit='lbs'; else if(response[i].fields.unit == '3') unit='kg'; else if(response[i].fields.unit == '4') unit='Paquetes';
+
+                var meses = new Array ("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+                var year = response[i].fields.expiration_date.substring(0, 4); 
+                var month = parseInt(response[i].fields.expiration_date.substring(5, 7)); 
+                var day = response[i].fields.expiration_date.substring(8, 10); 
+                expiration_date = "" + day + " de " + meses[month-1] + " de " + year;
+
+                var name = response[i].fields.name.charAt(0).toUpperCase() + response[i].fields.name.slice(1); 
+
+                $('.account_list2').append(
+                    "<div class=cinta>"+
+                      "<div class=context_menu>"+
+                        "<ul>"+ 
+                          "<a href='"+link+"'>"+
+                            "<li>Actualizar</li></a>"+
+                        "</ul>"+
+                      "</div>"+
+                    "<a>"+ 
+                      "<div>"+
+                              "<h4 class=texto_propiedades1>" + name+ "</h4>" +
+                              "<hr>"+
+                              "<h4 class=texto_propiedades4> "+ sex +"</h4>" +
+                              "<h4 class=texto_propiedades2>" + response[i].fields.amount +" "+ unit + "</h4>" +
+                              "<h4 class=texto_propiedades3>" + expiration_date + "</h4>" +
+                        "</div>"+
+                    "</a>"+
+                  "</div>"
+                  ); 
+                if(response.length == 1){
+                  $('.message_results').html(response.length + ' resultado encontrado. (');
+                  $('.message_results').append(tiempo + ' segundos)');
+                }else{
+                  $('.message_results').html(response.length + ' resultados encontrados. (');
+                  $('.message_results').append(tiempo + ' segundos)');
+                }
+              }
+            }else{
+              $('.message_results').html('No se encuentra "'+busqueda+'"');
+            }
+          },
+
+          error: function(objeto, error){
+            $('.message_results').html('<strong>¡Se produjo un error!</strong> &nbsp; Verifica tu conexión a internet ó Contacta al administrador.');
+          },
+
+        });
+    });
+});
+
+</script>
+{% endblock %}
+
+{% block presentation %}
+<div class="presentacion_principal">
+    <h3>Lista de Desparasitadores</h3>
+    <h4>Listado de desparasitadores registrados en la ganadería..</h4>
+    <input type="text" class="busqueda" id="busqueda"  placeholder="Nombre o año de vencimiento" >
+    <div class="message_results">
+      
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+
+<div class="account_list2">
+
+<div class="content">
+  
+</div>
+    
+    {% for medicament in medicaments %}
+      <div class="cinta">
+        <div class="context_menu">
+          <ul>
+            <a href="{% url 'edit_wormer' medicament.id %}"><li>Actualizar</li></a>
+          </ul>
+        </div>
+        <a>
+            <div>                
+               
+                <h4 class="texto_propiedades1">{{ medicament.name | capfirst }}</h4>
+                <hr>
+                <h4 class="texto_propiedades4">{{medicament.get_sex_display}}</h4>
+                <h4 class="texto_propiedades2">
+                    {{medicament.amount}}
+                    {{medicament.get_unit_display}}
+                </h4>
+
+                <h4 
+                    class="texto_propiedades3">{{ medicament.expiration_date }} 
+                </h4>
+            </div>
+        </a>  
+      </div>   
+    {% endfor %}
+    
+</div>
+
+
+{% endblock %}

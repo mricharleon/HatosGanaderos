@@ -1,0 +1,226 @@
+{% extends 'userena/base_userena.html' %}
+{% load i18n %}
+{% load url from future %}
+
+{% block title %}Editar Vacuna{% endblock %}
+
+{% block content_title %}<h2 class="content-title">{% trans 'Profiles' %}</h2>{% endblock %}
+
+{% block presentation %}
+<div class="presentacionSignup">
+    <h3>Editar la Vacuna</h3>
+    <h4>Ahora podras actualizar los datos del medicamento.</h4>
+    <ul id="profile-nav">
+      <li><a href="{% url 'add_vaccine' %}">Agregar Vacuna</a></li>
+      <li><a href="{% url 'list_vaccine' %}">Listar Vacunas</a></li>      
+    </ul>
+       
+</div>
+{% endblock presentation %}
+
+
+{% block content %}
+<div class="formSignup">
+  <span class="crearCuenta">
+      Editar Vacuna
+  </span>
+   <form action="" enctype="multipart/form-data" method="post">     
+      <h1>{{msj}}</h1>
+      {% csrf_token %}
+
+      <section class="container">
+            <div class="user">
+              <img src="{{STATIC_URL}}img/help.png"/>
+              <ul>
+                <h5 class="sep">{{form_vaccine.name.label_tag}}</h5>
+              </ul>
+            </div>
+          </section>
+          {{form_vaccine.name.errors}}
+          {{form_vaccine.name}}
+
+          <section class="container">
+            <div class="user">
+              <img src="{{STATIC_URL}}img/help.png"/>
+              <ul>
+                <h5 class="sep">{{form_vaccine.expiration_date.label_tag}}</h5>
+              </ul>
+            </div>
+          </section>
+          {{form_vaccine.expiration_date.errors}}
+          {{form_vaccine.expiration_date}}
+
+          <section class="container">
+            <div class="user">
+              <img src="{{STATIC_URL}}img/help.png"/>
+              <ul>
+                <h5 class="sep">{{form_vaccine.amount.label_tag}}</h5>
+              </ul>
+            </div>
+          </section>
+          {{form_vaccine.amount.errors}}
+          {{form_vaccine.amount}}
+
+          <section class="container">
+            <div class="user">
+              <img src="{{STATIC_URL}}img/help.png"/>
+              <ul>
+                <h5 class="sep">{{form_vaccine.unit.label_tag}}</h5>
+              </ul>
+            </div>
+          </section>
+          <label for="select" class="select">
+            {{form_vaccine.unit.errors}}
+            {{form_vaccine.unit}}
+          </label>
+
+          <section class="container">
+            <div class="user">
+              <img src="{{STATIC_URL}}img/help.png"/>
+              <ul>
+                <h5 class="sep">{{form_vaccine.sex.label_tag}}</h5>
+              </ul>
+            </div>
+          </section>
+          <label for="select" class="select">
+            {{form_vaccine.sex.errors}}
+            {{form_vaccine.sex}}
+          </label>
+
+          <section class="container">
+            <div class="user">
+              <img src="{{STATIC_URL}}img/help.png"/>
+              <ul>
+                <h5 class="sep">{{form_vaccine.application_age.label_tag}}</h5>
+              </ul>
+            </div>
+          </section>
+          {{form_vaccine.application_age.errors}}
+          {{form_vaccine.application_age}}
+
+          <section class="container">
+            <div class="user">
+              <img src="{{STATIC_URL}}img/help.png"/>
+              <ul>
+                <h5 class="sep">{{form_vaccine.time_application_age.label_tag}}</h5>
+              </ul>
+            </div>
+          </section>
+          <label for="select" class="select">
+            {{form_vaccine.time_application_age.errors}}
+            {{form_vaccine.time_application_age}}
+          </label>
+
+          <section class="container">
+            <div class="user">
+              <img src="{{STATIC_URL}}img/help.png"/>
+              <ul>
+                <h5 class="sep">{{form_vaccine.amount_application.label_tag}}</h5>
+              </ul>
+            </div>
+          </section>
+          {{form_vaccine.amount_application.errors}}
+          {{form_vaccine.amount_application}}
+
+          <section class="container">
+            <div class="user">
+              <img src="{{STATIC_URL}}img/help.png"/>
+              <ul>
+                <h5 class="sep">{{form_vaccine.option_number_application.label_tag}}</h5>
+              </ul>
+            </div>
+          </section>
+          <label for="select" class="select">
+            {{form_vaccine.option_number_application.errors}}
+            {{form_vaccine.option_number_application}}
+          </label>
+
+          <section class="container">
+            <div class="user">
+              <img src="{{STATIC_URL}}img/help.png"/>
+              <ul>
+                <h5 class="sep">{{form_vaccine.number_application.label_tag}}</h5>
+              </ul>
+            </div>
+          </section>
+          {{form_vaccine.number_application.errors}}
+          {{form_vaccine.number_application}}
+
+          <section class="container">
+            <div class="user">
+              <img src="{{STATIC_URL}}img/help.png"/>
+              <ul>
+                <h5 class="sep">{{form_vaccine.interval.label_tag}}</h5>
+              </ul>
+            </div>
+          </section>
+          {{form_vaccine.interval.errors}}
+          {{form_vaccine.interval}}
+
+          <section class="container">
+            <div class="user">
+              <img src="{{STATIC_URL}}img/help.png"/>
+              <ul>
+                <h5 class="sep">{{form_vaccine.time_interval.label_tag}}</h5>
+              </ul>
+            </div>
+          </section>
+          <label for="select" class="select">
+            {{form_vaccine.time_interval.errors}}
+            {{form_vaccine.time_interval}}
+          </label>
+
+          <section class="container">
+            <div class="user">
+              <img src="{{STATIC_URL}}img/help.png"/>
+              <ul>
+                <h5 class="sep">{{form_vaccine.administration_route.label_tag}}</h5>
+              </ul>
+            </div>
+          </section>
+          <label for="select" class="select">
+            {{form_vaccine.administration_route.errors}}
+            {{form_vaccine.administration_route}}
+          </label>
+
+          <section class="container">
+            <div class="user">
+              <img src="{{STATIC_URL}}img/help.png"/>
+              <ul>
+                <h5 class="sep">{{form_vaccine.live_weight.label_tag}}</h5>
+              </ul>
+            </div>
+          </section>
+          {{form_vaccine.live_weight.errors}}
+          {{form_vaccine.live_weight}}
+
+          <section class="container">
+            <div class="user">
+              <img src="{{STATIC_URL}}img/help.png"/>
+              <ul>
+                <h5 class="sep">{{form_vaccine.unit_live_weight.label_tag}}</h5>
+              </ul>
+            </div>
+          </section>
+          <label for="select" class="select">
+            {{form_vaccine.unit_live_weight.errors}}
+            {{form_vaccine.unit_live_weight}}
+          </label>
+          
+          <section class="container">
+            <div class="user">
+              <img src="{{STATIC_URL}}img/help.png"/>
+              <ul>
+                <h5 class="sep">{{form_vaccine.observations.label_tag}}</h5>
+              </ul>
+            </div>
+          </section>
+          {{form_vaccine.observations.errors}}
+          {{form_vaccine.observations}}
+        
+      <input type="submit" value="{% trans "Save" %}" />
+      <a href="{% url 'list_food' %}"><input type="button" value="Atrás" /></a>
+      
+    </form>
+</div>
+{% endblock %}

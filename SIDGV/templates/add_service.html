@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load url from future %}
+
+{% block title %} Agregar Servicio {% endblock %}
+
+
+{% block js %}
+<script type='text/javascript'>
+  $(document).ready(function() {
+
+    $( "#busqueda2" ).on('keyup', function(tecla) {
+      var busqueda2 = $("#busqueda2").val()
+        $.ajax({
+          data: {'search': busqueda2},
+          type:'GET',
+          contentType: 'application/json; charset=utf-8',
+          dateType:'json',
+          url:'/ws/ganados_machos/',
+          beforeSend: function(objeto){
+            $('.content2').html('<h5>Buscando "'+busqueda2+'"</h5>');
+          },
+          success:function(response){
+            $('.content2').empty();
+            if(response!=''){
+              for (var i = 0; i < response.length; i++) {
+                $('.content2').append(
+                    "<a>"+ 
+                          "<div class='searching_cattle close_reveal_modal2' onclick=asigna_rp_padre("+response[i].fields.rp+");>"+ 
+                              "<h5>#" + response[i].fields.rp + "</h5>" +
+                              "<h5>(" + response[i].fields.nombre + ")</h5>" +
+                          "</div>"+
+                      "</a>"
+                  ); 
+              }
+            }else{
+              $('.content2').html('<h5>No se encuentra "'+busqueda2+'"</h5>');
+            }
+          },
+          error: function(objeto, error){
+            $('.content2').html('<h5>¡Se produjo un error!</h5><h6>Verifica tu conexión e intenta de nuevo. o Contacta al administrador</h6>');
+          },  
+        });
+    });
+  }); 
+
+  function asigna_rp_padre(valor){
+    $('#id_rp_father').val(valor);
+
+  }
+
+</script>
+{% endblock %}
+
+
+{% block presentation %}
+    <div class="presentacionSignup">
+        <h3>Agrega Servicio</h3>
+        <h4>Bienvenido registra el servicio.</h4>
+        <ul id="profile-nav">
+            <li><a href="{% url 'lista_ganado' %}">Listar Ganado</a></li>
+        </ul>
+    </div>
+{% endblock presentation %}
+
+{% block content %}
+
+<div class="formSignup">
+  <span class="crearCuenta">
+      Registrar Servicio 
+  </span>
+   <form action="" enctype="multipart/form-data" method="post">     
+      {% csrf_token %}
+      
+     <section class="container">
+        <div class="user">
+          <img src="{{STATIC_URL}}img/help.png"/>
+          <ul>
+            <h5 class="sep">{{formAttempt.type_conception.label_tag}}</h5>
+          </ul>
+        </div>
+      </section>
+      <label for="select" class="select">
+        {{formAttempt.type_conception.errors}}
+        {{formAttempt.type_conception}}
+      </label>
+
+      <section class="container">
+        <div class="user">
+          <img src="{{STATIC_URL}}img/help.png"/>
+          <ul>
+            <h5 class="sep">{{formAttempt.rp_father.label_tag}}</h5>
+          </ul>
+        </div>
+      </section>
+      {{formAttempt.rp_father.errors}}
+      {{formAttempt.rp_father}}
+
+      <section class="container">
+        <div class="user">
+          <img src="{{STATIC_URL}}img/help.png"/>
+          <ul>
+            <h5 class="sep">{{formAttempt.observations.label_tag}}</h5>
+          </ul>
+        </div>
+      </section>
+      {{formAttempt.observations.errors}}
+      {{formAttempt.observations}}
+    
+      
+      
+
+      <input type="submit" value="{% trans "Save" %}" />
+      <a href="{% url 'lista_ganado' %}"><input type="button" value="Atrás" /></a>
+    </form>
+</div>
+
+
+    <div id="myModal2" class="reveal-modal">
+         <h2>Buscar RP del padre </h2>
+         {% csrf_token %}
+          
+          <input type="text" id="busqueda2"  placeholder="RP, nombre o año de nacimiento" >
+
+          <div class="content2">
+            <h5>Aquí estará tu Búsqueda</h5>
+          </div>
+         <a class="close-reveal-modal">&#215;</a>
+    </div>
+{% endblock %}

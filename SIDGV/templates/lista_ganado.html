@@ -4,65 +4,154 @@
 
 {% block title %}Listado de ganados{% endblock %}
 
-{% block content_title %}<h2 class="content-title">{% trans 'Profiles' %}</h2>{% endblock %}
+{% block js %}
+<script type='text/javascript'>
+  $(document).ready(function() {
+    carga_datos();
+    function carga_datos(){
+      var antes;
+      var busqueda = $("#busqueda").val();
+        $.ajax({
+          data: {'search': busqueda},
+          type:'GET',
+          contentType: 'application/json; charset=utf-8',
+          dateType:'json',
+          url:'/ws/ganados/',
+          beforeSend: function(objeto){
+            antes = (new Date()).getTime(); 
+            $('.message_results').html('Buscando "'+busqueda+'"');
+          },
+          
+          success:function(response){
+            var despues = (new Date()).getTime();
+            tiempo = (despues - antes) / 1000;
+            $('.account_list').empty();
+            if(response!=''){
+              for (var i = 0; i < response.length; i++) {
+                
+                var anios, meses, dias;
+                if(response[i].fields.edad_anios == 1) anios = ' año, '; else  anios = ' años, ';
+                if(response[i].fields.edad_meses == 1) meses = ' mes y '; else meses = ' meses y ';
+                if(response[i].fields.edad_dias == 1) dias = ' día'; else dias = ' dias';
+                
+                var nombre = response[i].fields.nombre.charAt(0).toUpperCase() + response[i].fields.nombre.slice(1); 
+                /*creando urls*/
+                var link_edit_cattle_celo = '{% url 'edita_ganado_celo' user.username 'NEWVALUESTUB' %}';
+                link_edit_cattle_celo = link_edit_cattle_celo.replace('NEWVALUESTUB', response[i].pk);
+                var link_edit_cattle = '{% url 'edita_ganado' user.username 'NEWVALUESTUB' %}';
+                link_edit_cattle = link_edit_cattle.replace('NEWVALUESTUB', response[i].pk);
+                var link_gestacion = '{% url 'gestacion' 'NEWVALUESTUB' %}';
+                link_gestacion = link_gestacion.replace('NEWVALUESTUB', response[i].pk);
+                var link_service = '{% url 'add_service' 'NEWVALUESTUB' %}';
+                link_service = link_service.replace('NEWVALUESTUB', response[i].pk);
+                
+                /*formatear el celo y etapa*/
+                var etapa, celo;
+                if ( (response[i].fields.etapa=='Ternera') || (response[i].fields.etapa=='Vacona') && (response[i].fields.ciclo!=0) ){
+                  etapa = response[i].fields.etapa;
+                  celo = '';
+                } else if( (response[i].fields.verificacion=='True') ){
+                  etapa = 'En verificación';
+                  celo = response[i].fields.celo;
+                } else if( (response[i].fields.ciclo == 3) ){
+                  etapa = 'Gestación';
+                  celo = '';
+                }else{
+                  etapa = response[i].fields.etapa;
+                  celo = response[i].fields.celo;
+                }
+
+                var menu;
+                if( (response[i].fields.etapa=='Ternera') || (response[i].fields.etapa=='Vacona') ){
+                  menu = "<a href='"+link_edit_cattle+"'>"+
+                          "<li>Actualizar</li></a>"
+                }else if( response[i].fields.ciclo == 3 ){
+                  menu =  "<a href='"+link_gestacion+"'>"+
+                          "<li>Gestacion</li></a>"+
+                          "<a href='"+link_edit_cattle+"'>"+
+                          "<li>Actualizar</li></a>"
+                }else if( response[i].fields.celo == 'En Celo' ){
+                  menu =  "<a href='"+link_edit_cattle_celo+"'>"+
+                          "<li>Celo</li></a>"+
+                          "<a href='"+link_service+"'>"+
+                          "<li>Servicio</li></a>"+
+                          "<a href='"+link_edit_cattle+"'>"+
+                          "<li>Actualizar</li></a>"
+                }else {
+                  menu =  "<a href='"+link_edit_cattle_celo+"'>"+
+                          "<li>Celo</li></a>"+
+                          "<a href='"+link_edit_cattle+"'>"+
+                          "<li>Actualizar</li></a>"
+                }
+
+                $('.account_list').append(
+                    "<div class=cinta>"+
+                      "<div class=context_menu>"+
+                        "<ul>"+menu+"</ul>"+
+                      "</div>"+
+                    "<a>"+ 
+                      "<div>"+
+                        "<img src={{MEDIA_URL}}"+response[i].fields.imagen+" />"+
+                              "<h4 class=texto_propiedades1>" + nombre+ "</h4>" +
+                              "<hr>"+
+                              "<h4 class=texto_propiedades4>" + response[i].fields.celo + "</h4>" +
+                              "<h4 class=texto_propiedades2>" + etapa + "</h4>" +
+                              "<h4 class=texto_propiedades3>" + response[i].fields.edad_anios+ anios +
+                                + response[i].fields.edad_meses+ meses +
+                                + response[i].fields.edad_dias+ dias +"</h4>" +
+                        "</div>"+
+                    "</a>"+
+                    "<p>"+
+                      "<span>"+response[i].pk+"</span>"+
+                    "</p>"+
+                  "</div>"
+                ); 
+
+                if(response.length == 1){
+                  $('.message_results').html(response.length + ' resultado encontrado. (');
+                  $('.message_results').append(tiempo + ' segundos)');
+                }else{
+                  $('.message_results').html(response.length + ' resultados encontrados. (');
+                  $('.message_results').append(tiempo + ' segundos)');
+                }
+              }
+            }else{
+              $('.message_results').html('No se encuentra "'+busqueda+'"');
+            }
+          },
+
+          error: function(objeto, error){
+            $('.message_results').html('<strong>¡Se produjo un error!</strong> &nbsp; Verifica tu conexión a internet ó Contacta al administrador.');
+          },
+
+        });
+    }
+
+    $( "#busqueda" ).on('keyup', function(tecla) {
+      carga_datos();
+    });
+});
+
+</script>
+{% endblock %}
 
 {% block presentation %}
-<div class="presentacion">
+<div class="presentacion_principal">
     <h3>Lista de Ganados de Reproducción</h3>
-        <h4>Listado de ganados registrados en la ganadería..</h4>
-        {% if imagen_ganado == 'Ausencia de registros' %}
-            <h3>( {{ imagen_ganado }} )</h3>
-        {% endif %}
+    <h4>Listado de ganados registrados en la ganadería..</h4>
+    <input type="text" class="busqueda" id="busqueda"  placeholder="RP, nombre o año de nacimiento" >
+    <div class="message_results">
+      
+    </div>
 </div>
 {% endblock %}
 
 {% block content %}
 
-
-
 <div class="account_list">
-    
-    {% for g in ganado %}
 
-        <a href="{% url 'edita_ganado' user.username g.id %}">
-            <div>                
-                
-                <img src="{{MEDIA_URL}}{{ g.imagen }}" />
-                <h4 class="texto_propiedades1">{{ g.identificacion_simple.nombre | capfirst }}</h4>
-                <h4 class="texto_propiedades1">{{ g.identificacion_ecuador.nombre | capfirst }}</h4>
+<div class="content">
 
-                {% for c in g.celos.all %}
-                    {% if c.estado == 0 and c.is_active %}
-                        <h4 class="texto_propiedades1">En Celo</h4> 
-                    {% elif c.estado == 1 and c.is_active %}
-                        <h4 class="texto_propiedades1">Sin Celo</h4> 
-                    {% endif %}
-                {% endfor %}
-
-                {% if not g.celos.all %}
-                        <h4 class="texto_propiedades1">Celo no registrado</h4>
-                    {% endif %}
-                
-                {% for t in g.etapas.all %}
-                    {% if t.nombre == 0 and t.is_active %}
-                        <h4 class="texto_propiedades2">Ternera</h4>
-                    {% elif t.nombre == 1 and t.is_active %}
-                        <h4 class="texto_propiedades2">Vacona</h4>
-                    {% elif t.nombre == 2 and t.is_active %}
-                        <h4 class="texto_propiedades2">Vientre</h4>
-                    {% endif %}
-                {% endfor %}
-
-                <hr>
-                <h4 class="texto_propiedades3">{{ g.edad_anios }} {%if g.edad_anios == 1%}año{%else%}años{%endif%},
-                                              {{ g.edad_meses }} {%if g.edad_meses == 1%}mes{%else%}meses{%endif%}
-                                              y {{ g.edad_dias }} {%if g.edad_dias == 1%}día{%else%}días{%endif%}
-                </h4>
-            </div>
-        </a>        
-    {% endfor %}
-    
-</div>
 
 
 {% endblock %}

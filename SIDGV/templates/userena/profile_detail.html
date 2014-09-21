@@ -11,13 +11,16 @@
 {% comment %}Dirty hack. Will use django-guardian in the future.{% endcomment %}
 {% if user.username == profile.user.username %}
     <div class="presentacionSignup">
+        <h3>Mi perfil</h3>
+        <h4>Bienvenido a tu perfil en Hatos Ganaderos.</h4>
         <ul id="profile-nav">
-            <li><a href="{% url 'userena_profile_detail' user.username %}">{% trans "View profile" %}</a></li>
             <li class="selected"><a href="{% url 'userena_profile_edit' user.username %}">{% trans "Edit details" %}</a></li>
-            <li><a href="{% url 'userena_password_change' user.username %}">{% trans "Change password" %}</a></li>
+            <li><a href="{% url 'userena_password_change' user.username %}">{% trans "Change" %} Clave</a></li>
             <li><a href="{% url 'userena_email_change' user.username %}">{% trans "Change email" %}</a></li>
-            <li><a href="{% url 'agrega_ganaderia_config' user.username %}">Mi Ganadería</a></li>
-            
+            {% if user.is_staff %}
+                <li><a href="{% url 'agrega_ganaderia_config' %}">Mi Ganadería</a></li>
+            {% endif %}
+
         </ul>
     </div>
 {% endif %}
@@ -34,18 +37,23 @@
         {% if profile.user.get_full_name %}
                 {{ profile.user.get_full_name }}
         {% else %}
-                <span class='errorGanaderia'>Sin asignar</span>
+                <a href="{% url 'userena_profile_edit' user.username %}"><span class='errorGanaderia'>Sin asignar</span></a>
             </p>
         {% endif %}
+        <p>
+            <strong>
+                {% trans "Dirección" %}
+            </strong><br/>
+            {{ profile.direccion }}
+        </p>
         <p><strong>{% trans "Entidad Ganadera" %}</strong><br /> 
         {% if ganaderia == 'Sin asignar' %}
-            <span class='errorGanaderia'>{{ganaderia}}</span>
+            <a href="{% url 'agrega_ganaderia_config' %}"><span class='errorGanaderia'>{{ganaderia}}</span></a>
         {% else %}
             {{ ganaderia.nombreEntidad }}
         {% endif %}
         </p>
 
-        <p><strong>{% trans "Dirección" %}</strong><br /> {{ profile.direccion }}</p>
 
         
         {% if profile.age != 0 %}

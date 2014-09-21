@@ -8,12 +8,14 @@
 {% block presentation %}
 {% comment %}Dirty hack. Will use django-guardian in the future.{% endcomment %}
     <div class="presentacionSignup">
+        <h3>Agregar Ganadería</h3>
+        <h4>Bienvenido crea tu ganadería en Hatos Ganaderos.</h4>
         <ul id="profile-nav">
             <li><a href="{% url 'userena_profile_detail' user.username %}">{% trans "View profile" %}</a></li>
             <li class="selected"><a href="{% url 'userena_profile_edit' user.username %}">{% trans "Edit details" %}</a></li>
             <li><a href="{% url 'userena_password_change' user.username %}">{% trans "Change password" %}</a></li>
             <li><a href="{% url 'userena_email_change' user.username %}">{% trans "Change email" %}</a></li>
-            <li><a href="{% url 'agrega_ganaderia_config' user.username %}">Mi Ganadería</a></li>
+            <li><a href="{% url 'agrega_ganaderia_config' %}">Mi Ganadería</a></li>
         </ul>
     </div>
 {% endblock presentation %}
@@ -27,12 +29,315 @@
       
       {% csrf_token %}
       
+      <section class="container">
+        <div class="user">
+          <img src="{{STATIC_URL}}img/help.png"/>
+          <ul>
+            <h5 class="sep">{{form.tipo_identificacion.label_tag}}</h5>
+          </ul>
+        </div>
+      </section>
+      <label for="select" class="select">
+        {{form.tipo_identificacion.errors}}
+        {{form.tipo_identificacion}}
+      </label>
+
+
+      {{form.celo_frecuencia.label_tag}}
+      <div class="parte1">
+        <div class="division">
+          {{ form.celo_frecuencia }}
+        </div>
+        <div class="division2">
+          &nbspdías
+        </div>
+      </div>
       
-      {{ form.as_p }}
-      {{ form2.as_p }}
+      <div class="parte2">
+        <div class="division2">
+          +/- &nbsp
+        </div>    
+        <div class="division">
+          {{ form.celo_frecuencia_error }}
+        </div>
+        <div class="division2">
+          &nbspdías
+        </div>     
+      </div>
+
+<!--duracion del celo-->
+      {{ form.celo_duracion.errors }}
+      {{ form.celo_duracion.label_tag }}
+      <div class="parte1">
+        <div class="division">
+          {{ form.celo_duracion }}
+        </div>
+        <div class="division2">
+          &nbsp;horas
+        </div>
+      </div>
+
+      {{ form.celo_duracion_error.errors }}
+      <div class="parte2">
+        <div class="division2">
+          +/- &nbsp
+        </div>    
+        <div class="division">
+          {{ form.celo_duracion_error }}
+        </div>
+        <div class="division2">
+          &nbsp;horas
+        </div>     
+      </div>
+
+<!--celo despues del parto-->
+      {{ form.celo_despues_parto.errors }}
+      {{ form.celo_despues_parto.label_tag }}
+      <div class="parte1">
+        <div class="division">
+          {{ form.celo_despues_parto }}
+        </div>
+        <div class="division2">
+          &nbspdías
+        </div>
+      </div>
+
+      {{ form.celo_despues_parto_error.errors }}
+      <div class="parte2">
+        <div class="division2">
+          +/- &nbsp
+        </div>    
+        <div class="division">
+          {{ form.celo_despues_parto_error }}
+        </div>
+        <div class="division2">
+          &nbspdías
+        </div>     
+      </div>
+      
+<!--intentos verficacion de celo-->
+      {{ form.intentos_verificacion_celo.errors }}
+      {{ form.intentos_verificacion_celo.label_tag }}
+      <div class="parte1">
+        <div class="division">
+          {{ form.intentos_verificacion_celo }}
+        </div>
+        <div class="division2">
+          &nbspveces
+        </div>
+      </div>
+      &nbsp 
+      <div class="parte2">
+        <div class="division2">
+          &nbsp; 
+        </div>    
+        <div class="division">
+         &nbsp; 
+        </div>
+        <div class="division2">
+          &nbsp;
+        </div> 
+      </div>
+<br>&nbsp;
+<!--etapas-->
+      {{ form.etapa_ternera.errors }}
+      {{ form.etapa_ternera.label_tag }}
+      <div class="parte1">
+        <div class="division">
+          {{ form.etapa_ternera }}
+        </div>
+        <div class="division2">
+          &nbspmeses
+        </div>
+      </div>
+      &nbsp 
+      <div class="parte2">
+        <div class="division2">
+          &nbsp
+        </div>    
+        <div class="division">
+         &nbsp
+        </div>
+        <div class="division2">
+          &nbsp 
+        </div>     
+      </div>
+<br>&nbsp;
+      {{ form.etapa_vacona.errors }}
+      {{ form.etapa_vacona.label_tag }}
+      <div class="parte1">
+        <div class="division">
+          {{ form.etapa_vacona }}
+        </div>
+        <div class="division2">
+          &nbspmeses
+        </div>
+      </div>
+      &nbsp 
+      <div class="parte2">
+        <div class="division2">
+          &nbsp
+        </div>    
+        <div class="division">
+         &nbsp
+        </div>
+        <div class="division2">
+          &nbsp 
+        </div>     
+      </div>
+
+<br>&nbsp;
+  <!--periodos-->
+ 
+      {{ form.periodo_gestacion.errors }}
+      {{ form.periodo_gestacion.label_tag }}
+      <div class="parte1">
+        <div class="division">
+          {{ form.periodo_gestacion }}
+        </div>
+        <div class="division2">
+          &nbspdías
+        </div>
+      </div>
+      &nbsp 
+      <div class="parte2">
+        <div class="division2">
+          &nbsp
+        </div>    
+        <div class="division">
+         &nbsp
+        </div>
+        <div class="division2">
+          &nbsp 
+        </div>     
+      </div>
+<br>&nbsp;
+      {{ form.periodo_seco.errors }}
+      {{ form.periodo_seco.label_tag }}
+      <div class="parte1">
+        <div class="division">
+          {{ form.periodo_seco }}
+        </div>
+        <div class="division2">
+          &nbspdías
+        </div>
+      </div>
+      &nbsp 
+      <div class="parte2">
+        <div class="division2">
+          &nbsp
+        </div>    
+        <div class="division">
+         &nbsp
+        </div>
+        <div class="division2">
+          &nbsp 
+        </div>     
+      </div>
+
+<br>&nbsp;
+      {{ form.periodo_lactancia.errors }}
+      {{ form.periodo_lactancia.label_tag }}
+      <div class="parte1">
+        <div class="division">
+          {{ form.periodo_lactancia }}
+        </div>
+        <div class="division2">
+          &nbspdías
+        </div>
+      </div>
+      &nbsp 
+      <div class="parte2">
+        <div class="division2">
+          &nbsp
+        </div>    
+        <div class="division">
+         &nbsp
+        </div>
+        <div class="division2">
+          &nbsp 
+        </div>     
+      </div>
+
+<br>&nbsp;
+      {{ form.periodo_vacio.errors }}
+      {{ form.periodo_vacio.label_tag }}
+      
+      <div class="parte1">
+        <div class="division">
+          {{ form.periodo_vacio }}
+        </div>
+        <div class="division2">
+          &nbspdías
+        </div>
+      </div>
+      &nbsp 
+      <div class="parte2">
+        <div class="division2">
+          &nbsp
+        </div>    
+        <div class="division">
+         &nbsp
+        </div>
+        <div class="division2">
+          &nbsp 
+        </div>     
+      </div>
+
+<br>&nbsp;
+   <!--ordeños-->
+      {{ form.numero_ordenios.errors }}
+      {{ form.numero_ordenios.label_tag }}
+      <div class="parte1">
+        <div class="division">
+          {{ form.numero_ordenios }}
+        </div>
+        <div class="division2">
+          &nbspveces
+        </div>
+      </div>
+      &nbsp 
+      <div class="parte2">
+        <div class="division2">
+          &nbsp
+        </div>    
+        <div class="division">
+         &nbsp
+        </div>
+        <div class="division2">
+          &nbsp 
+        </div>     
+      </div>
+
+<br>&nbsp;
+  <!--nombre de la ganaderia-->
+      <section class="container">
+        <div class="user">
+          <img src="{{STATIC_URL}}img/help.png"/>
+          <ul>
+            <h5 class="sep">{{ form2.nombreEntidad.label_tag }}</h5>
+          </ul>
+        </div>
+      </section>
+      {{ form2.nombreEntidad.errors }}
+      {{ form2.nombreEntidad }}
+
+      <section class="container">
+        <div class="user">
+          <img src="{{STATIC_URL}}img/help.png"/>
+          <ul>
+            <h5 class="sep">{{ form2.direccion.label_tag }}</h5>
+          </ul>
+        </div>
+      </section>
+      {{ form2.direccion.errors }}
+      {{ form2.direccion }}
+
+        <div class="botonera">
+          <input type="submit" value="{% trans "Save" %}" />
+          <a href="{% url 'userena_profile_detail' user.username %}"><input type="button" value="Atrás" /></a>  
+        </div>
         
-        <input type="submit" value="{% trans "Save" %}" />
-        <a href="{% url 'userena_profile_detail' user.username %}"><input type="button" value="Atrás" /></a>
         
     </form>
 </div>

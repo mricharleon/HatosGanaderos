@@ -1,0 +1,170 @@
+{% extends 'userena/base_userena.html' %}
+{% load i18n %}
+{% load url from future %}
+
+{% block title %}Editar alimento{% endblock %}
+
+{% block content_title %}<h2 class="content-title">{% trans 'Profiles' %}</h2>{% endblock %}
+
+{% block presentation %}
+<div class="presentacionSignup">
+    <h3>Edita el alimento</h3>
+    <h4>Ahora podras actualizar los datos del alimento.</h4>
+    <ul id="profile-nav">
+      <li class="selected"><a href="{% url 'add_food' %}">Agregar Alimento</a></li>
+      <li><a href="{% url 'list_food' %}">Listar Alimentos</a></li>    
+      <li><a href="{% url 'asigna_alimento' alimento_id %}">Asignar a Ganado</a></li>      
+    </ul>
+       
+</div>
+{% endblock presentation %}
+
+
+{% block content %}
+<div class="formSignup">
+  <span class="crearCuenta">
+      Editar Alimento
+  </span>
+   <form action="" enctype="multipart/form-data" method="post">     
+      
+      {% csrf_token %}
+      {{formAlimento.errors}}
+          <section class="container">
+            <div class="user">
+              <img src="{{STATIC_URL}}img/help.png"/>
+              <ul>
+                <h5 class="sep">{{formAlimento.name.label_tag}}</h5>
+              </ul>
+            </div>
+          </section>
+          {{formAlimento.name.errors}}
+          {{formAlimento.name}}
+
+          <section class="container">
+            <div class="user">
+              <img src="{{STATIC_URL}}img/help.png"/>
+              <ul>
+                <h5 class="sep">{{formAlimento.expiration_date.label_tag}}</h5>
+              </ul>
+            </div>
+          </section>
+          {{formAlimento.expiration_date.errors}}
+          {{formAlimento.expiration_date}}
+
+          <section class="container">
+            <div class="user">
+              <img src="{{STATIC_URL}}img/help.png"/>
+              <ul>
+                <h5 class="sep">{{formAlimento.amount.label_tag}}</h5>
+              </ul>
+            </div>
+          </section>
+          {{formAlimento.amount.errors}}
+          {{formAlimento.amount}}
+
+          <section class="container">
+            <div class="user">
+              <img src="{{STATIC_URL}}img/help.png"/>
+              <ul>
+                <h5 class="sep">{{formAlimento.unit.label_tag}}</h5>
+              </ul>
+            </div>
+          </section>
+          <label for="select" class="select">
+            {{formAlimento.unit.errors}}
+            {{formAlimento.unit}}
+          </label>
+
+          <section class="container">
+            <div class="user">
+              <img src="{{STATIC_URL}}img/help.png"/>
+              <ul>
+                <h5 class="sep">{{formAlimento.sex.label_tag}}</h5>
+              </ul>
+            </div>
+          </section>
+          <label for="select" class="select">
+            {{formAlimento.sex.errors}}
+            {{formAlimento.sex}}
+          </label>
+
+          <section class="container">
+            <div class="user">
+              <img src="{{STATIC_URL}}img/help.png"/>
+              <ul>
+                <h5 class="sep">{{formAlimento.phase.label_tag}}</h5>
+              </ul>
+            </div>
+          </section>
+          <label for="select" class="select">
+            {{formAlimento.phase.errors}}
+            {{formAlimento.phase}}
+          </label>
+
+          <section class="container">
+            <div class="user">
+              <img src="{{STATIC_URL}}img/help.png"/>
+              <ul>
+                <h5 class="sep">{{formAlimento.consumer_amount.label_tag}}</h5>
+              </ul>
+            </div>
+          </section>
+          {{formAlimento.consumer_amount.errors}}
+          {{formAlimento.consumer_amount}}
+          
+
+          <section class="container">
+            <div class="user">
+              <img src="{{STATIC_URL}}img/help.png"/>
+              <ul>
+                <h5 class="sep">{{formAlimento.interval.label_tag}}</h5>
+              </ul>
+            </div>
+          </section>
+          {{formAlimento.interval.errors}}
+          {{formAlimento.interval}}
+
+
+          <section class="container">
+            <div class="user">
+              <img src="{{STATIC_URL}}img/help.png"/>
+              <ul>
+                <h5 class="sep">{{formAlimento.time_interval.label_tag}}</h5>
+              </ul>
+            </div>
+          </section>
+          <label for="select" class="select">
+            {{formAlimento.time_interval.errors}}
+            {{formAlimento.time_interval}}
+          </label>
+
+          <section class="container">
+            <div class="user">
+              <img src="{{STATIC_URL}}img/help.png"/>
+              <ul>
+                <h5 class="sep">{{formAlimento.administration_route.label_tag}}</h5>
+              </ul>
+            </div>
+          </section>
+          <label for="select" class="select">
+            {{formAlimento.administration_route.errors}}
+            {{formAlimento.administration_route}}
+          </label>
+          
+          <section class="container">
+            <div class="user">
+              <img src="{{STATIC_URL}}img/help.png"/>
+              <ul>
+                <h5 class="sep">{{formAlimento.observations.label_tag}}</h5>
+              </ul>
+            </div>
+          </section>
+          {{formAlimento.observations.errors}}
+          {{formAlimento.observations}}
+
+        
+      <input type="submit" value="{% trans "Save" %}" />
+      
+    </form>
+</div>
+{% endblock %}

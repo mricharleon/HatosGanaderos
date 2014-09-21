@@ -1,0 +1,36 @@
+{% extends 'userena/base_userena.html' %}
+{% load i18n %}
+{% load url from future %}
+
+{% block title %}{% trans 'Profiles' %} de Técnicos{% endblock %}
+
+{% block content_title %}<h2 class="content-title">{% trans 'Profiles' %}</h2>{% endblock %}
+
+
+{% block presentation %}
+    <div class="presentacionSignup">
+        <h3>Agregar nuevo técnico</h3>
+    <h4>Ahora podras agregar los datos del nuevo técnico.</h4>
+    <ul id="profile-nav">
+      <li class="selected"><a href="{% url 'userena_profile_list' %}">Listar Técnicos</a></li>    
+    </ul>
+    </div>
+{% endblock presentation %}
+
+{% block content %}
+    <div class="formSignup">
+      <span class="crearCuenta">
+          Agregar Técnico
+      </span>
+       <form action="" enctype="multipart/form-data" method="post">     
+          
+          {% csrf_token %}
+          
+  
+            <input type="submit" value="{% trans "Save" %}" />
+            <a href="{% url 'lista_alimento' user.username %}"><input type="button" value="Atrás" /></a>
+            
+        </form>
+    </div>
+
+{% endblock %}

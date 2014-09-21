@@ -2,15 +2,19 @@
 {% load i18n %}
 {% load url from future %}
 
-{% block content_title %}<h2 class="content-title">Account &raquo; {{ account.user.username }}</h2>{% endblock %}
+{% block title %}Cambiar e-mail{% endblock %}
 
 {% block presentation %}
 <div class="presentacionSignup">
+    <h3>Tu correo</h3>
+    <h4>Bienvenido actualiza tu correo.</h4>
     <ul id="profile-nav">
         <li><a href="{% url 'userena_profile_detail' user.username %}">{% trans "View profile" %}</a></li>
         <li class="selected"><a href="{% url 'userena_profile_edit' user.username %}">{% trans "Edit details" %}</a></li>
-        <li><a href="{% url 'userena_password_change' user.username %}">{% trans "Change password" %}</a></li>
-        <li><a href="{% url 'userena_email_change' user.username %}">{% trans "Change email" %}</a></li>
+        <li><a href="{% url 'userena_password_change' user.username %}">{% trans "Change" %} Clave</a></li>
+        {% if user.is_staff %}
+            <li><a href="{% url 'agrega_ganaderia_config' %}">Mi Ganadería</a></li>
+        {% endif %}
     </ul>
 </div>
 {% endblock presentation %}
@@ -31,7 +35,17 @@
           </ul>
           {% endif %}
     {% csrf_token %}
-        {{ form.as_p }}
+    <section class="container">
+        <div class="user">
+          <img src="{{STATIC_URL}}img/help.png"/>
+          <ul>
+            <h5 class="sep">{{form.email.label_tag}}</h5>
+          </ul>
+        </div>
+      </section>
+      {{form.email.errors}}
+      {{form.email}}
+        
     <input type="submit" value="{% trans "Change email" %}" />
 </form>
 </div>

@@ -88,6 +88,7 @@ MIDDLEWARE_CLASSES = (
     # para la seguridad de django secure
     #'djangosecure.middleware.SecurityMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'drealtime.middleware.iShoutCookieMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -126,22 +127,27 @@ INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
-    'django.contrib.messages',
+    #'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
     'django.contrib.admindocs',
     'guardian',
     'south',
     'userena',
-    'userena.contrib.umessages',
+    #'userena.contrib.umessages',
     'profiles',
     'easy_thumbnails',
     'ganados',
     'alimentos',
-    'webServices.wsGanados',
+    #'webServices.wsGanados',
+    'drealtime', 
+    'messages',
+    'medicament',
+    'mockups',
     #'django_extensions',
     #'djangosecure',
 )
+
 
 # django xtension
 '''
@@ -199,3 +205,9 @@ ANONYMOUS_USER_ID = -1
 # Test runner
 TEST_RUNNER = 'django_coverage.coverage_runner.CoverageRunner'
 
+#correo
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+EMAIL_PORT = '587'
+EMAIL_USE_TLS = True

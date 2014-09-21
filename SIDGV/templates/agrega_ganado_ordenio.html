@@ -13,8 +13,10 @@ $( "#id_nacimiento" ).datepicker();
 </script>
 {% comment %}Dirty hack. Will use django-guardian in the future.{% endcomment %}
     <div class="presentacionSignup">
+        <h3>Agrega el Ordeño Diario</h3>
+        <h4>Bienvenido ahora podrás registrar la productividad.</h4>
         <ul id="profile-nav">
-            <li class="selected"><a href="{% url 'agrega_ganado_ordenio' user.username ganado_id %}">Agregar Ordeño Diario</a></li>
+            <li><a href="{% url 'lista_ganado_produccion' user.username %}">Listar Ganado</a></li>
             
             {% for o in range %}
              {% if o == 0 %}
@@ -40,10 +42,30 @@ $( "#id_nacimiento" ).datepicker();
       <center><b>Hoy:</b> {{ fecha }}</center>
       <center>( {{ num_ordenios }} de {{ total_ordenios }} )</center>
       
-      {{ formOrdenio.as_p }}      
+      <section class="container">
+        <div class="user">
+          <img src="{{STATIC_URL}}img/help.png"/>
+          <ul>
+            <h5 class="sep">{{formOrdenio.cantidad.label_tag}}</h5>
+          </ul>
+        </div>
+      </section>
+      {{formOrdenio.cantidad.errors}}
+      {{formOrdenio.cantidad}}
+
+      <section class="container">
+        <div class="user">
+          <img src="{{STATIC_URL}}img/help.png"/>
+          <ul>
+            <h5 class="sep">{{formOrdenio.observaciones.label_tag}}</h5>
+          </ul>
+        </div>
+      </section>
+      {{formOrdenio.observaciones.errors}}
+      {{formOrdenio.observaciones}}    
         
         <input type="submit" value="{% trans "Save" %}" />
-        <a href="{% url 'lista_ganado' user.username %}"><input type="button" value="Atrás" /></a>
+        <a href="{% url 'lista_ganado' %}"><input type="button" value="Atrás" /></a>
         
     </form>
   {% else %}
