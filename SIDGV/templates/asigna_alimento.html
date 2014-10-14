@@ -85,7 +85,7 @@
                           "</div>"+
                         "</a>"+
                         "<p>"+
-                          "<span>"+response[i].pk+"</span>"+
+                          "<span>"+response[i].fields.rp+"</span>"+
                         "</p>"+
                       "</div>"
                       ); 
@@ -109,6 +109,7 @@
         });   
     }
 
+
     function ajaxAssignCattleFoodFinal(id_food){
       var jsonlistCattle = JSON.stringify(listCattle);
         $.ajax({
@@ -119,16 +120,19 @@
           url:'/ajax/assign_cattle_food_final/',
 
           beforeSend: function(objeto){
-            $('.message_results').html('Guardando...');
+            $(".message_results").html('Procesando...')
           },
 
           success:function(response){
             for (var i = 0; i < response.length; i++) {
               if(response[i].state == 0){
-                $('.message_results').html('Se han asignado los ganados CORRECTAMENTE!');  
+                
+                $(".exito").html('La asignación de alimentos fue correcta.');
+                $(".exito").fadeIn(500).delay(2000).fadeOut(500);
+                
                 window.setTimeout(function(){
                   window.location.replace("{% url 'list_food' %}");
-                }, 2000);
+                }, 3000);
               }else if(response[i].state == 1){
                 $('.message_results').html('<strong>Insuficiente Alimento</strong> (Existente: '+response[i].amount+' '+response[i].unit+' - Solicitado: '+response[i].amount_now+' '+response[i].unit+') - c/g: '+response[i].consumer_amount+' '+response[i].unit+'');
               }else if(response[i].state == 2){
@@ -185,6 +189,12 @@
 
 
 {% block content %}
+
+  <div class="exito"></div>
+  <div class="alert"></div>
+  <div class="error"></div>
+  <div class="info"></div>
+
 <div class="panel_assign_cattle">
     <div class="container_assign_cattle">
           <span class="title_container">

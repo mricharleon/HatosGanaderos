@@ -1,0 +1,221 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>profiles.models &mdash; HatosGanaderos 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="HatosGanaderos 1.0 documentation" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">HatosGanaderos 1.0 documentation</a> &raquo;</li>
+          <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for profiles.models</h1><div class="highlight"><pre>
+<span class="c"># -*- encoding: utf-8 -*-</span>
+<span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">models</span>
+<span class="kn">from</span> <span class="nn">django.utils.translation</span> <span class="kn">import</span> <span class="n">ugettext_lazy</span> <span class="k">as</span> <span class="n">_</span>
+
+<span class="kn">from</span> <span class="nn">userena.models</span> <span class="kn">import</span> <span class="n">UserenaLanguageBaseProfile</span>
+<span class="kn">from</span> <span class="nn">userena.utils</span> <span class="kn">import</span> <span class="n">user_model_label</span>
+<span class="kn">from</span> <span class="nn">django.contrib.auth.models</span> <span class="kn">import</span> <span class="n">User</span>
+
+<span class="kn">import</span> <span class="nn">datetime</span>
+
+<div class="viewcode-block" id="Configuracion"><a class="viewcode-back" href="../../profiles.html#profiles.models.Configuracion">[docs]</a><span class="k">class</span> <span class="nc">Configuracion</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">IDENTIFICACION_CHOICES</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="p">(</span><span class="s">&#39;simple&#39;</span><span class="p">,</span> <span class="s">&#39;Simple&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s">&#39;norma_ecuador&#39;</span><span class="p">,</span> <span class="s">&#39;Norma Ecuador&#39;</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="n">tipo_identificacion</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="s">&quot;Tipo de identificacion&quot;</span><span class="p">,</span> 
+                                            <span class="n">max_length</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> 
+                                            <span class="n">choices</span> <span class="o">=</span> <span class="n">IDENTIFICACION_CHOICES</span><span class="p">,</span>
+                                            <span class="n">default</span><span class="o">=</span><span class="mi">0</span>
+                                            <span class="p">)</span>
+    <span class="n">celo_frecuencia</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span><span class="s">&quot;Frecuencia de celo&quot;</span><span class="p">,</span> 
+                                            <span class="n">max_length</span><span class="o">=</span><span class="mi">2</span>
+                                            <span class="p">)</span>
+    <span class="n">celo_frecuencia_error</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span><span class="s">&quot;Error frecuencia en celo&quot;</span><span class="p">,</span> 
+                                            <span class="n">max_length</span><span class="o">=</span><span class="mi">2</span>
+                                            <span class="p">)</span>
+    <span class="n">celo_duracion</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span><span class="s">&quot;Duración de celo&quot;</span><span class="p">,</span> 
+                                            <span class="n">max_length</span><span class="o">=</span><span class="mi">2</span>
+                                            <span class="p">)</span>
+    <span class="n">celo_duracion_error</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span><span class="s">&quot;Error (+/-)&quot;</span><span class="p">,</span> 
+                                            <span class="n">max_length</span><span class="o">=</span><span class="mi">2</span>
+                                            <span class="p">)</span>
+    <span class="n">celo_despues_parto</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span><span class="s">u&quot;Celo despues de parto&quot;</span><span class="p">,</span> 
+                                            <span class="n">max_length</span><span class="o">=</span><span class="mi">2</span>
+                                            <span class="p">)</span>
+    <span class="n">celo_despues_parto_error</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span><span class="s">&quot;Error (+/-)&quot;</span><span class="p">,</span> 
+                                            <span class="n">max_length</span><span class="o">=</span><span class="mi">2</span>
+                                            <span class="p">)</span>
+    <span class="n">intentos_verificacion_celo</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span><span class="s">&quot;Intentos de Verificación Celo&quot;</span><span class="p">,</span> 
+                                            <span class="n">max_length</span><span class="o">=</span><span class="mi">1</span>
+                                            <span class="p">)</span>
+    <span class="n">etapa_ternera</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span><span class="s">&quot;Edad máxima de una ternera&quot;</span><span class="p">,</span> 
+                                            <span class="n">max_length</span><span class="o">=</span><span class="mi">2</span>
+                                            <span class="p">)</span>
+    <span class="n">etapa_vacona</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span><span class="s">&quot;Edad máxima de una vacona&quot;</span><span class="p">,</span> 
+                                            <span class="n">max_length</span><span class="o">=</span><span class="mi">2</span>
+                                            <span class="p">)</span>
+    <span class="n">etapa_vientre</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span><span class="s">&quot;Edad minima de una vientre&quot;</span><span class="p">,</span> 
+                                            <span class="n">max_length</span><span class="o">=</span><span class="mi">2</span>
+                                            <span class="p">)</span>
+    <span class="n">periodo_gestacion</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span><span class="s">&quot;Dias de periodo de gestacion&quot;</span><span class="p">,</span> 
+                                            <span class="n">max_length</span><span class="o">=</span><span class="mi">3</span>
+                                            <span class="p">)</span>
+    <span class="n">periodo_seco</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span><span class="s">&quot;Dias de periodo seco&quot;</span><span class="p">,</span> 
+                                            <span class="n">max_length</span><span class="o">=</span><span class="mi">3</span>
+                                            <span class="p">)</span>
+    <span class="n">periodo_lactancia</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span><span class="s">&quot;Dias de periodo de lactancia&quot;</span><span class="p">,</span> 
+                                            <span class="n">max_length</span><span class="o">=</span><span class="mi">3</span>
+                                            <span class="p">)</span>
+    <span class="n">periodo_vacio</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span><span class="s">&quot;Dias de periodo vacio&quot;</span><span class="p">,</span> 
+                                            <span class="n">max_length</span><span class="o">=</span><span class="mi">3</span>
+                                            <span class="p">)</span>
+    <span class="n">numero_ordenios</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span><span class="s">&quot;Numero de ordeños&quot;</span><span class="p">,</span> 
+                                            <span class="n">max_length</span><span class="o">=</span><span class="mi">1</span>
+                                            <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__unicode__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">&#39;Configuración&#39;</span>
+
+
+</div>
+<div class="viewcode-block" id="Profile"><a class="viewcode-back" href="../../profiles.html#profiles.models.Profile">[docs]</a><span class="k">class</span> <span class="nc">Profile</span><span class="p">(</span><span class="n">UserenaLanguageBaseProfile</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Default profile &quot;&quot;&quot;</span>
+    <span class="n">GENDER_CHOICES</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;Male&#39;</span><span class="p">)),</span>
+        <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;Female&#39;</span><span class="p">)),</span>
+    <span class="p">)</span>
+
+    <span class="n">user</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">OneToOneField</span><span class="p">(</span><span class="n">user_model_label</span><span class="p">,</span>
+                                <span class="n">unique</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+                                <span class="n">verbose_name</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s">&#39;user&#39;</span><span class="p">),</span>
+                                <span class="n">related_name</span><span class="o">=</span><span class="s">&#39;profile&#39;</span><span class="p">)</span>
+    <span class="n">gender</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">PositiveSmallIntegerField</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s">&#39;gender&#39;</span><span class="p">),</span>
+                                              <span class="n">choices</span><span class="o">=</span><span class="n">GENDER_CHOICES</span><span class="p">,</span>
+                                              <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+                                              <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+    <span class="n">direccion</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s">&#39;Direccion&#39;</span><span class="p">),</span> <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+    <span class="n">telefono</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s">&#39;Telefono&#39;</span><span class="p">),</span> <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    
+    <span class="c">#location =  models.CharField(_(&#39;location&#39;), max_length=255, blank=True)</span>
+    <span class="c">#birth_date = models.DateField(_(&#39;birth date&#39;), blank=True, null=True)</span>
+    <span class="c">#about_me = models.TextField(_(&#39;about me&#39;), blank=True)</span>
+
+    <span class="k">def</span> <span class="nf">__unicode__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">user</span>
+</div>
+<div class="viewcode-block" id="Ganaderia"><a class="viewcode-back" href="../../profiles.html#profiles.models.Ganaderia">[docs]</a><span class="k">class</span> <span class="nc">Ganaderia</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">nombreEntidad</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s">u&#39;Nombre de Ganadería&#39;</span><span class="p">),</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">75</span><span class="p">)</span>
+    <span class="n">direccion</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s">u&#39;Direccion de Ganadería&#39;</span><span class="p">),</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+    <span class="n">perfil</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ManyToManyField</span><span class="p">(</span><span class="n">Profile</span><span class="p">,</span> 
+                                        <span class="n">verbose_name</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s">&#39;perfil&#39;</span><span class="p">),</span> 
+                                        <span class="n">related_name</span><span class="o">=</span><span class="s">&#39;ganaderia_perfil&#39;</span>
+                                        <span class="p">)</span>    
+    <span class="n">configuracion</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">OneToOneField</span><span class="p">(</span><span class="n">Configuracion</span><span class="p">,</span> 
+                                        <span class="n">verbose_name</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s">&#39;configuracion&#39;</span><span class="p">),</span> 
+                                        <span class="n">related_name</span><span class="o">=</span><span class="s">&#39;ganaderia&#39;</span>
+                                        <span class="p">)</span>
+    <span class="k">def</span> <span class="nf">__unicode__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">nombreEntidad</span>
+
+    </div>
+<span class="sd">&#39;&#39;&#39;</span>
+
+<span class="sd">    @property</span>
+<span class="sd">    def age(self, User):</span>
+<span class="sd">        if not User.date_joined: return False</span>
+<span class="sd">        else:</span>
+<span class="sd">            today = datetime.date.today()</span>
+<span class="sd">            # Raised when birth date is February 29 and the current year is not a</span>
+<span class="sd">            # leap year.</span>
+<span class="sd">            try:</span>
+<span class="sd">                birthday = User.date_joined.replace(year=today.year)</span>
+<span class="sd">            except ValueError:</span>
+<span class="sd">                day = today.day - 1 if today.day != 1 else today.day + 2</span>
+<span class="sd">                birthday = User.date_joined.replace(year=today.year, day=day)</span>
+<span class="sd">            if birthday &gt; today: return today.year - User.date_joined.year - 1</span>
+<span class="sd">            else: return today.year - User.date_joined.year</span>
+<span class="sd">&#39;&#39;&#39;</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">HatosGanaderos 1.0 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, @mricharleon.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

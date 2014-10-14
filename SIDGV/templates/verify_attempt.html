@@ -8,38 +8,79 @@
 <script type='text/javascript'>
 	$(document).ready(function() {
 
+    $("#id_rp_father").click(function() {
+      $('.content2').empty();
+      $('#busqueda2').val('');
+    });
+
 		$( "#busqueda2" ).on('keyup', function(tecla) {
-			var busqueda2 = $("#busqueda2").val()
-			$.ajax({
-				data: {'search': busqueda2},
-				type:'GET',
-				contentType: 'application/json; charset=utf-8',
-				dateType:'json',
-				url:'/ws/ganados_machos/',
-				beforeSend: function(objeto){
-					$('.content2').html('<h5>Buscando "'+busqueda2+'"</h5>');
-				},
-				success:function(response){
-					$('.content2').empty();
-					if(response!=''){
-						for (var i = 0; i < response.length; i++) {
-							$('.content2').append(
-								"<a>"+ 
-								"<div class='searching_cattle close_reveal_modal2' onclick=asigna_rp_padre("+response[i].fields.rp+");>"+ 
-								"<h5>#" + response[i].fields.rp + "</h5>" +
-								"<h5>(" + response[i].fields.nombre + ")</h5>" +
-								"</div>"+
-								"</a>"
-								); 
-						}
-					}else{
-						$('.content2').html('<h5>No se encuentra "'+busqueda2+'"</h5>');
-					}
-				},
-				error: function(objeto, error){
-					$('.content2').html('<h5>¡Se produjo un error!</h5><h6>Verifica tu conexión e intenta de nuevo. o Contacta al administrador</h6>');
-				},  
-			});
+      var type = $("#id_type_conception").val();
+      
+      if(type == 0){ // inseminacion
+  			var busqueda2 = $("#busqueda2").val();
+  			$.ajax({
+  				data: {'search': busqueda2},
+  				type:'GET',
+  				contentType: 'application/json; charset=utf-8',
+  				dateType:'json',
+  				url:'/ajax/ganados_machos_inseminacion/',
+  				beforeSend: function(objeto){
+  					$('.content2').html('<h5>Buscando "'+busqueda2+'"</h5>');
+  				},
+  				success:function(response){
+  					$('.content2').empty();
+  					if(response!=''){
+  						for (var i = 0; i < response.length; i++) {
+  							$('.content2').append(
+  								"<a>"+ 
+  								"<div class='searching_cattle close_reveal_modal2' onclick=asigna_rp_padre("+response[i].fields.rp+");>"+ 
+  								"<h5>#" + response[i].fields.rp + "</h5>" +
+  								"<h5>(" + response[i].fields.name + ")</h5>" +
+  								"</div>"+
+  								"</a>"
+  								); 
+  						}
+  					}else{
+  						$('.content2').html('<h5>No se encuentra "'+busqueda2+'"</h5>');
+  					}
+  				},
+  				error: function(objeto, error){
+  					$('.content2').html('<h5>¡Se produjo un error!</h5><h6>Verifica tu conexión e intenta de nuevo. o Contacta al administrador</h6>');
+  				},  
+  			});
+      }else{ // monta
+        var busqueda2 = $("#busqueda2").val();
+        $.ajax({
+          data: {'search': busqueda2},
+          type:'GET',
+          contentType: 'application/json; charset=utf-8',
+          dateType:'json',
+          url:'/ajax/cattle_male_rp/',
+          beforeSend: function(objeto){
+            $('.content2').html('<h5>Buscando "'+busqueda2+'"</h5>');
+          },
+          success:function(response){
+            $('.content2').empty();
+            if(response!=''){
+              for (var i = 0; i < response.length; i++) {
+                $('.content2').append(
+                  "<a>"+ 
+                  "<div class='searching_cattle close_reveal_modal2' onclick=asigna_rp_padre("+response[i].fields.rp+");>"+ 
+                  "<h5>#" + response[i].fields.rp + "</h5>" +
+                  "<h5>(" + response[i].fields.nombre + ")</h5>" +
+                  "</div>"+
+                  "</a>"
+                  ); 
+              }
+            }else{
+              $('.content2').html('<h5>No se encuentra "'+busqueda2+'"</h5>');
+            }
+          },
+          error: function(objeto, error){
+            $('.content2').html('<h5>¡Se produjo un error!</h5><h6>Verifica tu conexión e intenta de nuevo. o Contacta al administrador</h6>');
+          },  
+        });
+      }
 		});
 
 }); 
@@ -57,7 +98,7 @@ function asigna_rp_padre(valor){
         <h3>Verifica el servicio</h3>
         <h4>Bienvenido, verifica el servicio.</h4>
         <ul id="profile-nav">
-            <li><a href="{% url 'lista_ganado' %}">Listar Ganado</a></li>
+            <li><a href="{% url 'list_cattle' %}">Listar Ganado</a></li>
         </ul>
     </div>
 {% endblock presentation %}

@@ -1,118 +1,257 @@
-{% extends "base.html" %}
+<!DOCTYPE HTML>
+<!--
+	Big Picture by HTML5 UP
+	html5up.net | @n33co
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>HatosGanaderos</title>
+		<!--<link href="{{ STATIC_URL }}/img/logo.png" rel="shortcut icon" />-->
+		<link rel="shortcut icon" href="{{ MEDIA_URL }}favicon.ico" type="image/x-icon" />
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		<!--[if lte IE 8]><script src="css/ie/html5shiv.js"></script><![endif]-->
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-{% block title %} Home {% endblock %}
-
-{% block presentation %}
-<div class="presentacion">
-	<div class="login_principal">
-		<h3>Ayuda a mejorar tu Entidad Ganadera</h3>
-		<h4>Administra tus registros de producción, alimentación, sanidad y producción. Además alertas y sugerencias oportunas.</h4>
+		<link rel="stylesheet" href="{{STATIC_URL}}css/skel.css">
+		<link rel="stylesheet" href="{{STATIC_URL}}css/style_landing.css">
+		<link rel="stylesheet" href="{{STATIC_URL}}css/style-wide.css">
+		<link rel="stylesheet" href="{{STATIC_URL}}css/style-normal.css">	
 		
-      	{% if user.is_authenticated %}
+		<link rel="stylesheet" href="{{STATIC_URL}}css/normalize.css">
+		<link rel="stylesheet" href="{{STATIC_URL}}css/style.css">
+		<link rel="stylesheet" href="{{STATIC_URL}}css/landing_page.css">
+
+		<link href='http://fonts.googleapis.com/css?family=Abel' rel='stylesheet' type='text/css'>
+		<link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+
+		{% load drealtimetags %}
+		{% ishout_js %}
+		<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+		<script type='text/javascript'>
+			$( document ).ready(function() {
+			    // use .on() to add a listener. you can add as many listeners as you want.
+			    ishout.on('alertchannel', function(data){
+			      var dt = eval('(' + data.msg + ')');
+			      if(data.number_messages > 0){
+			      	$("#messages2").css("visibility", "visible");
+			      	$('#messages2').html(data.number_messages);
+			      }else{
+			      	$("#messages2").css("visibility", "visible");
+			      }
+			    }).on('notifications', function(data){
+			      if(data.number_notifications > 0){
+			      	$("#notifications").css("visibility", "visible");
+			      	$('#notifications').html(data.number_notifications);
+			      }else{
+			      	$("#notifications").css("visibility", "hidden");
+			      }
+			    }).init();
+			});
+			    // .init() will authenticate against the ishout.js server, and open the WebSocket connection.
+			    //ishout.init();
+		  </script>
+
+	</head>
+	<body>
+
+		<!-- Header -->
+			<header class="header">
+				<div class="logo left">
+					<a href="/" alt='Home'><img src="{{STATIC_URL}}img/logo.png" alt="SID_GV">
+				</div>
+
+				{% if user.is_authenticated %}
+					<div class="titular2">
+						<h1 class="titulo">HatosGanaderos</h1>
+						<h1 class="subtitulo">Sistema que mejora tu ganadería</h1>
+					</div>
+				{% else %}
+					<div class="titular">
+						<h1 class="titulo">HatosGanaderos</h1>
+						<h1 class="subtitulo">Sistema que mejora tu ganadería</h1>
+					</div>		
+				{% endif %}
+				</a>
+
+				<nav>
+					{% if user.is_authenticated %}
+						<div class="usuario">
+								<a href="{% url 'list_notifications' %}">
+									<span id="notifications">{{number_messages}}</span>
+								</a>
+							
+								<a href="{% url 'messages_list' %}">
+									{% if number_messages > 0 %}
+										<span id="messages2" style="visibility:visible">{{number_messages}}</span>
+									{% else %}
+										<span id="messages2">{{number_messages}}</span>
+									{% endif %}
+								</a>
+							<figure class="avatar">
+								<img class="mugshot" src="{{ user.profile_user.get_mugshot_url }}" />
+							</figure>
+							<div class="menu" href="#">
+								<div class="menu_expan">
+
+									<div class="espacio_menu1">
+										<div class="titulo_menu_expan">Módulos</div>
+										<hr>
+										<a class="items" href="{% url 'add_cattle' %}">Reproducción</a>
+										<a class="items" href="{% url 'add_wormer' %}">Sanidad</a>
+										<a class="items" href="{% url 'lista_ganado_produccion' user.username %}">Producción</a>
+										<a class="items" href="{% url 'add_food' %}">Alimentación</a>
+										<a class="items" href="{% url 'messages_list' %}">Mensajería</a>
+										<a class="items" href="{% url 'list_notifications' %}">Notificaciones</a>
+										<a class="items" href="{% url 'list_reports' %}">Reportes</a>
+									</div>
+									
+									<div class="espacio_menu2">
+										<div class="titulo_menu_expan">Configuración</div>
+										<hr>
+										<a class="items" href="{% url 'userena_profile_detail' user.username %}">Mi Cuenta</a>
+										{% if user.is_staff %}
+											<a class="items" href="{% url 'add_profile' %}">Técnicos</a>
+										{% endif %}
+									</div>
+
+									<div class="espacio_menu3">
+										<div class="titulo_menu_expan">Sesión</div>
+										<hr>
+										<a class="items" href="{% url 'userena_signout' %}">Salir</a>
+									</div>
+
+								</div>
+							</div>
+						</div>
+					{% else %}
+					{% endif %}
+					
+				</nav>
+			</header>	
+			
+		<!-- Intro -->
+			<section id="intro" class="main style1 dark fullscreen">
+				<div class="content container small">
+					<header>
+						<h2>Hatos Ganaderos</h2>
+					</header>
+					<p>HatosGanaderos te ayuda con el control y organización de <strong>reproducción, alimentación, sanidad y producción</strong> de toda tu entidad ganadera. </p>
+					{% if user.is_authenticated %}
       	
-        {% else %}
-	        <spam>
-				<a href="{% url 'userena_signup' %}" class="btnRegistroEntidad">Registrar</a>
-			</spam>
-			<spam>
-				<a href="{% url 'userena_signin' %}" class="btnIngresar">Ingresar</a>
-			</spam>
-        {% endif %}	
-    </div>
-    <div class="img_portada">
-		<img src="{{STATIC_URL}}img/vaca_portada.jpg" alt="HatosGanaderos">
-	</div>
-</div>
-
-<div class="mensaje">
-	<div class="titulo_mensaje">Conoce nuestros modulos</div>
-	<div class="subtitulo_mensaje">Disfruta de una interfaz limpia y funcional, que satisfaga todas las necesidades de una entidad ganadera.</div>
-</div>
-
-<hr>
-{% endblock %}
-
-{% block content %}
-	<div class="posts">
-		<article class="post1">
-				<div class="img_titulo">
-					<img src="{{STATIC_URL}}img/img_reproduccion.png">
+			        {% else %}
+				        <spam>
+							<a href="{% url 'userena_signup' %}" class="btnRegistroEntidad">Registrar</a>
+						</spam>
+						<spam>
+							<a href="{% url 'userena_signin' %}" class="btnIngresar">Ingresar</a>
+						</spam>
+			        {% endif %}	
+					<footer>
+						<a href="#one" class="button style2 down">More</a>
+					</footer>
 				</div>
-				<h2 class="titulo_post">
-					Módulo de Reproducción
-				</h2>
-				<h3 class="subtitulo_post">El módulo de reproducción esta disponible con el objetivo de mejorar el control de tus ganados en los apectos siguientes: agregar, editar, manejo de etapas, ciclos, celo, gestación. Es un módulo que debe estar a tu alcance.
-				</h3>
-		</article>
-
-		<hr>
-
-		<article class="post2">
-			
-				<div class="img_titulo">
-					<img src="{{STATIC_URL}}img/img_alimentacion.png">
-				</div>
-				<h2 class="titulo_post">
-					Módulo de Alimentación
-				</h2>
-				<h3 class="subtitulo_post">El módulo de alimentación tiene la finalidad de registrar y editar el alimento que suministras a tus ganados con atributos como fecha de caducidad, cantidad de producto, etc. Además se mantiene un registro del consumo de alimento de cada animal. 
-				</h3>
-			
-		</article>
-
-		<hr>
-
-		<article class="post3">
-			
-			<div class="img_titulo">
-				<img src="{{STATIC_URL}}img/img_sanidad.png">
-			</div>
-			<h2 class="titulo_post">
-				Módulo de Sanidad
-			</h2>
-			<h3 class="subtitulo_post">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-			consequat.
-			</h3>
-			
-		</article>
-
-		<hr>
-
-		<article class="post4">
-			
-			<div class="img_titulo">
-					<img src="{{STATIC_URL}}img/img_produccion.png">
-				</div>
-				<h2 class="titulo_post">
-					Módulo de Producción
-				</h2>
-				<h3 class="subtitulo_post">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-				consequat.
-				</h3>
-			
-		</article>
-
-		<hr>
-
-		<article class="post5">
-			
-			<div class="img_titulo">
-					<img src="{{STATIC_URL}}img/img_alertas.png">
-				</div>
-				<h2 class="titulo_post">
-					Alertas y Sugerencias
-				</h2>
-				<h3 class="subtitulo_post">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-				consequat.
-				</h3>
-			
-		</article>
+			</section>
 		
-	</div>
-{% endblock content %}
+		<!-- One -->
+			<section id="one" class="main style2 right dark fullscreen">
+				<div class="content box style2">
+					<header>
+						<h2>Reproducción</h2>
+					</header>
+					<p>El módulo de reproducción esta disponible con el objetivo de mejorar el control de tus ganados en los apectos siguientes: agregar, editar, manejo de etapas, ciclos, celo, gestación. Es un módulo que debe estar a tu alcance.</p>
+				</div>
+				<a href="#two" class="button style2 down anchored">Next</a>
+			</section>
+		
+		<!-- Two -->
+			<section id="two" class="main style2 left dark fullscreen">
+				<div class="content box style2">
+					<header>
+						<h2>Alimentación</h2>
+					</header>
+					<p>El módulo de alimentación tiene la finalidad de registrar y editar el alimento que suministres a tus ganados con atributos como fecha de caducidad, cantidad de producto, etapa, etc. Además se mantiene un registro del consumo de alimento de cada animal. </p>
+				</div>
+				<a href="#three" class="button style2 down anchored">Next</a>
+			</section>
+
+		<!-- Three -->
+			<section id="three" class="main style2 right dark fullscreen">
+				<div class="content box style2">
+					<header>
+						<h2>Sanidad</h2>
+					</header>
+					<p>El módulo de sanidad se encargará de registrar, editar y asignar las medicinas que brindes a tus ganados, medicinas como: desparacitadores y vacunas. De está manera podrás obtener ganados sanos además de cumplir con las normas o leyes de cada país en proveer vacunas a tus ganados.</p>
+				</div>
+				<a href="#four" class="button style2 down anchored">Next</a>
+			</section>
+
+		<!-- Four -->
+			<section id="four" class="main style2 left dark fullscreen">
+				<div class="content box style2">
+					<header>
+						<h2>Producción</h2>
+					</header>
+					<p>El módulo de producción está encargado de mantener el registro diario de la producción de leche, los ordeños diarios son configurables y sabrás cuán productivo es un ganado. Además podrás tomar las medidas necesarias para incrementar más su productividad.</p>
+				</div>
+				<a href="#intro" class="button style2 down anchored">Next</a>
+			</section>
+			
+			
+		<!-- Footer -->
+			<footer id="footer">
+
+				<!-- Icons -->
+					<ul class="actions">
+						<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+						<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+						<li><a href="#" class="icon fa-google-plus"><span class="label">Google+</span></a></li>
+						<li><a href="#" class="icon fa-github"><span class="label">GitHub</span></a></li>
+					</ul>
+
+				<!-- Menu -->
+					<ul class="menu">
+						<li>&copy; 2014</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+					</ul>
+			
+			</footer>
+
+		<script src="{{STATIC_URL}}js/jquery.min.js"></script>
+		<script src="{{STATIC_URL}}js/jquery.poptrox.min.js"></script>
+		<script src="{{STATIC_URL}}js/jquery.scrolly.min.js"></script>
+		<script src="{{STATIC_URL}}js/jquery.scrollgress.min.js"></script>
+		<script src="{{STATIC_URL}}js/skel.min.js"></script>
+		<script src="{{STATIC_URL}}js/init.js"></script>
+		<script>
+			function refresh() {
+				$.ajax({
+				  data: '',
+		          type:'GET',
+		          contentType: 'application/json; charset=utf-8',
+		          dateType:'json',
+		          url:'/ajax/refresh/',
+		          beforeSend: function(objeto){
+		          },
+		          
+		          success:function(response){
+		            	console.log("Llame a la funcion refresh(). XD");
+		            	
+		          },
+
+		          error: function(objeto, error){
+		          },
+
+		        });
+					bucle = setTimeout(function(){refresh()}, 50000);
+			}
+			
+			refresh();
+			//refresh = setTimeout(function(){refresh()}, milisengundos);
+
+		</script>
+		
+		
+	</body>
+</html>

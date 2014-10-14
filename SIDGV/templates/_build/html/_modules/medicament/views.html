@@ -1,0 +1,235 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>medicament.views &mdash; HatosGanaderos 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="HatosGanaderos 1.0 documentation" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">HatosGanaderos 1.0 documentation</a> &raquo;</li>
+          <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for medicament.views</h1><div class="highlight"><pre>
+<span class="c"># -*- encoding: utf-8 -*-</span>
+<span class="kn">from</span> <span class="nn">django.contrib.auth.decorators</span> <span class="kn">import</span> <span class="n">login_required</span>
+<span class="kn">from</span> <span class="nn">django.core.urlresolvers</span> <span class="kn">import</span> <span class="n">reverse</span>
+<span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">redirect</span><span class="p">,</span> <span class="n">get_object_or_404</span><span class="p">,</span> <span class="n">render</span>
+<span class="kn">from</span> <span class="nn">django.core.exceptions</span> <span class="kn">import</span> <span class="n">ObjectDoesNotExist</span>
+<span class="kn">from</span> <span class="nn">userena.utils</span> <span class="kn">import</span> <span class="n">get_user_model</span>
+<span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">render_to_response</span>
+<span class="kn">from</span> <span class="nn">django.template</span> <span class="kn">import</span> <span class="n">RequestContext</span>
+<span class="kn">from</span> <span class="nn">profiles.models</span> <span class="kn">import</span> <span class="n">Ganaderia</span>
+<span class="kn">from</span> <span class="nn">ganados.models</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">ganados.forms</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">medicament.forms</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">medicament.models</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">django.contrib.auth.models</span> <span class="kn">import</span> <span class="n">User</span>
+<span class="kn">from</span> <span class="nn">django.db.models</span> <span class="kn">import</span> <span class="n">Q</span>
+
+<span class="nd">@login_required</span>
+<div class="viewcode-block" id="add_wormer"><a class="viewcode-back" href="../../medicament.html#medicament.views.add_wormer">[docs]</a><span class="k">def</span> <span class="nf">add_wormer</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+	<span class="n">user</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span>
+	<span class="k">try</span><span class="p">:</span>
+		<span class="n">ganaderia</span> <span class="o">=</span> <span class="n">Ganaderia</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">perfil</span><span class="o">=</span><span class="n">user</span><span class="p">)</span>
+	<span class="k">except</span> <span class="n">ObjectDoesNotExist</span><span class="p">:</span>
+		<span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">reverse</span><span class="p">(</span><span class="s">&#39;agrega_ganaderia_config&#39;</span><span class="p">))</span>
+	
+	<span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s">&#39;POST&#39;</span><span class="p">:</span>
+		<span class="n">form_worme</span> <span class="o">=</span> <span class="n">wormerForm</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">)</span>
+		<span class="k">if</span> <span class="n">form_worme</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
+			<span class="n">form_wormer</span> <span class="o">=</span> <span class="n">form_worme</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">commit</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+			<span class="n">form_wormer</span><span class="o">.</span><span class="n">farm</span> <span class="o">=</span> <span class="n">ganaderia</span>
+			<span class="n">form_wormer</span><span class="o">.</span><span class="n">is_vaccine</span> <span class="o">=</span> <span class="bp">False</span>
+			<span class="n">form_wormer</span><span class="o">.</span><span class="n">is_wormer</span> <span class="o">=</span> <span class="bp">True</span>
+			<span class="n">form_wormer</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="mi">0</span>
+			<span class="n">form_wormer</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+			<span class="c">#a = (1,2)</span>
+			<span class="c">#form_wormer.cattle.add(1)</span>
+			<span class="c">#form_wormer.cattle.add(2)</span>
+			<span class="c">#form_worme.save_m2m()</span>
+			<span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">reverse</span><span class="p">(</span><span class="s">&#39;list_wormer&#39;</span><span class="p">))</span>
+
+	<span class="k">elif</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s">&#39;GET&#39;</span><span class="p">:</span>
+		<span class="n">form_wormer</span> <span class="o">=</span> <span class="n">wormerForm</span><span class="p">()</span>
+
+	<span class="k">return</span> <span class="n">render_to_response</span><span class="p">(</span><span class="s">&#39;add_wormer.html&#39;</span><span class="p">,</span>
+								<span class="p">{</span><span class="s">&#39;form_wormer&#39;</span><span class="p">:</span> <span class="n">form_wormer</span><span class="p">,},</span>
+								<span class="n">context_instance</span><span class="o">=</span><span class="n">RequestContext</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+		<span class="p">)</span>
+</div>
+<span class="nd">@login_required</span>
+<div class="viewcode-block" id="list_wormer"><a class="viewcode-back" href="../../medicament.html#medicament.views.list_wormer">[docs]</a><span class="k">def</span> <span class="nf">list_wormer</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+	<span class="n">user</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span>
+
+	<span class="n">medicaments</span> <span class="o">=</span> <span class="n">Medicament</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">is_wormer</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">farm_id</span><span class="o">=</span><span class="n">user</span><span class="p">)</span>
+	
+	<span class="k">return</span> <span class="n">render_to_response</span><span class="p">(</span><span class="s">&#39;list_wormer.html&#39;</span><span class="p">,</span>
+								<span class="p">{</span><span class="s">&#39;medicaments&#39;</span><span class="p">:</span> <span class="n">medicaments</span><span class="p">},</span>
+								<span class="n">context_instance</span><span class="o">=</span><span class="n">RequestContext</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+							<span class="p">)</span>
+</div>
+<span class="nd">@login_required</span>
+<div class="viewcode-block" id="edit_wormer"><a class="viewcode-back" href="../../medicament.html#medicament.views.edit_wormer">[docs]</a><span class="k">def</span> <span class="nf">edit_wormer</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">id_medicament</span><span class="p">):</span>
+	<span class="n">medicament</span> <span class="o">=</span> <span class="n">Medicament</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">id_medicament</span><span class="p">)</span>
+	<span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s">&#39;GET&#39;</span><span class="p">:</span>
+		<span class="n">form_medicament</span> <span class="o">=</span> <span class="n">wormerForm</span><span class="p">(</span><span class="n">instance</span><span class="o">=</span><span class="n">medicament</span><span class="p">)</span>
+	<span class="k">elif</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s">&#39;POST&#39;</span><span class="p">:</span>
+		<span class="n">form_medicament</span> <span class="o">=</span> <span class="n">wormerForm</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">,</span> <span class="n">instance</span><span class="o">=</span><span class="n">medicament</span><span class="p">)</span>
+		<span class="k">if</span> <span class="n">form_medicament</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
+			<span class="n">form_medicament</span> <span class="o">=</span> <span class="n">form_medicament</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">commit</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+			<span class="n">form_medicament</span><span class="o">.</span><span class="n">farm</span> <span class="o">=</span> <span class="n">medicament</span><span class="o">.</span><span class="n">farm</span>
+			<span class="n">form_medicament</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+			<span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">reverse</span><span class="p">(</span><span class="s">&#39;list_wormer&#39;</span><span class="p">))</span>
+
+	<span class="k">return</span> <span class="n">render_to_response</span><span class="p">(</span><span class="s">&#39;edit_wormer.html&#39;</span><span class="p">,</span>
+								<span class="p">{</span><span class="s">&#39;form_wormer&#39;</span><span class="p">:</span> <span class="n">form_medicament</span><span class="p">},</span>
+								<span class="n">context_instance</span><span class="o">=</span><span class="n">RequestContext</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+							<span class="p">)</span>
+</div>
+<span class="nd">@login_required</span>
+<div class="viewcode-block" id="asign_wormer"><a class="viewcode-back" href="../../medicament.html#medicament.views.asign_wormer">[docs]</a><span class="k">def</span> <span class="nf">asign_wormer</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">wormer_id</span><span class="p">):</span>
+
+	<span class="k">return</span> <span class="n">render_to_response</span><span class="p">(</span><span class="s">&#39;asign_wormer.html&#39;</span><span class="p">,</span>
+								<span class="p">{</span><span class="s">&#39;id_wormer&#39;</span><span class="p">:</span> <span class="n">wormer_id</span><span class="p">},</span>
+								<span class="n">context_instance</span><span class="o">=</span><span class="n">RequestContext</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+							<span class="p">)</span>
+
+<span class="c"># vaccine</span></div>
+<span class="nd">@login_required</span>
+<div class="viewcode-block" id="add_vaccine"><a class="viewcode-back" href="../../medicament.html#medicament.views.add_vaccine">[docs]</a><span class="k">def</span> <span class="nf">add_vaccine</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+	<span class="n">user</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span>
+	<span class="n">ganaderia</span> <span class="o">=</span> <span class="n">Ganaderia</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">perfil</span><span class="o">=</span><span class="n">user</span><span class="p">)</span>
+	<span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s">&#39;POST&#39;</span><span class="p">:</span>
+		<span class="n">form_vaccine</span> <span class="o">=</span> <span class="n">vaccineForm</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">)</span>
+		<span class="k">if</span> <span class="n">form_vaccine</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
+			<span class="n">form_vaccine</span> <span class="o">=</span> <span class="n">form_vaccine</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">commit</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+			<span class="n">form_vaccine</span><span class="o">.</span><span class="n">farm</span> <span class="o">=</span> <span class="n">ganaderia</span>
+			<span class="n">form_vaccine</span><span class="o">.</span><span class="n">is_vaccine</span> <span class="o">=</span> <span class="bp">True</span>
+			<span class="n">form_vaccine</span><span class="o">.</span><span class="n">is_wormer</span> <span class="o">=</span> <span class="bp">False</span>
+			<span class="n">form_vaccine</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="mi">0</span>
+			<span class="n">form_vaccine</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+			
+			<span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">reverse</span><span class="p">(</span><span class="s">&#39;list_vaccine&#39;</span><span class="p">))</span>
+
+	<span class="k">elif</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s">&#39;GET&#39;</span><span class="p">:</span>
+		<span class="n">form_vaccine</span> <span class="o">=</span> <span class="n">vaccineForm</span><span class="p">()</span>
+	<span class="k">return</span> <span class="n">render_to_response</span><span class="p">(</span><span class="s">&#39;add_vaccine.html&#39;</span><span class="p">,</span>
+								<span class="p">{</span><span class="s">&#39;form_vaccine&#39;</span><span class="p">:</span> <span class="n">form_vaccine</span><span class="p">},</span>
+								<span class="n">context_instance</span><span class="o">=</span><span class="n">RequestContext</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+		<span class="p">)</span>
+</div>
+<span class="nd">@login_required</span>
+<div class="viewcode-block" id="list_vaccine"><a class="viewcode-back" href="../../medicament.html#medicament.views.list_vaccine">[docs]</a><span class="k">def</span> <span class="nf">list_vaccine</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+	<span class="n">user</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span>
+	<span class="n">medicaments</span> <span class="o">=</span> <span class="n">Medicament</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">is_vaccine</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">farm_id</span><span class="o">=</span><span class="n">user</span><span class="p">)</span>
+
+	<span class="k">return</span> <span class="n">render_to_response</span><span class="p">(</span><span class="s">&#39;list_vaccine.html&#39;</span><span class="p">,</span>
+								<span class="p">{</span><span class="s">&#39;vaccines&#39;</span><span class="p">:</span> <span class="n">medicaments</span><span class="p">},</span>
+								<span class="n">context_instance</span><span class="o">=</span><span class="n">RequestContext</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+							<span class="p">)</span>
+</div>
+<span class="nd">@login_required</span>
+<div class="viewcode-block" id="edit_vaccine"><a class="viewcode-back" href="../../medicament.html#medicament.views.edit_vaccine">[docs]</a><span class="k">def</span> <span class="nf">edit_vaccine</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">id_medicament</span><span class="p">):</span>
+	<span class="n">medicament</span> <span class="o">=</span> <span class="n">Medicament</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">id_medicament</span><span class="p">)</span>
+	<span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s">&#39;GET&#39;</span><span class="p">:</span>
+		<span class="n">form_medicament</span> <span class="o">=</span> <span class="n">vaccineForm</span><span class="p">(</span><span class="n">instance</span><span class="o">=</span><span class="n">medicament</span><span class="p">)</span>
+	<span class="k">elif</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s">&#39;POST&#39;</span><span class="p">:</span>
+		<span class="n">form_medicament</span> <span class="o">=</span> <span class="n">vaccineForm</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">,</span> <span class="n">instance</span><span class="o">=</span><span class="n">medicament</span><span class="p">)</span>
+		<span class="k">if</span> <span class="n">form_medicament</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
+			<span class="n">form_medicament</span> <span class="o">=</span> <span class="n">form_medicament</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">commit</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+			<span class="n">form_medicament</span><span class="o">.</span><span class="n">farm</span> <span class="o">=</span> <span class="n">medicament</span><span class="o">.</span><span class="n">farm</span>
+			<span class="n">form_medicament</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+			<span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">reverse</span><span class="p">(</span><span class="s">&#39;list_vaccine&#39;</span><span class="p">))</span>
+
+	<span class="k">return</span> <span class="n">render_to_response</span><span class="p">(</span><span class="s">&#39;edit_vaccine.html&#39;</span><span class="p">,</span>
+								<span class="p">{</span><span class="s">&#39;form_vaccine&#39;</span><span class="p">:</span> <span class="n">form_medicament</span><span class="p">},</span>
+								<span class="n">context_instance</span><span class="o">=</span><span class="n">RequestContext</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+							<span class="p">)</span>
+</div>
+<span class="nd">@login_required</span>
+<div class="viewcode-block" id="asign_vaccine"><a class="viewcode-back" href="../../medicament.html#medicament.views.asign_vaccine">[docs]</a><span class="k">def</span> <span class="nf">asign_vaccine</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">vaccine_id</span><span class="p">):</span>
+
+	<span class="k">return</span> <span class="n">render_to_response</span><span class="p">(</span><span class="s">&#39;asign_vaccine.html&#39;</span><span class="p">,</span>
+								<span class="p">{</span><span class="s">&#39;id_vaccine&#39;</span><span class="p">:</span> <span class="n">vaccine_id</span><span class="p">},</span>
+								<span class="n">context_instance</span><span class="o">=</span><span class="n">RequestContext</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+							<span class="p">)</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">HatosGanaderos 1.0 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, @mricharleon.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

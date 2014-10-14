@@ -11,6 +11,8 @@ from django.db.models import Q
 
 from profiles.models import Profile, Ganaderia, Configuracion
 from messages.models import Message
+from notifications.models import Notification
+from django.core.exceptions import ObjectDoesNotExist
 
 from drealtime import iShoutClient
 ishout_client = iShoutClient()
@@ -29,6 +31,7 @@ def number_messages(request, username):
 def home(request):
 	user = request.user
 	number_message = number_messages(request, user.username )
+
 	return render_to_response('home.html',
 							 	{'number_messages': number_message,},
 								context_instance=RequestContext(request))

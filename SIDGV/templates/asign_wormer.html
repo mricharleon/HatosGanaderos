@@ -1,0 +1,209 @@
+{% extends 'userena/base_userena.html' %}
+{% load i18n %}
+{% load url from future %}
+
+{% block title %}Listado de ganados{% endblock %}
+
+{% block js %}
+<script type='text/javascript'>
+
+    var listCattle = new Array();
+    function listAssignCattleWormer(new_cattle){
+        listCattle.push(new_cattle);
+    }
+
+    function removeCattleFood(id){
+        var indice = $.inArray( id, listCattle );
+        listCattle = $.grep(listCattle, function(value) {
+                return value != id;
+            });
+        viewAssignCattleWormer();
+        $('li.'+id).remove();
+
+        if(listCattle.length < 1){
+            $('.tags').append('<center><h5>Lista aún vacía</h5></center>');
+        }
+    }
+
+    function assignCattleWormer(id, nombre){
+        var link = 'onclick="removeCattleFood(pk)"';
+        link = link.replace('pk', id);
+        var link2 = 'class="pk"';
+        link2 = link2.replace('pk', id);
+        
+        $('.tags').append('<li '+link2+'> #'+id+' '+nombre+'<span '+link+' >X</span></li>')
+        listAssignCattleWormer(id);
+        $('#'+id+'').parent().empty();
+
+        if(listCattle.length > 0){
+            $('.tags h5').empty().remove();
+        }
+    }
+
+
+    function viewAssignCattleWormer(){
+      var antes;
+      var busqueda = $("#busqueda").val();
+      var jsonlistCattle = JSON.stringify(listCattle);
+        $.ajax({
+          data: {'search': busqueda, 'listCattle': jsonlistCattle},
+          type:'GET',
+          contentType: 'application/json; charset=utf-8',
+          dateType:'json',
+          url:'/ajax/assign_cattle_wormer/',
+          beforeSend: function(objeto){
+            antes = (new Date()).getTime(); 
+            $('.message_results').html('Buscando "'+busqueda+'"');
+          },
+          
+          success:function(response){
+            var despues = (new Date()).getTime();
+            tiempo = (despues - antes) / 1000;
+            $('.content').empty();
+            if(response!=''){
+              for (var i = 0; i < response.length; i++) {
+                if($.inArray( response[i].pk, listCattle ) < 0){
+                    age = "" + response[i].fields.edad_anios + " años, " + response[i].fields.edad_meses + " meses y " + response[i].fields.edad_dias + " días";
+
+                    var name = response[i].fields.nombre.charAt(0).toUpperCase() + response[i].fields.nombre.slice(1); 
+                    
+                    var link = 'onclick="assignCattleWormer(pk, nombre)"';
+                    link = link.replace('pk', response[i].pk);
+                    link = link.replace("nombre", "'"+response[i].fields.nombre+"'");            
+
+                    $('.content').append(
+                        "<div class=cinta>"+
+                        "<a>"+ 
+                          "<div id="+response[i].pk+" "+link+">"+
+                          "<span class=id_cattle>"+response[i].pk+"</span>"+
+                                  "<img src={{MEDIA_URL}}"+response[i].fields.imagen+" />"+
+                                  "<h4 class=texto_propiedades1>" + name+ "</h4>" +
+                                  "<hr>"+
+                                  "<h4 class=texto_propiedades3>" + age + "</h4>" +
+                                  "<div class=icon_assign_cattle>"+
+                                  "</div>"+
+                          "</div>"+
+                        "</a>"+
+                        "<p>"+
+                          "<span>"+response[i].fields.rp+"</span>"+
+                        "</p>"+
+                      "</div>"
+                      ); 
+                    if(response.length == 1){
+                      $('.message_results').html(response.length - listCattle.length + ' resultado encontrado. (');
+                      $('.message_results').append(tiempo + ' segundos)');
+                    }else{
+                      $('.message_results').html(response.length -listCattle.length + ' resultados encontrados. (');
+                      $('.message_results').append(tiempo + ' segundos)');
+                    }                
+                }
+              }
+            }else{
+              $('.message_results').html('No se encuentra "'+busqueda+'"');
+            }
+          },
+
+          error: function(objeto, error){
+            $('.message_results').html('<strong>¡Se produjo un error!</strong> &nbsp; Verifica tu conexión a internet ó Contacta al administrador.');
+          },
+        });   
+    }
+
+
+    function ajaxAssignCattleWormerFinal(id_wormer){
+      var jsonlistCattle = JSON.stringify(listCattle);
+        $.ajax({
+          data: {'id_wormer': id_wormer, 'listCattle': jsonlistCattle},
+          type:'GET',
+          contentType: 'application/json; charset=utf-8',
+          dateType:'json',
+          url:'/ajax/assign_cattle_wormer_final/',
+
+          beforeSend: function(objeto){
+            $(".message_results").html('Procesando...')
+          },
+
+          success:function(response){
+            for (var i = 0; i < response.length; i++) {
+              if(response[i].state == 0){
+                
+                $(".exito").html('La asignación del desparacitador fue correcta.');
+                $(".exito").fadeIn(500).delay(2000).fadeOut(500);
+                
+                window.setTimeout(function(){
+                  window.location.replace("{% url 'list_wormer' %}");
+                }, 3000);
+              }else if(response[i].state == 1){
+                $('.message_results').html('<strong>Insuficiente Desparacitador</strong> (Existente: '+response[i].amount+' '+response[i].unit+' - Solicitado: '+response[i].amount_now+' '+response[i].unit+') - c/g: '+response[i].consumer_amount+' '+response[i].unit+'');
+              }else if(response[i].state == 2){
+                $('.message_results').html('<strong>Advertencia </strong>No hay ganados seleccionados para asignar el desparacitador!');  
+              }
+            }
+          },
+
+          error: function(objeto, error){
+            $('.message_results').html('<strong>¡Se produjo un error!</strong> &nbsp; Verifica tu conexión a internet ó Contacta al administrador.');
+          },
+        });
+    }
+
+    function assignCattleWormerFinal(id_wormer){
+        ajaxAssignCattleWormerFinal(id_wormer);
+    }
+
+  $(document).ready(function() {
+    $('.busqueda').focus();
+
+    $( "#busqueda" ).on('keyup', function(tecla) {
+        viewAssignCattleWormer();
+    });
+});
+
+</script>
+{% endblock %}
+
+<!--window.setTimeout(function(){
+                window.location.replace("{% url 'list_food' %}");
+              }, 2500);-->
+
+{% block presentation %}
+    <div class="presentacion_principal">
+        <h3>Lista de Ganados a Asignar Desparacitador</h3>
+        <input type="text" class="busqueda" id="busqueda"  placeholder="RP, Nombre o año de nacimiento" >
+        <span class="btnAssign" onclick="assignCattleWormerFinal({{id_wormer}});">Asignar</span>
+    <div class="message_results">
+      
+    </div>
+    </div>
+
+    <div class="presentacionAssign">
+    <h3>Ganados</h3>
+    
+    <section class="container_tags">
+        <ul class="tags">
+            <center><h5>Lista aún vacía</h5></center>
+        </ul>
+      </section>
+    </div>
+{% endblock %}
+
+
+{% block content %}
+
+  <div class="exito"></div>
+  <div class="alert"></div>
+  <div class="error"></div>
+  <div class="info"></div>
+
+<div class="panel_assign_cattle">
+    <div class="container_assign_cattle">
+          <span class="title_container">
+              Seleccionar Ganados
+          </span>
+        <div class="content">
+            <center><h5>Los resultados estarán aquí</h5></center>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

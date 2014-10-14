@@ -3,23 +3,56 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	
+	<link rel="shortcut icon" href="{{ MEDIA_URL }}favicon.ico" type="image/x-icon" />
+
 	<link rel="stylesheet" href="{{STATIC_URL}}css/normalize.css">
-	<link rel="stylesheet" href="{{STATIC_URL}}css/style.css">
+	{% load static from staticfiles %}
+	<link rel="stylesheet" href="{% static "css/style.css" %}">	
+
+	<!--<link rel="stylesheet" href="{{STATIC_URL}}css/stjyle.css">-->
 	<link rel="stylesheet" href="{{STATIC_URL}}css/landing_page.css">
+	<link rel="stylesheet" href="{{STATIC_URL}}css/font-awesome.min.css">
+	
 
 	<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/jquery.datetimepicker.css"/>
 
 	<!--fuentes-->
-	<link href='http://fonts.googleapis.com/css?family=Abel' rel='stylesheet' type='text/css'>
-	<link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+	<!--<link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>-->
 	<!--modal reveal-->
 	<link rel="stylesheet" href="{{STATIC_URL}}css/reveal.css">
 
 	
 	<title>{% block title %}{% endblock %}</title>
+	{% load drealtimetags %}
+	{% ishout_js %}
+	<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+	<script type='text/javascript'>
+		
+		    // use .on() to add a listener. you can add as many listeners as you want.
+		    ishout.on('alertchannel', function(data){
+		      var dt = eval('(' + data.msg + ')');
+		      if(data.number_messages > 0){
+		      	$("#messages2").css("visibility", "visible");
+		      	$('#messages2').html(data.number_messages);
+		      }else{
+		      	$("#messages2").css("visibility", "visible");
+		      }
+		    }).on('notifications', function(data){
+		      if(data.number_notifications > 0){
+		      	$("#notifications").css("visibility", "visible");
+		      	$('#notifications').html(data.number_notifications);
+		      }else{
+		      	$("#notifications").css("visibility", "hidden");
+		      }
+		    }).init();
+
+		    // .init() will authenticate against the ishout.js server, and open the WebSocket connection.
+		    //ishout.init();
+	  </script>
 </head>
 <body>
-<header>
+<header class="header">
 	<div class="logo left">
 		<a href="/" alt='Home'><img src="{{STATIC_URL}}img/logo.png" alt="SID_GV">
 	</div>
@@ -42,17 +75,25 @@
 		{% block nav %}
 		{% if user.is_authenticated %}
 			<div class="usuario">
-				{% if number_alerts > 0 %}
-					<a href=""> 
-						<figure class="alerts"></figure>
+				
+					<a href="{% url 'list_notifications' %}">
+						{% if number_todas > 0 %}
+							<span id="notifications" style="visibility:visible">{{number_todas}}</span>
+						{% else %}
+							<span id="notifications">{{number_todas}}</span>
+						{% endif %}
 					</a>
-				{% endif %}
-
+				
 					<a href="{% url 'messages_list' %}">
-						<figure id="messages">{{number_messages}}</figure>
+						{% if number_messages > 0 %}
+							<span id="messages2" style="visibility:visible">{{number_messages}}</span>
+						{% else %}
+							<span id="messages2"></span>
+						{% endif %}
 					</a>
+
 				<figure class="avatar">
-					<img class="mugshot" src="{{ user.profile.get_mugshot_url }}" />
+					<img class="mugshot" src="{{ user.profile_user.get_mugshot_url }}" />
 				</figure>
 				<div class="menu" href="#">
 					<div class="menu_expan">
@@ -60,10 +101,13 @@
 						<div class="espacio_menu1">
 							<div class="titulo_menu_expan">Módulos</div>
 							<hr>
-							<a class="items" href="{% url 'agrega_ganado' user.username %}">Reproducción</a>
+							<a class="items" href="{% url 'add_cattle' %}">Reproducción</a>
 							<a class="items" href="{% url 'add_wormer' %}">Sanidad</a>
 							<a class="items" href="{% url 'lista_ganado_produccion' user.username %}">Producción</a>
 							<a class="items" href="{% url 'add_food' %}">Alimentación</a>
+							<a class="items" href="{% url 'messages_list' %}">Mensajería</a>
+							<a class="items" href="{% url 'list_notifications' %}">Notificaciones</a>
+							<a class="items" href="{% url 'list_reports' %}">Reportes</a>
 						</div>
 						
 						<div class="espacio_menu2">
@@ -73,7 +117,6 @@
 							{% if user.is_staff %}
 								<a class="items" href="{% url 'add_profile' %}">Técnicos</a>
 							{% endif %}
-							<a class="items" href="{% url 'messages_list' %}">Mensajes</a>
 						</div>
 
 						<div class="espacio_menu3">
@@ -103,6 +146,7 @@
 	<article>
 		{% block content %}
 			
+			
 		{% endblock %}
 	</article>
 
@@ -124,31 +168,7 @@
 	<!--datetime picker-->
 	<script src="{{STATIC_URL}}js/jquery.datetimepicker.js"></script>
 	
-	{% load drealtimetags %}
-	{% ishout_js %}
-	<script type='text/javascript'>
-		$(document).ready(function() {
-			
-
-            if({{number_messages}} > 0){
-           		$("#messages").css("visibility", "visible");
-            }
-		    // use .on() to add a listener. you can add as many listeners as you want.
-		    ishout.on('alertchannel', function(data){
-		      var dt = eval('(' + data.msg + ')');
-		      if(data.number_messages > 0){
-		      	document.getElementById("messages").style.visibility = "visible";
-		      	$('#messages').html(data.number_messages);
-		      }else{
-		      	document.getElementById("messages").style.visibility = "hidden";
-		      }
-		    });
-
-		    // .init() will authenticate against the ishout.js server, and open the WebSocket connection.
-		    ishout.init();
-        });
-	  </script>
-	  
+ 
 <script>
 $('#default_datetimepicker').datetimepicker({
 	formatTime:'H:i',
@@ -261,6 +281,34 @@ $('#datetimepicker12').datetimepicker({
 		return [true, ""];
 	}
 });
+</script>
+	
+<script>
+	function refresh() {
+		$.ajax({
+		  data: '',
+          type:'GET',
+          contentType: 'application/json; charset=utf-8',
+          dateType:'json',
+          url:'/ajax/refresh/',
+          beforeSend: function(objeto){
+          },
+          
+          success:function(response){
+            	console.log("Llame a la funcion refresh(). XD");
+            	
+          },
+
+          error: function(objeto, error){
+          },
+
+        });
+			bucle = setTimeout(function(){refresh()}, 50000);
+	}
+	
+	refresh();
+	//refresh = setTimeout(function(){refresh()}, milisengundos);
+
 </script>
 </body>
 </html>

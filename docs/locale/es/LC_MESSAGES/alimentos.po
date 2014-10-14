@@ -1,0 +1,71 @@
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: HatosGanaderos 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-10-09 22:34-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../alimentos.rst:2
+msgid "alimentos package"
+msgstr "Módulo de Alimentos"
+
+#: ../../alimentos.rst:5
+msgid "Submodules"
+msgstr ""
+
+#: ../../alimentos.rst:8
+msgid "alimentos.admin module"
+msgstr ""
+
+#: ../../alimentos.rst:16
+msgid "alimentos.forms module"
+msgstr ""
+
+#: ../../<autodoc>:1
+msgid "Bases: :class:`django.forms.models.ModelForm`"
+msgstr ""
+
+#: ../../alimentos.rst:24
+msgid "alimentos.models module"
+msgstr ""
+
+#: ../../<autodoc>:1 ../../<autodoc>:1
+msgid "Bases: :class:`django.db.models.base.Model`"
+msgstr ""
+
+#: ../../../alimentos/models.pydocstring of alimentos.models.ApplicationFood:1
+msgid "ApplicationFood(id, date, food_id, status)"
+msgstr ""
+
+#: ../../<autodoc>:1 ../../<autodoc>:1
+msgid "Bases: :class:`django.core.exceptions.ObjectDoesNotExist`"
+msgstr ""
+
+#: ../../<autodoc>:1 ../../<autodoc>:1
+msgid "Bases: :class:`django.core.exceptions.MultipleObjectsReturned`"
+msgstr ""
+
+#: ../../../alimentos/models.pydocstring of alimentos.models.Food:1
+msgid ""
+"Food(id, name, expiration_date, unit, amount, sex, farm_id, phase, "
+"consumer_amount, interval, time_interval, administration_route, "
+"observations, is_active)"
+msgstr ""
+
+#: ../../alimentos.rst:32
+msgid "alimentos.tests module"
+msgstr ""
+
+#: ../../alimentos.rst:40
+msgid "alimentos.views module"
+msgstr ""
+
+#: ../../alimentos.rst:49
+msgid "Module contents"
+msgstr ""

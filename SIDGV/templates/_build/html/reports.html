@@ -1,0 +1,199 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>reports package &mdash; HatosGanaderos 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="HatosGanaderos 1.0 documentation" href="index.html" />
+    <link rel="next" title="webServices package" href="webServices.html" />
+    <link rel="prev" title="profiles package" href="profiles.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="webServices.html" title="webServices package"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="profiles.html" title="profiles package"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">HatosGanaderos 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="reports-package">
+<h1>reports package<a class="headerlink" href="#reports-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-reports.admin">
+<span id="reports-admin-module"></span><h2>reports.admin module<a class="headerlink" href="#module-reports.admin" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-reports.models">
+<span id="reports-models-module"></span><h2>reports.models module<a class="headerlink" href="#module-reports.models" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-reports.tests">
+<span id="reports-tests-module"></span><h2>reports.tests module<a class="headerlink" href="#module-reports.tests" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="reports-views-module">
+<h2>reports.views module<a class="headerlink" href="#reports-views-module" title="Permalink to this headline">¶</a></h2>
+<p>Aquí tenemos las vistas del módulo de los reportes, que son eficacez para realizar los procesos de: listar reportes y la vista en si del reporte de ganados hembras de la ganadería.
+Example usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="nd">@login_required</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">lista_ganado_produccion</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">username</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">id_user</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="n">username</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">try</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">ganaderia</span> <span class="o">=</span> <span class="n">Ganaderia</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">perfil</span><span class="o">=</span><span class="n">id_user</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">except</span> <span class="n">ObjectDoesNotExist</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">reverse</span><span class="p">(</span><span class="s">&#39;agrega_ganaderia_config&#39;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">configuracion</span> <span class="o">=</span> <span class="n">Configuracion</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">ganaderia</span><span class="o">.</span><span class="n">configuracion_id</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">if</span> <span class="n">configuracion</span><span class="o">.</span><span class="n">tipo_identificacion</span> <span class="o">==</span> <span class="s">&#39;simple&#39;</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">gg</span> <span class="o">=</span> <span class="n">Ganado</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">ganaderia_id</span><span class="o">=</span><span class="n">ganaderia</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">genero</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">etapas__nombre</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ciclos__nombre</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">else</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">gg</span> <span class="o">=</span> <span class="n">Ganado</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">ganaderia_id</span><span class="o">=</span><span class="n">ganaderia</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">genero</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">return</span> <span class="n">render_to_response</span><span class="p">(</span><span class="s">&#39;lista_ganado_produccion.html&#39;</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="p">{</span><span class="s">&#39;ganado&#39;</span><span class="p">:</span><span class="n">gg</span><span class="p">},</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">context_instance</span><span class="o">=</span><span class="n">RequestContext</span><span class="p">(</span><span class="n">request</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">timedelta</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">year</span> <span class="o">=</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">365</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">another_year</span> <span class="o">=</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">weeks</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">days</span><span class="o">=</span><span class="mi">84</span><span class="p">,</span> <span class="n">hours</span><span class="o">=</span><span class="mi">23</span><span class="p">,</span>
+<span class="gp">... </span>                         <span class="n">minutes</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">seconds</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>  <span class="c"># adds up to 365 days</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">year</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span>
+<span class="go">31536000.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">year</span> <span class="o">==</span> <span class="n">another_year</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ten_years</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">year</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ten_years</span><span class="p">,</span> <span class="n">ten_years</span><span class="o">.</span><span class="n">days</span> <span class="o">//</span> <span class="mi">365</span>
+<span class="go">(datetime.timedelta(3650), 10)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nine_years</span> <span class="o">=</span> <span class="n">ten_years</span> <span class="o">-</span> <span class="n">year</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nine_years</span><span class="p">,</span> <span class="n">nine_years</span><span class="o">.</span><span class="n">days</span> <span class="o">//</span> <span class="mi">365</span>
+<span class="go">(datetime.timedelta(3285), 9)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">three_years</span> <span class="o">=</span> <span class="n">nine_years</span> <span class="o">//</span> <span class="mi">3</span><span class="p">;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">three_years</span><span class="p">,</span> <span class="n">three_years</span><span class="o">.</span><span class="n">days</span> <span class="o">//</span> <span class="mi">365</span>
+<span class="go">(datetime.timedelta(1095), 3)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">abs</span><span class="p">(</span><span class="n">three_years</span> <span class="o">-</span> <span class="n">ten_years</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">three_years</span> <span class="o">+</span> <span class="n">year</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<span class="target" id="module-reports.views"></span><dl class="function">
+<dt id="reports.views.list_reports">
+<tt class="descclassname">reports.views.</tt><tt class="descname">list_reports</tt><big>(</big><em>request</em><big>)</big><a class="reference internal" href="_modules/reports/views.html#list_reports"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#reports.views.list_reports" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="reports.views.view_report_female">
+<tt class="descclassname">reports.views.</tt><tt class="descname">view_report_female</tt><big>(</big><em>request</em>, <em>id_cattle</em><big>)</big><a class="reference internal" href="_modules/reports/views.html#view_report_female"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#reports.views.view_report_female" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-reports">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-reports" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">reports package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-reports.admin">reports.admin module</a></li>
+<li><a class="reference internal" href="#module-reports.models">reports.models module</a></li>
+<li><a class="reference internal" href="#module-reports.tests">reports.tests module</a></li>
+<li><a class="reference internal" href="#reports-views-module">reports.views module</a></li>
+<li><a class="reference internal" href="#module-reports">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="profiles.html"
+                        title="previous chapter">profiles package</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="webServices.html"
+                        title="next chapter">webServices package</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/reports.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="webServices.html" title="webServices package"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="profiles.html" title="profiles package"
+             >previous</a> |</li>
+        <li><a href="index.html">HatosGanaderos 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, @mricharleon.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

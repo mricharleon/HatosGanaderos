@@ -1,0 +1,114 @@
+{% extends 'userena/base_userena.html' %}
+{% load i18n %}
+{% load url from future %}
+
+{% block title %}Listado de ganados machos{% endblock %}
+
+{% block js %}
+<script type='text/javascript'>
+  $(document).ready(function() {
+    carga_datos();
+    function carga_datos(){
+      var antes;
+      var busqueda = $("#busqueda").val();
+        $.ajax({
+          data: {'search': busqueda},
+          type:'GET',
+          contentType: 'application/json; charset=utf-8',
+          dateType:'json',
+          url:'/ajax/cattle_male/',
+          beforeSend: function(objeto){
+            antes = (new Date()).getTime(); 
+            $('.message_results').html('Buscando "'+busqueda+'"');
+          },
+          
+          success:function(response){
+            var despues = (new Date()).getTime();
+            tiempo = (despues - antes) / 1000;
+            $('.account_list').empty();
+            if(response!=''){
+              for (var i = 0; i < response.length; i++) {
+                
+                var anios, meses, dias;
+                if(response[i].fields.edad_anios == 1) anios = ' año, '; else  anios = ' años, ';
+                if(response[i].fields.edad_meses == 1) meses = ' mes y '; else meses = ' meses y ';
+                if(response[i].fields.edad_dias == 1) dias = ' día'; else dias = ' dias';
+                
+                var nombre = response[i].fields.nombre.charAt(0).toUpperCase() + response[i].fields.nombre.slice(1); 
+                
+                var link_edit_cattle_male = '{% url 'edit_cattle_male' 'NEWVALUESTUB' %}';
+                link_edit_cattle_male = link_edit_cattle_male.replace('NEWVALUESTUB', response[i].pk);
+                
+                var menu = "<a href='"+link_edit_cattle_male+"'>"+
+                          "<li>Actualizar</li></a>";
+                
+
+                $('.account_list').append(
+                    "<div class=cinta>"+
+                      "<div class=context_menu>"+
+                        "<ul>"+menu+"</ul>"+
+                      "</div>"+
+                    "<a>"+ 
+                      "<div>"+
+                        "<img src={{MEDIA_URL}}"+response[i].fields.imagen+" />"+
+                              "<h4 class=texto_propiedades1>" + nombre+ "</h4>" +
+                              "<hr>"+
+                              "<h4 class=texto_propiedades3>" + response[i].fields.edad_anios+ anios +
+                                + response[i].fields.edad_meses+ meses +
+                                + response[i].fields.edad_dias+ dias +"</h4>" +
+                        "</div>"+
+                    "</a>"+
+                    "<p>"+
+                      "<span>"+response[i].fields.rp+"</span>"+
+                    "</p>"+
+                  "</div>"
+                ); 
+
+                if(response.length == 1){
+                  $('.message_results').html(response.length + ' resultado encontrado. (');
+                  $('.message_results').append(tiempo + ' segundos)');
+                }else{
+                  $('.message_results').html(response.length + ' resultados encontrados. (');
+                  $('.message_results').append(tiempo + ' segundos)');
+                }
+              }
+            }else{
+              $('.message_results').html('No se encuentra "'+busqueda+'"');
+            }
+          },
+
+          error: function(objeto, error){
+            $('.message_results').html('<strong>¡Se produjo un error!</strong> &nbsp; Verifica tu conexión a internet ó Contacta al administrador.');
+          },
+
+        });
+    }
+
+    $( "#busqueda" ).on('keyup', function(tecla) {
+      carga_datos();
+    });
+});
+
+</script>
+{% endblock %}
+
+{% block presentation %}
+<div class="presentacion_principal">
+    <h3>Lista de Ganados Machos</h3>
+    <h4>Listado de ganados registrados en la ganadería..</h4>
+    <input type="text" class="busqueda" id="busqueda"  placeholder="RP, nombre o año de nacimiento" >
+    <div class="message_results">
+      
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+
+<div class="account_list">
+
+<div class="content">
+
+
+
+{% endblock %}

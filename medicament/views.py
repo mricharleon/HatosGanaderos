@@ -13,11 +13,16 @@ from medicament.forms import *
 from medicament.models import *
 from django.contrib.auth.models import User
 from django.db.models import Q
+from profiles.views import number_messages
 
 @login_required
 def add_wormer(request):
 	user = request.user
-	ganaderia = Ganaderia.objects.get(perfil=user)
+	try:
+		ganaderia = Ganaderia.objects.get(perfil=user)
+	except ObjectDoesNotExist:
+		return redirect(reverse('agrega_ganaderia_config'))
+	number_message = number_messages(request, user.username)
 	
 	if request.method == 'POST':
 		form_worme = wormerForm(request.POST)
@@ -38,23 +43,28 @@ def add_wormer(request):
 		form_wormer = wormerForm()
 
 	return render_to_response('add_wormer.html',
-								{'form_wormer': form_wormer,},
+								{'form_wormer': form_wormer,
+								 'number_messages': number_message},
 								context_instance=RequestContext(request)
 		)
 
 @login_required
 def list_wormer(request):
 	user = request.user
+	number_message = number_messages(request, user.username)
 
 	medicaments = Medicament.objects.filter(is_wormer=True, farm_id=user)
 	
 	return render_to_response('list_wormer.html',
-								{'medicaments': medicaments},
+								{'medicaments': medicaments,
+								 'number_messages': number_message},
 								context_instance=RequestContext(request)
 							)
 
 @login_required
 def edit_wormer(request, id_medicament):
+	user = request.user
+	number_message = number_messages(request, user.username)
 	medicament = Medicament.objects.get(id=id_medicament)
 	if request.method == 'GET':
 		form_medicament = wormerForm(instance=medicament)
@@ -67,7 +77,19 @@ def edit_wormer(request, id_medicament):
 			return redirect(reverse('list_wormer'))
 
 	return render_to_response('edit_wormer.html',
-								{'form_wormer': form_medicament},
+								{'form_wormer': form_medicament,
+								 'number_messages': number_message},
+								context_instance=RequestContext(request)
+							)
+
+@login_required
+def asign_wormer(request, wormer_id):
+	user = request.user
+	number_message = number_messages(request, user.username)
+
+	return render_to_response('asign_wormer.html',
+								{'id_wormer': wormer_id,
+								 'number_messages': number_message},
 								context_instance=RequestContext(request)
 							)
 
@@ -75,6 +97,7 @@ def edit_wormer(request, id_medicament):
 @login_required
 def add_vaccine(request):
 	user = request.user
+	number_message = number_messages(request, user.username)
 	ganaderia = Ganaderia.objects.get(perfil=user)
 	if request.method == 'POST':
 		form_vaccine = vaccineForm(request.POST)
@@ -91,22 +114,27 @@ def add_vaccine(request):
 	elif request.method == 'GET':
 		form_vaccine = vaccineForm()
 	return render_to_response('add_vaccine.html',
-								{'form_vaccine': form_vaccine},
+								{'form_vaccine': form_vaccine,
+								 'number_messages': number_message},
 								context_instance=RequestContext(request)
 		)
 
 @login_required
 def list_vaccine(request):
 	user = request.user
+	number_message = number_messages(request, user.username)
 	medicaments = Medicament.objects.filter(is_vaccine=True, farm_id=user)
 
 	return render_to_response('list_vaccine.html',
-								{'vaccines': medicaments},
+								{'vaccines': medicaments,
+								 'number_messages': number_message},
 								context_instance=RequestContext(request)
 							)
 
 @login_required
 def edit_vaccine(request, id_medicament):
+	user = request.user
+	number_message = number_messages(request, user.username)
 	medicament = Medicament.objects.get(id=id_medicament)
 	if request.method == 'GET':
 		form_medicament = vaccineForm(instance=medicament)
@@ -119,6 +147,18 @@ def edit_vaccine(request, id_medicament):
 			return redirect(reverse('list_vaccine'))
 
 	return render_to_response('edit_vaccine.html',
-								{'form_vaccine': form_medicament},
+								{'form_vaccine': form_medicament,
+								 'number_messages': number_message},
+								context_instance=RequestContext(request)
+							)
+
+@login_required
+def asign_vaccine(request, vaccine_id):
+	user = request.user
+	number_message = number_messages(request, user.username)
+
+	return render_to_response('asign_vaccine.html',
+								{'id_vaccine': vaccine_id,
+								 'number_messages': number_message},
 								context_instance=RequestContext(request)
 							)

@@ -1,0 +1,125 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2014, @mricharleon
+# This file is distributed under the same license as the HatosGanaderos package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: HatosGanaderos 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-10-09 22:34-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../profiles.rst:2
+# 9968386ff5824e7495fe4c11fe871363
+msgid "profiles package"
+msgstr ""
+
+#: ../../profiles.rst:5
+# 608a16185ef44627b78fdb50de2ec051
+msgid "Submodules"
+msgstr ""
+
+#: ../../profiles.rst:8
+# 802034f1e2e0402da1f15e52b47e76e1
+msgid "profiles.admin module"
+msgstr ""
+
+#: ../../profiles.rst:16
+# 1814f9655c3644ba88c56b63ff9e210e
+msgid "profiles.forms module"
+msgstr ""
+
+#: ../../<autodoc>:1
+#: ../../<autodoc>:1
+# e9cbd5cc46684a1fbf9130b85a4eb95f
+# 50ceeb606d4a4e31849ea288ed491efe
+msgid "Bases: :class:`django.forms.models.ModelForm`"
+msgstr ""
+
+#: ../../<autodoc>:1
+# f469e129104d4c0d948597160f3124f5
+msgid "Bases: :class:`userena.forms.SignupForm`"
+msgstr ""
+
+#: ../../../profiles/forms.py:docstring of profiles.forms.SignupFormExtra:1
+# 8c009aadfb014e9abc694035ab7d9ed0
+msgid "A form to SIDGVnstrate how to add extra fields to the signup form, in this case adding the first and last name."
+msgstr ""
+
+#: ../../../profiles/forms.py:docstring of profiles.forms.SignupFormExtra.save:1
+# 640f5157822049faaf6bec0f6223079a
+msgid "Override the save method to save the first and last name to the user field."
+msgstr ""
+
+#: ../../profiles.rst:24
+# a88ee43e447a4228a09b7d244d934160
+msgid "profiles.models module"
+msgstr ""
+
+#: ../../<autodoc>:1
+#: ../../<autodoc>:1
+# 0fbca900048148a9bd8074057959b93e
+# 448696bf6cb545fcb469f6fefcce241a
+msgid "Bases: :class:`django.db.models.base.Model`"
+msgstr ""
+
+#: ../../../profiles/models.py:docstring of profiles.models.Configuracion:1
+# b0f052eb1d83418ab2cecdc7ebe46e25
+msgid "Configuracion(id, tipo_identificacion, celo_frecuencia, celo_frecuencia_error, celo_duracion, celo_duracion_error, celo_despues_parto, celo_despues_parto_error, intentos_verificacion_celo, etapa_ternera, etapa_vacona, etapa_vientre, periodo_gestacion, periodo_seco, periodo_lactancia, periodo_vacio, numero_ordenios)"
+msgstr ""
+
+#: ../../<autodoc>:1
+#: ../../<autodoc>:1
+#: ../../<autodoc>:1
+# cce9c7bdcd834d30a1c088d11d76ec4e
+# 5fc5952cf6f24e85932a86503b35aa48
+# 665d44d4854d468fb829aae6e082f583
+msgid "Bases: :class:`django.core.exceptions.ObjectDoesNotExist`"
+msgstr ""
+
+#: ../../<autodoc>:1
+#: ../../<autodoc>:1
+#: ../../<autodoc>:1
+# 3b4005d71c9a4cf287cecf56e52912c9
+# 6e665e0402664abea306ad5085845bee
+# 3060daa70fa04dd8b91fb71f16360638
+msgid "Bases: :class:`django.core.exceptions.MultipleObjectsReturned`"
+msgstr ""
+
+#: ../../../profiles/models.py:docstring of profiles.models.Ganaderia:1
+# bef0757dcd6c4e57b47d2cfb660f0a7f
+msgid "Ganaderia(id, nombreEntidad, direccion, configuracion_id)"
+msgstr ""
+
+#: ../../<autodoc>:1
+# 7282f79a56f946e6adcca3018361932d
+msgid "Bases: :class:`userena.models.UserenaLanguageBaseProfile`"
+msgstr ""
+
+#: ../../../profiles/models.py:docstring of profiles.models.Profile:1
+# 0aa8bde8c7314d4385ad58ce866834d2
+msgid "Default profile"
+msgstr ""
+
+#: ../../profiles.rst:32
+# e08df1535a254f3aa7b11626e97a4aa4
+msgid "profiles.tests module"
+msgstr ""
+
+#: ../../profiles.rst:40
+# f755ef2f28cb47a0b424fe4c7853e018
+msgid "profiles.views module"
+msgstr ""
+
+#: ../../profiles.rst:49
+# 8a0e60a090274f4e8b30244b3b51da74
+msgid "Module contents"
+msgstr ""
+

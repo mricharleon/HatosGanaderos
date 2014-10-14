@@ -1,0 +1,732 @@
+
+ganados package
+***************
+
+
+Submodules
+==========
+
+
+ganados.admin module
+====================
+
+
+ganados.forms module
+====================
+
+class class ganados.forms.attemptForm(data=None, files=None, auto_id=u'id_%s', prefix=None, initial=None, error_class=<class 'django.forms.util.ErrorList'>, label_suffix=None, empty_permitted=False, instance=None)
+
+   Bases: "django.forms.models.ModelForm"
+
+   class class Meta
+
+      exclude = ['attempt', 'attempt_date', 'state', 'verification']
+
+      model
+
+         alias of "Attempt"
+
+      widgets = {'observations': <django.forms.widgets.Textarea object at 0x2af372e43610>, 'rp_father': <django.forms.widgets.TextInput object at 0x2af372e43510>}
+
+   attemptForm.base_fields = {'observations': <django.forms.fields.CharField object at 0x2af372e43710>, 'type_conception': <django.forms.fields.TypedChoiceField object at 0x2af372e43790>, 'rp_father': <django.forms.fields.IntegerField object at 0x2af372e43850>}
+
+   attemptForm.declared_fields = {}
+
+   attemptForm.media
+
+class class ganados.forms.attemptServiceForm(data=None, files=None, auto_id=u'id_%s', prefix=None, initial=None, error_class=<class 'django.forms.util.ErrorList'>, label_suffix=None, empty_permitted=False, instance=None)
+
+   Bases: "django.forms.models.ModelForm"
+
+   class class Meta
+
+      exclude = ['verification']
+
+      model
+
+         alias of "Attempt"
+
+   attemptServiceForm.base_fields = {'attempt': <django.forms.fields.IntegerField object at 0x2af372e43c50>, 'attempt_date': <django.forms.fields.DateField object at 0x2af372e43cd0>, 'state': <django.forms.fields.TypedChoiceField object at 0x2af372e43d90>, 'observations': <django.forms.fields.CharField object at 0x2af372e43e50>, 'type_conception': <django.forms.fields.TypedChoiceField object at 0x2af372e43ed0>, 'rp_father': <django.forms.fields.IntegerField object at 0x2af372e43f50>}
+
+   attemptServiceForm.declared_fields = {}
+
+   attemptServiceForm.media
+
+class class ganados.forms.editaGanadoCeloForm(data=None, files=None, auto_id=u'id_%s', prefix=None, initial=None, error_class=<class 'django.forms.util.ErrorList'>, label_suffix=None, empty_permitted=False, instance=None)
+
+   Bases: "django.forms.models.ModelForm"
+
+   class class Meta
+
+      exclude = ['ganado', 'is_active', 'fecha_fin', 'estado']
+
+      model
+
+         alias of "Celo"
+
+      widgets = {'observaciones': <django.forms.widgets.Textarea object at 0x2af372e43450>, 'fecha_inicio': <django.forms.widgets.DateInput object at 0x2af372e37ed0>}
+
+   editaGanadoCeloForm.base_fields = {'fecha_inicio': <django.forms.fields.DateTimeField object at 0x2af372e43590>, 'observaciones': <django.forms.fields.CharField object at 0x2af372e435d0>}
+
+   editaGanadoCeloForm.declared_fields = {}
+
+   editaGanadoCeloForm.media
+
+class class ganados.forms.etapaForm(data=None, files=None, auto_id=u'id_%s', prefix=None, initial=None, error_class=<class 'django.forms.util.ErrorList'>, label_suffix=None, empty_permitted=False, instance=None)
+
+   Bases: "django.forms.models.ModelForm"
+
+   class class Meta
+
+      exclude = ['is_active']
+
+      model
+
+         alias of "Etapa"
+
+   etapaForm.base_fields = {'fecha_inicio': <django.forms.fields.DateField object at 0x2af372e37a10>, 'nombre': <django.forms.fields.TypedChoiceField object at 0x2af372e37ad0>, 'observaciones': <django.forms.fields.CharField object at 0x2af372e37b90>, 'ganado': <django.forms.models.ModelChoiceField object at 0x2af372e37dd0>}
+
+   etapaForm.declared_fields = {}
+
+   etapaForm.media
+
+class class ganados.forms.ganadoForm(data=None, files=None, auto_id=u'id_%s', prefix=None, initial=None, error_class=<class 'django.forms.util.ErrorList'>, label_suffix=None, empty_permitted=False, instance=None)
+
+   Bases: "django.forms.models.ModelForm"
+
+   class class Meta
+
+      exclude = ['ganaderia', 'identificacion_simple', 'identificacion_ecuador', 'edad', 'etapa', 'verificacion', 'celo', 'ciclo', 'gestacion', 'ordenio', 'edad_anios', 'edad_meses', 'edad_dias']
+
+      model
+
+         alias of "Ganado"
+
+      widgets = {'observaciones': <django.forms.widgets.Textarea object at 0x2af372e37d90>, 'nacimiento': <django.forms.widgets.DateInput object at 0x2af372e37910>, 'live_weight': <django.forms.widgets.TextInput object at 0x2af372e37e50>, 'imagen': <django.forms.widgets.FileInput object at 0x2af372e37e10>}
+
+   ganadoForm.base_fields = {'imagen': <django.forms.fields.ImageField object at 0x2af372e37f50>, 'nacimiento': <django.forms.fields.DateField object at 0x2af372e37f90>, 'genero': <django.forms.fields.TypedChoiceField object at 0x2af372e37fd0>, 'raza': <django.forms.fields.TypedChoiceField object at 0x2af372e430d0>, 'forma_concepcion': <django.forms.fields.TypedChoiceField object at 0x2af372e43150>, 'live_weight': <django.forms.fields.FloatField object at 0x2af372e431d0>, 'unit_live_weight': <django.forms.fields.TypedChoiceField object at 0x2af372e43210>, 'observaciones': <django.forms.fields.CharField object at 0x2af372e43290>, 'down_cattle': <django.forms.models.ModelChoiceField object at 0x2af372e43490>}
+
+   ganadoForm.declared_fields = {}
+
+   ganadoForm.media
+
+class class ganados.forms.gestacionForm(data=None, files=None, auto_id=u'id_%s', prefix=None, initial=None, error_class=<class 'django.forms.util.ErrorList'>, label_suffix=None, empty_permitted=False, instance=None)
+
+   Bases: "django.forms.models.ModelForm"
+
+   class class Meta
+
+      exclude = ['problema', 'is_active', 'ganado']
+
+      model
+
+         alias of "Gestacion"
+
+      widgets = {'fecha_servicio': <django.forms.widgets.TextInput object at 0x2af372e510d0>, 'observaciones': <django.forms.widgets.Textarea object at 0x2af372e51390>, 'fecha_parto': <django.forms.widgets.TextInput object at 0x2af372e51350>}
+
+   gestacionForm.base_fields = {'fecha_servicio': <django.forms.fields.DateField object at 0x2af372e51450>, 'fecha_parto': <django.forms.fields.DateField object at 0x2af372e51490>, 'tipo_parto': <django.forms.fields.TypedChoiceField object at 0x2af372e51510>, 'observaciones': <django.forms.fields.CharField object at 0x2af372e515d0>}
+
+   gestacionForm.declared_fields = {}
+
+   gestacionForm.media
+
+class class ganados.forms.inseminationForm(data=None, files=None, auto_id=u'id_%s', prefix=None, initial=None, error_class=<class 'django.forms.util.ErrorList'>, label_suffix=None, empty_permitted=False, instance=None)
+
+   Bases: "django.forms.models.ModelForm"
+
+   class class Meta
+
+      exclude = ['down_insemination', 'farm', 'rp']
+
+      model
+
+         alias of "Insemination"
+
+      widgets = {'observations': <django.forms.widgets.Textarea object at 0x2af372e20a50>, 'registration_date': <django.forms.widgets.DateInput object at 0x2af372e209d0>, 'name': <django.forms.widgets.TextInput object at 0x2af372e203d0>, 'amount_pajuelas': <django.forms.widgets.TextInput object at 0x2af372e20a10>}
+
+   inseminationForm.base_fields = {'name': <django.forms.fields.CharField object at 0x2af372e20b10>, 'registration_date': <django.forms.fields.DateField object at 0x2af372e20b50>, 'amount_pajuelas': <django.forms.fields.IntegerField object at 0x2af372e20b90>, 'breed': <django.forms.fields.TypedChoiceField object at 0x2af372e20c10>, 'observations': <django.forms.fields.CharField object at 0x2af372e20cd0>}
+
+   inseminationForm.declared_fields = {}
+
+   inseminationForm.media
+
+class class ganados.forms.ordenioForm(data=None, files=None, auto_id=u'id_%s', prefix=None, initial=None, error_class=<class 'django.forms.util.ErrorList'>, label_suffix=None, empty_permitted=False, instance=None)
+
+   Bases: "django.forms.models.ModelForm"
+
+   class class Meta
+
+      exclude = ['total', 'numero_ordenio', 'ganado', 'fecha']
+
+      model
+
+         alias of "Ordenio"
+
+      widgets = {'observaciones': <django.forms.widgets.Textarea object at 0x2af372e37790>, 'cantidad': <django.forms.widgets.TextInput object at 0x2af372e37210>}
+
+   ordenioForm.base_fields = {'cantidad': <django.forms.fields.IntegerField object at 0x2af372e37890>, 'observaciones': <django.forms.fields.CharField object at 0x2af372e378d0>}
+
+   ordenioForm.declared_fields = {}
+
+   ordenioForm.media
+
+class class ganados.forms.problemGestacionForm(data=None, files=None, auto_id=u'id_%s', prefix=None, initial=None, error_class=<class 'django.forms.util.ErrorList'>, label_suffix=None, empty_permitted=False, instance=None)
+
+   Bases: "django.forms.models.ModelForm"
+
+   class class Meta
+
+      model
+
+         alias of "ProblemaGestacion"
+
+      widgets = {'fecha_problema': <django.forms.widgets.TextInput object at 0x2af372e51410>, 'observaciones': <django.forms.widgets.Textarea object at 0x2af372e51610>}
+
+   problemGestacionForm.base_fields = {'fecha_problema': <django.forms.fields.DateField object at 0x2af372e51710>, 'tipo_problema': <django.forms.fields.TypedChoiceField object at 0x2af372e51790>, 'observaciones': <django.forms.fields.CharField object at 0x2af372e51850>}
+
+   problemGestacionForm.declared_fields = {}
+
+   problemGestacionForm.media
+
+class class ganados.forms.tipoNormaEcuadorForm(data=None, files=None, auto_id=u'id_%s', prefix=None, initial=None, error_class=<class 'django.forms.util.ErrorList'>, label_suffix=None, empty_permitted=False, instance=None)
+
+   Bases: "django.forms.models.ModelForm"
+
+   class class Meta
+
+      exclude = ['rp']
+
+      model
+
+         alias of "Identificacion_Ecuador"
+
+      widgets = {'rp_padre': <django.forms.widgets.TextInput object at 0x2af372e371d0>, 'codigo_pais': <django.forms.widgets.TextInput object at 0x2af372e37050>, 'rp_madre': <django.forms.widgets.TextInput object at 0x2af372e37190>, 'nombre': <django.forms.widgets.TextInput object at 0x2af372e37150>, 'codigo_barras': <django.forms.widgets.TextInput object at 0x2af372e37110>, 'numero_serie': <django.forms.widgets.TextInput object at 0x2af372e370d0>, 'siglas_pais': <django.forms.widgets.TextInput object at 0x2af372e20dd0>, 'codigo_provincia': <django.forms.widgets.TextInput object at 0x2af372e37090>}
+
+   tipoNormaEcuadorForm.base_fields = {'siglas_pais': <django.forms.fields.CharField object at 0x2af372e372d0>, 'codigo_pais': <django.forms.fields.CharField object at 0x2af372e37390>, 'codigo_provincia': <django.forms.fields.CharField object at 0x2af372e37410>, 'numero_serie': <django.forms.fields.CharField object at 0x2af372e374d0>, 'codigo_barras': <django.forms.fields.CharField object at 0x2af372e37550>, 'nombre': <django.forms.fields.CharField object at 0x2af372e375d0>, 'rp_madre': <django.forms.fields.IntegerField object at 0x2af372e37690>, 'rp_padre': <django.forms.fields.IntegerField object at 0x2af372e37710>}
+
+   tipoNormaEcuadorForm.declared_fields = {}
+
+   tipoNormaEcuadorForm.media
+
+class class ganados.forms.tipoSimpleForm(data=None, files=None, auto_id=u'id_%s', prefix=None, initial=None, error_class=<class 'django.forms.util.ErrorList'>, label_suffix=None, empty_permitted=False, instance=None)
+
+   Bases: "django.forms.models.ModelForm"
+
+   class class Meta
+
+      exclude = ['rp']
+
+      model
+
+         alias of "Identificacion_Simple"
+
+      widgets = {'nombre': <django.forms.widgets.TextInput object at 0x2af372e20ad0>, 'rp_padre': <django.forms.widgets.TextInput object at 0x2af372e20d50>, 'rp_madre': <django.forms.widgets.TextInput object at 0x2af372e20d10>}
+
+   tipoSimpleForm.base_fields = {'nombre': <django.forms.fields.CharField object at 0x2af372e20e10>, 'rp_madre': <django.forms.fields.IntegerField object at 0x2af372e20f10>, 'rp_padre': <django.forms.fields.IntegerField object at 0x2af372e20f90>}
+
+   tipoSimpleForm.declared_fields = {}
+
+   tipoSimpleForm.media
+
+class class ganados.forms.verificationForm(data=None, files=None, auto_id=u'id_%s', prefix=None, initial=None, error_class=<class 'django.forms.util.ErrorList'>, label_suffix=None, empty_permitted=False, instance=None)
+
+   Bases: "django.forms.models.ModelForm"
+
+   class class Meta
+
+      model
+
+         alias of "Verification"
+
+   verificationForm.base_fields = {'initial_date': <django.forms.fields.DateField object at 0x2af372e43910>, 'is_active': <django.forms.fields.BooleanField object at 0x2af372ddea10>, 'cattle': <django.forms.models.ModelChoiceField object at 0x2af372e43b90>}
+
+   verificationForm.declared_fields = {}
+
+   verificationForm.media
+
+class class ganados.forms.verifyAttemptForm(data=None, files=None, auto_id=u'id_%s', prefix=None, initial=None, error_class=<class 'django.forms.util.ErrorList'>, label_suffix=None, empty_permitted=False, instance=None)
+
+   Bases: "django.forms.models.ModelForm"
+
+   class class Meta
+
+      exclude = ['attempt', 'attempt_date', 'verification']
+
+      model
+
+         alias of "Attempt"
+
+      widgets = {'observations': <django.forms.widgets.Textarea object at 0x2af372e51050>, 'rp_father': <django.forms.widgets.TextInput object at 0x2af372e43b50>}
+
+   verifyAttemptForm.base_fields = {'state': <django.forms.fields.TypedChoiceField object at 0x2af372e51150>, 'observations': <django.forms.fields.CharField object at 0x2af372e51210>, 'type_conception': <django.forms.fields.TypedChoiceField object at 0x2af372e51250>, 'rp_father': <django.forms.fields.IntegerField object at 0x2af372e512d0>}
+
+   verifyAttemptForm.declared_fields = {}
+
+   verifyAttemptForm.media
+
+
+ganados.models module
+=====================
+
+class class ganados.models.Attempt(*args, **kwargs)
+
+   Bases: "django.db.models.base.Model"
+
+   Attempt(id, attempt, attempt_date, state, observations,
+   type_conception, rp_father, verification_id)
+
+   exception exception DoesNotExist
+
+      Bases: "django.core.exceptions.ObjectDoesNotExist"
+
+   exception exception Attempt.MultipleObjectsReturned
+
+      Bases: "django.core.exceptions.MultipleObjectsReturned"
+
+   Attempt.STATE_CHOICES = ((0, 'Correcto'), (1, 'Incorrecto'))
+
+   Attempt.TYPE_CONCEPTION_CHOICES = ((0, u'Inseminaci\xf3n'), (1, 'Monta'))
+
+   Attempt.get_next_by_attempt_date(*moreargs, **morekwargs)
+
+   Attempt.get_previous_by_attempt_date(*moreargs, **morekwargs)
+
+   Attempt.get_state_display(*moreargs, **morekwargs)
+
+   Attempt.get_type_conception_display(*moreargs, **morekwargs)
+
+   Attempt.objects = <django.db.models.manager.Manager object at 0x2af3729494d0>
+
+   Attempt.verification
+
+class class ganados.models.Celo(*args, **kwargs)
+
+   Bases: "django.db.models.base.Model"
+
+   Celo(id, fecha_inicio, fecha_fin, estado, observaciones, ganado_id,
+   is_active)
+
+   exception exception DoesNotExist
+
+      Bases: "django.core.exceptions.ObjectDoesNotExist"
+
+   Celo.ESTADO_CHOICES = ((0, 'En celo'), (1, 'Sin celo'))
+
+   exception exception Celo.MultipleObjectsReturned
+
+      Bases: "django.core.exceptions.MultipleObjectsReturned"
+
+   Celo.ganado
+
+   Celo.get_estado_display(*moreargs, **morekwargs)
+
+   Celo.get_next_by_fecha_fin(*moreargs, **morekwargs)
+
+   Celo.get_next_by_fecha_inicio(*moreargs, **morekwargs)
+
+   Celo.get_previous_by_fecha_fin(*moreargs, **morekwargs)
+
+   Celo.get_previous_by_fecha_inicio(*moreargs, **morekwargs)
+
+   Celo.objects = <django.db.models.manager.Manager object at 0x2af372949fd0>
+
+class class ganados.models.Ciclo(*args, **kwargs)
+
+   Bases: "django.db.models.base.Model"
+
+   Ciclo(id, fecha_inicio, nombre, fecha_fin, ganado_id, is_active)
+
+   exception exception DoesNotExist
+
+      Bases: "django.core.exceptions.ObjectDoesNotExist"
+
+   exception exception Ciclo.MultipleObjectsReturned
+
+      Bases: "django.core.exceptions.MultipleObjectsReturned"
+
+   Ciclo.NOMBRE_CHOICES = ((0, u'Per\xedodo Vac\xedo'), (1, u'Per\xedodo seco'), (2, u'Per\xedodo lactancia'), (3, u'Per\xedodo gestaci\xf3n'))
+
+   Ciclo.ganado
+
+   Ciclo.get_next_by_fecha_fin(*moreargs, **morekwargs)
+
+   Ciclo.get_next_by_fecha_inicio(*moreargs, **morekwargs)
+
+   Ciclo.get_nombre_display(*moreargs, **morekwargs)
+
+   Ciclo.get_previous_by_fecha_fin(*moreargs, **morekwargs)
+
+   Ciclo.get_previous_by_fecha_inicio(*moreargs, **morekwargs)
+
+   Ciclo.objects = <django.db.models.manager.Manager object at 0x2af372956490>
+
+class class ganados.models.DownCattle(*args, **kwargs)
+
+   Bases: "django.db.models.base.Model"
+
+   DownCattle(id, date, cause_down, observations)
+
+   CAUSE_DOWN_CHOICES = ((0, 'Muerte'), (1, 'Venta'), (2, 'Desaparici\xc3\xb3n'))
+
+   exception exception DoesNotExist
+
+      Bases: "django.core.exceptions.ObjectDoesNotExist"
+
+   exception exception DownCattle.MultipleObjectsReturned
+
+      Bases: "django.core.exceptions.MultipleObjectsReturned"
+
+   DownCattle.cattle_down_cattle
+
+   DownCattle.get_cause_down_display(*moreargs, **morekwargs)
+
+   DownCattle.get_next_by_date(*moreargs, **morekwargs)
+
+   DownCattle.get_previous_by_date(*moreargs, **morekwargs)
+
+   DownCattle.objects = <django.db.models.manager.Manager object at 0x2af3728f1c10>
+
+class class ganados.models.DownInsemination(*args, **kwargs)
+
+   Bases: "django.db.models.base.Model"
+
+   DownInsemination(id, date, cause_down, observations)
+
+   CAUSE_DOWN_CHOICES = ((0, 'Agotamiento'), (1, u'Muestra inv\xe1lida'))
+
+   exception exception DoesNotExist
+
+      Bases: "django.core.exceptions.ObjectDoesNotExist"
+
+   exception exception DownInsemination.MultipleObjectsReturned
+
+      Bases: "django.core.exceptions.MultipleObjectsReturned"
+
+   DownInsemination.get_cause_down_display(*moreargs, **morekwargs)
+
+   DownInsemination.get_next_by_date(*moreargs, **morekwargs)
+
+   DownInsemination.get_previous_by_date(*moreargs, **morekwargs)
+
+   DownInsemination.insemination_down
+
+   DownInsemination.objects = <django.db.models.manager.Manager object at 0x2af372965750>
+
+class class ganados.models.Etapa(*args, **kwargs)
+
+   Bases: "django.db.models.base.Model"
+
+   Etapa(id, fecha_inicio, nombre, observaciones, ganado_id,
+   is_active)
+
+   exception exception DoesNotExist
+
+      Bases: "django.core.exceptions.ObjectDoesNotExist"
+
+   exception exception Etapa.MultipleObjectsReturned
+
+      Bases: "django.core.exceptions.MultipleObjectsReturned"
+
+   Etapa.NOMBRE_CHOICES = ((0, 'Ternera'), (1, 'Vacona'), (2, 'Vientre'))
+
+   Etapa.ganado
+
+   Etapa.get_next_by_fecha_inicio(*moreargs, **morekwargs)
+
+   Etapa.get_nombre_display(*moreargs, **morekwargs)
+
+   Etapa.get_previous_by_fecha_inicio(*moreargs, **morekwargs)
+
+   Etapa.objects = <django.db.models.manager.Manager object at 0x2af372965450>
+
+class class ganados.models.Ganado(*args, **kwargs)
+
+   Bases: "django.db.models.base.Model"
+
+   Ganado(id, imagen, ganaderia_id, nacimiento, genero, raza,
+   forma_concepcion, live_weight, unit_live_weight, observaciones,
+   edad_anios, edad_meses, edad_dias, identificacion_simple_id,
+   identificacion_ecuador_id, down_cattle_id)
+
+   CONCEPCION_CHOICES = ((0, u'Inseminaci\xf3n'), (1, 'Monta'))
+
+   exception exception DoesNotExist
+
+      Bases: "django.core.exceptions.ObjectDoesNotExist"
+
+   Ganado.GENDER_CHOICES = ((0, 'Macho'), (1, 'Hembra'), (2, 'Sin Definir'))
+
+   exception exception Ganado.MultipleObjectsReturned
+
+      Bases: "django.core.exceptions.MultipleObjectsReturned"
+
+   Ganado.RAZAS_CHOICES = ((0, 'Angus'), (1, 'Ankole'), (2, 'Asturiana de los Valles'), (3, 'Avilenia'), (4, 'Blonde D Aquitaine'), (5, 'Braford'), (6, 'Brahman'), (7, 'Braunvieh'), (8, 'Brava'), (9, 'Cachena'), (10, 'Charolais'), (11, 'Chianina'), (12, 'Sin Definir'))
+
+   Ganado.UNIT_LIVE_WEIGHT_CHOICES = ((0, 'Kg'), (1, 'lbs'), (2, 'Arrobas'))
+
+   Ganado.application_food_food
+
+   Ganado.application_medicament_medicament
+
+   Ganado.celos
+
+   Ganado.ciclos
+
+   Ganado.down_cattle
+
+   Ganado.etapas
+
+   Ganado.ganaderia
+
+   Ganado.gestaciones
+
+   Ganado.get_forma_concepcion_display(*moreargs, **morekwargs)
+
+   Ganado.get_genero_display(*moreargs, **morekwargs)
+
+   Ganado.get_next_by_nacimiento(*moreargs, **morekwargs)
+
+   Ganado.get_previous_by_nacimiento(*moreargs, **morekwargs)
+
+   Ganado.get_raza_display(*moreargs, **morekwargs)
+
+   Ganado.get_unit_live_weight_display(*moreargs, **morekwargs)
+
+   Ganado.identificacion_ecuador
+
+   Ganado.identificacion_simple
+
+   Ganado.notification_cattle
+
+   Ganado.objects = <django.db.models.manager.Manager object at 0x2af37293da10>
+
+   Ganado.ordenios
+
+   Ganado.verification_cattle
+
+class class ganados.models.Gestacion(*args, **kwargs)
+
+   Bases: "django.db.models.base.Model"
+
+   Gestacion(id, fecha_servicio, fecha_parto, tipo_parto,
+   observaciones, problema_id, ganado_id, is_active)
+
+   exception exception DoesNotExist
+
+      Bases: "django.core.exceptions.ObjectDoesNotExist"
+
+   exception exception Gestacion.MultipleObjectsReturned
+
+      Bases: "django.core.exceptions.MultipleObjectsReturned"
+
+   Gestacion.TIPO_PARTO_CHOICES = ((0, 'Natural'), (1, u'Ces\xe1rea'))
+
+   Gestacion.ganado
+
+   Gestacion.get_next_by_fecha_parto(*moreargs, **morekwargs)
+
+   Gestacion.get_next_by_fecha_servicio(*moreargs, **morekwargs)
+
+   Gestacion.get_previous_by_fecha_parto(*moreargs, **morekwargs)
+
+   Gestacion.get_previous_by_fecha_servicio(*moreargs, **morekwargs)
+
+   Gestacion.get_tipo_parto_display(*moreargs, **morekwargs)
+
+   Gestacion.objects = <django.db.models.manager.Manager object at 0x2af372956f90>
+
+   Gestacion.problema
+
+class class ganados.models.Identificacion_Ecuador(*args, **kwargs)
+
+   Bases: "django.db.models.base.Model"
+
+   Identificacion_Ecuador(id, siglas_pais, codigo_pais,
+   codigo_provincia, numero_serie, codigo_barras, rp, nombre,
+   rp_madre, rp_padre)
+
+   exception exception DoesNotExist
+
+      Bases: "django.core.exceptions.ObjectDoesNotExist"
+
+   exception exception Identificacion_Ecuador.MultipleObjectsReturned
+
+      Bases: "django.core.exceptions.MultipleObjectsReturned"
+
+   Identificacion_Ecuador.identificaciones_ecuador
+
+   Identificacion_Ecuador.objects = <django.db.models.manager.Manager object at 0x2af3728f1890>
+
+class class ganados.models.Identificacion_Simple(*args, **kwargs)
+
+   Bases: "django.db.models.base.Model"
+
+   Identificacion_Simple(id, rp, nombre, rp_madre, rp_padre)
+
+   exception exception DoesNotExist
+
+      Bases: "django.core.exceptions.ObjectDoesNotExist"
+
+   exception exception Identificacion_Simple.MultipleObjectsReturned
+
+      Bases: "django.core.exceptions.MultipleObjectsReturned"
+
+   Identificacion_Simple.identificaciones_simples
+
+   Identificacion_Simple.objects = <django.db.models.manager.Manager object at 0x2af3728f1250>
+
+class class ganados.models.Insemination(*args, **kwargs)
+
+   Bases: "django.db.models.base.Model"
+
+   Insemination(id, down_insemination_id, farm_id, rp, name,
+   registration_date, amount_pajuelas, breed, observations)
+
+   BREED_CHOICES = ((0, 'Angus'), (1, 'Ankole'), (2, 'Asturiana de los Valles'), (3, 'Avilenia'), (4, 'Blonde D Aquitaine'), (5, 'Braford'), (6, 'Brahman'), (7, 'Braunvieh'), (8, 'Brava'), (9, 'Cachena'), (10, 'Charolais'), (11, 'Chianina'), (12, 'Sin Definir'))
+
+   exception exception DoesNotExist
+
+      Bases: "django.core.exceptions.ObjectDoesNotExist"
+
+   exception exception Insemination.MultipleObjectsReturned
+
+      Bases: "django.core.exceptions.MultipleObjectsReturned"
+
+   Insemination.down_insemination
+
+   Insemination.farm
+
+   Insemination.get_breed_display(*moreargs, **morekwargs)
+
+   Insemination.get_next_by_registration_date(*moreargs, **morekwargs)
+
+   Insemination.get_previous_by_registration_date(*moreargs, **morekwargs)
+
+   Insemination.objects = <django.db.models.manager.Manager object at 0x2af372965e10>
+
+class class ganados.models.Ordenio(*args, **kwargs)
+
+   Bases: "django.db.models.base.Model"
+
+   Ordenio(id, fecha, numero_ordenio, cantidad, total, observaciones,
+   ganado_id)
+
+   exception exception DoesNotExist
+
+      Bases: "django.core.exceptions.ObjectDoesNotExist"
+
+   exception exception Ordenio.MultipleObjectsReturned
+
+      Bases: "django.core.exceptions.MultipleObjectsReturned"
+
+   Ordenio.ganado
+
+   Ordenio.get_next_by_fecha(*moreargs, **morekwargs)
+
+   Ordenio.get_previous_by_fecha(*moreargs, **morekwargs)
+
+   Ordenio.objects = <django.db.models.manager.Manager object at 0x2af372949a50>
+
+class class ganados.models.ProblemaGestacion(*args, **kwargs)
+
+   Bases: "django.db.models.base.Model"
+
+   ProblemaGestacion(id, fecha_problema, tipo_problema, observaciones)
+
+   exception exception DoesNotExist
+
+      Bases: "django.core.exceptions.ObjectDoesNotExist"
+
+   exception exception ProblemaGestacion.MultipleObjectsReturned
+
+      Bases: "django.core.exceptions.MultipleObjectsReturned"
+
+   ProblemaGestacion.TIPO_PROBLEMA_CHOICES = ((0, 'Aborto'), (1, 'Nacido muerto'), (2, 'Madre muerta'), (3, 'Los dos muertos'))
+
+   ProblemaGestacion.gestacion
+
+   ProblemaGestacion.get_next_by_fecha_problema(*moreargs, **morekwargs)
+
+   ProblemaGestacion.get_previous_by_fecha_problema(*moreargs, **morekwargs)
+
+   ProblemaGestacion.get_tipo_problema_display(*moreargs, **morekwargs)
+
+   ProblemaGestacion.objects = <django.db.models.manager.Manager object at 0x2af372956850>
+
+class class ganados.models.Verification(*args, **kwargs)
+
+   Bases: "django.db.models.base.Model"
+
+   Verification(id, initial_date, is_active, cattle_id)
+
+   exception exception DoesNotExist
+
+      Bases: "django.core.exceptions.ObjectDoesNotExist"
+
+   exception exception Verification.MultipleObjectsReturned
+
+      Bases: "django.core.exceptions.MultipleObjectsReturned"
+
+   Verification.attempt_verification
+
+   Verification.cattle
+
+   Verification.get_next_by_initial_date(*moreargs, **morekwargs)
+
+   Verification.get_previous_by_initial_date(*moreargs, **morekwargs)
+
+   Verification.objects = <django.db.models.manager.Manager object at 0x2af37293de50>
+
+
+ganados.tests module
+====================
+
+
+ganados.views module
+====================
+
+ganados.views.add_attempt_service(request, *args, **kwargs)
+
+ganados.views.add_cattle(request, *args, **kwargs)
+
+ganados.views.add_insemination(request, *args, **kwargs)
+
+ganados.views.add_service(request, *args, **kwargs)
+
+ganados.views.agrega_ganado_ordenio(request, username, ganado_id)
+
+ganados.views.calcula_edad_anios(request, date)
+
+ganados.views.calcula_edad_dias(request, date)
+
+ganados.views.calcula_edad_meses(request, date)
+
+ganados.views.calcula_etapa(request, anios, meses, etapa_ternera, etapa_vacona)
+
+ganados.views.edit_cattle_male(request, *args, **kwargs)
+
+ganados.views.edit_insemination(request, *args, **kwargs)
+
+ganados.views.edita_ganado(request, *args, **kwargs)
+
+ganados.views.edita_ganado_celo(request, *args, **kwargs)
+
+ganados.views.edita_ganado_ordenio(request, username, ganado_id, num_ordenio)
+
+ganados.views.gestacion(request, *args, **kwargs)
+
+ganados.views.list_cattle(request, *args, **kwargs)
+
+ganados.views.list_cattle_male(request, *args, **kwargs)
+
+ganados.views.list_insemination(request, *args, **kwargs)
+
+ganados.views.lista_ganado_produccion(request, *args, **kwargs)
+
+ganados.views.problem_gestacion(request, *args, **kwargs)
+
+ganados.views.verify_attempt(request, *args, **kwargs)
+
+
+Module contents
+===============

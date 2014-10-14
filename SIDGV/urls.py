@@ -7,9 +7,13 @@ from django.conf.urls.static import static
 from django.contrib import admin
 admin.autodiscover()
 
+import django_cron
+#django_cron.autodiscover()
+
 urlpatterns = patterns('',
     (r'^admin/doc/', include('django.contrib.admindocs.urls')),
     (r'^admin/', include(admin.site.urls)),
+    # favicon
 
     # SIDGV Override the signup form with our own, which includes a
     # first and last name.
@@ -39,14 +43,21 @@ urlpatterns = patterns('',
     url(r'^agrega_ganaderia_config/$', 'profiles.views.agrega_ganaderia_config', name='agrega_ganaderia_config'),
 
     # ganados
-    url(r'^agrega_ganado/(?P<username>[\.\w-]+)/$', 'ganados.views.agrega_ganado', name='agrega_ganado'),
-    url(r'^lista_ganado/$', 'ganados.views.lista_ganado', name='lista_ganado'),
-    url(r'^edita_ganado/(?P<username>[\.\w-]+)/(?P<ganado_id>[\.\w-]+)/$', 'ganados.views.edita_ganado', name='edita_ganado'),
-    url(r'^edita_ganado_celo/(?P<username>[\.\w-]+)/(?P<ganado_id>[\.\w-]+)/$', 'ganados.views.edita_ganado_celo', name='edita_ganado_celo'),
+    url(r'^add_cattle/$', 'ganados.views.add_cattle', name='add_cattle'),
+    url(r'^list_cattle/$', 'ganados.views.list_cattle', name='list_cattle'),
+    url(r'^list_cattle_male/$', 'ganados.views.list_cattle_male', name='list_cattle_male'),
+    url(r'^edita_ganado/(?P<ganado_id>[\.\w-]+)/$', 'ganados.views.edita_ganado', name='edita_ganado'),
+    url(r'^edit_cattle_male/(?P<cattle_id>[\.\w-]+)/$', 'ganados.views.edit_cattle_male', name='edit_cattle_male'),
+    url(r'^edita_ganado_celo/(?P<ganado_id>[\.\w-]+)/$', 'ganados.views.edita_ganado_celo', name='edita_ganado_celo'),
 
     url(r'^lista_ganado_produccion/(?P<username>[\.\w-]+)/$', 'ganados.views.lista_ganado_produccion', name='lista_ganado_produccion'),
     url(r'^agrega_ganado_ordenio/(?P<username>[\.\w-]+)/(?P<ganado_id>[\.\w-]+)/$', 'ganados.views.agrega_ganado_ordenio', name='agrega_ganado_ordenio'),
     url(r'^edita_ganado_ordenio/(?P<username>[\.\w-]+)/(?P<ganado_id>[\.\w-]+)/(?P<num_ordenio>[\.\w-]+)/$', 'ganados.views.edita_ganado_ordenio', name='edita_ganado_ordenio'),
+
+    # inseminacion
+    url(r'^add_insemination/$', 'ganados.views.add_insemination', name='add_insemination'),
+    url(r'^list_insemination/$', 'ganados.views.list_insemination', name='list_insemination'),
+    url(r'^edit_insemination/(?P<insemination_id>[\.\w-]+)/$', 'ganados.views.edit_insemination', name='edit_insemination'),
 
     # servicio
     url(r'^add_service/(?P<id_cattle>[\.\w-]+)/$', 'ganados.views.add_service', name='add_service'),
@@ -67,10 +78,30 @@ urlpatterns = patterns('',
     url(r'^add_wormer/$', 'medicament.views.add_wormer', name='add_wormer'),
     url(r'^list_wormer/$', 'medicament.views.list_wormer', name='list_wormer'),
     url(r'^edit_wormer/(?P<id_medicament>[\.\w-]+)/$', 'medicament.views.edit_wormer', name='edit_wormer'),
+    url(r'^asign_wormer/(?P<wormer_id>[\.\w-]+)/$', 'medicament.views.asign_wormer', name='asign_wormer'),
 
     url(r'^add_vaccine/$', 'medicament.views.add_vaccine', name='add_vaccine'),
     url(r'^list_vaccine/$', 'medicament.views.list_vaccine', name='list_vaccine'),
     url(r'^edit_vaccine/(?P<id_medicament>[\.\w-]+)/$', 'medicament.views.edit_vaccine', name='edit_vaccine'),
+    url(r'^asign_vaccine/(?P<vaccine_id>[\.\w-]+)/$', 'medicament.views.asign_vaccine', name='asign_vaccine'),
+
+    # notificaciones
+    url(r'^list_notifications/$', 'notifications.views.list_notifications', name='list_notifications'),
+    url(r'^list_notifications_reproduccion/$', 'notifications.views.list_notifications_reproduccion', name='list_notifications_reproduccion'),
+    url(r'^list_notifications_produccion/$', 'notifications.views.list_notifications_produccion', name='list_notifications_produccion'),
+    url(r'^list_notifications_sanidad/$', 'notifications.views.list_notifications_sanidad', name='list_notifications_sanidad'),
+    url(r'^list_notifications_alimentacion/$', 'notifications.views.list_notifications_alimentacion', name='list_notifications_alimentacion'),
+    url(r'^realized_notification/(?P<notification_id>[\.\w-]+)/$', 'notifications.views.realizedNotification', name='realizedNotification'),
+
+    # reportes
+    url(r'^list_reports/$', 'reports.views.list_reports', name='list_reports'),    
+    url(r'^view_report_female/(?P<id_cattle>[\.\w-]+)/$', 'reports.views.view_report_female', name='view_report_female'),    
+    #url(r'^generate_pdf/$', 'reports.views.generate_pdf', name='generate_pdf'),    
+    #url(r'^list_report_reproduccion/$', 'reports.views.list_report_reproduccion', name='list_report_reproduccion'),    
+
+    url(r'^docs/.*', 'reports.views.docs', name='docs'),  
+    #url(r'^docs/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.DOCS_ROOT}),
+    #url(r'^docs/', 'reports.views.docs', ),
 
 
     (r'^', include('webServices.wsGanados.urls')),

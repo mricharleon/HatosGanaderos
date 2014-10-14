@@ -1,0 +1,250 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2014, @mricharleon
+# This file is distributed under the same license as the HatosGanaderos package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: HatosGanaderos 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-10-09 22:34-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../ganados.rst:2
+# 2ec1ce6ed4c246a1a0f790f5272963e8
+msgid "ganados package"
+msgstr ""
+
+#: ../../ganados.rst:5
+# 5a47fce4738b49c6bc17a1edc0cfba12
+msgid "Submodules"
+msgstr ""
+
+#: ../../ganados.rst:8
+# 4b2f3cb0bf6f4643afa01acd28d79ccb
+msgid "ganados.admin module"
+msgstr ""
+
+#: ../../ganados.rst:16
+# 30e61ba181e645beaf77a1690fcebb73
+msgid "ganados.forms module"
+msgstr ""
+
+#: ../../<autodoc>:1
+#: ../../<autodoc>:1
+#: ../../<autodoc>:1
+#: ../../<autodoc>:1
+#: ../../<autodoc>:1
+#: ../../<autodoc>:1
+#: ../../<autodoc>:1
+#: ../../<autodoc>:1
+#: ../../<autodoc>:1
+#: ../../<autodoc>:1
+#: ../../<autodoc>:1
+#: ../../<autodoc>:1
+#: ../../<autodoc>:1
+# f9f83cf49d5f47aca9f1faff92a9ffc9
+# 36b76c99db184b1ea5029cd8878c625d
+# 5ed80b570a7f485aa0eaa9af629a7c52
+# 98150486d2ef4f46becd877a65f0fedb
+# 0f34d0e284814fada5b687e706ed891c
+# 39d416bc206a4bba8d79d6f73917cb71
+# 3aaab07f244d4ac29a819ddd2ad2a7f8
+# 84616c24aaae4121a170ad01fa7d03ad
+# 09412d8046fc4e58893c12cd42062942
+# ce981b73661d46aba0fd8573b618df07
+# 3c547e36382b496ba6e193308b62d477
+# ab083f999e4e48808107243ffc4dc38f
+# 177cf975626c4914b7ac8f5235c377cf
+msgid "Bases: :class:`django.forms.models.ModelForm`"
+msgstr ""
+
+#: ../../ganados.rst:24
+# 943c71f5885849ba9cb4e40423669589
+msgid "ganados.models module"
+msgstr ""
+
+#: ../../<autodoc>:1
+#: ../../<autodoc>:1
+#: ../../<autodoc>:1
+#: ../../<autodoc>:1
+#: ../../<autodoc>:1
+#: ../../<autodoc>:1
+#: ../../<autodoc>:1
+#: ../../<autodoc>:1
+#: ../../<autodoc>:1
+#: ../../<autodoc>:1
+#: ../../<autodoc>:1
+#: ../../<autodoc>:1
+#: ../../<autodoc>:1
+#: ../../<autodoc>:1
+# b1e322796f6540a4a339fbae2f6ae065
+# a7fb9bb89b3347b9b8c9d233501208e9
+# 1817f3a13b8249d480a6d7472124dad0
+# ca730c25fd0a41809eb90f7ff41ebd9b
+# 84817669303944c1923a951021930b29
+# 17bd83b71f1d42a589fd92bcd43648c8
+# 744520c41dd349fa9c747495b35d4b21
+# 46c843f110c944548be0af3273f1db80
+# 0ab27db3467b4b65a0d3d70e4e350d7e
+# 1012793fc9ae44b198658c532a7dd681
+# 9ade6742a7c4461fab71f244fd693fb7
+# f84aebbc40624127ad7b9038add3218a
+# a9e4a04000d844149b1ac910e5c9f649
+# 881b1e24bab64fe69555a9dde49fb7be
+msgid "Bases: :class:`django.db.models.base.Model`"
+msgstr ""
+
+#: ../../../ganados/models.py:docstring of ganados.models.Attempt:1
+# 22364399362143bda279d5e243a5a7f5
+msgid "Attempt(id, attempt, attempt_date, state, observations, type_conception, rp_father, verification_id)"
+msgstr ""
+
+#: ../../<autodoc>:1
+#: ../../<autodoc>:1
+#: ../../<autodoc>:1
+#: ../../<autodoc>:1
+#: ../../<autodoc>:1
+#: ../../<autodoc>:1
+#: ../../<autodoc>:1
+#: ../../<autodoc>:1
+#: ../../<autodoc>:1
+#: ../../<autodoc>:1
+#: ../../<autodoc>:1
+#: ../../<autodoc>:1
+#: ../../<autodoc>:1
+#: ../../<autodoc>:1
+# 63c95d073e6045e5ba8cd561d28691ea
+# 1ffe8198e7944cdd9bad3b9c91eade54
+# 77d5286f88914f18889c6edfd7041b7b
+# 70c4fac879354269938ce83f4d5b6467
+# fcc55feec13245ad92a8bb5aa5db2c39
+# 55cee45f2f6642fe88614844f1da9c12
+# 42c0faa7798a465690a2d946a4db8005
+# 108d472043784e818bf2d3f185aa777f
+# f2237daafb61469db10dcfcf30a8366d
+# c5ca035a76ff43f4a873ec5de805a712
+# f7ce6ef2decb4b98baf01eaecb65b7dd
+# f3a1105cd959492e92df56b181353f4e
+# cfa3cfa1cb97427293edaea04b7c052c
+# 70b9d763bf2d4d91b31a29d3de948704
+msgid "Bases: :class:`django.core.exceptions.ObjectDoesNotExist`"
+msgstr ""
+
+#: ../../<autodoc>:1
+#: ../../<autodoc>:1
+#: ../../<autodoc>:1
+#: ../../<autodoc>:1
+#: ../../<autodoc>:1
+#: ../../<autodoc>:1
+#: ../../<autodoc>:1
+#: ../../<autodoc>:1
+#: ../../<autodoc>:1
+#: ../../<autodoc>:1
+#: ../../<autodoc>:1
+#: ../../<autodoc>:1
+#: ../../<autodoc>:1
+#: ../../<autodoc>:1
+# 44a2c32ac28e4dfd9ee96a108c69b299
+# 6d1b194ebe754c45a6db96ae621b2ff2
+# 2b976728962b49e18ff7592788e233fb
+# 83d3da18b6a14018ab8f0529729d104b
+# 8dd4da4ccb784df29de0282cc2752fce
+# 2cbade38ba494606b8824166bbbeb02c
+# 5db57fa51d524ec6bf1230a798f9888c
+# 5dc6ab913e424a2794e620d5f77ecd01
+# 54262a85f9b346038312eb126b04ca59
+# b477f42e96674835a5449f373fc1a271
+# 716d38dc1c3d470e82d73775edc63512
+# 2c1135a9f3444888b3dfeda44d8a10ec
+# 428302327ef541f4928ff2cf8f542e9b
+# 65cea5049da043b79214bae6c33e3b8c
+msgid "Bases: :class:`django.core.exceptions.MultipleObjectsReturned`"
+msgstr ""
+
+#: ../../../ganados/models.py:docstring of ganados.models.Celo:1
+# 52a184e6cb4148a8ab121ccd5f99e85a
+msgid "Celo(id, fecha_inicio, fecha_fin, estado, observaciones, ganado_id, is_active)"
+msgstr ""
+
+#: ../../../ganados/models.py:docstring of ganados.models.Ciclo:1
+# eba26a47055945acac1818ed99298ae1
+msgid "Ciclo(id, fecha_inicio, nombre, fecha_fin, ganado_id, is_active)"
+msgstr ""
+
+#: ../../../ganados/models.py:docstring of ganados.models.DownCattle:1
+# 381bff8b894a4c17bf33bb15de1a33dc
+msgid "DownCattle(id, date, cause_down, observations)"
+msgstr ""
+
+#: ../../../ganados/models.py:docstring of ganados.models.DownInsemination:1
+# 2d2e8c58ef5244b682d5f73811ce7b66
+msgid "DownInsemination(id, date, cause_down, observations)"
+msgstr ""
+
+#: ../../../ganados/models.py:docstring of ganados.models.Etapa:1
+# f307fc94d4e6414e80ab7d2278cdd1c6
+msgid "Etapa(id, fecha_inicio, nombre, observaciones, ganado_id, is_active)"
+msgstr ""
+
+#: ../../../ganados/models.py:docstring of ganados.models.Ganado:1
+# 1d03575af6e740c78a7f943e67437cef
+msgid "Ganado(id, imagen, ganaderia_id, nacimiento, genero, raza, forma_concepcion, live_weight, unit_live_weight, observaciones, edad_anios, edad_meses, edad_dias, identificacion_simple_id, identificacion_ecuador_id, down_cattle_id)"
+msgstr ""
+
+#: ../../../ganados/models.py:docstring of ganados.models.Gestacion:1
+# c4fff5d179ce4acd99c660741cd2f495
+msgid "Gestacion(id, fecha_servicio, fecha_parto, tipo_parto, observaciones, problema_id, ganado_id, is_active)"
+msgstr ""
+
+#: ../../../ganados/models.py:docstring of ganados.models.Identificacion_Ecuador:1
+# efe584d67e1240c1b976d2a73b48c96a
+msgid "Identificacion_Ecuador(id, siglas_pais, codigo_pais, codigo_provincia, numero_serie, codigo_barras, rp, nombre, rp_madre, rp_padre)"
+msgstr ""
+
+#: ../../../ganados/models.py:docstring of ganados.models.Identificacion_Simple:1
+# dd6c319eaf52470da3b8a045a27a8bb4
+msgid "Identificacion_Simple(id, rp, nombre, rp_madre, rp_padre)"
+msgstr ""
+
+#: ../../../ganados/models.py:docstring of ganados.models.Insemination:1
+# e8965756d71748809c126374e57944b7
+msgid "Insemination(id, down_insemination_id, farm_id, rp, name, registration_date, amount_pajuelas, breed, observations)"
+msgstr ""
+
+#: ../../../ganados/models.py:docstring of ganados.models.Ordenio:1
+# 408f96f46b604095945e3765da824e21
+msgid "Ordenio(id, fecha, numero_ordenio, cantidad, total, observaciones, ganado_id)"
+msgstr ""
+
+#: ../../../ganados/models.py:docstring of ganados.models.ProblemaGestacion:1
+# fc56095558d04f29937d1aeb3d198e8d
+msgid "ProblemaGestacion(id, fecha_problema, tipo_problema, observaciones)"
+msgstr ""
+
+#: ../../../ganados/models.py:docstring of ganados.models.Verification:1
+# a37fcda8a9c642b0912ae653fe71485b
+msgid "Verification(id, initial_date, is_active, cattle_id)"
+msgstr ""
+
+#: ../../ganados.rst:32
+# f3b75e4ff5ac4870b857750fbd4e645a
+msgid "ganados.tests module"
+msgstr ""
+
+#: ../../ganados.rst:40
+# 98f017ccf129454b854cfe94a8d11e26
+msgid "ganados.views module"
+msgstr ""
+
+#: ../../ganados.rst:49
+# 96259b99f1c44ec2a645a3cdd3e945d6
+msgid "Module contents"
+msgstr ""
+

@@ -1,0 +1,581 @@
+\indexentry{SIDGV.settings (m\IeC {\'o}dulo)|hyperpage}{9}
+\indexentry{ugettext() (en el m\IeC {\'o}dulo SIDGV.settings)|hyperpage}{9}
+\indexentry{SIDGV.urls (m\IeC {\'o}dulo)|hyperpage}{9}
+\indexentry{SIDGV.wsgi (m\IeC {\'o}dulo)|hyperpage}{9}
+\indexentry{SIDGV (m\IeC {\'o}dulo)|hyperpage}{9}
+\indexentry{reverse\_decorator() (en el m\IeC {\'o}dulo SIDGV)|hyperpage}{9}
+\indexentry{alimentos.admin (m\IeC {\'o}dulo)|hyperpage}{10}
+\indexentry{alimentos.forms (m\IeC {\'o}dulo)|hyperpage}{10}
+\indexentry{alimentoForm (clase en alimentos.forms)|hyperpage}{10}
+\indexentry{alimentoForm.Meta (clase en alimentos.forms)|hyperpage}{10}
+\indexentry{exclude (atributo de alimentos.forms.alimentoForm.Meta)|hyperpage}{10}
+\indexentry{model (atributo de alimentos.forms.alimentoForm.Meta)|hyperpage}{10}
+\indexentry{widgets (atributo de alimentos.forms.alimentoForm.Meta)|hyperpage}{10}
+\indexentry{base\_fields (atributo de alimentos.forms.alimentoForm)|hyperpage}{10}
+\indexentry{declared\_fields (atributo de alimentos.forms.alimentoForm)|hyperpage}{10}
+\indexentry{media (atributo de alimentos.forms.alimentoForm)|hyperpage}{10}
+\indexentry{alimentos.models (m\IeC {\'o}dulo)|hyperpage}{10}
+\indexentry{ApplicationFood (clase en alimentos.models)|hyperpage}{10}
+\indexentry{ApplicationFood.DoesNotExist|hyperpage}{10}
+\indexentry{ApplicationFood.MultipleObjectsReturned|hyperpage}{10}
+\indexentry{STATUS\_CHOICES (atributo de alimentos.models.ApplicationFood)|hyperpage}{10}
+\indexentry{cattle (atributo de alimentos.models.ApplicationFood)|hyperpage}{10}
+\indexentry{food (atributo de alimentos.models.ApplicationFood)|hyperpage}{10}
+\indexentry{get\_next\_by\_date() (m\IeC {\'e}todo de alimentos.models.ApplicationFood)|hyperpage}{10}
+\indexentry{get\_previous\_by\_date() (m\IeC {\'e}todo de alimentos.models.ApplicationFood)|hyperpage}{10}
+\indexentry{get\_status\_display() (m\IeC {\'e}todo de alimentos.models.ApplicationFood)|hyperpage}{10}
+\indexentry{objects (atributo de alimentos.models.ApplicationFood)|hyperpage}{10}
+\indexentry{Food (clase en alimentos.models)|hyperpage}{10}
+\indexentry{ADMINISTRATION\_ROUTE\_CHOICES (atributo de alimentos.models.Food)|hyperpage}{11}
+\indexentry{Food.DoesNotExist|hyperpage}{11}
+\indexentry{Food.MultipleObjectsReturned|hyperpage}{11}
+\indexentry{PHASE\_CHOICES (atributo de alimentos.models.Food)|hyperpage}{11}
+\indexentry{SEX\_CHOICES (atributo de alimentos.models.Food)|hyperpage}{11}
+\indexentry{TIME\_INTERVAL\_CHOICES (atributo de alimentos.models.Food)|hyperpage}{11}
+\indexentry{UNIT\_CHOICES (atributo de alimentos.models.Food)|hyperpage}{11}
+\indexentry{application\_food\_cattle (atributo de alimentos.models.Food)|hyperpage}{11}
+\indexentry{farm (atributo de alimentos.models.Food)|hyperpage}{11}
+\indexentry{get\_administration\_route\_display() (m\IeC {\'e}todo de alimentos.models.Food)|hyperpage}{11}
+\indexentry{get\_next\_by\_expiration\_date() (m\IeC {\'e}todo de alimentos.models.Food)|hyperpage}{11}
+\indexentry{get\_phase\_display() (m\IeC {\'e}todo de alimentos.models.Food)|hyperpage}{11}
+\indexentry{get\_previous\_by\_expiration\_date() (m\IeC {\'e}todo de alimentos.models.Food)|hyperpage}{11}
+\indexentry{get\_sex\_display() (m\IeC {\'e}todo de alimentos.models.Food)|hyperpage}{11}
+\indexentry{get\_time\_interval\_display() (m\IeC {\'e}todo de alimentos.models.Food)|hyperpage}{11}
+\indexentry{get\_unit\_display() (m\IeC {\'e}todo de alimentos.models.Food)|hyperpage}{11}
+\indexentry{notification\_food (atributo de alimentos.models.Food)|hyperpage}{11}
+\indexentry{objects (atributo de alimentos.models.Food)|hyperpage}{11}
+\indexentry{alimentos.tests (m\IeC {\'o}dulo)|hyperpage}{11}
+\indexentry{alimentos.views (m\IeC {\'o}dulo)|hyperpage}{11}
+\indexentry{add\_food() (en el m\IeC {\'o}dulo alimentos.views)|hyperpage}{11}
+\indexentry{asigna\_alimento() (en el m\IeC {\'o}dulo alimentos.views)|hyperpage}{11}
+\indexentry{edit\_food() (en el m\IeC {\'o}dulo alimentos.views)|hyperpage}{11}
+\indexentry{list\_food() (en el m\IeC {\'o}dulo alimentos.views)|hyperpage}{11}
+\indexentry{alimentos (m\IeC {\'o}dulo)|hyperpage}{12}
+\indexentry{ganados.admin (m\IeC {\'o}dulo)|hyperpage}{12}
+\indexentry{ganados.forms (m\IeC {\'o}dulo)|hyperpage}{12}
+\indexentry{attemptForm (clase en ganados.forms)|hyperpage}{12}
+\indexentry{attemptForm.Meta (clase en ganados.forms)|hyperpage}{12}
+\indexentry{exclude (atributo de ganados.forms.attemptForm.Meta)|hyperpage}{12}
+\indexentry{model (atributo de ganados.forms.attemptForm.Meta)|hyperpage}{12}
+\indexentry{widgets (atributo de ganados.forms.attemptForm.Meta)|hyperpage}{12}
+\indexentry{base\_fields (atributo de ganados.forms.attemptForm)|hyperpage}{12}
+\indexentry{declared\_fields (atributo de ganados.forms.attemptForm)|hyperpage}{12}
+\indexentry{media (atributo de ganados.forms.attemptForm)|hyperpage}{12}
+\indexentry{attemptServiceForm (clase en ganados.forms)|hyperpage}{12}
+\indexentry{attemptServiceForm.Meta (clase en ganados.forms)|hyperpage}{12}
+\indexentry{exclude (atributo de ganados.forms.attemptServiceForm.Meta)|hyperpage}{12}
+\indexentry{model (atributo de ganados.forms.attemptServiceForm.Meta)|hyperpage}{12}
+\indexentry{base\_fields (atributo de ganados.forms.attemptServiceForm)|hyperpage}{12}
+\indexentry{declared\_fields (atributo de ganados.forms.attemptServiceForm)|hyperpage}{12}
+\indexentry{media (atributo de ganados.forms.attemptServiceForm)|hyperpage}{12}
+\indexentry{editaGanadoCeloForm (clase en ganados.forms)|hyperpage}{12}
+\indexentry{editaGanadoCeloForm.Meta (clase en ganados.forms)|hyperpage}{12}
+\indexentry{exclude (atributo de ganados.forms.editaGanadoCeloForm.Meta)|hyperpage}{12}
+\indexentry{model (atributo de ganados.forms.editaGanadoCeloForm.Meta)|hyperpage}{12}
+\indexentry{widgets (atributo de ganados.forms.editaGanadoCeloForm.Meta)|hyperpage}{13}
+\indexentry{base\_fields (atributo de ganados.forms.editaGanadoCeloForm)|hyperpage}{13}
+\indexentry{declared\_fields (atributo de ganados.forms.editaGanadoCeloForm)|hyperpage}{13}
+\indexentry{media (atributo de ganados.forms.editaGanadoCeloForm)|hyperpage}{13}
+\indexentry{etapaForm (clase en ganados.forms)|hyperpage}{13}
+\indexentry{etapaForm.Meta (clase en ganados.forms)|hyperpage}{13}
+\indexentry{exclude (atributo de ganados.forms.etapaForm.Meta)|hyperpage}{13}
+\indexentry{model (atributo de ganados.forms.etapaForm.Meta)|hyperpage}{13}
+\indexentry{base\_fields (atributo de ganados.forms.etapaForm)|hyperpage}{13}
+\indexentry{declared\_fields (atributo de ganados.forms.etapaForm)|hyperpage}{13}
+\indexentry{media (atributo de ganados.forms.etapaForm)|hyperpage}{13}
+\indexentry{ganadoForm (clase en ganados.forms)|hyperpage}{13}
+\indexentry{ganadoForm.Meta (clase en ganados.forms)|hyperpage}{13}
+\indexentry{exclude (atributo de ganados.forms.ganadoForm.Meta)|hyperpage}{13}
+\indexentry{model (atributo de ganados.forms.ganadoForm.Meta)|hyperpage}{13}
+\indexentry{widgets (atributo de ganados.forms.ganadoForm.Meta)|hyperpage}{13}
+\indexentry{base\_fields (atributo de ganados.forms.ganadoForm)|hyperpage}{13}
+\indexentry{declared\_fields (atributo de ganados.forms.ganadoForm)|hyperpage}{13}
+\indexentry{media (atributo de ganados.forms.ganadoForm)|hyperpage}{13}
+\indexentry{gestacionForm (clase en ganados.forms)|hyperpage}{13}
+\indexentry{gestacionForm.Meta (clase en ganados.forms)|hyperpage}{13}
+\indexentry{exclude (atributo de ganados.forms.gestacionForm.Meta)|hyperpage}{13}
+\indexentry{model (atributo de ganados.forms.gestacionForm.Meta)|hyperpage}{13}
+\indexentry{widgets (atributo de ganados.forms.gestacionForm.Meta)|hyperpage}{13}
+\indexentry{base\_fields (atributo de ganados.forms.gestacionForm)|hyperpage}{13}
+\indexentry{declared\_fields (atributo de ganados.forms.gestacionForm)|hyperpage}{14}
+\indexentry{media (atributo de ganados.forms.gestacionForm)|hyperpage}{14}
+\indexentry{inseminationForm (clase en ganados.forms)|hyperpage}{14}
+\indexentry{inseminationForm.Meta (clase en ganados.forms)|hyperpage}{14}
+\indexentry{exclude (atributo de ganados.forms.inseminationForm.Meta)|hyperpage}{14}
+\indexentry{model (atributo de ganados.forms.inseminationForm.Meta)|hyperpage}{14}
+\indexentry{widgets (atributo de ganados.forms.inseminationForm.Meta)|hyperpage}{14}
+\indexentry{base\_fields (atributo de ganados.forms.inseminationForm)|hyperpage}{14}
+\indexentry{declared\_fields (atributo de ganados.forms.inseminationForm)|hyperpage}{14}
+\indexentry{media (atributo de ganados.forms.inseminationForm)|hyperpage}{14}
+\indexentry{ordenioForm (clase en ganados.forms)|hyperpage}{14}
+\indexentry{ordenioForm.Meta (clase en ganados.forms)|hyperpage}{14}
+\indexentry{exclude (atributo de ganados.forms.ordenioForm.Meta)|hyperpage}{14}
+\indexentry{model (atributo de ganados.forms.ordenioForm.Meta)|hyperpage}{14}
+\indexentry{widgets (atributo de ganados.forms.ordenioForm.Meta)|hyperpage}{14}
+\indexentry{base\_fields (atributo de ganados.forms.ordenioForm)|hyperpage}{14}
+\indexentry{declared\_fields (atributo de ganados.forms.ordenioForm)|hyperpage}{14}
+\indexentry{media (atributo de ganados.forms.ordenioForm)|hyperpage}{14}
+\indexentry{problemGestacionForm (clase en ganados.forms)|hyperpage}{14}
+\indexentry{problemGestacionForm.Meta (clase en ganados.forms)|hyperpage}{14}
+\indexentry{model (atributo de ganados.forms.problemGestacionForm.Meta)|hyperpage}{14}
+\indexentry{widgets (atributo de ganados.forms.problemGestacionForm.Meta)|hyperpage}{14}
+\indexentry{base\_fields (atributo de ganados.forms.problemGestacionForm)|hyperpage}{14}
+\indexentry{declared\_fields (atributo de ganados.forms.problemGestacionForm)|hyperpage}{14}
+\indexentry{media (atributo de ganados.forms.problemGestacionForm)|hyperpage}{14}
+\indexentry{tipoNormaEcuadorForm (clase en ganados.forms)|hyperpage}{15}
+\indexentry{tipoNormaEcuadorForm.Meta (clase en ganados.forms)|hyperpage}{15}
+\indexentry{exclude (atributo de ganados.forms.tipoNormaEcuadorForm.Meta)|hyperpage}{15}
+\indexentry{model (atributo de ganados.forms.tipoNormaEcuadorForm.Meta)|hyperpage}{15}
+\indexentry{widgets (atributo de ganados.forms.tipoNormaEcuadorForm.Meta)|hyperpage}{15}
+\indexentry{base\_fields (atributo de ganados.forms.tipoNormaEcuadorForm)|hyperpage}{15}
+\indexentry{declared\_fields (atributo de ganados.forms.tipoNormaEcuadorForm)|hyperpage}{15}
+\indexentry{media (atributo de ganados.forms.tipoNormaEcuadorForm)|hyperpage}{15}
+\indexentry{tipoSimpleForm (clase en ganados.forms)|hyperpage}{15}
+\indexentry{tipoSimpleForm.Meta (clase en ganados.forms)|hyperpage}{15}
+\indexentry{exclude (atributo de ganados.forms.tipoSimpleForm.Meta)|hyperpage}{15}
+\indexentry{model (atributo de ganados.forms.tipoSimpleForm.Meta)|hyperpage}{15}
+\indexentry{widgets (atributo de ganados.forms.tipoSimpleForm.Meta)|hyperpage}{15}
+\indexentry{base\_fields (atributo de ganados.forms.tipoSimpleForm)|hyperpage}{15}
+\indexentry{declared\_fields (atributo de ganados.forms.tipoSimpleForm)|hyperpage}{15}
+\indexentry{media (atributo de ganados.forms.tipoSimpleForm)|hyperpage}{15}
+\indexentry{verificationForm (clase en ganados.forms)|hyperpage}{15}
+\indexentry{verificationForm.Meta (clase en ganados.forms)|hyperpage}{15}
+\indexentry{model (atributo de ganados.forms.verificationForm.Meta)|hyperpage}{15}
+\indexentry{base\_fields (atributo de ganados.forms.verificationForm)|hyperpage}{15}
+\indexentry{declared\_fields (atributo de ganados.forms.verificationForm)|hyperpage}{15}
+\indexentry{media (atributo de ganados.forms.verificationForm)|hyperpage}{15}
+\indexentry{verifyAttemptForm (clase en ganados.forms)|hyperpage}{15}
+\indexentry{verifyAttemptForm.Meta (clase en ganados.forms)|hyperpage}{16}
+\indexentry{exclude (atributo de ganados.forms.verifyAttemptForm.Meta)|hyperpage}{16}
+\indexentry{model (atributo de ganados.forms.verifyAttemptForm.Meta)|hyperpage}{16}
+\indexentry{widgets (atributo de ganados.forms.verifyAttemptForm.Meta)|hyperpage}{16}
+\indexentry{base\_fields (atributo de ganados.forms.verifyAttemptForm)|hyperpage}{16}
+\indexentry{declared\_fields (atributo de ganados.forms.verifyAttemptForm)|hyperpage}{16}
+\indexentry{media (atributo de ganados.forms.verifyAttemptForm)|hyperpage}{16}
+\indexentry{ganados.models (m\IeC {\'o}dulo)|hyperpage}{16}
+\indexentry{Attempt (clase en ganados.models)|hyperpage}{16}
+\indexentry{Attempt.DoesNotExist|hyperpage}{16}
+\indexentry{Attempt.MultipleObjectsReturned|hyperpage}{16}
+\indexentry{STATE\_CHOICES (atributo de ganados.models.Attempt)|hyperpage}{16}
+\indexentry{TYPE\_CONCEPTION\_CHOICES (atributo de ganados.models.Attempt)|hyperpage}{16}
+\indexentry{get\_next\_by\_attempt\_date() (m\IeC {\'e}todo de ganados.models.Attempt)|hyperpage}{16}
+\indexentry{get\_previous\_by\_attempt\_date() (m\IeC {\'e}todo de ganados.models.Attempt)|hyperpage}{16}
+\indexentry{get\_state\_display() (m\IeC {\'e}todo de ganados.models.Attempt)|hyperpage}{16}
+\indexentry{get\_type\_conception\_display() (m\IeC {\'e}todo de ganados.models.Attempt)|hyperpage}{16}
+\indexentry{objects (atributo de ganados.models.Attempt)|hyperpage}{16}
+\indexentry{verification (atributo de ganados.models.Attempt)|hyperpage}{16}
+\indexentry{Celo (clase en ganados.models)|hyperpage}{16}
+\indexentry{Celo.DoesNotExist|hyperpage}{16}
+\indexentry{ESTADO\_CHOICES (atributo de ganados.models.Celo)|hyperpage}{16}
+\indexentry{Celo.MultipleObjectsReturned|hyperpage}{16}
+\indexentry{ganado (atributo de ganados.models.Celo)|hyperpage}{16}
+\indexentry{get\_estado\_display() (m\IeC {\'e}todo de ganados.models.Celo)|hyperpage}{16}
+\indexentry{get\_next\_by\_fecha\_fin() (m\IeC {\'e}todo de ganados.models.Celo)|hyperpage}{17}
+\indexentry{get\_next\_by\_fecha\_inicio() (m\IeC {\'e}todo de ganados.models.Celo)|hyperpage}{17}
+\indexentry{get\_previous\_by\_fecha\_fin() (m\IeC {\'e}todo de ganados.models.Celo)|hyperpage}{17}
+\indexentry{get\_previous\_by\_fecha\_inicio() (m\IeC {\'e}todo de ganados.models.Celo)|hyperpage}{17}
+\indexentry{objects (atributo de ganados.models.Celo)|hyperpage}{17}
+\indexentry{Ciclo (clase en ganados.models)|hyperpage}{17}
+\indexentry{Ciclo.DoesNotExist|hyperpage}{17}
+\indexentry{Ciclo.MultipleObjectsReturned|hyperpage}{17}
+\indexentry{NOMBRE\_CHOICES (atributo de ganados.models.Ciclo)|hyperpage}{17}
+\indexentry{ganado (atributo de ganados.models.Ciclo)|hyperpage}{17}
+\indexentry{get\_next\_by\_fecha\_fin() (m\IeC {\'e}todo de ganados.models.Ciclo)|hyperpage}{17}
+\indexentry{get\_next\_by\_fecha\_inicio() (m\IeC {\'e}todo de ganados.models.Ciclo)|hyperpage}{17}
+\indexentry{get\_nombre\_display() (m\IeC {\'e}todo de ganados.models.Ciclo)|hyperpage}{17}
+\indexentry{get\_previous\_by\_fecha\_fin() (m\IeC {\'e}todo de ganados.models.Ciclo)|hyperpage}{17}
+\indexentry{get\_previous\_by\_fecha\_inicio() (m\IeC {\'e}todo de ganados.models.Ciclo)|hyperpage}{17}
+\indexentry{objects (atributo de ganados.models.Ciclo)|hyperpage}{17}
+\indexentry{DownCattle (clase en ganados.models)|hyperpage}{17}
+\indexentry{CAUSE\_DOWN\_CHOICES (atributo de ganados.models.DownCattle)|hyperpage}{17}
+\indexentry{DownCattle.DoesNotExist|hyperpage}{17}
+\indexentry{DownCattle.MultipleObjectsReturned|hyperpage}{17}
+\indexentry{cattle\_down\_cattle (atributo de ganados.models.DownCattle)|hyperpage}{17}
+\indexentry{get\_cause\_down\_display() (m\IeC {\'e}todo de ganados.models.DownCattle)|hyperpage}{17}
+\indexentry{get\_next\_by\_date() (m\IeC {\'e}todo de ganados.models.DownCattle)|hyperpage}{17}
+\indexentry{get\_previous\_by\_date() (m\IeC {\'e}todo de ganados.models.DownCattle)|hyperpage}{17}
+\indexentry{objects (atributo de ganados.models.DownCattle)|hyperpage}{17}
+\indexentry{DownInsemination (clase en ganados.models)|hyperpage}{17}
+\indexentry{CAUSE\_DOWN\_CHOICES (atributo de ganados.models.DownInsemination)|hyperpage}{17}
+\indexentry{DownInsemination.DoesNotExist|hyperpage}{17}
+\indexentry{DownInsemination.MultipleObjectsReturned|hyperpage}{18}
+\indexentry{get\_cause\_down\_display() (m\IeC {\'e}todo de ganados.models.DownInsemination)|hyperpage}{18}
+\indexentry{get\_next\_by\_date() (m\IeC {\'e}todo de ganados.models.DownInsemination)|hyperpage}{18}
+\indexentry{get\_previous\_by\_date() (m\IeC {\'e}todo de ganados.models.DownInsemination)|hyperpage}{18}
+\indexentry{insemination\_down (atributo de ganados.models.DownInsemination)|hyperpage}{18}
+\indexentry{objects (atributo de ganados.models.DownInsemination)|hyperpage}{18}
+\indexentry{Etapa (clase en ganados.models)|hyperpage}{18}
+\indexentry{Etapa.DoesNotExist|hyperpage}{18}
+\indexentry{Etapa.MultipleObjectsReturned|hyperpage}{18}
+\indexentry{NOMBRE\_CHOICES (atributo de ganados.models.Etapa)|hyperpage}{18}
+\indexentry{ganado (atributo de ganados.models.Etapa)|hyperpage}{18}
+\indexentry{get\_next\_by\_fecha\_inicio() (m\IeC {\'e}todo de ganados.models.Etapa)|hyperpage}{18}
+\indexentry{get\_nombre\_display() (m\IeC {\'e}todo de ganados.models.Etapa)|hyperpage}{18}
+\indexentry{get\_previous\_by\_fecha\_inicio() (m\IeC {\'e}todo de ganados.models.Etapa)|hyperpage}{18}
+\indexentry{objects (atributo de ganados.models.Etapa)|hyperpage}{18}
+\indexentry{Ganado (clase en ganados.models)|hyperpage}{18}
+\indexentry{CONCEPCION\_CHOICES (atributo de ganados.models.Ganado)|hyperpage}{18}
+\indexentry{Ganado.DoesNotExist|hyperpage}{18}
+\indexentry{GENDER\_CHOICES (atributo de ganados.models.Ganado)|hyperpage}{18}
+\indexentry{Ganado.MultipleObjectsReturned|hyperpage}{18}
+\indexentry{RAZAS\_CHOICES (atributo de ganados.models.Ganado)|hyperpage}{18}
+\indexentry{UNIT\_LIVE\_WEIGHT\_CHOICES (atributo de ganados.models.Ganado)|hyperpage}{18}
+\indexentry{application\_food\_food (atributo de ganados.models.Ganado)|hyperpage}{18}
+\indexentry{application\_medicament\_medicament (atributo de ganados.models.Ganado)|hyperpage}{18}
+\indexentry{celos (atributo de ganados.models.Ganado)|hyperpage}{18}
+\indexentry{ciclos (atributo de ganados.models.Ganado)|hyperpage}{18}
+\indexentry{down\_cattle (atributo de ganados.models.Ganado)|hyperpage}{18}
+\indexentry{etapas (atributo de ganados.models.Ganado)|hyperpage}{19}
+\indexentry{ganaderia (atributo de ganados.models.Ganado)|hyperpage}{19}
+\indexentry{gestaciones (atributo de ganados.models.Ganado)|hyperpage}{19}
+\indexentry{get\_forma\_concepcion\_display() (m\IeC {\'e}todo de ganados.models.Ganado)|hyperpage}{19}
+\indexentry{get\_genero\_display() (m\IeC {\'e}todo de ganados.models.Ganado)|hyperpage}{19}
+\indexentry{get\_next\_by\_nacimiento() (m\IeC {\'e}todo de ganados.models.Ganado)|hyperpage}{19}
+\indexentry{get\_previous\_by\_nacimiento() (m\IeC {\'e}todo de ganados.models.Ganado)|hyperpage}{19}
+\indexentry{get\_raza\_display() (m\IeC {\'e}todo de ganados.models.Ganado)|hyperpage}{19}
+\indexentry{get\_unit\_live\_weight\_display() (m\IeC {\'e}todo de ganados.models.Ganado)|hyperpage}{19}
+\indexentry{identificacion\_ecuador (atributo de ganados.models.Ganado)|hyperpage}{19}
+\indexentry{identificacion\_simple (atributo de ganados.models.Ganado)|hyperpage}{19}
+\indexentry{notification\_cattle (atributo de ganados.models.Ganado)|hyperpage}{19}
+\indexentry{objects (atributo de ganados.models.Ganado)|hyperpage}{19}
+\indexentry{ordenios (atributo de ganados.models.Ganado)|hyperpage}{19}
+\indexentry{verification\_cattle (atributo de ganados.models.Ganado)|hyperpage}{19}
+\indexentry{Gestacion (clase en ganados.models)|hyperpage}{19}
+\indexentry{Gestacion.DoesNotExist|hyperpage}{19}
+\indexentry{Gestacion.MultipleObjectsReturned|hyperpage}{19}
+\indexentry{TIPO\_PARTO\_CHOICES (atributo de ganados.models.Gestacion)|hyperpage}{19}
+\indexentry{ganado (atributo de ganados.models.Gestacion)|hyperpage}{19}
+\indexentry{get\_next\_by\_fecha\_parto() (m\IeC {\'e}todo de ganados.models.Gestacion)|hyperpage}{19}
+\indexentry{get\_next\_by\_fecha\_servicio() (m\IeC {\'e}todo de ganados.models.Gestacion)|hyperpage}{19}
+\indexentry{get\_previous\_by\_fecha\_parto() (m\IeC {\'e}todo de ganados.models.Gestacion)|hyperpage}{19}
+\indexentry{get\_previous\_by\_fecha\_servicio() (m\IeC {\'e}todo de ganados.models.Gestacion)|hyperpage}{19}
+\indexentry{get\_tipo\_parto\_display() (m\IeC {\'e}todo de ganados.models.Gestacion)|hyperpage}{19}
+\indexentry{objects (atributo de ganados.models.Gestacion)|hyperpage}{19}
+\indexentry{problema (atributo de ganados.models.Gestacion)|hyperpage}{19}
+\indexentry{Identificacion\_Ecuador (clase en ganados.models)|hyperpage}{19}
+\indexentry{Identificacion\_Ecuador.DoesNotExist|hyperpage}{19}
+\indexentry{Identificacion\_Ecuador.MultipleObjectsReturned|hyperpage}{19}
+\indexentry{identificaciones\_ecuador (atributo de ganados.models.Identificacion\_Ecuador)|hyperpage}{20}
+\indexentry{objects (atributo de ganados.models.Identificacion\_Ecuador)|hyperpage}{20}
+\indexentry{Identificacion\_Simple (clase en ganados.models)|hyperpage}{20}
+\indexentry{Identificacion\_Simple.DoesNotExist|hyperpage}{20}
+\indexentry{Identificacion\_Simple.MultipleObjectsReturned|hyperpage}{20}
+\indexentry{identificaciones\_simples (atributo de ganados.models.Identificacion\_Simple)|hyperpage}{20}
+\indexentry{objects (atributo de ganados.models.Identificacion\_Simple)|hyperpage}{20}
+\indexentry{Insemination (clase en ganados.models)|hyperpage}{20}
+\indexentry{BREED\_CHOICES (atributo de ganados.models.Insemination)|hyperpage}{20}
+\indexentry{Insemination.DoesNotExist|hyperpage}{20}
+\indexentry{Insemination.MultipleObjectsReturned|hyperpage}{20}
+\indexentry{down\_insemination (atributo de ganados.models.Insemination)|hyperpage}{20}
+\indexentry{farm (atributo de ganados.models.Insemination)|hyperpage}{20}
+\indexentry{get\_breed\_display() (m\IeC {\'e}todo de ganados.models.Insemination)|hyperpage}{20}
+\indexentry{get\_next\_by\_registration\_date() (m\IeC {\'e}todo de ganados.models.Insemination)|hyperpage}{20}
+\indexentry{get\_previous\_by\_registration\_date() (m\IeC {\'e}todo de ganados.models.Insemination)|hyperpage}{20}
+\indexentry{objects (atributo de ganados.models.Insemination)|hyperpage}{20}
+\indexentry{Ordenio (clase en ganados.models)|hyperpage}{20}
+\indexentry{Ordenio.DoesNotExist|hyperpage}{20}
+\indexentry{Ordenio.MultipleObjectsReturned|hyperpage}{20}
+\indexentry{ganado (atributo de ganados.models.Ordenio)|hyperpage}{20}
+\indexentry{get\_next\_by\_fecha() (m\IeC {\'e}todo de ganados.models.Ordenio)|hyperpage}{20}
+\indexentry{get\_previous\_by\_fecha() (m\IeC {\'e}todo de ganados.models.Ordenio)|hyperpage}{20}
+\indexentry{objects (atributo de ganados.models.Ordenio)|hyperpage}{20}
+\indexentry{ProblemaGestacion (clase en ganados.models)|hyperpage}{20}
+\indexentry{ProblemaGestacion.DoesNotExist|hyperpage}{21}
+\indexentry{ProblemaGestacion.MultipleObjectsReturned|hyperpage}{21}
+\indexentry{TIPO\_PROBLEMA\_CHOICES (atributo de ganados.models.ProblemaGestacion)|hyperpage}{21}
+\indexentry{gestacion (atributo de ganados.models.ProblemaGestacion)|hyperpage}{21}
+\indexentry{get\_next\_by\_fecha\_problema() (m\IeC {\'e}todo de ganados.models.ProblemaGestacion)|hyperpage}{21}
+\indexentry{get\_previous\_by\_fecha\_problema() (m\IeC {\'e}todo de ganados.models.ProblemaGestacion)|hyperpage}{21}
+\indexentry{get\_tipo\_problema\_display() (m\IeC {\'e}todo de ganados.models.ProblemaGestacion)|hyperpage}{21}
+\indexentry{objects (atributo de ganados.models.ProblemaGestacion)|hyperpage}{21}
+\indexentry{Verification (clase en ganados.models)|hyperpage}{21}
+\indexentry{Verification.DoesNotExist|hyperpage}{21}
+\indexentry{Verification.MultipleObjectsReturned|hyperpage}{21}
+\indexentry{attempt\_verification (atributo de ganados.models.Verification)|hyperpage}{21}
+\indexentry{cattle (atributo de ganados.models.Verification)|hyperpage}{21}
+\indexentry{get\_next\_by\_initial\_date() (m\IeC {\'e}todo de ganados.models.Verification)|hyperpage}{21}
+\indexentry{get\_previous\_by\_initial\_date() (m\IeC {\'e}todo de ganados.models.Verification)|hyperpage}{21}
+\indexentry{objects (atributo de ganados.models.Verification)|hyperpage}{21}
+\indexentry{ganados.tests (m\IeC {\'o}dulo)|hyperpage}{21}
+\indexentry{ganados.views (m\IeC {\'o}dulo)|hyperpage}{21}
+\indexentry{add\_attempt\_service() (en el m\IeC {\'o}dulo ganados.views)|hyperpage}{21}
+\indexentry{add\_cattle() (en el m\IeC {\'o}dulo ganados.views)|hyperpage}{21}
+\indexentry{add\_insemination() (en el m\IeC {\'o}dulo ganados.views)|hyperpage}{21}
+\indexentry{add\_service() (en el m\IeC {\'o}dulo ganados.views)|hyperpage}{21}
+\indexentry{agrega\_ganado\_ordenio() (en el m\IeC {\'o}dulo ganados.views)|hyperpage}{21}
+\indexentry{calcula\_edad\_anios() (en el m\IeC {\'o}dulo ganados.views)|hyperpage}{21}
+\indexentry{calcula\_edad\_dias() (en el m\IeC {\'o}dulo ganados.views)|hyperpage}{21}
+\indexentry{calcula\_edad\_meses() (en el m\IeC {\'o}dulo ganados.views)|hyperpage}{21}
+\indexentry{calcula\_etapa() (en el m\IeC {\'o}dulo ganados.views)|hyperpage}{21}
+\indexentry{edit\_cattle\_male() (en el m\IeC {\'o}dulo ganados.views)|hyperpage}{21}
+\indexentry{edit\_insemination() (en el m\IeC {\'o}dulo ganados.views)|hyperpage}{22}
+\indexentry{edita\_ganado() (en el m\IeC {\'o}dulo ganados.views)|hyperpage}{22}
+\indexentry{edita\_ganado\_celo() (en el m\IeC {\'o}dulo ganados.views)|hyperpage}{22}
+\indexentry{edita\_ganado\_ordenio() (en el m\IeC {\'o}dulo ganados.views)|hyperpage}{22}
+\indexentry{gestacion() (en el m\IeC {\'o}dulo ganados.views)|hyperpage}{22}
+\indexentry{list\_cattle() (en el m\IeC {\'o}dulo ganados.views)|hyperpage}{22}
+\indexentry{list\_cattle\_male() (en el m\IeC {\'o}dulo ganados.views)|hyperpage}{22}
+\indexentry{list\_insemination() (en el m\IeC {\'o}dulo ganados.views)|hyperpage}{22}
+\indexentry{lista\_ganado\_produccion() (en el m\IeC {\'o}dulo ganados.views)|hyperpage}{22}
+\indexentry{problem\_gestacion() (en el m\IeC {\'o}dulo ganados.views)|hyperpage}{22}
+\indexentry{verify\_attempt() (en el m\IeC {\'o}dulo ganados.views)|hyperpage}{22}
+\indexentry{ganados (m\IeC {\'o}dulo)|hyperpage}{22}
+\indexentry{medicament.admin (m\IeC {\'o}dulo)|hyperpage}{22}
+\indexentry{medicament.forms (m\IeC {\'o}dulo)|hyperpage}{22}
+\indexentry{vaccineForm (clase en medicament.forms)|hyperpage}{22}
+\indexentry{vaccineForm.Meta (clase en medicament.forms)|hyperpage}{22}
+\indexentry{exclude (atributo de medicament.forms.vaccineForm.Meta)|hyperpage}{22}
+\indexentry{model (atributo de medicament.forms.vaccineForm.Meta)|hyperpage}{22}
+\indexentry{widgets (atributo de medicament.forms.vaccineForm.Meta)|hyperpage}{22}
+\indexentry{base\_fields (atributo de medicament.forms.vaccineForm)|hyperpage}{22}
+\indexentry{declared\_fields (atributo de medicament.forms.vaccineForm)|hyperpage}{22}
+\indexentry{media (atributo de medicament.forms.vaccineForm)|hyperpage}{22}
+\indexentry{wormerForm (clase en medicament.forms)|hyperpage}{22}
+\indexentry{wormerForm.Meta (clase en medicament.forms)|hyperpage}{22}
+\indexentry{exclude (atributo de medicament.forms.wormerForm.Meta)|hyperpage}{23}
+\indexentry{model (atributo de medicament.forms.wormerForm.Meta)|hyperpage}{23}
+\indexentry{widgets (atributo de medicament.forms.wormerForm.Meta)|hyperpage}{23}
+\indexentry{base\_fields (atributo de medicament.forms.wormerForm)|hyperpage}{23}
+\indexentry{declared\_fields (atributo de medicament.forms.wormerForm)|hyperpage}{23}
+\indexentry{media (atributo de medicament.forms.wormerForm)|hyperpage}{23}
+\indexentry{medicament.models (m\IeC {\'o}dulo)|hyperpage}{23}
+\indexentry{ApplicationMedicament (clase en medicament.models)|hyperpage}{23}
+\indexentry{ApplicationMedicament.DoesNotExist|hyperpage}{23}
+\indexentry{ApplicationMedicament.MultipleObjectsReturned|hyperpage}{23}
+\indexentry{STATUS\_CHOICES (atributo de medicament.models.ApplicationMedicament)|hyperpage}{23}
+\indexentry{cattle (atributo de medicament.models.ApplicationMedicament)|hyperpage}{23}
+\indexentry{get\_next\_by\_date() (m\IeC {\'e}todo de medicament.models.ApplicationMedicament)|hyperpage}{23}
+\indexentry{get\_previous\_by\_date() (m\IeC {\'e}todo de medicament.models.ApplicationMedicament)|hyperpage}{23}
+\indexentry{get\_status\_display() (m\IeC {\'e}todo de medicament.models.ApplicationMedicament)|hyperpage}{23}
+\indexentry{medicament (atributo de medicament.models.ApplicationMedicament)|hyperpage}{23}
+\indexentry{objects (atributo de medicament.models.ApplicationMedicament)|hyperpage}{23}
+\indexentry{Medicament (clase en medicament.models)|hyperpage}{23}
+\indexentry{ADMINISTRATION\_ROUTE\_CHOICES (atributo de medicament.models.Medicament)|hyperpage}{23}
+\indexentry{Medicament.DoesNotExist|hyperpage}{23}
+\indexentry{Medicament.MultipleObjectsReturned|hyperpage}{23}
+\indexentry{OPTION\_NUMBER\_APPLICATION (atributo de medicament.models.Medicament)|hyperpage}{23}
+\indexentry{SEX\_CHOICES (atributo de medicament.models.Medicament)|hyperpage}{23}
+\indexentry{TIME\_APPLICATION\_AGE\_CHOICES (atributo de medicament.models.Medicament)|hyperpage}{23}
+\indexentry{TIME\_INTERVAL\_CHOICES (atributo de medicament.models.Medicament)|hyperpage}{23}
+\indexentry{UNIT\_CHOICES (atributo de medicament.models.Medicament)|hyperpage}{23}
+\indexentry{application\_medicament\_cattle (atributo de medicament.models.Medicament)|hyperpage}{24}
+\indexentry{farm (atributo de medicament.models.Medicament)|hyperpage}{24}
+\indexentry{get\_administration\_route\_display() (m\IeC {\'e}todo de medicament.models.Medicament)|hyperpage}{24}
+\indexentry{get\_next\_by\_expiration\_date() (m\IeC {\'e}todo de medicament.models.Medicament)|hyperpage}{24}
+\indexentry{get\_option\_number\_application\_display() (m\IeC {\'e}todo de medicament.models.Medicament)|hyperpage}{24}
+\indexentry{get\_previous\_by\_expiration\_date() (m\IeC {\'e}todo de medicament.models.Medicament)|hyperpage}{24}
+\indexentry{get\_sex\_display() (m\IeC {\'e}todo de medicament.models.Medicament)|hyperpage}{24}
+\indexentry{get\_time\_application\_age\_display() (m\IeC {\'e}todo de medicament.models.Medicament)|hyperpage}{24}
+\indexentry{get\_time\_interval\_display() (m\IeC {\'e}todo de medicament.models.Medicament)|hyperpage}{24}
+\indexentry{get\_unit\_display() (m\IeC {\'e}todo de medicament.models.Medicament)|hyperpage}{24}
+\indexentry{notification\_medicament (atributo de medicament.models.Medicament)|hyperpage}{24}
+\indexentry{objects (atributo de medicament.models.Medicament)|hyperpage}{24}
+\indexentry{medicament.tests (m\IeC {\'o}dulo)|hyperpage}{24}
+\indexentry{medicament.views (m\IeC {\'o}dulo)|hyperpage}{24}
+\indexentry{add\_vaccine() (en el m\IeC {\'o}dulo medicament.views)|hyperpage}{24}
+\indexentry{add\_wormer() (en el m\IeC {\'o}dulo medicament.views)|hyperpage}{24}
+\indexentry{asign\_vaccine() (en el m\IeC {\'o}dulo medicament.views)|hyperpage}{24}
+\indexentry{asign\_wormer() (en el m\IeC {\'o}dulo medicament.views)|hyperpage}{24}
+\indexentry{edit\_vaccine() (en el m\IeC {\'o}dulo medicament.views)|hyperpage}{24}
+\indexentry{edit\_wormer() (en el m\IeC {\'o}dulo medicament.views)|hyperpage}{24}
+\indexentry{list\_vaccine() (en el m\IeC {\'o}dulo medicament.views)|hyperpage}{24}
+\indexentry{list\_wormer() (en el m\IeC {\'o}dulo medicament.views)|hyperpage}{24}
+\indexentry{medicament (m\IeC {\'o}dulo)|hyperpage}{25}
+\indexentry{messages.admin (m\IeC {\'o}dulo)|hyperpage}{25}
+\indexentry{messages.forms (m\IeC {\'o}dulo)|hyperpage}{25}
+\indexentry{MessageForm (clase en messages.forms)|hyperpage}{25}
+\indexentry{MessageForm.Meta (clase en messages.forms)|hyperpage}{25}
+\indexentry{exclude (atributo de messages.forms.MessageForm.Meta)|hyperpage}{25}
+\indexentry{model (atributo de messages.forms.MessageForm.Meta)|hyperpage}{25}
+\indexentry{widgets (atributo de messages.forms.MessageForm.Meta)|hyperpage}{25}
+\indexentry{base\_fields (atributo de messages.forms.MessageForm)|hyperpage}{25}
+\indexentry{declared\_fields (atributo de messages.forms.MessageForm)|hyperpage}{25}
+\indexentry{media (atributo de messages.forms.MessageForm)|hyperpage}{25}
+\indexentry{MessageResponseForm (clase en messages.forms)|hyperpage}{25}
+\indexentry{MessageResponseForm.Meta (clase en messages.forms)|hyperpage}{25}
+\indexentry{exclude (atributo de messages.forms.MessageResponseForm.Meta)|hyperpage}{25}
+\indexentry{model (atributo de messages.forms.MessageResponseForm.Meta)|hyperpage}{25}
+\indexentry{widgets (atributo de messages.forms.MessageResponseForm.Meta)|hyperpage}{25}
+\indexentry{base\_fields (atributo de messages.forms.MessageResponseForm)|hyperpage}{25}
+\indexentry{declared\_fields (atributo de messages.forms.MessageResponseForm)|hyperpage}{25}
+\indexentry{media (atributo de messages.forms.MessageResponseForm)|hyperpage}{25}
+\indexentry{messages.models (m\IeC {\'o}dulo)|hyperpage}{25}
+\indexentry{Message (clase en messages.models)|hyperpage}{25}
+\indexentry{Message.DoesNotExist|hyperpage}{25}
+\indexentry{Message.MultipleObjectsReturned|hyperpage}{26}
+\indexentry{get\_next\_by\_sent\_at() (m\IeC {\'e}todo de messages.models.Message)|hyperpage}{26}
+\indexentry{get\_previous\_by\_sent\_at() (m\IeC {\'e}todo de messages.models.Message)|hyperpage}{26}
+\indexentry{objects (atributo de messages.models.Message)|hyperpage}{26}
+\indexentry{receiver (atributo de messages.models.Message)|hyperpage}{26}
+\indexentry{sender (atributo de messages.models.Message)|hyperpage}{26}
+\indexentry{messages.tests (m\IeC {\'o}dulo)|hyperpage}{26}
+\indexentry{messages.views (m\IeC {\'o}dulo)|hyperpage}{26}
+\indexentry{alert\_messages() (en el m\IeC {\'o}dulo messages.views)|hyperpage}{26}
+\indexentry{messages\_details() (en el m\IeC {\'o}dulo messages.views)|hyperpage}{26}
+\indexentry{messages\_list() (en el m\IeC {\'o}dulo messages.views)|hyperpage}{26}
+\indexentry{messages\_list\_no\_read() (en el m\IeC {\'o}dulo messages.views)|hyperpage}{26}
+\indexentry{messages\_list\_read() (en el m\IeC {\'o}dulo messages.views)|hyperpage}{26}
+\indexentry{new\_message() (en el m\IeC {\'o}dulo messages.views)|hyperpage}{26}
+\indexentry{messages (m\IeC {\'o}dulo)|hyperpage}{26}
+\indexentry{notifications.admin (m\IeC {\'o}dulo)|hyperpage}{26}
+\indexentry{notifications.models (m\IeC {\'o}dulo)|hyperpage}{26}
+\indexentry{Notification (clase en notifications.models)|hyperpage}{26}
+\indexentry{Notification.DoesNotExist|hyperpage}{26}
+\indexentry{MODULE\_CHOICES (atributo de notifications.models.Notification)|hyperpage}{26}
+\indexentry{Notification.MultipleObjectsReturned|hyperpage}{26}
+\indexentry{NAME\_CHOICES (atributo de notifications.models.Notification)|hyperpage}{26}
+\indexentry{STATE\_CHOICES (atributo de notifications.models.Notification)|hyperpage}{26}
+\indexentry{get\_module\_display() (m\IeC {\'e}todo de notifications.models.Notification)|hyperpage}{26}
+\indexentry{get\_name\_display() (m\IeC {\'e}todo de notifications.models.Notification)|hyperpage}{27}
+\indexentry{get\_next\_by\_end\_date() (m\IeC {\'e}todo de notifications.models.Notification)|hyperpage}{27}
+\indexentry{get\_next\_by\_start\_date() (m\IeC {\'e}todo de notifications.models.Notification)|hyperpage}{27}
+\indexentry{get\_previous\_by\_end\_date() (m\IeC {\'e}todo de notifications.models.Notification)|hyperpage}{27}
+\indexentry{get\_previous\_by\_start\_date() (m\IeC {\'e}todo de notifications.models.Notification)|hyperpage}{27}
+\indexentry{get\_state\_display() (m\IeC {\'e}todo de notifications.models.Notification)|hyperpage}{27}
+\indexentry{ident\_cattle (atributo de notifications.models.Notification)|hyperpage}{27}
+\indexentry{ident\_food (atributo de notifications.models.Notification)|hyperpage}{27}
+\indexentry{ident\_medicament (atributo de notifications.models.Notification)|hyperpage}{27}
+\indexentry{objects (atributo de notifications.models.Notification)|hyperpage}{27}
+\indexentry{notifications.tests (m\IeC {\'o}dulo)|hyperpage}{27}
+\indexentry{notifications.views (m\IeC {\'o}dulo)|hyperpage}{27}
+\indexentry{list\_notifications() (en el m\IeC {\'o}dulo notifications.views)|hyperpage}{27}
+\indexentry{list\_notifications\_alimentacion() (en el m\IeC {\'o}dulo notifications.views)|hyperpage}{27}
+\indexentry{list\_notifications\_produccion() (en el m\IeC {\'o}dulo notifications.views)|hyperpage}{27}
+\indexentry{list\_notifications\_reproduccion() (en el m\IeC {\'o}dulo notifications.views)|hyperpage}{27}
+\indexentry{list\_notifications\_sanidad() (en el m\IeC {\'o}dulo notifications.views)|hyperpage}{27}
+\indexentry{realizedNotification() (en el m\IeC {\'o}dulo notifications.views)|hyperpage}{27}
+\indexentry{notifications (m\IeC {\'o}dulo)|hyperpage}{27}
+\indexentry{profiles.admin (m\IeC {\'o}dulo)|hyperpage}{27}
+\indexentry{profiles.forms (m\IeC {\'o}dulo)|hyperpage}{27}
+\indexentry{ConfiguracionForm (clase en profiles.forms)|hyperpage}{27}
+\indexentry{ConfiguracionForm.Meta (clase en profiles.forms)|hyperpage}{27}
+\indexentry{exclude (atributo de profiles.forms.ConfiguracionForm.Meta)|hyperpage}{27}
+\indexentry{model (atributo de profiles.forms.ConfiguracionForm.Meta)|hyperpage}{27}
+\indexentry{widgets (atributo de profiles.forms.ConfiguracionForm.Meta)|hyperpage}{28}
+\indexentry{base\_fields (atributo de profiles.forms.ConfiguracionForm)|hyperpage}{28}
+\indexentry{declared\_fields (atributo de profiles.forms.ConfiguracionForm)|hyperpage}{28}
+\indexentry{media (atributo de profiles.forms.ConfiguracionForm)|hyperpage}{28}
+\indexentry{GanaderiaForm (clase en profiles.forms)|hyperpage}{28}
+\indexentry{GanaderiaForm.Meta (clase en profiles.forms)|hyperpage}{28}
+\indexentry{fields (atributo de profiles.forms.GanaderiaForm.Meta)|hyperpage}{28}
+\indexentry{model (atributo de profiles.forms.GanaderiaForm.Meta)|hyperpage}{28}
+\indexentry{widgets (atributo de profiles.forms.GanaderiaForm.Meta)|hyperpage}{28}
+\indexentry{base\_fields (atributo de profiles.forms.GanaderiaForm)|hyperpage}{28}
+\indexentry{declared\_fields (atributo de profiles.forms.GanaderiaForm)|hyperpage}{28}
+\indexentry{media (atributo de profiles.forms.GanaderiaForm)|hyperpage}{28}
+\indexentry{SignupFormExtra (clase en profiles.forms)|hyperpage}{28}
+\indexentry{base\_fields (atributo de profiles.forms.SignupFormExtra)|hyperpage}{28}
+\indexentry{media (atributo de profiles.forms.SignupFormExtra)|hyperpage}{28}
+\indexentry{save() (m\IeC {\'e}todo de profiles.forms.SignupFormExtra)|hyperpage}{28}
+\indexentry{profiles.models (m\IeC {\'o}dulo)|hyperpage}{28}
+\indexentry{Configuracion (clase en profiles.models)|hyperpage}{28}
+\indexentry{Configuracion.DoesNotExist|hyperpage}{28}
+\indexentry{IDENTIFICACION\_CHOICES (atributo de profiles.models.Configuracion)|hyperpage}{28}
+\indexentry{Configuracion.MultipleObjectsReturned|hyperpage}{28}
+\indexentry{ganaderia (atributo de profiles.models.Configuracion)|hyperpage}{28}
+\indexentry{get\_tipo\_identificacion\_display() (m\IeC {\'e}todo de profiles.models.Configuracion)|hyperpage}{28}
+\indexentry{objects (atributo de profiles.models.Configuracion)|hyperpage}{29}
+\indexentry{Ganaderia (clase en profiles.models)|hyperpage}{29}
+\indexentry{Ganaderia.DoesNotExist|hyperpage}{29}
+\indexentry{Ganaderia.MultipleObjectsReturned|hyperpage}{29}
+\indexentry{configuracion (atributo de profiles.models.Ganaderia)|hyperpage}{29}
+\indexentry{farm\_foods (atributo de profiles.models.Ganaderia)|hyperpage}{29}
+\indexentry{ganados (atributo de profiles.models.Ganaderia)|hyperpage}{29}
+\indexentry{insemination\_farm (atributo de profiles.models.Ganaderia)|hyperpage}{29}
+\indexentry{medicaments (atributo de profiles.models.Ganaderia)|hyperpage}{29}
+\indexentry{objects (atributo de profiles.models.Ganaderia)|hyperpage}{29}
+\indexentry{perfil (atributo de profiles.models.Ganaderia)|hyperpage}{29}
+\indexentry{Profile (clase en profiles.models)|hyperpage}{29}
+\indexentry{Profile.DoesNotExist|hyperpage}{29}
+\indexentry{GENDER\_CHOICES (atributo de profiles.models.Profile)|hyperpage}{29}
+\indexentry{Profile.MultipleObjectsReturned|hyperpage}{29}
+\indexentry{ganaderia\_perfil (atributo de profiles.models.Profile)|hyperpage}{29}
+\indexentry{get\_gender\_display() (m\IeC {\'e}todo de profiles.models.Profile)|hyperpage}{29}
+\indexentry{get\_language\_display() (m\IeC {\'e}todo de profiles.models.Profile)|hyperpage}{29}
+\indexentry{get\_privacy\_display() (m\IeC {\'e}todo de profiles.models.Profile)|hyperpage}{29}
+\indexentry{objects (atributo de profiles.models.Profile)|hyperpage}{29}
+\indexentry{receiver\_ (atributo de profiles.models.Profile)|hyperpage}{29}
+\indexentry{sender\_ (atributo de profiles.models.Profile)|hyperpage}{29}
+\indexentry{user (atributo de profiles.models.Profile)|hyperpage}{29}
+\indexentry{profiles.tests (m\IeC {\'o}dulo)|hyperpage}{29}
+\indexentry{profiles.views (m\IeC {\'o}dulo)|hyperpage}{29}
+\indexentry{agrega\_ganaderia\_config() (en el m\IeC {\'o}dulo profiles.views)|hyperpage}{29}
+\indexentry{home() (en el m\IeC {\'o}dulo profiles.views)|hyperpage}{29}
+\indexentry{number\_messages() (en el m\IeC {\'o}dulo profiles.views)|hyperpage}{29}
+\indexentry{profiles (m\IeC {\'o}dulo)|hyperpage}{30}
+\indexentry{reports.admin (m\IeC {\'o}dulo)|hyperpage}{30}
+\indexentry{reports.models (m\IeC {\'o}dulo)|hyperpage}{30}
+\indexentry{reports.tests (m\IeC {\'o}dulo)|hyperpage}{30}
+\indexentry{reports.views (m\IeC {\'o}dulo)|hyperpage}{31}
+\indexentry{docs() (en el m\IeC {\'o}dulo reports.views)|hyperpage}{31}
+\indexentry{list\_reports() (en el m\IeC {\'o}dulo reports.views)|hyperpage}{31}
+\indexentry{view\_report\_female() (en el m\IeC {\'o}dulo reports.views)|hyperpage}{31}
+\indexentry{reports (m\IeC {\'o}dulo)|hyperpage}{31}
+\indexentry{webServices.wsGanados.admin (m\IeC {\'o}dulo)|hyperpage}{31}
+\indexentry{webServices.wsGanados.models (m\IeC {\'o}dulo)|hyperpage}{31}
+\indexentry{webServices.wsGanados.tests (m\IeC {\'o}dulo)|hyperpage}{31}
+\indexentry{webServices.wsGanados.urls (m\IeC {\'o}dulo)|hyperpage}{31}
+\indexentry{webServices.wsGanados.views (m\IeC {\'o}dulo)|hyperpage}{31}
+\indexentry{AgentAlimentacion (clase en webServices.wsGanados.views)|hyperpage}{31}
+\indexentry{AgentAlimentacion.BehaviourAlimentacion (clase en webServices.wsGanados.views)|hyperpage}{31}
+\indexentry{onEnd() (m\IeC {\'e}todo de webServices.wsGanados.views.AgentAlimentacion.BehaviourAlimentacion)|hyperpage}{31}
+\indexentry{onStart() (m\IeC {\'e}todo de webServices.wsGanados.views.AgentAlimentacion.BehaviourAlimentacion)|hyperpage}{31}
+\indexentry{AgentProduccion (clase en webServices.wsGanados.views)|hyperpage}{31}
+\indexentry{AgentProduccion.BehaviourProduccion (clase en webServices.wsGanados.views)|hyperpage}{31}
+\indexentry{onEnd() (m\IeC {\'e}todo de webServices.wsGanados.views.AgentProduccion.BehaviourProduccion)|hyperpage}{31}
+\indexentry{onStart() (m\IeC {\'e}todo de webServices.wsGanados.views.AgentProduccion.BehaviourProduccion)|hyperpage}{31}
+\indexentry{AgentReproduccion (clase en webServices.wsGanados.views)|hyperpage}{31}
+\indexentry{AgentReproduccion.BehaviourReproduccion (clase en webServices.wsGanados.views)|hyperpage}{31}
+\indexentry{onEnd() (m\IeC {\'e}todo de webServices.wsGanados.views.AgentReproduccion.BehaviourReproduccion)|hyperpage}{32}
+\indexentry{onStart() (m\IeC {\'e}todo de webServices.wsGanados.views.AgentReproduccion.BehaviourReproduccion)|hyperpage}{32}
+\indexentry{AgentSanidad (clase en webServices.wsGanados.views)|hyperpage}{32}
+\indexentry{AgentSanidad.BehaviourSanidad (clase en webServices.wsGanados.views)|hyperpage}{32}
+\indexentry{onEnd() (m\IeC {\'e}todo de webServices.wsGanados.views.AgentSanidad.BehaviourSanidad)|hyperpage}{32}
+\indexentry{onStart() (m\IeC {\'e}todo de webServices.wsGanados.views.AgentSanidad.BehaviourSanidad)|hyperpage}{32}
+\indexentry{BeliefAlimentacion (clase en webServices.wsGanados.views)|hyperpage}{32}
+\indexentry{BeliefProduccion (clase en webServices.wsGanados.views)|hyperpage}{32}
+\indexentry{BeliefReproduccion (clase en webServices.wsGanados.views)|hyperpage}{32}
+\indexentry{BeliefSanidad (clase en webServices.wsGanados.views)|hyperpage}{32}
+\indexentry{DesireAlimentacion (clase en webServices.wsGanados.views)|hyperpage}{32}
+\indexentry{DesireProduccion (clase en webServices.wsGanados.views)|hyperpage}{32}
+\indexentry{DesireReproduccion (clase en webServices.wsGanados.views)|hyperpage}{32}
+\indexentry{DesireSanidad (clase en webServices.wsGanados.views)|hyperpage}{32}
+\indexentry{IntentionAlimentacion (clase en webServices.wsGanados.views)|hyperpage}{32}
+\indexentry{assignNotification() (m\IeC {\'e}todo de webServices.wsGanados.views.IntentionAlimentacion)|hyperpage}{32}
+\indexentry{sendNotificationAmountFood() (m\IeC {\'e}todo de webServices.wsGanados.views.IntentionAlimentacion)|hyperpage}{32}
+\indexentry{sendNotificationExpirationFood() (m\IeC {\'e}todo de webServices.wsGanados.views.IntentionAlimentacion)|hyperpage}{32}
+\indexentry{IntentionProduction (clase en webServices.wsGanados.views)|hyperpage}{32}
+\indexentry{assignNotification() (m\IeC {\'e}todo de webServices.wsGanados.views.IntentionProduction)|hyperpage}{32}
+\indexentry{sendNotificationOrdenio() (m\IeC {\'e}todo de webServices.wsGanados.views.IntentionProduction)|hyperpage}{32}
+\indexentry{IntentionReproduccion (clase en webServices.wsGanados.views)|hyperpage}{32}
+\indexentry{assignNotification() (m\IeC {\'e}todo de webServices.wsGanados.views.IntentionReproduccion)|hyperpage}{32}
+\indexentry{sendNotificationCelo() (m\IeC {\'e}todo de webServices.wsGanados.views.IntentionReproduccion)|hyperpage}{32}
+\indexentry{sendNotificationPajuela() (m\IeC {\'e}todo de webServices.wsGanados.views.IntentionReproduccion)|hyperpage}{32}
+\indexentry{sendNotificationParto() (m\IeC {\'e}todo de webServices.wsGanados.views.IntentionReproduccion)|hyperpage}{32}
+\indexentry{sendNotificationService() (m\IeC {\'e}todo de webServices.wsGanados.views.IntentionReproduccion)|hyperpage}{32}
+\indexentry{sendNotificationVerification() (m\IeC {\'e}todo de webServices.wsGanados.views.IntentionReproduccion)|hyperpage}{32}
+\indexentry{IntentionSanidad (clase en webServices.wsGanados.views)|hyperpage}{32}
+\indexentry{assignNotification() (m\IeC {\'e}todo de webServices.wsGanados.views.IntentionSanidad)|hyperpage}{32}
+\indexentry{sendNotificationAmountVaccine() (m\IeC {\'e}todo de webServices.wsGanados.views.IntentionSanidad)|hyperpage}{32}
+\indexentry{sendNotificationAmountWormer() (m\IeC {\'e}todo de webServices.wsGanados.views.IntentionSanidad)|hyperpage}{33}
+\indexentry{sendNotificationExpirationVaccine() (m\IeC {\'e}todo de webServices.wsGanados.views.IntentionSanidad)|hyperpage}{33}
+\indexentry{sendNotificationExpirationWormer() (m\IeC {\'e}todo de webServices.wsGanados.views.IntentionSanidad)|hyperpage}{33}
+\indexentry{ajaxAssignCattleFoodFinal() (en el m\IeC {\'o}dulo webServices.wsGanados.views)|hyperpage}{33}
+\indexentry{ajaxAssignCattleFood\_view() (en el m\IeC {\'o}dulo webServices.wsGanados.views)|hyperpage}{33}
+\indexentry{ajaxAssignCattleVaccineFinal() (en el m\IeC {\'o}dulo webServices.wsGanados.views)|hyperpage}{33}
+\indexentry{ajaxAssignCattleVaccine\_view() (en el m\IeC {\'o}dulo webServices.wsGanados.views)|hyperpage}{33}
+\indexentry{ajaxAssignCattleWormerFinal() (en el m\IeC {\'o}dulo webServices.wsGanados.views)|hyperpage}{33}
+\indexentry{ajaxAssignCattleWormer\_view() (en el m\IeC {\'o}dulo webServices.wsGanados.views)|hyperpage}{33}
+\indexentry{ajaxCattleMaleRp\_view() (en el m\IeC {\'o}dulo webServices.wsGanados.views)|hyperpage}{33}
+\indexentry{ajaxCattleMale\_view() (en el m\IeC {\'o}dulo webServices.wsGanados.views)|hyperpage}{33}
+\indexentry{ajaxFood\_view() (en el m\IeC {\'o}dulo webServices.wsGanados.views)|hyperpage}{33}
+\indexentry{ajaxGanadosMachosInseminacion\_view() (en el m\IeC {\'o}dulo webServices.wsGanados.views)|hyperpage}{33}
+\indexentry{ajaxInsemination\_view() (en el m\IeC {\'o}dulo webServices.wsGanados.views)|hyperpage}{33}
+\indexentry{ajaxRefresh() (en el m\IeC {\'o}dulo webServices.wsGanados.views)|hyperpage}{33}
+\indexentry{ajaxVaccine\_view() (en el m\IeC {\'o}dulo webServices.wsGanados.views)|hyperpage}{33}
+\indexentry{wsGanadosHembras\_view() (en el m\IeC {\'o}dulo webServices.wsGanados.views)|hyperpage}{33}
+\indexentry{wsGanadosProduccion\_view() (en el m\IeC {\'o}dulo webServices.wsGanados.views)|hyperpage}{33}
+\indexentry{wsGanados\_view() (en el m\IeC {\'o}dulo webServices.wsGanados.views)|hyperpage}{33}
+\indexentry{wsWormer\_view() (en el m\IeC {\'o}dulo webServices.wsGanados.views)|hyperpage}{33}
+\indexentry{webServices.wsGanados (m\IeC {\'o}dulo)|hyperpage}{33}
+\indexentry{webServices (m\IeC {\'o}dulo)|hyperpage}{33}

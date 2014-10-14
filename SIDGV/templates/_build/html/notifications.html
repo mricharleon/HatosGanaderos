@@ -1,0 +1,231 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>notifications package &mdash; HatosGanaderos 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="HatosGanaderos 1.0 documentation" href="index.html" />
+    <link rel="next" title="profiles package" href="profiles.html" />
+    <link rel="prev" title="messages package" href="messages.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="profiles.html" title="profiles package"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="messages.html" title="messages package"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">HatosGanaderos 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="notifications-package">
+<h1>notifications package<a class="headerlink" href="#notifications-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-notifications.admin">
+<span id="notifications-admin-module"></span><h2>notifications.admin module<a class="headerlink" href="#module-notifications.admin" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-notifications.models">
+<span id="notifications-models-module"></span><h2>notifications.models module<a class="headerlink" href="#module-notifications.models" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="notifications.models.Notification">
+<em class="property">class </em><tt class="descclassname">notifications.models.</tt><tt class="descname">Notification</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/notifications/models.html#Notification"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#notifications.models.Notification" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">django.db.models.base.Model</span></tt></p>
+<p>Notification(id, start_date, end_date, state, module, ident_id, name)</p>
+<dl class="exception">
+<dt id="notifications.models.Notification.DoesNotExist">
+<em class="property">exception </em><tt class="descname">DoesNotExist</tt><a class="headerlink" href="#notifications.models.Notification.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></tt></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="notifications.models.Notification.MODULE_CHOICES">
+<tt class="descclassname">Notification.</tt><tt class="descname">MODULE_CHOICES</tt><em class="property"> = ((0, u'Reproducci\xf3n'), (1, u'Alimentaci\xf3n'), (2, 'Sanidad'), (3, u'Producci\xf3n'))</em><a class="headerlink" href="#notifications.models.Notification.MODULE_CHOICES" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="notifications.models.Notification.MultipleObjectsReturned">
+<em class="property">exception </em><tt class="descclassname">Notification.</tt><tt class="descname">MultipleObjectsReturned</tt><a class="headerlink" href="#notifications.models.Notification.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></tt></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="notifications.models.Notification.NAME_CHOICES">
+<tt class="descclassname">Notification.</tt><tt class="descname">NAME_CHOICES</tt><em class="property"> = ((0, 'Ganado en celo'), (1, 'Registro del servicio'), (2, u'Verificaci\xf3n del celo'), (3, 'Fecha de posible parto'), (4, 'Cantidad reducida de pajuelas'), (5, u'Registro de orde\xf1o'), (6, 'Cantidad reducida de la vacuna'), (7, 'Cantidad reducida del desparacitador'), (8, u'Fecha pr\xf3xima de vencimiento de la vacuna'), (9, u'Fecha pr\xf3xima de vencimiento del desparacitador'), (10, u'Fecha pr\xf3xima de aplicaci\xf3n de la vacuna'), (11, u'Fecha pr\xf3xima de aplicaci\xf3n del desparacitador'), (12, 'Cantidad reducida del alimento'), (13, u'Fecha pr\xf3xima de vencimiento del alimento'), (14, u'Fecha pr\xf3xima de aplicaci\xf3n del alimento'))</em><a class="headerlink" href="#notifications.models.Notification.NAME_CHOICES" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="notifications.models.Notification.STATE_CHOICES">
+<tt class="descclassname">Notification.</tt><tt class="descname">STATE_CHOICES</tt><em class="property"> = ((0, 'No realizado'), (1, 'Realizado'), (2, 'Pendiente'))</em><a class="headerlink" href="#notifications.models.Notification.STATE_CHOICES" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="notifications.models.Notification.get_module_display">
+<tt class="descclassname">Notification.</tt><tt class="descname">get_module_display</tt><big>(</big><em>*moreargs</em>, <em>**morekwargs</em><big>)</big><a class="headerlink" href="#notifications.models.Notification.get_module_display" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="notifications.models.Notification.get_name_display">
+<tt class="descclassname">Notification.</tt><tt class="descname">get_name_display</tt><big>(</big><em>*moreargs</em>, <em>**morekwargs</em><big>)</big><a class="headerlink" href="#notifications.models.Notification.get_name_display" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="notifications.models.Notification.get_next_by_end_date">
+<tt class="descclassname">Notification.</tt><tt class="descname">get_next_by_end_date</tt><big>(</big><em>*moreargs</em>, <em>**morekwargs</em><big>)</big><a class="headerlink" href="#notifications.models.Notification.get_next_by_end_date" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="notifications.models.Notification.get_next_by_start_date">
+<tt class="descclassname">Notification.</tt><tt class="descname">get_next_by_start_date</tt><big>(</big><em>*moreargs</em>, <em>**morekwargs</em><big>)</big><a class="headerlink" href="#notifications.models.Notification.get_next_by_start_date" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="notifications.models.Notification.get_previous_by_end_date">
+<tt class="descclassname">Notification.</tt><tt class="descname">get_previous_by_end_date</tt><big>(</big><em>*moreargs</em>, <em>**morekwargs</em><big>)</big><a class="headerlink" href="#notifications.models.Notification.get_previous_by_end_date" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="notifications.models.Notification.get_previous_by_start_date">
+<tt class="descclassname">Notification.</tt><tt class="descname">get_previous_by_start_date</tt><big>(</big><em>*moreargs</em>, <em>**morekwargs</em><big>)</big><a class="headerlink" href="#notifications.models.Notification.get_previous_by_start_date" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="notifications.models.Notification.get_state_display">
+<tt class="descclassname">Notification.</tt><tt class="descname">get_state_display</tt><big>(</big><em>*moreargs</em>, <em>**morekwargs</em><big>)</big><a class="headerlink" href="#notifications.models.Notification.get_state_display" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="notifications.models.Notification.ident">
+<tt class="descclassname">Notification.</tt><tt class="descname">ident</tt><a class="headerlink" href="#notifications.models.Notification.ident" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="notifications.models.Notification.objects">
+<tt class="descclassname">Notification.</tt><tt class="descname">objects</tt><em class="property"> = &lt;django.db.models.manager.Manager object at 0x2aad89f0e8d0&gt;</em><a class="headerlink" href="#notifications.models.Notification.objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-notifications.tests">
+<span id="notifications-tests-module"></span><h2>notifications.tests module<a class="headerlink" href="#module-notifications.tests" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-notifications.views">
+<span id="notifications-views-module"></span><h2>notifications.views module<a class="headerlink" href="#module-notifications.views" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="notifications.views.list_notifications">
+<tt class="descclassname">notifications.views.</tt><tt class="descname">list_notifications</tt><big>(</big><em>request</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/notifications/views.html#list_notifications"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#notifications.views.list_notifications" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-notifications">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-notifications" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">notifications package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-notifications.admin">notifications.admin module</a></li>
+<li><a class="reference internal" href="#module-notifications.models">notifications.models module</a></li>
+<li><a class="reference internal" href="#module-notifications.tests">notifications.tests module</a></li>
+<li><a class="reference internal" href="#module-notifications.views">notifications.views module</a></li>
+<li><a class="reference internal" href="#module-notifications">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="messages.html"
+                        title="previous chapter">messages package</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="profiles.html"
+                        title="next chapter">profiles package</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/notifications.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="profiles.html" title="profiles package"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="messages.html" title="messages package"
+             >previous</a> |</li>
+        <li><a href="index.html">HatosGanaderos 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, @mricharleon.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

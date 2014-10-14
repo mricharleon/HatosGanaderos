@@ -33,6 +33,8 @@
               for (var i = 0; i < response.length; i++) {
                 var link = '{% url 'edit_wormer' 'NEWVALUESTUB' %}';
                 link = link.replace('NEWVALUESTUB', response[i].pk);
+                var link_asign = '{% url 'asign_wormer' 'NEWVALUESTUB' %}';
+                link_asign = link_asign.replace('NEWVALUESTUB', response[i].pk);
                 
                 var sex, unit, expiration_date;
                 if(response[i].fields.sex == '0') sex='Hembra'; else if(response[i].fields.sex == '1') sex='Macho'; else if(response[i].fields.sex == '2') sex='Hembra y Macho';
@@ -50,6 +52,8 @@
                     "<div class=cinta>"+
                       "<div class=context_menu>"+
                         "<ul>"+ 
+                          "<a href='"+link_asign+"'>"+
+                            "<li>Asignar</li></a>"+
                           "<a href='"+link+"'>"+
                             "<li>Actualizar</li></a>"+
                         "</ul>"+
@@ -112,6 +116,7 @@
       <div class="cinta">
         <div class="context_menu">
           <ul>
+            <a href="{% url 'asign_wormer' medicament.id %}"><li>Asignar</li></a>
             <a href="{% url 'edit_wormer' medicament.id %}"><li>Actualizar</li></a>
           </ul>
         </div>

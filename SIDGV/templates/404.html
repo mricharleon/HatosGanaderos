@@ -1,9 +1,15 @@
 {% extends "base.html" %}
 {% load i18n %}
 
-{% block content_title %}<h2>{% trans "Page not found" %}</h2>{% endblock %}
+{% block title %}Página no Encontrada{% endblock %}
 
-{% block content %}dddjjjjjjjjjjjjjjjjjjjjjjj
-<p>{% trans "Page could not be found."%}</p>
-<p>{% trans "If you think this is a bug in userena, please create an issue at Github." %}</p>
+{% block presentation %}
+<div class="presentacion_principal">
+    <h2>Página no encontrada..!</h2>
+    <h4>La página que intentas acceder no se encuentra, es posible que un error al teclear haya sucedido.</h4>
+    <spam>
+		<a href="/" class="btnIngresar">Regresar</a>
+	</spam>
+    
+</div>
 {% endblock %}

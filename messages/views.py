@@ -8,6 +8,7 @@ from profiles.models import Profile
 from messages.models import Message
 
 from messages.forms import MessageForm, MessageResponseForm
+from django.core.exceptions import ObjectDoesNotExist
 
 import datetime
 
@@ -24,6 +25,10 @@ def alert_messages(request):
 
 def messages_list(request):
 	user_receiver = request.user
+	try:
+		ganaderia = Ganaderia.objects.get(perfil=user_receiver)
+	except ObjectDoesNotExist:
+		return redirect(reverse('agrega_ganaderia_config'))
 	
 	number_message = number_messages(request, user_receiver.username)
 
@@ -132,7 +137,7 @@ def messages_details(request, user_id, user_send_id, user_receiver_id):
 				user_send.id,
 				'alertchannel',
 				data = {'msg': data,
-						'number_messages': number_message,}
+						'number_messages': number_message}
 			)
 
 	return render_to_response('messages_details.html',
@@ -148,6 +153,10 @@ from userena.utils import *
 def new_message(request):
 	user = request.user
 	profile = Profile.objects.get(user=user)
+	try:
+		ganaderia = Ganaderia.objects.get(perfil=user)
+	except ObjectDoesNotExist:
+		return redirect(reverse('agrega_ganaderia_config'))
 	
 	number_message = Message.objects.filter(Q(receiver_id=user.id), Q(front=True), Q(read_at=False)).count()
 	msg_complete = Message.objects.all().order_by('sent_at')

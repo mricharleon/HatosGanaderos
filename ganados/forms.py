@@ -1,9 +1,20 @@
 # -*- coding: utf-8 -*-
 from django import forms
 from django.utils.translation import ugettext_lazy as _
-from ganados.models import Identificacion_Simple, Identificacion_Ecuador, Ganado, Etapa, Celo, Ordenio, Verification, Attempt, Gestacion, ProblemaGestacion
+from ganados.models import Identificacion_Simple, Identificacion_Ecuador, Ganado, Etapa, Celo, Ordenio, Verification, Attempt, Gestacion, ProblemaGestacion, Insemination
 
 from userena.forms import SignupForm
+
+class inseminationForm(forms.ModelForm):
+    class Meta:
+        model = Insemination
+        exclude = ['down_insemination', 'farm', 'rp']
+        widgets = {
+                  'name': forms.TextInput(attrs={'placeholder': 'Nombre'}),
+                  'registration_date': forms.DateInput(attrs={'class': 'datetimepicker2', 'placeholder': 'Fecha de registro'}),
+                  'amount_pajuelas': forms.TextInput(attrs={'placeholder': 'Número de pajuelas'}),
+                  'observations': forms.Textarea(attrs={'placeholder': 'Observaciones'})
+        }
 
 class tipoSimpleForm(forms.ModelForm):
     class Meta:
@@ -22,16 +33,20 @@ class tipoSimpleForm(forms.ModelForm):
 class tipoNormaEcuadorForm(forms.ModelForm):
     class Meta:
         model = Identificacion_Ecuador
+        exclude = ['rp',]
         widgets = {
                    'siglas_pais': forms.TextInput(attrs={'placeholder': 'Siglas del País'}),
                    'codigo_pais': forms.TextInput(attrs={'placeholder': 'Código del País'}),
                    'codigo_provincia': forms.TextInput(attrs={'placeholder': 'Código de Provincia'}),
                    'numero_serie': forms.TextInput(attrs={'placeholder': 'Número de Serie'}),
                    'codigo_barras': forms.TextInput(attrs={'placeholder': 'Código de Barras'}),
-                   'rp':forms.TextInput(attrs={'placeholder': 'RP'}),
                    'nombre':forms.TextInput(attrs={'placeholder': 'Nombre'}),
-                   'rp_madre':forms.TextInput(attrs={'placeholder': 'RP de la madre'}),
-                   'rp_padre':forms.TextInput(attrs={'placeholder': 'RP del padre'}),
+                   'rp_madre':forms.TextInput(attrs={
+                                  'placeholder': 'RP de la madre',
+                                  'data-reveal-id': 'myModal'}),
+                   'rp_padre':forms.TextInput(attrs={
+                                  'placeholder': 'RP del padre',
+                                  'data-reveal-id': 'myModal2'}),
         }
 
 class ordenioForm(forms.ModelForm):

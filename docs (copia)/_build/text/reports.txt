@@ -1,0 +1,74 @@
+
+reports package
+***************
+
+
+Submodules
+==========
+
+
+reports.admin module
+====================
+
+
+reports.models module
+=====================
+
+
+reports.tests module
+====================
+
+
+reports.views module
+====================
+
+Aquí tenemos las vistas del módulo de los reportes, que son eficacez
+para realizar los procesos de: listar reportes y la vista en si del
+reporte de ganados hembras de la ganadería. Example usage:
+
+>>> @login_required
+>>> def lista_ganado_produccion(request, username):
+>>> id_user = User.objects.filter(username=username)
+>>> try:
+...     ganaderia = Ganaderia.objects.get(perfil=id_user)
+>>> except ObjectDoesNotExist:
+...     return redirect(reverse('agrega_ganaderia_config'))
+>>> configuracion = Configuracion.objects.get(id=ganaderia.configuracion_id)
+
+>>> if configuracion.tipo_identificacion == 'simple':
+...     gg = Ganado.objects.filter(ganaderia_id=ganaderia.id, genero=1, etapas__nombre=2, ciclos__nombre=2)
+>>> else:
+...     gg = Ganado.objects.filter(ganaderia_id=ganaderia.id, genero=1)
+>>> return render_to_response('lista_ganado_produccion.html',
+>>>     {'ganado':gg},
+>>>     context_instance=RequestContext(request))
+>>> from datetime import timedelta
+>>> year = timedelta(days=365)
+>>> another_year = timedelta(weeks=40, days=84, hours=23,
+...                          minutes=50, seconds=600)  # adds up to 365 days
+
+>>> year.total_seconds()
+31536000.0
+>>> year == another_year
+True
+>>> ten_years = 10 * year
+>>> ten_years, ten_years.days // 365
+(datetime.timedelta(3650), 10)
+>>> nine_years = ten_years - year
+>>> nine_years, nine_years.days // 365
+(datetime.timedelta(3285), 9)
+>>> three_years = nine_years // 3;
+>>> three_years, three_years.days // 365
+(datetime.timedelta(1095), 3)
+>>> abs(three_years - ten_years) == 2 * three_years + year
+True
+
+reports.views.docs(request)
+
+reports.views.list_reports(request)
+
+reports.views.view_report_female(request, id_cattle)
+
+
+Module contents
+===============

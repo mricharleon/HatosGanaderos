@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load url from future %}
+
+{% block title %} Reportes {% endblock %}
+
+
+{% block js %}
+<script type='text/javascript'>
+  $(document).ready(function() {
+    
+    $( "#busqueda" ).on('keyup', function(tecla) {
+      var busqueda = $("#busqueda").val()
+        $.ajax({
+          data: {'search': busqueda},
+          type:'GET',
+          contentType: 'application/json; charset=utf-8',
+          dateType:'json',
+          url:'/ws/ganados_hembras/',
+          beforeSend: function(objeto){
+            $('.content').html('<h5>Buscando "'+busqueda+'"</h5>');
+          },
+
+          success:function(response){
+            $('.content').empty();
+            if(response!=''){
+              for (var i = 0; i < response.length; i++) {
+                var link_report_female = '{% url 'view_report_female' 'NEWVALUESTUB' %}';
+                link_report_female= link_report_female.replace('NEWVALUESTUB', response[i].pk);
+                $('.content').append(
+                    "<a href='"+link_report_female+"'>"+ 
+                          "<div class='searching_cattle close_reveal_modal2' >"+ 
+                              "<h5>#" + response[i].fields.rp + "</h5>" +
+                              "<h5>(" + response[i].fields.nombre + ")</h5>" +
+                          "</div>"+
+                      "</a>"
+                  ); 
+              }
+            }else{
+              $('.content').html('<h5>No se encuentra "'+busqueda+'"</h5>');
+            }
+          },
+
+          error: function(objeto, error){
+            $('.content').html('<h5>¡Se produjo un error!</h5><h6>Verifica tu conexión e intenta de nuevo. o Contacta al administrador</h6>');
+          },  
+
+        });
+    });
+    
+  }); 
+
+</script>
+{% endblock %}
+
+
+{% block presentation %}
+    <div class="presentacionSignup">
+        <h3>Reportes Hembras</h3>
+        <h4>Genera tus reportes</h4>
+        <ul id="profile-nav">
+          <li><a href="{% url 'list_cattle' %}">Reporte Machos</a></li>
+        </ul>
+    </div>
+{% endblock presentation %}
+
+{% block content %}
+
+<div class="formSignup">
+  <span class="crearCuenta">
+      Generador de Reportes
+  </span>
+  <center><input data-reveal-id="myModal" type="submit" value="Buscar Ganado" /></center>
+</div>
+
+
+    <div id="myModal" class="reveal-modal">
+         <h2>Buscar Ganado </h2>
+          
+          <input type="text" id="busqueda"  placeholder="RP, nombre o año de nacimiento" >
+
+          <div class="content">
+            <h5>Aquí estará tu Búsqueda</h5>
+          </div>
+        
+         <a class="close-reveal-modal">&#215;</a>
+    </div>
+
+    <div id="myModal2" class="reveal-modal">
+         <h2>Buscar RP del padre </h2>
+
+         {% csrf_token %}
+          
+          <input type="text" id="busqueda2"  placeholder="RP, nombre o año de nacimiento" >
+
+          <div class="content2">
+            <h5>Aquí estará tu Búsqueda</h5>
+          </div>
+         <a class="close-reveal-modal">&#215;</a>
+          
+          <div class="cattleNotFound close-reveal-modal3"  onclick="asigna_rp_padre_desconocido();">
+            Padre no identificado
+          </div>
+
+    </div>
+{% endblock %}

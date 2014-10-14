@@ -42,17 +42,6 @@ class Identificacion_Ecuador(models.Model):
     class Meta:
         ordering = ['rp']
 
-class LoadTest(models.Model):
-    campo1 = models.TextField(max_length=100)
-    campo2 = models.TextField(max_length=100)
-    campo3 = models.TextField(max_length=100)
-    campo4 = models.TextField(max_length=100)
-    campo5 = models.TextField(max_length=100)
-    campo6 = models.TextField(max_length=100)
-    campo7 = models.TextField(max_length=100)
-    campo8 = models.TextField(max_length=100)
-    campo9 = models.TextField(max_length=100)
-    campo10 = models.TextField(max_length=100)
 
 class DownCattle(models.Model):
     date = models.DateField('Fecha de Baja')
@@ -261,3 +250,45 @@ class Etapa(models.Model):
     def __str__(self):
         ctx = str(self.nombre) + ' - ' + str(self.fecha_inicio)
         return ctx
+
+class DownInsemination(models.Model):
+    date = models.DateField('Fecha de Baja')
+    CAUSE_DOWN_CHOICES = (
+        (0, 'Agotamiento'),
+        (1, u'Muestra inválida')
+        )
+    cause_down = models.PositiveSmallIntegerField('Causa de la Baja',
+                                        choices=CAUSE_DOWN_CHOICES,
+                                        )
+    observations = models.TextField('Observaciones')
+    
+    def __unicode__(self):
+        return self.date + " - " + self.cause_down
+
+class Insemination(models.Model):
+    down_insemination = models.OneToOneField(DownInsemination, related_name='insemination_down', blank=True, null=True)
+    farm = models.ForeignKey(Ganaderia, related_name='insemination_farm')
+    rp = models.IntegerField('RP')
+    name = models.TextField('Nombre', max_length=50)
+    registration_date = models.DateField('Fecha de registro')
+    amount_pajuelas = models.IntegerField('Número de pajuelas')
+    BREED_CHOICES = (
+        (0, 'Angus'),
+        (1, 'Ankole'),
+        (2, 'Asturiana de los Valles'),
+        (3, 'Avilenia'),
+        (4, 'Blonde D Aquitaine'),
+        (5, 'Braford'),
+        (6, 'Brahman'),
+        (7, 'Braunvieh'),
+        (8, 'Brava'),
+        (9,'Cachena'),
+        (10,'Charolais'),
+        (11,'Chianina'),
+        (12, 'Sin Definir')
+    )
+    breed = models.PositiveSmallIntegerField('Raza',
+                        choices=BREED_CHOICES)
+    observations = models.TextField('Observaciones')
+
+

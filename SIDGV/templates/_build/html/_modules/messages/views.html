@@ -1,0 +1,294 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>messages.views &mdash; HatosGanaderos 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="HatosGanaderos 1.0 documentation" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">HatosGanaderos 1.0 documentation</a> &raquo;</li>
+          <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for messages.views</h1><div class="highlight"><pre>
+<span class="kn">from</span> <span class="nn">django.core.urlresolvers</span> <span class="kn">import</span> <span class="n">reverse</span>
+<span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">render_to_response</span><span class="p">,</span> <span class="n">redirect</span><span class="p">,</span> <span class="n">HttpResponseRedirect</span>
+<span class="kn">from</span> <span class="nn">django.template</span> <span class="kn">import</span> <span class="n">RequestContext</span>
+<span class="kn">from</span> <span class="nn">django.contrib.auth.models</span> <span class="kn">import</span> <span class="n">User</span>
+<span class="kn">from</span> <span class="nn">django.db.models</span> <span class="kn">import</span> <span class="n">Q</span>
+
+<span class="kn">from</span> <span class="nn">profiles.models</span> <span class="kn">import</span> <span class="n">Profile</span>
+<span class="kn">from</span> <span class="nn">messages.models</span> <span class="kn">import</span> <span class="n">Message</span>
+
+<span class="kn">from</span> <span class="nn">messages.forms</span> <span class="kn">import</span> <span class="n">MessageForm</span><span class="p">,</span> <span class="n">MessageResponseForm</span>
+<span class="kn">from</span> <span class="nn">django.core.exceptions</span> <span class="kn">import</span> <span class="n">ObjectDoesNotExist</span>
+
+<span class="kn">import</span> <span class="nn">datetime</span>
+
+<span class="kn">from</span> <span class="nn">drealtime</span> <span class="kn">import</span> <span class="n">iShoutClient</span>
+<span class="n">ishout_client</span> <span class="o">=</span> <span class="n">iShoutClient</span><span class="p">()</span>
+<span class="kn">from</span> <span class="nn">django.core</span> <span class="kn">import</span> <span class="n">serializers</span>
+<span class="kn">from</span> <span class="nn">django.db.models</span> <span class="kn">import</span> <span class="n">Q</span>
+
+<span class="kn">from</span> <span class="nn">profiles.views</span> <span class="kn">import</span> <span class="n">number_messages</span><span class="p">,</span> <span class="n">Ganaderia</span>
+
+<div class="viewcode-block" id="alert_messages"><a class="viewcode-back" href="../../messages.html#messages.views.alert_messages">[docs]</a><span class="k">def</span> <span class="nf">alert_messages</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+	<span class="k">pass</span>
+
+</div>
+<div class="viewcode-block" id="messages_list"><a class="viewcode-back" href="../../messages.html#messages.views.messages_list">[docs]</a><span class="k">def</span> <span class="nf">messages_list</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+	<span class="n">user_receiver</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span>
+	<span class="k">try</span><span class="p">:</span>
+		<span class="n">ganaderia</span> <span class="o">=</span> <span class="n">Ganaderia</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">perfil</span><span class="o">=</span><span class="n">user_receiver</span><span class="p">)</span>
+	<span class="k">except</span> <span class="n">ObjectDoesNotExist</span><span class="p">:</span>
+		<span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">reverse</span><span class="p">(</span><span class="s">&#39;agrega_ganaderia_config&#39;</span><span class="p">))</span>
+	
+	<span class="n">number_message</span> <span class="o">=</span> <span class="n">number_messages</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">user_receiver</span><span class="o">.</span><span class="n">username</span><span class="p">)</span>
+
+	<span class="n">messages</span> <span class="o">=</span> <span class="p">[]</span>
+	<span class="n">mc</span> <span class="o">=</span> <span class="n">Message</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s">&#39;-sent_at&#39;</span><span class="p">)</span>
+	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">mc</span><span class="p">:</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">sender_id</span> <span class="o">==</span> <span class="n">user_receiver</span><span class="o">.</span><span class="n">id</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">receiver_id</span> <span class="o">==</span> <span class="n">user_receiver</span><span class="o">.</span><span class="n">id</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">front</span> <span class="o">==</span> <span class="bp">True</span><span class="p">):</span>
+			<span class="n">messages</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+	
+	<span class="k">return</span> <span class="n">render_to_response</span><span class="p">(</span><span class="s">&#39;messages_list.html&#39;</span><span class="p">,</span>
+								<span class="p">{</span><span class="s">&#39;messages&#39;</span><span class="p">:</span> <span class="n">messages</span><span class="p">,</span>
+								 <span class="s">&#39;user_receiver&#39;</span><span class="p">:</span> <span class="n">user_receiver</span><span class="p">,</span>
+								 <span class="s">&#39;number_messages&#39;</span><span class="p">:</span> <span class="n">number_message</span><span class="p">,</span>
+								<span class="p">},</span>
+								<span class="n">context_instance</span><span class="o">=</span><span class="n">RequestContext</span><span class="p">(</span><span class="n">request</span><span class="p">))</span>
+</div>
+<div class="viewcode-block" id="messages_list_read"><a class="viewcode-back" href="../../messages.html#messages.views.messages_list_read">[docs]</a><span class="k">def</span> <span class="nf">messages_list_read</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+	<span class="n">user_receiver</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span>
+	<span class="n">number_message</span> <span class="o">=</span> <span class="n">number_messages</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">user_receiver</span><span class="o">.</span><span class="n">username</span><span class="p">)</span>
+	<span class="n">messages</span> <span class="o">=</span> <span class="p">[]</span>
+	<span class="n">mc</span> <span class="o">=</span> <span class="n">Message</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s">&#39;-sent_at&#39;</span><span class="p">)</span>
+	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">mc</span><span class="p">:</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">sender_id</span> <span class="o">==</span> <span class="n">user_receiver</span><span class="o">.</span><span class="n">id</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">receiver_id</span> <span class="o">==</span> <span class="n">user_receiver</span><span class="o">.</span><span class="n">id</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">front</span> <span class="o">==</span> <span class="bp">True</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">read_at</span> <span class="o">==</span> <span class="bp">True</span><span class="p">):</span>
+			<span class="n">messages</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+	
+	<span class="k">return</span> <span class="n">render_to_response</span><span class="p">(</span><span class="s">&#39;messages_list_read.html&#39;</span><span class="p">,</span>
+								<span class="p">{</span><span class="s">&#39;messages&#39;</span><span class="p">:</span> <span class="n">messages</span><span class="p">,</span>
+								 <span class="s">&#39;user_receiver&#39;</span><span class="p">:</span> <span class="n">user_receiver</span><span class="p">,</span>
+								 <span class="s">&#39;number_messages&#39;</span><span class="p">:</span> <span class="n">number_message</span><span class="p">,</span>
+								<span class="p">},</span>
+								<span class="n">context_instance</span><span class="o">=</span><span class="n">RequestContext</span><span class="p">(</span><span class="n">request</span><span class="p">))</span>
+</div>
+<div class="viewcode-block" id="messages_list_no_read"><a class="viewcode-back" href="../../messages.html#messages.views.messages_list_no_read">[docs]</a><span class="k">def</span> <span class="nf">messages_list_no_read</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+	<span class="n">user_receiver</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span>
+	<span class="n">number_message</span> <span class="o">=</span> <span class="n">number_messages</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">user_receiver</span><span class="o">.</span><span class="n">username</span><span class="p">)</span>
+	<span class="n">messages</span> <span class="o">=</span> <span class="p">[]</span>
+	<span class="n">mc</span> <span class="o">=</span> <span class="n">Message</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s">&#39;-sent_at&#39;</span><span class="p">)</span>
+	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">mc</span><span class="p">:</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">sender_id</span> <span class="o">==</span> <span class="n">user_receiver</span><span class="o">.</span><span class="n">id</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">receiver_id</span> <span class="o">==</span> <span class="n">user_receiver</span><span class="o">.</span><span class="n">id</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">front</span> <span class="o">==</span> <span class="bp">True</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">read_at</span> <span class="o">==</span> <span class="bp">False</span><span class="p">):</span>
+			<span class="n">messages</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+	
+	<span class="k">return</span> <span class="n">render_to_response</span><span class="p">(</span><span class="s">&#39;messages_list_no_read.html&#39;</span><span class="p">,</span>
+								<span class="p">{</span><span class="s">&#39;messages&#39;</span><span class="p">:</span> <span class="n">messages</span><span class="p">,</span>
+								 <span class="s">&#39;user_receiver&#39;</span><span class="p">:</span> <span class="n">user_receiver</span><span class="p">,</span>
+								 <span class="s">&#39;number_messages&#39;</span><span class="p">:</span> <span class="n">number_message</span><span class="p">,</span>
+								<span class="p">},</span>
+								<span class="n">context_instance</span><span class="o">=</span><span class="n">RequestContext</span><span class="p">(</span><span class="n">request</span><span class="p">))</span>
+</div>
+<div class="viewcode-block" id="messages_details"><a class="viewcode-back" href="../../messages.html#messages.views.messages_details">[docs]</a><span class="k">def</span> <span class="nf">messages_details</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">user_id</span><span class="p">,</span> <span class="n">user_send_id</span><span class="p">,</span> <span class="n">user_receiver_id</span><span class="p">):</span>
+	<span class="n">user</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">user_id</span><span class="p">)</span>
+	<span class="n">user_send</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">user_send_id</span><span class="p">)</span>
+	<span class="n">user_receiver</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">user_receiver_id</span><span class="p">)</span>
+
+	<span class="n">profile</span> <span class="o">=</span> <span class="n">Profile</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="n">user</span><span class="p">)</span>
+	<span class="n">profile_sender</span> <span class="o">=</span> <span class="n">Profile</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="n">user_send</span><span class="p">)</span>
+	<span class="n">profile_receiver</span> <span class="o">=</span> <span class="n">Profile</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="n">user_receiver</span><span class="p">)</span>
+
+
+	<span class="n">messages</span> <span class="o">=</span> <span class="p">[]</span>
+	<span class="n">msgs</span> <span class="o">=</span> <span class="n">Message</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s">&#39;-sent_at&#39;</span><span class="p">)</span>
+	<span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s">&#39;POST&#39;</span><span class="p">:</span>
+		<span class="n">form_message</span> <span class="o">=</span> <span class="n">MessageResponseForm</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">)</span>
+		<span class="n">date_now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">today</span><span class="p">()</span>
+		<span class="k">if</span> <span class="n">form_message</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
+			<span class="n">form_message</span> <span class="o">=</span> <span class="n">form_message</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">commit</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+			<span class="n">form_message</span><span class="o">.</span><span class="n">sender</span> <span class="o">=</span> <span class="n">profile</span>
+			<span class="k">if</span> <span class="n">user_id</span> <span class="o">==</span> <span class="n">user_send_id</span><span class="p">:</span>
+				<span class="n">form_message</span><span class="o">.</span><span class="n">receiver</span> <span class="o">=</span> <span class="n">profile_receiver</span>
+				<span class="n">form_message</span><span class="o">.</span><span class="n">read_at</span> <span class="o">=</span> <span class="bp">False</span>
+			<span class="k">elif</span> <span class="n">user_id</span> <span class="o">==</span> <span class="n">user_receiver_id</span><span class="p">:</span>
+				<span class="n">form_message</span><span class="o">.</span><span class="n">receiver</span> <span class="o">=</span> <span class="n">profile_sender</span>
+				<span class="n">form_message</span><span class="o">.</span><span class="n">read_at</span> <span class="o">=</span> <span class="bp">False</span>
+			<span class="n">form_message</span><span class="o">.</span><span class="n">sent_at</span> <span class="o">=</span> <span class="n">date_now</span>
+			<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">msgs</span><span class="p">:</span>
+				<span class="k">if</span> <span class="p">((</span><span class="n">i</span><span class="o">.</span><span class="n">receiver_id</span> <span class="o">==</span> <span class="n">user_receiver</span><span class="o">.</span><span class="n">id</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">sender_id</span> <span class="o">==</span> <span class="n">user_send</span><span class="o">.</span><span class="n">id</span><span class="p">))</span> <span class="o">|</span> <span class="p">((</span><span class="n">i</span><span class="o">.</span><span class="n">sender_id</span> <span class="o">==</span> <span class="n">user_receiver</span><span class="o">.</span><span class="n">id</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">receiver_id</span> <span class="o">==</span> <span class="n">user_send</span><span class="o">.</span><span class="n">id</span><span class="p">)):</span>
+					<span class="n">i</span><span class="o">.</span><span class="n">front</span><span class="o">=</span><span class="bp">False</span>
+					<span class="n">i</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+			<span class="n">form_message</span><span class="o">.</span><span class="n">front</span> <span class="o">=</span> <span class="bp">True</span>
+			<span class="n">form_message</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+			<span class="n">number_message</span> <span class="o">=</span> <span class="n">number_messages</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">form_message</span><span class="o">.</span><span class="n">receiver_id</span><span class="p">))</span>
+			<span class="n">data</span> <span class="o">=</span> <span class="n">serializers</span><span class="o">.</span><span class="n">serialize</span><span class="p">(</span><span class="s">&quot;json&quot;</span><span class="p">,</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">())</span>
+			
+			<span class="n">ishout_client</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span>
+					<span class="n">form_message</span><span class="o">.</span><span class="n">receiver_id</span><span class="p">,</span>
+					<span class="s">&#39;alertchannel&#39;</span><span class="p">,</span>
+					<span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;msg&#39;</span><span class="p">:</span> <span class="n">data</span><span class="p">,</span>
+							<span class="s">&#39;number_messages&#39;</span><span class="p">:</span> <span class="n">number_message</span><span class="p">,}</span>
+				<span class="p">)</span>
+			
+			<span class="k">return</span> <span class="n">HttpResponseRedirect</span><span class="p">(</span><span class="n">reverse</span><span class="p">(</span><span class="s">&#39;messages_list&#39;</span><span class="p">))</span>
+			<span class="c">#return redirect(reverse(&#39;messages_list&#39;, kwargs={&#39;username&#39;: user.username}))</span>
+	<span class="k">elif</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s">&#39;GET&#39;</span><span class="p">:</span>
+		<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">msgs</span><span class="p">:</span>
+			<span class="k">if</span> <span class="p">((</span><span class="n">i</span><span class="o">.</span><span class="n">receiver_id</span> <span class="o">==</span> <span class="n">user_receiver</span><span class="o">.</span><span class="n">id</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">sender_id</span> <span class="o">==</span> <span class="n">user_send</span><span class="o">.</span><span class="n">id</span><span class="p">))</span> <span class="o">|</span> <span class="p">((</span><span class="n">i</span><span class="o">.</span><span class="n">sender_id</span> <span class="o">==</span> <span class="n">user_receiver</span><span class="o">.</span><span class="n">id</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">receiver_id</span> <span class="o">==</span> <span class="n">user_send</span><span class="o">.</span><span class="n">id</span><span class="p">)):</span>
+				<span class="k">if</span> <span class="n">user_id</span> <span class="o">!=</span> <span class="n">user_send_id</span><span class="p">:</span>
+					<span class="n">i</span><span class="o">.</span><span class="n">read_at</span><span class="o">=</span><span class="bp">True</span>
+					<span class="n">i</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+				<span class="n">messages</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+		<span class="n">form_message</span> <span class="o">=</span> <span class="n">MessageResponseForm</span><span class="p">()</span>
+
+		<span class="n">number_message</span> <span class="o">=</span> <span class="n">number_messages</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">user</span><span class="o">.</span><span class="n">id</span><span class="p">))</span>
+		<span class="n">data</span> <span class="o">=</span> <span class="n">serializers</span><span class="o">.</span><span class="n">serialize</span><span class="p">(</span><span class="s">&quot;json&quot;</span><span class="p">,</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">())</span>
+		
+		<span class="n">ishout_client</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span>
+				<span class="n">user_send</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+				<span class="s">&#39;alertchannel&#39;</span><span class="p">,</span>
+				<span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;msg&#39;</span><span class="p">:</span> <span class="n">data</span><span class="p">,</span>
+						<span class="s">&#39;number_messages&#39;</span><span class="p">:</span> <span class="n">number_message</span><span class="p">}</span>
+			<span class="p">)</span>
+
+	<span class="k">return</span> <span class="n">render_to_response</span><span class="p">(</span><span class="s">&#39;messages_details.html&#39;</span><span class="p">,</span>
+								<span class="p">{</span><span class="s">&#39;messages&#39;</span><span class="p">:</span> <span class="n">messages</span><span class="p">,</span>
+								 <span class="s">&#39;user_receiver&#39;</span><span class="p">:</span> <span class="n">user_receiver</span><span class="p">,</span>
+								 <span class="s">&#39;user_sender&#39;</span><span class="p">:</span> <span class="n">user_send</span><span class="p">,</span>
+								 <span class="s">&#39;form&#39;</span><span class="p">:</span><span class="n">form_message</span><span class="p">,</span>
+								<span class="p">},</span>
+								<span class="n">context_instance</span><span class="o">=</span><span class="n">RequestContext</span><span class="p">(</span><span class="n">request</span><span class="p">))</span>
+</div>
+<span class="kn">from</span> <span class="nn">userena.utils</span> <span class="kn">import</span> <span class="o">*</span>
+
+<div class="viewcode-block" id="new_message"><a class="viewcode-back" href="../../messages.html#messages.views.new_message">[docs]</a><span class="k">def</span> <span class="nf">new_message</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+	<span class="n">user</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span>
+	<span class="n">profile</span> <span class="o">=</span> <span class="n">Profile</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="n">user</span><span class="p">)</span>
+	<span class="k">try</span><span class="p">:</span>
+		<span class="n">ganaderia</span> <span class="o">=</span> <span class="n">Ganaderia</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">perfil</span><span class="o">=</span><span class="n">user</span><span class="p">)</span>
+	<span class="k">except</span> <span class="n">ObjectDoesNotExist</span><span class="p">:</span>
+		<span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">reverse</span><span class="p">(</span><span class="s">&#39;agrega_ganaderia_config&#39;</span><span class="p">))</span>
+	
+	<span class="n">number_message</span> <span class="o">=</span> <span class="n">Message</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">Q</span><span class="p">(</span><span class="n">receiver_id</span><span class="o">=</span><span class="n">user</span><span class="o">.</span><span class="n">id</span><span class="p">),</span> <span class="n">Q</span><span class="p">(</span><span class="n">front</span><span class="o">=</span><span class="bp">True</span><span class="p">),</span> <span class="n">Q</span><span class="p">(</span><span class="n">read_at</span><span class="o">=</span><span class="bp">False</span><span class="p">))</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+	<span class="n">msg_complete</span> <span class="o">=</span> <span class="n">Message</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s">&#39;sent_at&#39;</span><span class="p">)</span>
+
+	<span class="n">date_now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">today</span><span class="p">()</span>
+	<span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s">&#39;POST&#39;</span><span class="p">:</span>
+		<span class="n">form_message</span> <span class="o">=</span> <span class="n">MessageForm</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">)</span>
+		<span class="k">if</span> <span class="n">form_message</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
+			<span class="n">form_message</span> <span class="o">=</span> <span class="n">form_message</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">commit</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+			<span class="n">form_message</span><span class="o">.</span><span class="n">sender</span> <span class="o">=</span> <span class="n">profile</span>
+			<span class="n">form_message</span><span class="o">.</span><span class="n">sent_at</span> <span class="o">=</span> <span class="n">date_now</span>
+			<span class="n">form_message</span><span class="o">.</span><span class="n">read_at</span> <span class="o">=</span> <span class="bp">False</span>
+			<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">msg_complete</span><span class="p">:</span>
+				<span class="k">if</span> <span class="p">((</span><span class="n">i</span><span class="o">.</span><span class="n">receiver_id</span> <span class="o">==</span> <span class="n">form_message</span><span class="o">.</span><span class="n">receiver_id</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">sender_id</span> <span class="o">==</span> <span class="n">form_message</span><span class="o">.</span><span class="n">sender_id</span><span class="p">))</span> <span class="o">|</span> <span class="p">((</span><span class="n">i</span><span class="o">.</span><span class="n">sender_id</span> <span class="o">==</span> <span class="n">form_message</span><span class="o">.</span><span class="n">receiver_id</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">receiver_id</span> <span class="o">==</span> <span class="n">form_message</span><span class="o">.</span><span class="n">sender_id</span><span class="p">)):</span>
+					<span class="n">i</span><span class="o">.</span><span class="n">front</span><span class="o">=</span><span class="bp">False</span>
+					<span class="n">i</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+			<span class="n">form_message</span><span class="o">.</span><span class="n">front</span> <span class="o">=</span> <span class="bp">True</span>
+			<span class="n">form_message</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+			<span class="n">number_message</span> <span class="o">=</span> <span class="n">number_messages</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">form_message</span><span class="o">.</span><span class="n">receiver_id</span><span class="p">))</span>
+			<span class="n">data</span> <span class="o">=</span> <span class="n">serializers</span><span class="o">.</span><span class="n">serialize</span><span class="p">(</span><span class="s">&quot;json&quot;</span><span class="p">,</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">())</span>
+			
+			<span class="n">ishout_client</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span>
+					<span class="n">form_message</span><span class="o">.</span><span class="n">receiver_id</span><span class="p">,</span>
+					<span class="s">&#39;alertchannel&#39;</span><span class="p">,</span>
+					<span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;msg&#39;</span><span class="p">:</span> <span class="n">data</span><span class="p">,</span>
+							<span class="s">&#39;number_messages&#39;</span><span class="p">:</span> <span class="n">number_message</span><span class="p">,}</span>
+				<span class="p">)</span>
+			
+			<span class="k">return</span> <span class="n">HttpResponseRedirect</span><span class="p">(</span><span class="n">reverse</span><span class="p">(</span><span class="s">&#39;messages_list&#39;</span><span class="p">))</span>
+			<span class="c">#return redirect(reverse(&#39;messages_list&#39;))</span>
+
+	<span class="k">else</span><span class="p">:</span>
+		<span class="n">form_message</span> <span class="o">=</span> <span class="n">MessageForm</span><span class="p">()</span>
+		<span class="n">profile_model</span> <span class="o">=</span> <span class="n">get_profile_model</span><span class="p">()</span>
+		<span class="n">ganaderia</span> <span class="o">=</span> <span class="n">Ganaderia</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">perfil</span><span class="o">=</span><span class="n">user</span><span class="p">)</span>
+		<span class="n">receivers</span> <span class="o">=</span> <span class="n">profile_model</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get_visible_profiles</span><span class="p">(</span><span class="n">user</span><span class="p">)</span><span class="o">.</span><span class="n">select_related</span><span class="p">()</span><span class="o">.</span><span class="n">exclude</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">user</span><span class="o">.</span><span class="n">id</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">ganaderia_perfil</span><span class="o">=</span><span class="n">ganaderia</span><span class="p">)</span>
+	<span class="k">return</span> <span class="n">render_to_response</span><span class="p">(</span><span class="s">&#39;new_message.html&#39;</span><span class="p">,</span>
+								<span class="p">{</span><span class="s">&#39;form&#39;</span><span class="p">:</span> <span class="n">form_message</span><span class="p">,</span>
+								<span class="s">&#39;number_messages&#39;</span><span class="p">:</span> <span class="n">number_message</span><span class="p">,</span>
+								<span class="s">&#39;receivers&#39;</span><span class="p">:</span> <span class="n">receivers</span><span class="p">,</span>
+								<span class="p">},</span>
+								<span class="n">context_instance</span><span class="o">=</span><span class="n">RequestContext</span><span class="p">(</span><span class="n">request</span><span class="p">))</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">HatosGanaderos 1.0 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, @mricharleon.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

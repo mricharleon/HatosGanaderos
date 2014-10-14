@@ -1,0 +1,176 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>profiles.forms &mdash; HatosGanaderos 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="HatosGanaderos 1.0 documentation" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">HatosGanaderos 1.0 documentation</a> &raquo;</li>
+          <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for profiles.forms</h1><div class="highlight"><pre>
+<span class="c"># -*- encoding: utf-8 -*-</span>
+<span class="kn">from</span> <span class="nn">django</span> <span class="kn">import</span> <span class="n">forms</span>
+<span class="kn">from</span> <span class="nn">django.utils.translation</span> <span class="kn">import</span> <span class="n">ugettext_lazy</span> <span class="k">as</span> <span class="n">_</span>
+<span class="kn">from</span> <span class="nn">profiles.models</span> <span class="kn">import</span> <span class="n">Configuracion</span><span class="p">,</span> <span class="n">Ganaderia</span>
+
+<span class="kn">from</span> <span class="nn">userena.forms</span> <span class="kn">import</span> <span class="n">SignupForm</span>
+
+<div class="viewcode-block" id="ConfiguracionForm"><a class="viewcode-back" href="../../profiles.html#profiles.forms.ConfiguracionForm">[docs]</a><span class="k">class</span> <span class="nc">ConfiguracionForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">ModelForm</span><span class="p">):</span>
+<div class="viewcode-block" id="ConfiguracionForm.Meta"><a class="viewcode-back" href="../../profiles.html#profiles.forms.ConfiguracionForm.Meta">[docs]</a>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">Configuracion</span>
+        <span class="n">exclude</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;etapa_vientre&#39;</span><span class="p">]</span>
+        <span class="n">widgets</span> <span class="o">=</span> <span class="p">{</span>
+                  <span class="s">&#39;celo_frecuencia&#39;</span><span class="p">:</span><span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{}),</span>
+                  <span class="s">&#39;celo_frecuencia_error&#39;</span><span class="p">:</span><span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{}),</span>
+                  <span class="s">&#39;celo_duracion&#39;</span><span class="p">:</span><span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{}),</span>
+                  <span class="s">&#39;celo_duracion_error&#39;</span><span class="p">:</span><span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{}),</span>
+                  <span class="s">&#39;celo_despues_parto&#39;</span><span class="p">:</span><span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{}),</span>
+                  <span class="s">&#39;celo_despues_parto_error&#39;</span><span class="p">:</span><span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{}),</span>
+                  <span class="s">&#39;intentos_verificacion_celo&#39;</span><span class="p">:</span><span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{}),</span>
+                  <span class="s">&#39;etapa_ternera&#39;</span><span class="p">:</span><span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{}),</span>
+                  <span class="s">&#39;etapa_vacona&#39;</span><span class="p">:</span><span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{}),</span>
+                  <span class="s">&#39;etapa_vientre&#39;</span><span class="p">:</span><span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{}),</span>
+                  <span class="s">&#39;periodo_gestacion&#39;</span><span class="p">:</span><span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{}),</span>
+                  <span class="s">&#39;periodo_seco&#39;</span><span class="p">:</span><span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{}),</span>
+                  <span class="s">&#39;periodo_lactancia&#39;</span><span class="p">:</span><span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{}),</span>
+                  <span class="s">&#39;periodo_vacio&#39;</span><span class="p">:</span><span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{}),</span>
+                  <span class="s">&#39;numero_ordenios&#39;</span><span class="p">:</span><span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{}),</span>
+                  
+        <span class="p">}</span>
+</div></div>
+<div class="viewcode-block" id="GanaderiaForm"><a class="viewcode-back" href="../../profiles.html#profiles.forms.GanaderiaForm">[docs]</a><span class="k">class</span> <span class="nc">GanaderiaForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">ModelForm</span><span class="p">):</span>
+<div class="viewcode-block" id="GanaderiaForm.Meta"><a class="viewcode-back" href="../../profiles.html#profiles.forms.GanaderiaForm.Meta">[docs]</a>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">Ganaderia</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;nombreEntidad&#39;</span><span class="p">,</span> <span class="s">&#39;direccion&#39;</span><span class="p">)</span>
+        <span class="n">widgets</span> <span class="o">=</span> <span class="p">{</span>
+                  <span class="s">&#39;nombreEntidad&#39;</span><span class="p">:</span><span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;placeholder&#39;</span><span class="p">:</span> <span class="s">&#39;Nombre de la ganadería&#39;</span><span class="p">}),</span>
+                  <span class="s">&#39;direccion&#39;</span><span class="p">:</span><span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;placeholder&#39;</span><span class="p">:</span> <span class="s">&#39;Direccion de la ganadería&#39;</span><span class="p">}),</span>
+        <span class="p">}</span>
+</div></div>
+<div class="viewcode-block" id="SignupFormExtra"><a class="viewcode-back" href="../../profiles.html#profiles.forms.SignupFormExtra">[docs]</a><span class="k">class</span> <span class="nc">SignupFormExtra</span><span class="p">(</span><span class="n">SignupForm</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; </span>
+<span class="sd">    A form to SIDGVnstrate how to add extra fields to the signup form, in this</span>
+<span class="sd">    case adding the first and last name.</span>
+<span class="sd">    </span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">first_name</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s">u&#39;First name&#39;</span><span class="p">),</span>
+                                 <span class="n">max_length</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+                                 <span class="n">required</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+    <span class="n">last_name</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s">u&#39;Last name&#39;</span><span class="p">),</span>
+                                <span class="n">max_length</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+                                <span class="n">required</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        </span>
+<span class="sd">        A bit of hackery to get the first name and last name at the top of the</span>
+<span class="sd">        form instead at the end.</span>
+<span class="sd">        </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">SignupFormExtra</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+        <span class="c"># Put the first and last name at the top</span>
+        <span class="n">new_order</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="o">.</span><span class="n">keyOrder</span><span class="p">[:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">new_order</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s">&#39;first_name&#39;</span><span class="p">)</span>
+        <span class="n">new_order</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s">&#39;last_name&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="o">.</span><span class="n">keyOrder</span> <span class="o">=</span> <span class="n">new_order</span>
+
+<div class="viewcode-block" id="SignupFormExtra.save"><a class="viewcode-back" href="../../profiles.html#profiles.forms.SignupFormExtra.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; </span>
+<span class="sd">        Override the save method to save the first and last name to the user</span>
+<span class="sd">        field.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c"># First save the parent form and get the user.</span>
+        <span class="n">new_user</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">SignupFormExtra</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+        <span class="n">new_user</span><span class="o">.</span><span class="n">first_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cleaned_data</span><span class="p">[</span><span class="s">&#39;first_name&#39;</span><span class="p">]</span>
+        <span class="n">new_user</span><span class="o">.</span><span class="n">last_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cleaned_data</span><span class="p">[</span><span class="s">&#39;last_name&#39;</span><span class="p">]</span>
+        <span class="n">new_user</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+        <span class="c"># Userena expects to get the new user from this form, so return the new</span>
+        <span class="c"># user.</span>
+        <span class="k">return</span> <span class="n">new_user</span>
+</pre></div></div></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">HatosGanaderos 1.0 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, @mricharleon.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

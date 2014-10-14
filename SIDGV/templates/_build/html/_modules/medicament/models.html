@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>medicament.models &mdash; HatosGanaderos 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="HatosGanaderos 1.0 documentation" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">HatosGanaderos 1.0 documentation</a> &raquo;</li>
+          <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for medicament.models</h1><div class="highlight"><pre>
+<span class="c"># -*- encoding: utf-8 -*-</span>
+<span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">models</span>
+<span class="kn">from</span> <span class="nn">profiles.models</span> <span class="kn">import</span> <span class="n">Ganaderia</span>
+<span class="kn">from</span> <span class="nn">ganados.models</span> <span class="kn">import</span> <span class="n">Ganado</span>
+
+<div class="viewcode-block" id="Medicament"><a class="viewcode-back" href="../../medicament.html#medicament.models.Medicament">[docs]</a><span class="k">class</span> <span class="nc">Medicament</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="s">&#39;Nombre de la medicina&#39;</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+    <span class="n">expiration_date</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateField</span><span class="p">(</span><span class="s">u&#39;Fecha de Expiración&#39;</span><span class="p">)</span>
+    <span class="n">UNIT_CHOICES</span> <span class="o">=</span> <span class="p">(</span>
+    	<span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s">&#39;ml&#39;</span><span class="p">),</span>
+    	<span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s">&#39;gr&#39;</span><span class="p">),</span>
+    	<span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s">&#39;lbs&#39;</span><span class="p">),</span>
+    	<span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s">&#39;Kg&#39;</span><span class="p">),</span>
+    	<span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="s">&#39;Paquetes&#39;</span><span class="p">),</span>
+    	<span class="p">)</span>
+    <span class="n">unit</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">PositiveSmallIntegerField</span><span class="p">(</span><span class="s">&#39;Unidad&#39;</span><span class="p">,</span>
+    										<span class="n">choices</span><span class="o">=</span><span class="n">UNIT_CHOICES</span><span class="p">,</span>
+                                            <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">amount</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">FloatField</span><span class="p">(</span><span class="s">&#39;Cantidad de medicina&#39;</span><span class="p">)</span>
+    <span class="n">SEX_CHOICES</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s">&#39;Hembra&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s">&#39;Macho&#39;</span><span class="p">),</span>  
+        <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s">&#39;Hembra y Macho&#39;</span><span class="p">)</span>      
+        <span class="p">)</span>
+    <span class="n">sex</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">PositiveSmallIntegerField</span><span class="p">(</span><span class="s">&#39;Sexo a aplicar&#39;</span><span class="p">,</span> 
+                                            <span class="n">choices</span><span class="o">=</span><span class="n">SEX_CHOICES</span><span class="p">,</span>
+                                            <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">farm</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Ganaderia</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s">&#39;medicaments&#39;</span><span class="p">)</span>
+    <span class="n">application_age</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span><span class="s">u&#39;Edad de Aplicación&#39;</span><span class="p">)</span>
+    <span class="n">TIME_APPLICATION_AGE_CHOICES</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s">u&#39;Aplicación en días&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s">&#39;Aplicación en meses&#39;</span><span class="p">),</span>  
+        <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s">u&#39;Aplicación en años&#39;</span><span class="p">)</span>      
+        <span class="p">)</span>
+    <span class="n">time_application_age</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">PositiveSmallIntegerField</span><span class="p">(</span><span class="s">&#39;Unidad de tiempo&#39;</span><span class="p">,</span>
+                            <span class="n">choices</span><span class="o">=</span><span class="n">TIME_APPLICATION_AGE_CHOICES</span><span class="p">,</span>
+                            <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">amount_application</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">FloatField</span><span class="p">(</span><span class="s">u&#39;cantidad de aplicación&#39;</span><span class="p">)</span>
+    <span class="n">OPTION_NUMBER_APPLICATION</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s">&#39;Veces exactas&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s">&#39;Repetitivo&#39;</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="n">option_number_application</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">PositiveSmallIntegerField</span><span class="p">(</span><span class="s">&#39;Ciclo de la medicina&#39;</span><span class="p">,</span>
+                            <span class="n">choices</span> <span class="o">=</span> <span class="n">OPTION_NUMBER_APPLICATION</span>
+                            <span class="p">)</span>
+    <span class="n">number_application</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span><span class="s">u&#39;Número de aplicaciones&#39;</span><span class="p">)</span>
+    <span class="n">interval</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span><span class="s">&#39;Intervalo de tiempo&#39;</span><span class="p">)</span>
+    <span class="n">TIME_INTERVAL_CHOICES</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s">u&#39;Intervalo en días&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s">&#39;Intervalo en meses&#39;</span><span class="p">),</span>  
+        <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s">u&#39;Intervalo en años&#39;</span><span class="p">)</span>      
+        <span class="p">)</span>
+    <span class="n">time_interval</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">PositiveSmallIntegerField</span><span class="p">(</span><span class="s">&#39;Unidad de tiempo&#39;</span><span class="p">,</span>
+                            <span class="n">choices</span><span class="o">=</span><span class="n">TIME_INTERVAL_CHOICES</span><span class="p">,</span>
+                            <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">ADMINISTRATION_ROUTE_CHOICES</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s">&#39;Intravenosa&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s">&#39;Intramuscular&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s">u&#39;Subcutánea&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s">&#39;Intraperitoneal&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="s">&#39;Oral&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="s">&#39;Rectal&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="s">&#39;Intrauterina&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="s">&#39;Intramamaria&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="s">u&#39;Tópica&#39;</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="n">administration_route</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">PositiveSmallIntegerField</span><span class="p">(</span><span class="s">u&#39;Vía de administración&#39;</span><span class="p">,</span>
+                            <span class="n">choices</span><span class="o">=</span><span class="n">ADMINISTRATION_ROUTE_CHOICES</span><span class="p">,</span>
+                            <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">observations</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">(</span><span class="s">&#39;Observaciones&#39;</span><span class="p">)</span>
+    <span class="n">is_vaccine</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">BooleanField</span><span class="p">()</span>
+    <span class="n">is_wormer</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">BooleanField</span><span class="p">()</span>
+    <span class="n">is_active</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">BooleanField</span><span class="p">(</span><span class="s">&#39;Activo&#39;</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="ApplicationMedicament"><a class="viewcode-back" href="../../medicament.html#medicament.models.ApplicationMedicament">[docs]</a><span class="k">class</span> <span class="nc">ApplicationMedicament</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">date</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateField</span><span class="p">(</span><span class="s">&#39;Fecha de aplicación&#39;</span><span class="p">)</span>
+    <span class="n">cattle</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ManyToManyField</span><span class="p">(</span><span class="n">Ganado</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s">&#39;application_medicament_medicament&#39;</span><span class="p">,</span> <span class="n">verbose_name</span><span class="o">=</span><span class="s">u&#39;Ganados&#39;</span><span class="p">)</span>
+    <span class="n">medicament</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Medicament</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s">&#39;application_medicament_cattle&#39;</span><span class="p">)</span>
+    <span class="n">STATUS_CHOICES</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s">&#39;Realizado&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s">&#39;Cancelado&#39;</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="n">status</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">PositiveSmallIntegerField</span><span class="p">(</span><span class="s">&#39;Estado&#39;</span><span class="p">,</span>
+                            <span class="n">choices</span><span class="o">=</span><span class="n">STATUS_CHOICES</span><span class="p">,</span>
+                            <span class="p">)</span>   </div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">HatosGanaderos 1.0 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, @mricharleon.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

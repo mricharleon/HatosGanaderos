@@ -11,17 +11,25 @@ from profiles.models import Ganaderia, Configuracion
 from ganados.models import *
 from ganados.forms import *
 from django.contrib.auth.models import User
+from profiles.views import number_messages
 
 from datetime import date, timedelta
 import datetime, dateutil
 import calendar
 
 from dateutil.relativedelta import *
-
+"""
+metodo lista_ganado_produccion
+"""
 @login_required
 def lista_ganado_produccion(request, username):
+	user = request.user
 	id_user = User.objects.filter(username=username)
-	ganaderia = Ganaderia.objects.get(perfil=id_user)
+	number_message = number_messages(request, user.username)
+	try:
+		ganaderia = Ganaderia.objects.get(perfil=id_user)
+	except ObjectDoesNotExist:
+		return redirect(reverse('agrega_ganaderia_config'))
 	configuracion = Configuracion.objects.get(id=ganaderia.configuracion_id)
 
 	if configuracion.tipo_identificacion == 'simple':
@@ -33,11 +41,16 @@ def lista_ganado_produccion(request, username):
 		gg = Ganado.objects.filter(ganaderia_id=ganaderia.id, genero=1)
 	
 	return render_to_response('lista_ganado_produccion.html',
-		{'ganado':gg},
+		{'ganado':gg,
+		 'number_messages': number_message},
 		context_instance=RequestContext(request))
-
+"""
+metodo agrega_ganado_ordenio
+"""
 def agrega_ganado_ordenio(request, username, ganado_id):
+	user = request.user
 	id_user = User.objects.filter(username=username)
+	number_message = number_messages(request, user.username)
 	ganaderia = Ganaderia.objects.get(perfil=id_user)
 	configuracion = Configuracion.objects.get(id=ganaderia.configuracion_id)
 	ganado = Ganado.objects.get(id=ganado_id)
@@ -82,11 +95,13 @@ def agrega_ganado_ordenio(request, username, ganado_id):
 		 'total_ordenios': total_ordenios,
 		 'msj': msj,
 		 'range': range(num_ordenios), 
-		 },
+		 'number_messages': number_message},
 		context_instance=RequestContext(request))
 
 def edita_ganado_ordenio(request, username, ganado_id, num_ordenio):
+	user = request.user
 	id_user = User.objects.filter(username=username)
+	number_message = number_messages(request, user.username)
 	ganaderia = Ganaderia.objects.get(perfil=id_user)
 	configuracion = Configuracion.objects.get(id=ganaderia.configuracion_id)
 	ganado = Ganado.objects.get(id=ganado_id)
@@ -123,21 +138,27 @@ def edita_ganado_ordenio(request, username, ganado_id, num_ordenio):
 	return render_to_response('edita_ganado_ordenio.html',
 		{'ganado_id': ganado_id,
 		 'formOrdenio': formOrdenio,
-		 'range': range(cont_ordenios+1)},
+		 'range': range(cont_ordenios+1),
+		 'number_messages': number_message},
 		context_instance=RequestContext(request))
 
 
 @login_required
-def lista_ganado(request):
-	id_user = request.user.id
-	ganaderia = Ganaderia.objects.get(perfil=id_user)
-	configuracion = Configuracion.objects.get(id=ganaderia.configuracion_id)
-	
-	gg = Ganado.objects.filter(ganaderia_id=ganaderia.id, genero=1)
-	
-	return render_to_response('lista_ganado.html',
-		{'ganado':gg},
+def list_cattle(request):
+	user = request.user
+	number_message = number_messages(request, user.username)
+	return render_to_response('list_cattle.html',
+		{'number_messages': number_message},
 		context_instance=RequestContext(request))
+
+@login_required
+def list_cattle_male(request):
+	user = request.user
+	number_message = number_messages(request, user.username)	
+	return render_to_response('list_cattles_male.html',
+		{'number_messages': number_message},
+		context_instance=RequestContext(request))
+
 
 
 def calcula_edad_anios(request, date):
@@ -177,9 +198,12 @@ def calcula_etapa(request, anios, meses, etapa_ternera, etapa_vacona):
 		valor_etapa=2
 	return valor_etapa
 
+
+
 @login_required
-def edita_ganado(request, username, ganado_id):
-	id_user = User.objects.filter(username=username)
+def edita_ganado(request, ganado_id):
+	id_user = request.user
+	number_message = number_messages(request, id_user.username)
 	ganaderia = Ganaderia.objects.get(perfil=id_user)
 	configuracion = Configuracion.objects.get(id=ganaderia.configuracion_id)
 	ganado = Ganado.objects.get(id=ganado_id)
@@ -244,7 +268,7 @@ def edita_ganado(request, username, ganado_id):
 				# pauso guardar ganado para agregar atributos
 				form2 = form2.save(commit=False)
 				form2.ganaderia = ganaderia
-
+				
 				form2.identificacion_ecuador = form.save()
 				anios = calcula_edad_anios(request, form2.nacimiento)
 				meses = calcula_edad_meses(request, form2.nacimiento)
@@ -253,6 +277,7 @@ def edita_ganado(request, username, ganado_id):
 				form2.edad_dias = calcula_edad_dias(request, form2.nacimiento)
 
 				# saber cual es la ultima etapa de este ganado
+				et_actual = calcula_etapa(request, anios, meses, configuracion.etapa_ternera, configuracion.etapa_vacona)
 				
 				for etapa in et:
 					if etapa.nombre == 0:
@@ -261,11 +286,13 @@ def edita_ganado(request, username, ganado_id):
 						id = etapa.nombre
 					else:
 						id = etapa.nombre
-					etapa.is_active=False
+					#etapa.is_active=False
 					etapa.save()
 				
-				et_actual = calcula_etapa(request, anios, meses, configuracion.etapa_ternera, configuracion.etapa_vacona)
 				if id != et_actual:
+					etapa_antigua = ganado.etapas.get(nombre=id, is_active=True)
+					etapa_antigua.is_active = False
+					etapa_antigua.save()
 					fecha = datetime.date.today()
 					et = etapaForm()
 					et = et.save(commit=False)
@@ -279,7 +306,7 @@ def edita_ganado(request, username, ganado_id):
 				else:
 					form2.save()
 
-		return redirect(reverse('lista_ganado'))
+		return redirect(reverse('list_cattle'))
 
 	elif configuracion.tipo_identificacion == 'simple':
 		form = tipoSimpleForm(instance=identificacion_s)
@@ -293,46 +320,190 @@ def edita_ganado(request, username, ganado_id):
 		 'formGanado': form2,
 		 'id_cattle': ganado_id,
 		 'ganado': ganado,
-		},
+		 'number_messages': number_message},
 		context_instance=RequestContext(request))
 
 @login_required
-def agrega_ganado(request, username):
-	id_user = User.objects.filter(username=username)
-	ganaderia = Ganaderia.objects.get(perfil=id_user)
-	configuracion = Configuracion.objects.get(id=ganaderia.configuracion_id)
+def edit_cattle_male(request, cattle_id):
+	user = request.user
+	number_message = number_messages(request, user.username)
+	farm = Ganaderia.objects.get(perfil=user)
+	configuration = Configuracion.objects.get(id=farm.configuracion_id)
+	cattle = Ganado.objects.get(id=cattle_id)
+
+	if configuration.tipo_identificacion== 'simple':
+		identification_simple = Identificacion_Simple.objects.get(id=cattle.identificacion_simple.id)
+	else:
+		identification_ecuador = Identificacion_Ecuador.objects.get(id=cattle.identificacion_ecuador.id)
+
+	if request.method == 'POST':
+		form2 = ganadoForm(request.POST, request.FILES, instance=cattle)
+
+		if configuration.tipo_identificacion == 'simple':
+			form = tipoSimpleForm(request.POST, instance=identification_simple)
+			if form.is_valid() and form2.is_valid():
+				# pauso guardar ganado para agregar atributos
+				form2 = form2.save(commit=False)
+				form2.ganaderia = farm
+				
+				form2.identificacion_simple = form.save()
+				anios = calcula_edad_anios(request, form2.nacimiento)
+				meses = calcula_edad_meses(request, form2.nacimiento)
+				form2.edad_anios = anios
+				form2.edad_meses = meses
+				form2.edad_dias = calcula_edad_dias(request, form2.nacimiento)
+				form2.save()
+		else:
+			form = tipoNormaEcuadorForm(request.POST, instance=identification_ecuador)
+			if form.is_valid() and form2.is_valid():
+				# pauso guardar ganado para agregar atributos
+				form2 = form2.save(commit=False)
+				form2.ganaderia = farm
+				
+				form2.identificacion_ecuador = form.save()
+				anios = calcula_edad_anios(request, form2.nacimiento)
+				meses = calcula_edad_meses(request, form2.nacimiento)
+				form2.edad_anios = anios
+				form2.edad_meses = meses
+				form2.edad_dias = calcula_edad_dias(request, form2.nacimiento)
+				form2.save()
+
+		return redirect(reverse('list_cattle_male'))
+
+	elif configuration.tipo_identificacion == 'simple':
+		form = tipoSimpleForm(instance=identification_simple)
+		form2 = ganadoForm(instance=cattle)
+	else:
+		form = tipoNormaEcuadorForm(instance=identification_ecuador)
+		form2 = ganadoForm(instance=cattle)
+
+	return render_to_response('edita_ganado.html',
+		{'formIdentificacion': form,
+		 'formGanado': form2,
+		 'id_cattle': cattle_id,
+		 'ganado': cattle,
+		 'number_messages': number_message},
+		context_instance=RequestContext(request))
+
+@login_required
+def add_insemination(request):
+	user = request.user
+	number_message = number_messages(request, user.username)
+	farm = Ganaderia.objects.get(perfil=user)
+
+	if request.method == 'POST':
+		formInsemination = inseminationForm(request.POST)
+		if formInsemination.is_valid():
+			formInsemination = formInsemination.save(commit=False)
+			if Insemination.objects.filter(farm=farm).count() > 0:
+				insemination = Insemination.objects.filter(farm=farm).order_by('rp').reverse()[:1]
+				for i in insemination:
+					formInsemination.rp = i.rp+1
+			else:
+				formInsemination.rp = 1
+
+			formInsemination.farm = farm
+			formInsemination.save()
+
+			return redirect(reverse('list_insemination'))
+
+	elif request.method == 'GET':
+		formInsemination = inseminationForm()
+	return render_to_response('add_insemination.html',
+			{'formInsemination': formInsemination,
+			 'number_messages': number_message},
+			context_instance=RequestContext(request))
+
+@login_required
+def edit_insemination(request, insemination_id):
+	user = request.user
+	number_message = number_messages(request, user.username)
+	farm = Ganaderia.objects.get(perfil=user)
+	insemination = Insemination.objects.get(id=insemination_id)
+
+	if request.method == 'POST':
+		formInsemination = inseminationForm(request.POST, instance=insemination)
+		if formInsemination.is_valid():
+			formInsemination = formInsemination.save(commit=False)
+			formInsemination.farm = farm
+			formInsemination.rp = insemination.rp
+			formInsemination.save()
+
+			return redirect(reverse('list_insemination'))
+			
+	else:
+		formInsemination = inseminationForm(instance=insemination)
+
+	return render_to_response('edit_insemination.html',
+		{'formInsemination': formInsemination,
+		 'insemination_id': insemination_id,
+		 'number_messages': number_message},
+		context_instance=RequestContext(request))
+
+@login_required
+def list_insemination(request):	
+	user = request.user
+	number_message = number_messages(request, user.username)
+	return render_to_response('list_insemination.html',
+		{'number_messages': number_message},
+		context_instance=RequestContext(request))
+
+
+@login_required
+def add_cattle(request):
+	user = request.user
+	number_message = number_messages(request, user.username)
+	try:
+		farm = Ganaderia.objects.get(perfil=user)
+	except ObjectDoesNotExist:
+		return redirect(reverse('agrega_ganaderia_config'))
+	configuration = Configuracion.objects.get(id=farm.configuracion_id)
 	
 	if request.method == 'POST':
 
 		formGanado = ganadoForm(request.POST, request.FILES)
 		
-		if configuracion.tipo_identificacion == 'simple':
+		if configuration.tipo_identificacion == 'simple':
 			formIdentificacion = tipoSimpleForm(request.POST)
 			if formIdentificacion.is_valid() and formGanado.is_valid():
 				# pauso guardar ganado para agregar atributos
 				formGanado = formGanado.save(commit=False)
-				# crea objeto etapa
-				fecha = datetime.date.today()
-				if formGanado.genero == 1:
-					et = etapaForm()
-					et = et.save(commit=False)
-					et.fecha_inicio=fecha
-					anios = calcula_edad_anios(request, formGanado.nacimiento)
-					meses = calcula_edad_meses(request, formGanado.nacimiento)
-					et.nombre = calcula_etapa(request, anios, meses, configuracion.etapa_ternera, configuracion.etapa_vacona)
-					et.observaciones='ninguna observacion'
-								
-				formGanado.ganaderia = ganaderia
-				
 				formIdentificacion = formIdentificacion.save(commit=False)
-				if Ganado.objects.filter(ganaderia=ganaderia).count() > 0:
-					ganado = Ganado.objects.filter(ganaderia=ganaderia).reverse()[:1]
-					for g in ganado:
-						rp_old = Identificacion_Simple.objects.filter(id=g.id).order_by('rp').reverse()[:1]
+
+				if Ganado.objects.filter(ganaderia=farm).count() > 0:
+					cattle = Ganado.objects.filter(ganaderia=farm).reverse()[:1]
+					for g in cattle:
+						rp_old = Identificacion_Simple.objects.filter(id=g.identificacion_simple.id).order_by('rp').reverse()[:1]
 						for r in rp_old:
 							formIdentificacion.rp = r.rp+1
 				else:
 					formIdentificacion.rp = 1
+
+
+				# disminuir las pajuelas
+				if formGanado.forma_concepcion == 0: # inseminacion
+					try:
+						insemination = Insemination.objects.get(rp=formIdentificacion.rp_padre)
+						insemination.amount_pajuelas = insemination.amount_pajuelas - 1
+						insemination.save()
+					except ObjectDoesNotExist:
+						pass
+					
+
+				# crea objeto etapa
+				date = datetime.date.today()
+				if formGanado.genero == 1:
+					et = etapaForm()
+					et = et.save(commit=False)
+					et.fecha_inicio=date
+					anios = calcula_edad_anios(request, formGanado.nacimiento)
+					meses = calcula_edad_meses(request, formGanado.nacimiento)
+					et.nombre = calcula_etapa(request, anios, meses, configuration.etapa_ternera, configuration.etapa_vacona)
+					et.observaciones='ninguna observacion'
+								
+				formGanado.ganaderia = farm
+				
+				
 				formIdentificacion.save()
 				formGanado.identificacion_simple = formIdentificacion
 				formGanado.edad_anios = calcula_edad_anios(request, formGanado.nacimiento)
@@ -347,57 +518,77 @@ def agrega_ganado(request, username):
 						periodo = Ciclo()
 						periodo.nombre = 0
 						periodo.fecha_inicio = date.today()
-						periodo.fecha_fin = date.today()+timedelta(days=configuracion.periodo_vacio)
+						periodo.fecha_fin = date.today()+timedelta(days=configuration.periodo_vacio)
 						periodo.ganado = formGanado
 						periodo.is_active = True
 						periodo.save()
 
-				return redirect(reverse('lista_ganado'))
+				return redirect(reverse('list_cattle'))
 		else:
 			formIdentificacion = tipoNormaEcuadorForm(request.POST)
 			if formIdentificacion.is_valid() and formGanado.is_valid():
 				# pauso guardar ganado para agregar atributos
 				formGanado = formGanado.save(commit=False)
 				# crea objeto etapa
-				fecha = datetime.date.today()
-				et = etapaForm()
-				et = et.save(commit=False)
-				et.fecha_inicio=fecha
-				fecha_nacimiento = formGanado.nacimiento
-				anios = calcula_edad_anios(request, fecha_nacimiento)
-				meses = calcula_edad_meses(request, fecha_nacimiento)
-				et.nombre = calcula_etapa(request, anios, meses, configuracion.etapa_ternera, configuracion.etapa_vacona)
-				et.observaciones='ninguna observacion'
+				date = datetime.date.today()
+				if formGanado.genero == 1:
+					et = etapaForm()
+					et = et.save(commit=False)
+					et.fecha_inicio=date
+					anios = calcula_edad_anios(request, formGanado.nacimiento)
+					meses = calcula_edad_meses(request, formGanado.nacimiento)
+					et.nombre = calcula_etapa(request, anios, meses, configuration.etapa_ternera, configuration.etapa_vacona)
+					et.observaciones='ninguna observacion'
 								
-				formGanado.ganaderia = ganaderia
+				formGanado.ganaderia = farm
 				
-				formGanado.identificacion_ecuador = formIdentificacion.save()
+				formIdentificacion = formIdentificacion.save(commit=False)
+				if Ganado.objects.filter(ganaderia=farm).count() > 0:
+					cattle = Ganado.objects.filter(ganaderia=farm).reverse()[:1]
+					for g in cattle:
+						rp_old = Identificacion_Ecuador.objects.filter(id=g.identificacion_ecuador.id).order_by('rp').reverse()[:1]
+						for r in rp_old:
+							formIdentificacion.rp = r.rp+1
+				else:
+					formIdentificacion.rp = 1
+				formIdentificacion.save()
+				formGanado.identificacion_ecuador = formIdentificacion
 				formGanado.edad_anios = calcula_edad_anios(request, formGanado.nacimiento)
 				formGanado.edad_meses = calcula_edad_meses(request, formGanado.nacimiento)
 				formGanado.edad_dias = calcula_edad_dias(request, formGanado.nacimiento)
 				formGanado.save()
-				et.ganado = Ganado.objects.get(id=formGanado.id)
-				et.is_active = True
-				et.save()
+				if formGanado.genero == 1:
+					et.ganado = Ganado.objects.get(id=formGanado.id)
+					et.is_active = True
+					et.save()
+					if et.nombre == 2:
+						periodo = Ciclo()
+						periodo.nombre = 0
+						periodo.fecha_inicio = date.today()
+						periodo.fecha_fin = date.today()+timedelta(days=configuration.periodo_vacio)
+						periodo.ganado = formGanado
+						periodo.is_active = True
+						periodo.save()
 
-				return redirect(reverse('lista_ganado'))
+				return redirect(reverse('list_cattle'))
 
-	elif configuracion.tipo_identificacion == 'simple':
+	elif configuration.tipo_identificacion == 'simple':
 		formIdentificacion = tipoSimpleForm()
 		formGanado = ganadoForm()
 	else:
 		formIdentificacion = tipoNormaEcuadorForm()
 		formGanado = ganadoForm()
 
-	return render_to_response('agrega_ganado.html',
+	return render_to_response('add_cattle.html',
 		{'formIdentificacion': formIdentificacion,
-		 'formGanado': formGanado
-		 },
+		 'formGanado': formGanado,
+		 'number_messages': number_message},
 		context_instance=RequestContext(request))	
 
 @login_required
-def edita_ganado_celo(request, username, ganado_id):
-	id_user = User.objects.filter(username=username)
+def edita_ganado_celo(request, ganado_id):
+	id_user = request.user
+	number_message = number_messages(request, id_user.username)
 	ganaderia = Ganaderia.objects.get(perfil=id_user)
 	configuracion = Configuracion.objects.get(id=ganaderia.configuracion_id)
 	ganado = Ganado.objects.get(id=ganado_id)
@@ -427,13 +618,13 @@ def edita_ganado_celo(request, username, ganado_id):
 						form.ganado = ganado
 						form.is_active = True
 						form.save()
-						return redirect(reverse('lista_ganado'))
+						return redirect(reverse('list_cattle'))
 					else:
 						c = Celo.objects.get(id=id)
 						c.observaciones=form.observaciones
 						c.save()
 
-						return redirect(reverse('lista_ganado'))
+						return redirect(reverse('list_cattle'))
 				
 			else:
 				form = editaGanadoCeloForm(instance=celo_ganado)
@@ -451,24 +642,25 @@ def edita_ganado_celo(request, username, ganado_id):
 				form.ganado = ganado
 				form.is_active = True
 				form.save()
-				return redirect(reverse('lista_ganado'))
+				return redirect(reverse('list_cattle'))
 
 	if ganado.celos.all():
 		return render_to_response('edita_ganado_celo.html',
 			{'form': form,
-			 'ganado_id': ganado_id
-			},
+			 'ganado_id': ganado_id,
+			 'number_messages': number_message},
 			context_instance=RequestContext(request))
 	else:
 		return render_to_response('edita_ganado_celo.html',
 			{'form': form,
 			 'ganado_id': ganado_id,
-			},
+			 'number_messages': number_message},
 			context_instance=RequestContext(request))
 
 @login_required
 def add_service(request, id_cattle):
 	user = request.user
+	number_message = number_messages(request, user.username)
 	cattle = Ganado.objects.get(id=id_cattle)
 	
 	if request.method == 'POST':
@@ -500,7 +692,7 @@ def add_service(request, id_cattle):
 				attempt.rp_father = formAttempt.rp_father
 				attempt.save()
 
-			return redirect(reverse('lista_ganado'))
+			return redirect(reverse('list_cattle'))
 			
 	elif request.method == 'GET':
 		v = Verification.objects.filter(is_active=True, cattle=id_cattle).count()
@@ -511,21 +703,26 @@ def add_service(request, id_cattle):
 
 	return render_to_response('add_service.html',
 		{'id_cattle': id_cattle,
-		 'formAttempt': formAttempt},
+		 'formAttempt': formAttempt,
+		 'number_messages': number_message},
 		context_instance=RequestContext(request))
 
 @login_required
 def add_attempt_service(request, id_cattle):
+	user = request.user
+	number_message = number_messages(request, user.username)
 	cattle = Ganado.objects.get(id=id_cattle)
 	attempts = Attempt.objects.filter(verification__cattle=cattle, verification__is_active=True).order_by('id')
 
 	return render_to_response('add_attempt_service.html',
-		{'attempts': attempts},
+		{'attempts': attempts,
+		 'number_messages': number_message},
 		context_instance=RequestContext(request))
 
 @login_required
 def verify_attempt(request, id_attempt):
 	user = request.user
+	number_message = number_messages(request, user.username)
 	farm = Ganaderia.objects.get(perfil=user)
 	configuration = Configuracion.objects.get(id=farm.configuracion_id)
 	attempt = Attempt.objects.get(id=id_attempt)
@@ -551,7 +748,7 @@ def verify_attempt(request, id_attempt):
 				celo.save()
 				
 				# agrego el nuevo ciclo
-				ciclo = Ciclo.objects.get(ganado_id=ganado.id, is_active=True)
+				ciclo = Ciclo.objects.get(ganado_id=ganado.id, is_active=True, nombre=0)
 				ciclo.is_active = False
 				ciclo.save()
 				ciclo = Ciclo()
@@ -570,7 +767,7 @@ def verify_attempt(request, id_attempt):
 				gestacion.ganado = ganado
 				gestacion.save()
 				
-				return redirect(reverse('lista_ganado'))
+				return redirect(reverse('list_cattle'))
 
 			id_cattle = attempt.verification.cattle_id 
 			return redirect(reverse('add_attempt_service', kwargs={'id_cattle': id_cattle}))
@@ -578,12 +775,14 @@ def verify_attempt(request, id_attempt):
 		formVerifyAttempt = verifyAttemptForm(instance=attempt)
 
 	return render_to_response('verify_attempt.html',
-		{'formVerifyAttempt': formVerifyAttempt},
+		{'formVerifyAttempt': formVerifyAttempt,
+		 'number_messages': number_message},
 		context_instance=RequestContext(request))
 
 @login_required
 def gestacion(request, id_cattle):
 	user = request.user
+	number_message = number_messages(request, user.username)
 	farm = Ganaderia.objects.get(perfil=user)
 	configuration = Configuracion.objects.get(id=farm.configuracion_id)
 	ganado = Ganado.objects.get(id=id_cattle)
@@ -618,18 +817,20 @@ def gestacion(request, id_cattle):
 			ciclo.save()
 
 			formGestacion.save()
-			return redirect(reverse('lista_ganado'))
+			return redirect(reverse('list_cattle'))
 	else:
 		formGestacion = gestacionForm(instance=gestacion)
 	return render_to_response('gestacion.html',
 		{'formGestacion': formGestacion,
-		 'id_cattle': id_cattle},
+		 'id_cattle': id_cattle,
+		 'number_messages': number_message},
 		context_instance=RequestContext(request))
 	
 
 @login_required
 def problem_gestacion(request, id_cattle):
 	user = request.user
+	number_message = number_messages(request, user.username)
 	farm = Ganaderia.objects.get(perfil=user)
 	configuration = Configuracion.objects.get(id=farm.configuracion_id)
 	ganado = Ganado.objects.get(id=id_cattle)
@@ -760,11 +961,13 @@ def problem_gestacion(request, id_cattle):
 			gestacion.problema = formProblemGestacion
 			gestacion.save()
 
-			return redirect(reverse('lista_ganado'))
+			return redirect(reverse('list_cattle'))
 	elif request.method == 'GET':
 		formProblemGestacion = problemGestacionForm()
 
 	return render_to_response('problem_gestacion.html',
 			{'formProblemGestacion': formProblemGestacion,
-			 'id_cattle': id_cattle},
+			 'id_cattle': id_cattle,
+			 'number_messages': number_message},
 			context_instance=RequestContext(request))
+

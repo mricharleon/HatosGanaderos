@@ -1,0 +1,1002 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>webServices.wsGanados.views &mdash; HatosGanaderos 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="HatosGanaderos 1.0 documentation" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">HatosGanaderos 1.0 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for webServices.wsGanados.views</h1><div class="highlight"><pre>
+<span class="c">#-*- coding: utf-8 -*-</span>
+<span class="kn">from</span> <span class="nn">django.db.models</span> <span class="kn">import</span> <span class="n">Q</span>
+<span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="n">HttpResponse</span>
+<span class="kn">from</span> <span class="nn">ganados.models</span> <span class="kn">import</span> <span class="n">Ganado</span><span class="p">,</span> <span class="n">Identificacion_Simple</span><span class="p">,</span> <span class="n">Ganaderia</span><span class="p">,</span> <span class="n">Etapa</span><span class="p">,</span> <span class="n">Identificacion_Ecuador</span><span class="p">,</span> <span class="n">Ciclo</span><span class="p">,</span> <span class="n">Verification</span><span class="p">,</span> <span class="n">Insemination</span>
+<span class="kn">from</span> <span class="nn">medicament.models</span> <span class="kn">import</span> <span class="n">Medicament</span>
+<span class="kn">from</span> <span class="nn">alimentos.models</span> <span class="kn">import</span> <span class="n">Food</span><span class="p">,</span> <span class="n">ApplicationFood</span>
+<span class="kn">from</span> <span class="nn">medicament.models</span> <span class="kn">import</span> <span class="n">Medicament</span><span class="p">,</span> <span class="n">ApplicationMedicament</span>
+<span class="kn">from</span> <span class="nn">profiles.models</span> <span class="kn">import</span> <span class="n">Configuracion</span>
+
+<span class="kn">from</span> <span class="nn">django.contrib.auth.models</span> <span class="kn">import</span> <span class="n">User</span>
+
+<span class="kn">from</span> <span class="nn">django.core</span> <span class="kn">import</span> <span class="n">serializers</span>
+<span class="kn">from</span> <span class="nn">django.utils</span> <span class="kn">import</span> <span class="n">simplejson</span> <span class="k">as</span> <span class="n">json</span>
+<span class="kn">from</span> <span class="nn">ganados.models</span> <span class="kn">import</span> <span class="n">Celo</span>
+
+<span class="kn">from</span> <span class="nn">django.contrib.auth.decorators</span> <span class="kn">import</span> <span class="n">login_required</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+
+<span class="nd">@login_required</span>
+<div class="viewcode-block" id="wsGanadosHembras_view"><a class="viewcode-back" href="../../../webServices.wsGanados.html#webServices.wsGanados.views.wsGanadosHembras_view">[docs]</a><span class="k">def</span> <span class="nf">wsGanadosHembras_view</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+	<span class="n">search</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="p">[</span><span class="s">&#39;search&#39;</span><span class="p">]</span>
+	<span class="n">user</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span>
+	<span class="n">id_user</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="n">user</span><span class="o">.</span><span class="n">username</span><span class="p">)</span>
+	<span class="n">ganaderia</span> <span class="o">=</span> <span class="n">Ganaderia</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">perfil</span><span class="o">=</span><span class="n">id_user</span><span class="p">)</span>
+	<span class="n">configuracion</span> <span class="o">=</span> <span class="n">Configuracion</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">ganaderia</span><span class="o">.</span><span class="n">configuracion_id</span><span class="p">)</span>
+	
+
+	<span class="k">if</span> <span class="n">configuracion</span><span class="o">.</span><span class="n">tipo_identificacion</span> <span class="o">==</span> <span class="s">&#39;simple&#39;</span> <span class="ow">and</span> <span class="n">search</span> <span class="o">!=</span> <span class="s">&#39;&#39;</span><span class="p">:</span>
+		<span class="n">data</span> <span class="o">=</span> <span class="n">serializers</span><span class="o">.</span><span class="n">serialize</span><span class="p">(</span><span class="s">&#39;json&#39;</span><span class="p">,</span> <span class="n">Identificacion_Simple</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
+					  <span class="p">(</span><span class="n">Q</span><span class="p">(</span><span class="n">identificaciones_simples__ganaderia</span><span class="o">=</span><span class="n">ganaderia</span><span class="p">)</span>
+					  <span class="p">)</span> <span class="o">&amp;</span>
+					  <span class="p">(</span>	<span class="n">Q</span><span class="p">(</span><span class="n">identificaciones_simples__nacimiento__icontains</span><span class="o">=</span><span class="n">search</span><span class="p">)</span> <span class="o">|</span>
+					  	<span class="n">Q</span><span class="p">(</span><span class="n">rp__iexact</span><span class="o">=</span><span class="n">search</span><span class="p">)</span> <span class="o">|</span>
+					  	<span class="n">Q</span><span class="p">(</span><span class="n">nombre__icontains</span><span class="o">=</span><span class="n">search</span><span class="p">)</span>
+					  <span class="p">)</span> <span class="o">&amp;</span>
+					    <span class="n">Q</span><span class="p">(</span><span class="n">identificaciones_simples__etapas__nombre__exact</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+					    <span class="n">identificaciones_simples__etapas__is_active__exact</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+					    <span class="n">identificaciones_simples__genero__exact</span><span class="o">=</span><span class="mi">1</span> <span class="p">)</span>
+		<span class="p">))</span>
+	<span class="k">else</span><span class="p">:</span>
+		<span class="n">data</span> <span class="o">=</span> <span class="n">serializers</span><span class="o">.</span><span class="n">serialize</span><span class="p">(</span><span class="s">&#39;json&#39;</span><span class="p">,</span> <span class="n">Identificacion_Ecuador</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
+					  <span class="p">(</span><span class="n">Q</span><span class="p">(</span><span class="n">identificaciones_ecuador__ganaderia</span><span class="o">=</span><span class="n">ganaderia</span><span class="p">)</span>
+					  <span class="p">)</span> <span class="o">&amp;</span>
+					  <span class="p">(</span>	<span class="n">Q</span><span class="p">(</span><span class="n">identificaciones_ecuador__nacimiento__icontains</span><span class="o">=</span><span class="n">search</span><span class="p">)</span> <span class="o">|</span>
+					  	<span class="n">Q</span><span class="p">(</span><span class="n">rp__iexact</span><span class="o">=</span><span class="n">search</span><span class="p">)</span> <span class="o">|</span>
+					  	<span class="n">Q</span><span class="p">(</span><span class="n">nombre__icontains</span><span class="o">=</span><span class="n">search</span><span class="p">)</span>
+					  <span class="p">)</span> <span class="o">&amp;</span>
+					    <span class="n">Q</span><span class="p">(</span><span class="n">identificaciones_ecuador__etapas__nombre__exact</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+					    <span class="n">identificaciones_ecuador__etapas__is_active__exact</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+					    <span class="n">identificaciones_ecuador__genero__exact</span><span class="o">=</span><span class="mi">1</span> <span class="p">)</span>
+		<span class="p">))</span>
+	<span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">mimetype</span><span class="o">=</span><span class="s">&#39;application/json&#39;</span><span class="p">)</span>
+</div>
+<span class="nd">@login_required</span>
+<div class="viewcode-block" id="ajaxCattleMaleRp_view"><a class="viewcode-back" href="../../../webServices.wsGanados.html#webServices.wsGanados.views.ajaxCattleMaleRp_view">[docs]</a><span class="k">def</span> <span class="nf">ajaxCattleMaleRp_view</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+	<span class="n">search</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="p">[</span><span class="s">&#39;search&#39;</span><span class="p">]</span>
+	<span class="n">user</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span>
+	<span class="n">farm</span> <span class="o">=</span> <span class="n">Ganaderia</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">perfil</span><span class="o">=</span><span class="n">user</span><span class="p">)</span>
+	<span class="n">configuration</span> <span class="o">=</span> <span class="n">Configuracion</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">farm</span><span class="o">.</span><span class="n">configuracion_id</span><span class="p">)</span>
+	
+	<span class="n">gg</span> <span class="o">=</span> <span class="n">Ganado</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">ganaderia</span><span class="o">=</span><span class="n">farm</span><span class="p">)</span>
+
+	<span class="k">if</span> <span class="n">configuration</span><span class="o">.</span><span class="n">tipo_identificacion</span> <span class="o">==</span> <span class="s">&#39;simple&#39;</span> <span class="ow">and</span> <span class="n">search</span> <span class="o">!=</span> <span class="s">&#39;&#39;</span><span class="p">:</span>
+		<span class="n">data</span> <span class="o">=</span> <span class="n">serializers</span><span class="o">.</span><span class="n">serialize</span><span class="p">(</span><span class="s">&#39;json&#39;</span><span class="p">,</span> <span class="n">Identificacion_Simple</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
+					  <span class="p">(</span><span class="n">Q</span><span class="p">(</span><span class="n">identificaciones_simples__ganaderia</span><span class="o">=</span><span class="n">farm</span><span class="p">)</span>
+					  <span class="p">)</span> <span class="o">&amp;</span>
+					  <span class="p">(</span>	<span class="n">Q</span><span class="p">(</span><span class="n">identificaciones_simples__nacimiento__icontains</span><span class="o">=</span><span class="n">search</span><span class="p">)</span> <span class="o">|</span>
+					  	<span class="n">Q</span><span class="p">(</span><span class="n">rp__iexact</span><span class="o">=</span><span class="n">search</span><span class="p">)</span> <span class="o">|</span>
+					  	<span class="n">Q</span><span class="p">(</span><span class="n">nombre__icontains</span><span class="o">=</span><span class="n">search</span><span class="p">)</span>
+					  <span class="p">)</span> <span class="o">&amp;</span>
+					  	<span class="n">Q</span><span class="p">(</span><span class="n">identificaciones_simples__genero__exact</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+		<span class="p">))</span>
+	<span class="k">else</span><span class="p">:</span>
+		<span class="n">data</span> <span class="o">=</span> <span class="n">serializers</span><span class="o">.</span><span class="n">serialize</span><span class="p">(</span><span class="s">&#39;json&#39;</span><span class="p">,</span> <span class="n">Identificacion_Ecuador</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
+					  <span class="p">(</span><span class="n">Q</span><span class="p">(</span><span class="n">identificaciones_ecuador__ganaderia</span><span class="o">=</span><span class="n">farm</span><span class="p">)</span>
+					  <span class="p">)</span> <span class="o">&amp;</span>
+					  <span class="p">(</span>	<span class="n">Q</span><span class="p">(</span><span class="n">identificaciones_ecuador__nacimiento__icontains</span><span class="o">=</span><span class="n">search</span><span class="p">)</span> <span class="o">|</span>
+					  	<span class="n">Q</span><span class="p">(</span><span class="n">rp__iexact</span><span class="o">=</span><span class="n">search</span><span class="p">)</span> <span class="o">|</span>
+					  	<span class="n">Q</span><span class="p">(</span><span class="n">nombre__icontains</span><span class="o">=</span><span class="n">search</span><span class="p">)</span>
+					  <span class="p">)</span> <span class="o">&amp;</span>
+					  	<span class="n">Q</span><span class="p">(</span><span class="n">identificaciones_ecuador__genero__exact</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+		<span class="p">))</span>
+	<span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">mimetype</span><span class="o">=</span><span class="s">&#39;application/json&#39;</span><span class="p">)</span>
+</div>
+<span class="nd">@login_required</span>
+<div class="viewcode-block" id="ajaxGanadosMachosInseminacion_view"><a class="viewcode-back" href="../../../webServices.wsGanados.html#webServices.wsGanados.views.ajaxGanadosMachosInseminacion_view">[docs]</a><span class="k">def</span> <span class="nf">ajaxGanadosMachosInseminacion_view</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+	<span class="n">search</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="p">[</span><span class="s">&#39;search&#39;</span><span class="p">]</span>
+	<span class="n">user</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span>
+	<span class="n">farm</span> <span class="o">=</span> <span class="n">Ganaderia</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">perfil</span><span class="o">=</span><span class="n">user</span><span class="p">)</span>
+	
+	<span class="n">data</span> <span class="o">=</span> <span class="n">serializers</span><span class="o">.</span><span class="n">serialize</span><span class="p">(</span><span class="s">&#39;json&#39;</span><span class="p">,</span> <span class="n">Insemination</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
+				  <span class="p">(</span><span class="n">Q</span><span class="p">(</span><span class="n">farm</span><span class="o">=</span><span class="n">farm</span><span class="p">)</span>
+				  <span class="p">)</span> <span class="o">&amp;</span>
+				  <span class="p">(</span>	<span class="n">Q</span><span class="p">(</span><span class="n">registration_date__icontains</span><span class="o">=</span><span class="n">search</span><span class="p">)</span> <span class="o">|</span>
+				  	<span class="n">Q</span><span class="p">(</span><span class="n">rp__iexact</span><span class="o">=</span><span class="n">search</span><span class="p">)</span> <span class="o">|</span>
+				  	<span class="n">Q</span><span class="p">(</span><span class="n">name__icontains</span><span class="o">=</span><span class="n">search</span><span class="p">)</span>
+				  <span class="p">)</span> 
+		<span class="p">))</span>
+	
+	<span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">mimetype</span><span class="o">=</span><span class="s">&#39;application/json&#39;</span><span class="p">)</span>
+</div>
+<span class="nd">@login_required</span>
+<div class="viewcode-block" id="wsGanados_view"><a class="viewcode-back" href="../../../webServices.wsGanados.html#webServices.wsGanados.views.wsGanados_view">[docs]</a><span class="k">def</span> <span class="nf">wsGanados_view</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+	<span class="n">search</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="p">[</span><span class="s">&#39;search&#39;</span><span class="p">]</span>
+	<span class="n">user</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span>
+	<span class="n">ganaderia</span> <span class="o">=</span> <span class="n">Ganaderia</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">perfil</span><span class="o">=</span><span class="n">user</span><span class="p">)</span>
+
+	<span class="k">if</span> <span class="n">ganaderia</span><span class="o">.</span><span class="n">configuracion</span><span class="o">.</span><span class="n">tipo_identificacion</span> <span class="o">==</span> <span class="s">&#39;simple&#39;</span><span class="p">:</span>
+	
+		<span class="n">ganados</span> <span class="o">=</span> <span class="n">Ganado</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
+											<span class="n">Q</span><span class="p">(</span><span class="n">ganaderia</span><span class="o">=</span><span class="n">ganaderia</span><span class="p">,</span> <span class="n">genero</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span>
+											<span class="p">(</span>
+												<span class="n">Q</span><span class="p">(</span><span class="n">nacimiento__icontains</span><span class="o">=</span><span class="n">search</span><span class="p">)</span> <span class="o">|</span>
+												<span class="n">Q</span><span class="p">(</span><span class="n">identificacion_simple__nombre__icontains</span><span class="o">=</span><span class="n">search</span><span class="p">)</span> <span class="o">|</span>
+												<span class="n">Q</span><span class="p">(</span><span class="n">identificacion_simple__rp__icontains</span><span class="o">=</span><span class="n">search</span><span class="p">)</span>
+											<span class="p">)</span>
+										<span class="p">)</span>
+		
+		<span class="n">celos</span> <span class="o">=</span> <span class="n">Celo</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">is_active</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">estado</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ganado_id</span><span class="o">=</span><span class="n">ganados</span><span class="p">)</span>
+		<span class="n">etapas</span> <span class="o">=</span> <span class="n">Etapa</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">is_active</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">ganado_id</span><span class="o">=</span><span class="n">ganados</span><span class="p">)</span>
+		<span class="n">ciclos</span> <span class="o">=</span> <span class="n">Ciclo</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">is_active</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">ganado_id</span><span class="o">=</span><span class="n">ganados</span><span class="p">)</span>
+		<span class="n">verificaciones</span> <span class="o">=</span> <span class="n">Verification</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">is_active</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">cattle_id</span><span class="o">=</span><span class="n">ganados</span><span class="p">)</span>
+
+		<span class="c"># serializando</span>
+		<span class="n">data</span> <span class="o">=</span> <span class="s">&#39;[&#39;</span>
+		<span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">ganados</span><span class="p">:</span>
+			<span class="k">if</span> <span class="n">data</span> <span class="o">==</span> <span class="s">&#39;[&#39;</span><span class="p">:</span>
+				<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;{&quot;pk&quot;: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">id</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;, &#39;</span>
+			<span class="k">else</span><span class="p">:</span>
+				<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;,{&quot;pk&quot;: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">id</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;, &#39;</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;&quot;fields&quot;: {&#39;</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;&quot;rp&quot;: &quot;&#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">identificacion_simple</span><span class="o">.</span><span class="n">rp</span><span class="p">)</span> <span class="o">+</span><span class="s">&#39;&quot;&#39;</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;imagen&quot;: &quot;&#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">imagen</span><span class="p">)</span> <span class="o">+</span><span class="s">&#39;&quot;&#39;</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;nombre&quot;: &quot;&#39;</span><span class="o">+</span> <span class="n">g</span><span class="o">.</span><span class="n">identificacion_simple</span><span class="o">.</span><span class="n">nombre</span> <span class="o">+</span><span class="s">&#39;&quot;&#39;</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;edad_anios&quot;: &#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">edad_anios</span> <span class="p">)</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;edad_meses&quot;: &#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">edad_meses</span> <span class="p">)</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;edad_dias&quot;: &#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">edad_dias</span> <span class="p">)</span>
+
+			<span class="k">if</span> <span class="n">celos</span><span class="o">.</span><span class="n">count</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+				<span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">celos</span><span class="p">:</span>
+					<span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">ganado_id</span> <span class="o">==</span> <span class="n">g</span><span class="o">.</span><span class="n">id</span><span class="p">:</span>
+						<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;celo&quot;: &quot;En Celo&quot;&#39;</span>
+					<span class="k">else</span><span class="p">:</span>
+						<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;celo&quot;: &quot;Sin Celo&quot;&#39;</span>
+			<span class="k">else</span><span class="p">:</span>
+				<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;celo&quot;: &quot;Sin celo&quot;&#39;</span>
+				
+			<span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">etapas</span><span class="p">:</span>
+				<span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">ganado_id</span> <span class="o">==</span> <span class="n">g</span><span class="o">.</span><span class="n">id</span><span class="p">:</span>
+					<span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">nombre</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+						<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;etapa&quot;: &quot;Ternera&quot;&#39;</span>
+					<span class="k">elif</span> <span class="n">e</span><span class="o">.</span><span class="n">nombre</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+						<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;etapa&quot;: &quot;Vacona&quot;&#39;</span>
+					<span class="k">elif</span> <span class="n">e</span><span class="o">.</span><span class="n">nombre</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+						<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;etapa&quot;: &quot;Vientre&quot;&#39;</span>
+
+			<span class="k">for</span> <span class="n">ciclo</span> <span class="ow">in</span> <span class="n">ciclos</span><span class="p">:</span>
+				<span class="k">if</span> <span class="n">ciclo</span><span class="o">.</span><span class="n">ganado_id</span> <span class="o">==</span> <span class="n">g</span><span class="o">.</span><span class="n">id</span> <span class="ow">and</span> <span class="n">ciclo</span><span class="o">.</span><span class="n">is_active</span><span class="p">:</span>
+					<span class="k">if</span> <span class="n">ciclo</span><span class="o">.</span><span class="n">nombre</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+						<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;ciclo&quot;: &#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ciclo</span><span class="o">.</span><span class="n">nombre</span><span class="p">)</span> 
+					<span class="k">elif</span> <span class="n">ciclo</span><span class="o">.</span><span class="n">nombre</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+						<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;ciclo&quot;: &#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ciclo</span><span class="o">.</span><span class="n">nombre</span><span class="p">)</span> 
+					<span class="k">elif</span> <span class="n">ciclo</span><span class="o">.</span><span class="n">nombre</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+						<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;ciclo&quot;: &#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ciclo</span><span class="o">.</span><span class="n">nombre</span><span class="p">)</span> 
+					<span class="k">elif</span> <span class="n">ciclo</span><span class="o">.</span><span class="n">nombre</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+						<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;ciclo&quot;: &#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ciclo</span><span class="o">.</span><span class="n">nombre</span><span class="p">)</span> 
+
+			<span class="k">for</span> <span class="n">verificacion</span> <span class="ow">in</span> <span class="n">verificaciones</span><span class="p">:</span>
+				<span class="k">if</span> <span class="n">verificacion</span><span class="o">.</span><span class="n">cattle_id</span> <span class="o">==</span> <span class="n">g</span><span class="o">.</span><span class="n">id</span> <span class="ow">and</span> <span class="n">verificacion</span><span class="o">.</span><span class="n">is_active</span><span class="p">:</span>
+					<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;verificacion&quot;: &quot;True&quot;&#39;</span>
+				<span class="k">else</span><span class="p">:</span>
+					<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;verificacion&quot;: &quot;False&quot;&#39;</span>
+					
+
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;}}&#39;</span>
+		<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;]&#39;</span>
+
+	<span class="k">else</span><span class="p">:</span>
+		<span class="n">ganados</span> <span class="o">=</span> <span class="n">Ganado</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
+										<span class="n">Q</span><span class="p">(</span><span class="n">ganaderia</span><span class="o">=</span><span class="n">ganaderia</span><span class="p">,</span> <span class="n">genero</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span>
+										<span class="p">(</span>
+											<span class="n">Q</span><span class="p">(</span><span class="n">nacimiento__icontains</span><span class="o">=</span><span class="n">search</span><span class="p">)</span> <span class="o">|</span>
+											<span class="n">Q</span><span class="p">(</span><span class="n">identificacion_ecuador__nombre__icontains</span><span class="o">=</span><span class="n">search</span><span class="p">)</span> <span class="o">|</span>
+											<span class="n">Q</span><span class="p">(</span><span class="n">identificacion_ecuador__rp__icontains</span><span class="o">=</span><span class="n">search</span><span class="p">)</span>
+										<span class="p">)</span>
+									<span class="p">)</span>
+		
+		<span class="n">celos</span> <span class="o">=</span> <span class="n">Celo</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">is_active</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">estado</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ganado_id</span><span class="o">=</span><span class="n">ganados</span><span class="p">)</span>
+		<span class="n">etapas</span> <span class="o">=</span> <span class="n">Etapa</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">is_active</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">ganado_id</span><span class="o">=</span><span class="n">ganados</span><span class="p">)</span>
+		<span class="n">ciclos</span> <span class="o">=</span> <span class="n">Ciclo</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">is_active</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">ganado_id</span><span class="o">=</span><span class="n">ganados</span><span class="p">)</span>
+		<span class="n">verificaciones</span> <span class="o">=</span> <span class="n">Verification</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">is_active</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">cattle_id</span><span class="o">=</span><span class="n">ganados</span><span class="p">)</span>
+
+		<span class="c"># serializando</span>
+		<span class="n">data</span> <span class="o">=</span> <span class="s">&#39;[&#39;</span>
+		<span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">ganados</span><span class="p">:</span>
+			<span class="k">if</span> <span class="n">data</span> <span class="o">==</span> <span class="s">&#39;[&#39;</span><span class="p">:</span>
+				<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;{&quot;pk&quot;: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">id</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;, &#39;</span>
+			<span class="k">else</span><span class="p">:</span>
+				<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;,{&quot;pk&quot;: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">id</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;, &#39;</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;&quot;fields&quot;: {&#39;</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;&quot;rp&quot;: &quot;&#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">identificacion_ecuador</span><span class="o">.</span><span class="n">rp</span><span class="p">)</span> <span class="o">+</span><span class="s">&#39;&quot;&#39;</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;imagen&quot;: &quot;&#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">imagen</span><span class="p">)</span> <span class="o">+</span><span class="s">&#39;&quot;&#39;</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;nombre&quot;: &quot;&#39;</span><span class="o">+</span> <span class="n">g</span><span class="o">.</span><span class="n">identificacion_ecuador</span><span class="o">.</span><span class="n">nombre</span> <span class="o">+</span><span class="s">&#39;&quot;&#39;</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;edad_anios&quot;: &#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">edad_anios</span> <span class="p">)</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;edad_meses&quot;: &#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">edad_meses</span> <span class="p">)</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;edad_dias&quot;: &#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">edad_dias</span> <span class="p">)</span>
+
+			<span class="k">if</span> <span class="n">celos</span><span class="o">.</span><span class="n">count</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+				<span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">celos</span><span class="p">:</span>
+					<span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">ganado_id</span> <span class="o">==</span> <span class="n">g</span><span class="o">.</span><span class="n">id</span><span class="p">:</span>
+						<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;celo&quot;: &quot;En Celo&quot;&#39;</span>
+					<span class="k">else</span><span class="p">:</span>
+						<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;celo&quot;: &quot;Sin Celo&quot;&#39;</span>
+			<span class="k">else</span><span class="p">:</span>
+				<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;celo&quot;: &quot;Sin celo&quot;&#39;</span>
+				
+			<span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">etapas</span><span class="p">:</span>
+				<span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">ganado_id</span> <span class="o">==</span> <span class="n">g</span><span class="o">.</span><span class="n">id</span><span class="p">:</span>
+					<span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">nombre</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+						<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;etapa&quot;: &quot;Ternera&quot;&#39;</span>
+					<span class="k">elif</span> <span class="n">e</span><span class="o">.</span><span class="n">nombre</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+						<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;etapa&quot;: &quot;Vacona&quot;&#39;</span>
+					<span class="k">elif</span> <span class="n">e</span><span class="o">.</span><span class="n">nombre</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+						<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;etapa&quot;: &quot;Vientre&quot;&#39;</span>
+
+			<span class="k">if</span> <span class="n">ciclos</span><span class="o">.</span><span class="n">count</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+				<span class="k">for</span> <span class="n">ciclo</span> <span class="ow">in</span> <span class="n">ciclos</span><span class="p">:</span>
+					<span class="k">if</span> <span class="n">ciclo</span><span class="o">.</span><span class="n">ganado_id</span> <span class="o">==</span> <span class="n">g</span><span class="o">.</span><span class="n">id</span> <span class="ow">and</span> <span class="n">ciclo</span><span class="o">.</span><span class="n">is_active</span><span class="p">:</span>
+						<span class="k">if</span> <span class="n">ciclo</span><span class="o">.</span><span class="n">nombre</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+							<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;ciclo&quot;: &#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ciclo</span><span class="o">.</span><span class="n">nombre</span><span class="p">)</span> 
+						<span class="k">elif</span> <span class="n">ciclo</span><span class="o">.</span><span class="n">nombre</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+							<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;ciclo&quot;: &#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ciclo</span><span class="o">.</span><span class="n">nombre</span><span class="p">)</span> 
+						<span class="k">elif</span> <span class="n">ciclo</span><span class="o">.</span><span class="n">nombre</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+							<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;ciclo&quot;: &#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ciclo</span><span class="o">.</span><span class="n">nombre</span><span class="p">)</span> 
+						<span class="k">elif</span> <span class="n">ciclo</span><span class="o">.</span><span class="n">nombre</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+							<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;ciclo&quot;: &#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ciclo</span><span class="o">.</span><span class="n">nombre</span><span class="p">)</span> 
+
+			<span class="k">if</span> <span class="n">verificaciones</span><span class="o">.</span><span class="n">count</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+				<span class="k">for</span> <span class="n">verificacion</span> <span class="ow">in</span> <span class="n">verificaciones</span><span class="p">:</span>
+					<span class="k">if</span> <span class="n">verificacion</span><span class="o">.</span><span class="n">cattle_id</span> <span class="o">==</span> <span class="n">g</span><span class="o">.</span><span class="n">id</span> <span class="ow">and</span> <span class="n">verificacion</span><span class="o">.</span><span class="n">is_active</span><span class="p">:</span>
+						<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;verificacion&quot;: &quot;True&quot;&#39;</span>
+					<span class="k">else</span><span class="p">:</span>
+						<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;verificacion&quot;: &quot;False&quot;&#39;</span>
+					
+
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;}}&#39;</span>
+		<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;]&#39;</span>
+		
+		<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">		reigistros = LoadTest.objects.all()</span>
+<span class="sd">		datas = serializers.serialize(&#39;json&#39;, reigistros, indent=2)</span>
+<span class="sd">		&#39;&#39;&#39;</span>
+	
+	<span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">mimetype</span><span class="o">=</span><span class="s">&#39;application/json&#39;</span><span class="p">)</span>
+</div>
+<span class="nd">@login_required</span>
+<div class="viewcode-block" id="ajaxCattleMale_view"><a class="viewcode-back" href="../../../webServices.wsGanados.html#webServices.wsGanados.views.ajaxCattleMale_view">[docs]</a><span class="k">def</span> <span class="nf">ajaxCattleMale_view</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+	<span class="n">search</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="p">[</span><span class="s">&#39;search&#39;</span><span class="p">]</span>
+	<span class="n">user</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span>
+	<span class="n">ganaderia</span> <span class="o">=</span> <span class="n">Ganaderia</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">perfil</span><span class="o">=</span><span class="n">user</span><span class="p">)</span>
+
+	<span class="k">if</span> <span class="n">ganaderia</span><span class="o">.</span><span class="n">configuracion</span><span class="o">.</span><span class="n">tipo_identificacion</span> <span class="o">==</span> <span class="s">&#39;simple&#39;</span><span class="p">:</span>
+	
+		<span class="n">ganados</span> <span class="o">=</span> <span class="n">Ganado</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
+											<span class="n">Q</span><span class="p">(</span><span class="n">ganaderia</span><span class="o">=</span><span class="n">ganaderia</span><span class="p">,</span> <span class="n">genero</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span>
+											<span class="p">(</span>
+												<span class="n">Q</span><span class="p">(</span><span class="n">nacimiento__icontains</span><span class="o">=</span><span class="n">search</span><span class="p">)</span> <span class="o">|</span>
+												<span class="n">Q</span><span class="p">(</span><span class="n">identificacion_simple__nombre__icontains</span><span class="o">=</span><span class="n">search</span><span class="p">)</span> <span class="o">|</span>
+												<span class="n">Q</span><span class="p">(</span><span class="n">identificacion_simple__rp__icontains</span><span class="o">=</span><span class="n">search</span><span class="p">)</span>
+											<span class="p">)</span>
+										<span class="p">)</span>
+
+		<span class="c"># serializando</span>
+		<span class="n">data</span> <span class="o">=</span> <span class="s">&#39;[&#39;</span>
+		<span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">ganados</span><span class="p">:</span>
+			<span class="k">if</span> <span class="n">data</span> <span class="o">==</span> <span class="s">&#39;[&#39;</span><span class="p">:</span>
+				<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;{&quot;pk&quot;: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">id</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;, &#39;</span>
+			<span class="k">else</span><span class="p">:</span>
+				<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;,{&quot;pk&quot;: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">id</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;, &#39;</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;&quot;fields&quot;: {&#39;</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;&quot;rp&quot;: &quot;&#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">identificacion_simple</span><span class="o">.</span><span class="n">rp</span><span class="p">)</span> <span class="o">+</span><span class="s">&#39;&quot;&#39;</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;imagen&quot;: &quot;&#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">imagen</span><span class="p">)</span> <span class="o">+</span><span class="s">&#39;&quot;&#39;</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;nombre&quot;: &quot;&#39;</span><span class="o">+</span> <span class="n">g</span><span class="o">.</span><span class="n">identificacion_simple</span><span class="o">.</span><span class="n">nombre</span> <span class="o">+</span><span class="s">&#39;&quot;&#39;</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;edad_anios&quot;: &#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">edad_anios</span> <span class="p">)</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;edad_meses&quot;: &#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">edad_meses</span> <span class="p">)</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;edad_dias&quot;: &#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">edad_dias</span> <span class="p">)</span>
+
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;}}&#39;</span>
+		<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;]&#39;</span>
+
+	<span class="k">else</span><span class="p">:</span>
+		<span class="n">ganados</span> <span class="o">=</span> <span class="n">Ganado</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
+										<span class="n">Q</span><span class="p">(</span><span class="n">ganaderia</span><span class="o">=</span><span class="n">ganaderia</span><span class="p">,</span> <span class="n">genero</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span>
+										<span class="p">(</span>
+											<span class="n">Q</span><span class="p">(</span><span class="n">nacimiento__icontains</span><span class="o">=</span><span class="n">search</span><span class="p">)</span> <span class="o">|</span>
+											<span class="n">Q</span><span class="p">(</span><span class="n">identificacion_ecuador__nombre__icontains</span><span class="o">=</span><span class="n">search</span><span class="p">)</span> <span class="o">|</span>
+											<span class="n">Q</span><span class="p">(</span><span class="n">identificacion_ecuador__rp__icontains</span><span class="o">=</span><span class="n">search</span><span class="p">)</span>
+										<span class="p">)</span>
+									<span class="p">)</span>
+		
+		<span class="c"># serializando</span>
+		<span class="n">data</span> <span class="o">=</span> <span class="s">&#39;[&#39;</span>
+		<span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">ganados</span><span class="p">:</span>
+			<span class="k">if</span> <span class="n">data</span> <span class="o">==</span> <span class="s">&#39;[&#39;</span><span class="p">:</span>
+				<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;{&quot;pk&quot;: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">id</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;, &#39;</span>
+			<span class="k">else</span><span class="p">:</span>
+				<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;,{&quot;pk&quot;: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">id</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;, &#39;</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;&quot;fields&quot;: {&#39;</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;&quot;rp&quot;: &quot;&#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">identificacion_ecuador</span><span class="o">.</span><span class="n">rp</span><span class="p">)</span> <span class="o">+</span><span class="s">&#39;&quot;&#39;</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;imagen&quot;: &quot;&#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">imagen</span><span class="p">)</span> <span class="o">+</span><span class="s">&#39;&quot;&#39;</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;nombre&quot;: &quot;&#39;</span><span class="o">+</span> <span class="n">g</span><span class="o">.</span><span class="n">identificacion_ecuador</span><span class="o">.</span><span class="n">nombre</span> <span class="o">+</span><span class="s">&#39;&quot;&#39;</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;edad_anios&quot;: &#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">edad_anios</span> <span class="p">)</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;edad_meses&quot;: &#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">edad_meses</span> <span class="p">)</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;edad_dias&quot;: &#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">edad_dias</span> <span class="p">)</span>
+
+			
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;}}&#39;</span>
+		<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;]&#39;</span>
+		
+	
+	<span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">mimetype</span><span class="o">=</span><span class="s">&#39;application/json&#39;</span><span class="p">)</span>
+</div>
+<span class="nd">@login_required</span>
+<div class="viewcode-block" id="wsGanadosProduccion_view"><a class="viewcode-back" href="../../../webServices.wsGanados.html#webServices.wsGanados.views.wsGanadosProduccion_view">[docs]</a><span class="k">def</span> <span class="nf">wsGanadosProduccion_view</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+	<span class="n">search</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="p">[</span><span class="s">&#39;search&#39;</span><span class="p">]</span>
+	<span class="n">user</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span>
+	<span class="n">ganaderia</span> <span class="o">=</span> <span class="n">Ganaderia</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">perfil</span><span class="o">=</span><span class="n">user</span><span class="p">)</span>
+
+	<span class="k">if</span> <span class="n">ganaderia</span><span class="o">.</span><span class="n">configuracion</span><span class="o">.</span><span class="n">tipo_identificacion</span> <span class="o">==</span> <span class="s">&#39;simple&#39;</span><span class="p">:</span>
+
+		<span class="n">ganados</span> <span class="o">=</span> <span class="n">Ganado</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
+											<span class="n">Q</span><span class="p">(</span><span class="n">ganaderia</span><span class="o">=</span><span class="n">ganaderia</span><span class="p">,</span> <span class="n">genero</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">etapas__nombre</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ciclos__nombre</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="o">&amp;</span>
+											<span class="p">(</span>
+												<span class="n">Q</span><span class="p">(</span><span class="n">identificacion_simple__rp__icontains</span><span class="o">=</span><span class="n">search</span><span class="p">)</span> <span class="o">|</span>
+												<span class="n">Q</span><span class="p">(</span><span class="n">nacimiento__icontains</span><span class="o">=</span><span class="n">search</span><span class="p">)</span> <span class="o">|</span>
+												<span class="n">Q</span><span class="p">(</span><span class="n">identificacion_simple__nombre__icontains</span><span class="o">=</span><span class="n">search</span><span class="p">)</span> 
+											<span class="p">)</span>
+										<span class="p">)</span>
+		<span class="n">celos</span> <span class="o">=</span> <span class="n">Celo</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">is_active</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">ganado_id</span><span class="o">=</span><span class="n">ganados</span><span class="p">)</span>
+		<span class="n">etapas</span> <span class="o">=</span> <span class="n">Etapa</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">is_active</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">ganado_id</span><span class="o">=</span><span class="n">ganados</span><span class="p">)</span>
+		<span class="n">ciclos</span> <span class="o">=</span> <span class="n">Ciclo</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">is_active</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">ganado_id</span><span class="o">=</span><span class="n">ganados</span><span class="p">)</span>
+		<span class="n">verificaciones</span> <span class="o">=</span> <span class="n">Verification</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">is_active</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">cattle_id</span><span class="o">=</span><span class="n">ganados</span><span class="p">)</span>
+		<span class="c"># serializando</span>
+		<span class="n">data</span> <span class="o">=</span> <span class="s">&#39;[&#39;</span>
+		<span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">ganados</span><span class="p">:</span>
+			<span class="k">if</span> <span class="n">data</span> <span class="o">==</span> <span class="s">&#39;[&#39;</span><span class="p">:</span>
+				<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;{&quot;pk&quot;: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">id</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;, &#39;</span>
+			<span class="k">else</span><span class="p">:</span>
+				<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;,{&quot;pk&quot;: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">id</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;, &#39;</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;&quot;fields&quot;: {&#39;</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;&quot;rp&quot;: &quot;&#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">identificacion_simple</span><span class="o">.</span><span class="n">rp</span><span class="p">)</span> <span class="o">+</span><span class="s">&#39;&quot;&#39;</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;imagen&quot;: &quot;&#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">imagen</span><span class="p">)</span> <span class="o">+</span><span class="s">&#39;&quot;&#39;</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;nombre&quot;: &quot;&#39;</span><span class="o">+</span> <span class="n">g</span><span class="o">.</span><span class="n">identificacion_simple</span><span class="o">.</span><span class="n">nombre</span> <span class="o">+</span><span class="s">&#39;&quot;&#39;</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;edad_anios&quot;: &#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">edad_anios</span> <span class="p">)</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;edad_meses&quot;: &#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">edad_meses</span> <span class="p">)</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;edad_dias&quot;: &#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">edad_dias</span> <span class="p">)</span>
+
+			<span class="k">if</span> <span class="n">celos</span><span class="o">.</span><span class="n">count</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+				<span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">celos</span><span class="p">:</span>
+					<span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">ganado_id</span> <span class="o">==</span> <span class="n">g</span><span class="o">.</span><span class="n">id</span><span class="p">:</span>
+						<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;celo&quot;: &quot;En celo&quot;&#39;</span>
+					<span class="k">else</span><span class="p">:</span>
+						<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;celo&quot;: &quot;Sin celo&quot;&#39;</span>
+			<span class="k">else</span><span class="p">:</span>
+				<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;celo&quot;: &quot;Sin celo&quot;&#39;</span>
+				
+			<span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">etapas</span><span class="p">:</span>
+				<span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">ganado_id</span> <span class="o">==</span> <span class="n">g</span><span class="o">.</span><span class="n">id</span><span class="p">:</span>
+					<span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">nombre</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+						<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;etapa&quot;: &quot;Ternera&quot;&#39;</span>
+					<span class="k">elif</span> <span class="n">e</span><span class="o">.</span><span class="n">nombre</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+						<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;etapa&quot;: &quot;Vacona&quot;&#39;</span>
+					<span class="k">elif</span> <span class="n">e</span><span class="o">.</span><span class="n">nombre</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+						<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;etapa&quot;: &quot;Vientre&quot;&#39;</span>
+
+			<span class="k">for</span> <span class="n">ciclo</span> <span class="ow">in</span> <span class="n">ciclos</span><span class="p">:</span>
+				<span class="k">if</span> <span class="n">ciclo</span><span class="o">.</span><span class="n">ganado_id</span> <span class="o">==</span> <span class="n">g</span><span class="o">.</span><span class="n">id</span> <span class="ow">and</span> <span class="n">ciclo</span><span class="o">.</span><span class="n">is_active</span><span class="p">:</span>
+					<span class="k">if</span> <span class="n">ciclo</span><span class="o">.</span><span class="n">nombre</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+						<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;ciclo&quot;: &#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ciclo</span><span class="o">.</span><span class="n">nombre</span><span class="p">)</span> 
+					<span class="k">elif</span> <span class="n">ciclo</span><span class="o">.</span><span class="n">nombre</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+						<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;ciclo&quot;: &#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ciclo</span><span class="o">.</span><span class="n">nombre</span><span class="p">)</span> 
+					<span class="k">elif</span> <span class="n">ciclo</span><span class="o">.</span><span class="n">nombre</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+						<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;ciclo&quot;: &#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ciclo</span><span class="o">.</span><span class="n">nombre</span><span class="p">)</span> 
+					<span class="k">elif</span> <span class="n">ciclo</span><span class="o">.</span><span class="n">nombre</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+						<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;ciclo&quot;: &#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ciclo</span><span class="o">.</span><span class="n">nombre</span><span class="p">)</span> 
+
+			<span class="k">for</span> <span class="n">verificacion</span> <span class="ow">in</span> <span class="n">verificaciones</span><span class="p">:</span>
+				<span class="k">if</span> <span class="n">verificacion</span><span class="o">.</span><span class="n">cattle_id</span> <span class="o">==</span> <span class="n">g</span><span class="o">.</span><span class="n">id</span> <span class="ow">and</span> <span class="n">verificacion</span><span class="o">.</span><span class="n">is_active</span><span class="p">:</span>
+					<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;verificacion&quot;: &quot;True&quot;&#39;</span>
+				<span class="k">else</span><span class="p">:</span>
+					<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;verificacion&quot;: &quot;False&quot;&#39;</span>
+
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;}}&#39;</span>
+		<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;]&#39;</span>
+
+	<span class="k">else</span><span class="p">:</span>
+		<span class="n">ganados</span> <span class="o">=</span> <span class="n">Ganado</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
+										<span class="n">Q</span><span class="p">(</span><span class="n">ganaderia</span><span class="o">=</span><span class="n">ganaderia</span><span class="p">,</span> <span class="n">genero</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">etapas__nombre</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ciclos__nombre</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="o">&amp;</span>
+										<span class="p">(</span>
+											<span class="n">Q</span><span class="p">(</span><span class="n">identificacion_ecuador__rp__icontains</span><span class="o">=</span><span class="n">search</span><span class="p">)</span> <span class="o">|</span>
+											<span class="n">Q</span><span class="p">(</span><span class="n">nacimiento__icontains</span><span class="o">=</span><span class="n">search</span><span class="p">)</span> <span class="o">|</span>
+											<span class="n">Q</span><span class="p">(</span><span class="n">identificacion_ecuador__nombre__icontains</span><span class="o">=</span><span class="n">search</span><span class="p">)</span> 
+										<span class="p">)</span>
+									<span class="p">)</span>
+		<span class="n">celos</span> <span class="o">=</span> <span class="n">Celo</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">is_active</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">ganado_id</span><span class="o">=</span><span class="n">ganados</span><span class="p">)</span>
+		<span class="n">etapas</span> <span class="o">=</span> <span class="n">Etapa</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">is_active</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">ganado_id</span><span class="o">=</span><span class="n">ganados</span><span class="p">)</span>
+		<span class="n">ciclos</span> <span class="o">=</span> <span class="n">Ciclo</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">is_active</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">ganado_id</span><span class="o">=</span><span class="n">ganados</span><span class="p">)</span>
+		<span class="n">verificaciones</span> <span class="o">=</span> <span class="n">Verification</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">is_active</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">cattle_id</span><span class="o">=</span><span class="n">ganados</span><span class="p">)</span>
+		<span class="c"># serializando</span>
+		<span class="n">data</span> <span class="o">=</span> <span class="s">&#39;[&#39;</span>
+		<span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">ganados</span><span class="p">:</span>
+			<span class="k">if</span> <span class="n">data</span> <span class="o">==</span> <span class="s">&#39;[&#39;</span><span class="p">:</span>
+				<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;{&quot;pk&quot;: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">id</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;, &#39;</span>
+			<span class="k">else</span><span class="p">:</span>
+				<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;,{&quot;pk&quot;: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">id</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;, &#39;</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;&quot;fields&quot;: {&#39;</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;&quot;rp&quot;: &quot;&#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">identificacion_ecuador</span><span class="o">.</span><span class="n">rp</span><span class="p">)</span> <span class="o">+</span><span class="s">&#39;&quot;&#39;</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;imagen&quot;: &quot;&#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">imagen</span><span class="p">)</span> <span class="o">+</span><span class="s">&#39;&quot;&#39;</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;nombre&quot;: &quot;&#39;</span><span class="o">+</span> <span class="n">g</span><span class="o">.</span><span class="n">identificacion_ecuador</span><span class="o">.</span><span class="n">nombre</span> <span class="o">+</span><span class="s">&#39;&quot;&#39;</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;edad_anios&quot;: &#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">edad_anios</span> <span class="p">)</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;edad_meses&quot;: &#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">edad_meses</span> <span class="p">)</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;edad_dias&quot;: &#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">edad_dias</span> <span class="p">)</span>
+
+			<span class="k">if</span> <span class="n">celos</span><span class="o">.</span><span class="n">count</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+				<span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">celos</span><span class="p">:</span>
+					<span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">ganado_id</span> <span class="o">==</span> <span class="n">g</span><span class="o">.</span><span class="n">id</span><span class="p">:</span>
+						<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;celo&quot;: &quot;En celo&quot;&#39;</span>
+					<span class="k">else</span><span class="p">:</span>
+						<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;celo&quot;: &quot;Sin celo&quot;&#39;</span>
+			<span class="k">else</span><span class="p">:</span>
+				<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;celo&quot;: &quot;Sin celo&quot;&#39;</span>
+				
+			<span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">etapas</span><span class="p">:</span>
+				<span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">ganado_id</span> <span class="o">==</span> <span class="n">g</span><span class="o">.</span><span class="n">id</span><span class="p">:</span>
+					<span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">nombre</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+						<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;etapa&quot;: &quot;Ternera&quot;&#39;</span>
+					<span class="k">elif</span> <span class="n">e</span><span class="o">.</span><span class="n">nombre</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+						<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;etapa&quot;: &quot;Vacona&quot;&#39;</span>
+					<span class="k">elif</span> <span class="n">e</span><span class="o">.</span><span class="n">nombre</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+						<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;etapa&quot;: &quot;Vientre&quot;&#39;</span>
+
+			<span class="k">if</span> <span class="n">ciclos</span><span class="o">.</span><span class="n">count</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+				<span class="k">for</span> <span class="n">ciclo</span> <span class="ow">in</span> <span class="n">ciclos</span><span class="p">:</span>
+					<span class="k">if</span> <span class="n">ciclo</span><span class="o">.</span><span class="n">ganado_id</span> <span class="o">==</span> <span class="n">g</span><span class="o">.</span><span class="n">id</span> <span class="ow">and</span> <span class="n">ciclo</span><span class="o">.</span><span class="n">is_active</span><span class="p">:</span>
+						<span class="k">if</span> <span class="n">ciclo</span><span class="o">.</span><span class="n">nombre</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+							<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;ciclo&quot;: &#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ciclo</span><span class="o">.</span><span class="n">nombre</span><span class="p">)</span> 
+						<span class="k">elif</span> <span class="n">ciclo</span><span class="o">.</span><span class="n">nombre</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+							<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;ciclo&quot;: &#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ciclo</span><span class="o">.</span><span class="n">nombre</span><span class="p">)</span> 
+						<span class="k">elif</span> <span class="n">ciclo</span><span class="o">.</span><span class="n">nombre</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+							<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;ciclo&quot;: &#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ciclo</span><span class="o">.</span><span class="n">nombre</span><span class="p">)</span> 
+						<span class="k">elif</span> <span class="n">ciclo</span><span class="o">.</span><span class="n">nombre</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+							<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;ciclo&quot;: &#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ciclo</span><span class="o">.</span><span class="n">nombre</span><span class="p">)</span> 
+
+			<span class="k">if</span> <span class="n">verificaciones</span><span class="o">.</span><span class="n">count</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+				<span class="k">for</span> <span class="n">verificacion</span> <span class="ow">in</span> <span class="n">verificaciones</span><span class="p">:</span>
+					<span class="k">if</span> <span class="n">verificacion</span><span class="o">.</span><span class="n">cattle_id</span> <span class="o">==</span> <span class="n">g</span><span class="o">.</span><span class="n">id</span> <span class="ow">and</span> <span class="n">verificacion</span><span class="o">.</span><span class="n">is_active</span><span class="p">:</span>
+						<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;verificacion&quot;: &quot;True&quot;&#39;</span>
+					<span class="k">else</span><span class="p">:</span>
+						<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;verificacion&quot;: &quot;False&quot;&#39;</span>
+
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;}}&#39;</span>
+		<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;]&#39;</span>
+
+	<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">	reigistros = LoadTest.objects.all()</span>
+<span class="sd">	datas = serializers.serialize(&#39;json&#39;, reigistros, indent=2)</span>
+<span class="sd">	&#39;&#39;&#39;</span>
+	<span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">mimetype</span><span class="o">=</span><span class="s">&#39;application/json&#39;</span><span class="p">)</span>
+
+<span class="c"># ------------------------------------------------------------</span>
+<span class="c"># WORMER</span>
+<span class="c"># ------------------------------------------------------------</span></div>
+<span class="nd">@login_required</span>
+<div class="viewcode-block" id="wsWormer_view"><a class="viewcode-back" href="../../../webServices.wsGanados.html#webServices.wsGanados.views.wsWormer_view">[docs]</a><span class="k">def</span> <span class="nf">wsWormer_view</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+	<span class="n">search</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="p">[</span><span class="s">&#39;search&#39;</span><span class="p">]</span>
+	<span class="n">user</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span>
+	<span class="n">ganaderia</span> <span class="o">=</span> <span class="n">Ganaderia</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">perfil</span><span class="o">=</span><span class="n">user</span><span class="p">)</span>
+	<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">	datas = serializers.serialize(&#39;json&#39;, Medicament.objects.filter(</span>
+<span class="sd">				  (	Q(farm=ganaderia, is_wormer=True) &amp;</span>
+<span class="sd">				  	Q(name__icontains=search)</span>
+<span class="sd">				  ) </span>
+<span class="sd">	))</span>
+<span class="sd">	&#39;&#39;&#39;</span>
+	<span class="n">datas</span> <span class="o">=</span> <span class="n">Medicament</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
+										<span class="p">(</span>
+											<span class="n">Q</span><span class="p">(</span><span class="n">is_wormer</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">farm</span><span class="o">=</span><span class="n">ganaderia</span><span class="p">)</span>
+										<span class="p">)</span> <span class="o">&amp;</span> 
+										<span class="p">(</span><span class="n">Q</span><span class="p">(</span><span class="n">expiration_date__icontains</span><span class="o">=</span><span class="n">search</span><span class="p">)</span> <span class="o">|</span>
+										<span class="n">Q</span><span class="p">(</span><span class="n">name__icontains</span><span class="o">=</span><span class="n">search</span><span class="p">))</span>
+									<span class="p">)</span>
+	<span class="n">data</span> <span class="o">=</span> <span class="s">&#39;[&#39;</span>
+	<span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">datas</span><span class="p">:</span>
+		<span class="k">if</span> <span class="n">data</span> <span class="o">==</span> <span class="s">&#39;[&#39;</span><span class="p">:</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;{&quot;pk&quot;: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">id</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;, &#39;</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;,{&quot;pk&quot;: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">id</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;, &#39;</span>
+		<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;&quot;fields&quot;: {&#39;</span>
+		<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;&quot;name&quot;: &quot;&#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="o">+</span><span class="s">&#39;&quot;&#39;</span>
+		<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;expiration_date&quot;: &quot;&#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">expiration_date</span><span class="p">)</span> <span class="o">+</span><span class="s">&#39;&quot;&#39;</span>
+		<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;sex&quot;: &quot;&#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">sex</span><span class="p">)</span> <span class="o">+</span><span class="s">&#39;&quot;&#39;</span>
+		<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;amount&quot;: &quot;&#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">amount</span><span class="p">)</span> <span class="o">+</span><span class="s">&#39;&quot;&#39;</span>
+		<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;unit&quot;: &quot;&#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">unit</span><span class="p">)</span> <span class="o">+</span><span class="s">&#39;&quot;&#39;</span>
+		
+
+		<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;}}&#39;</span>
+	<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;]&#39;</span>
+
+	<span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">mimetype</span><span class="o">=</span><span class="s">&#39;application/json&#39;</span><span class="p">)</span>
+</div>
+<span class="nd">@login_required</span>
+<div class="viewcode-block" id="ajaxVaccine_view"><a class="viewcode-back" href="../../../webServices.wsGanados.html#webServices.wsGanados.views.ajaxVaccine_view">[docs]</a><span class="k">def</span> <span class="nf">ajaxVaccine_view</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+	<span class="n">search</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="p">[</span><span class="s">&#39;search&#39;</span><span class="p">]</span>
+	<span class="n">user</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span>
+	<span class="n">ganaderia</span> <span class="o">=</span> <span class="n">Ganaderia</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">perfil</span><span class="o">=</span><span class="n">user</span><span class="p">)</span>
+	
+	<span class="n">medicaments</span> <span class="o">=</span> <span class="n">Medicament</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
+										<span class="p">(</span>
+											<span class="n">Q</span><span class="p">(</span><span class="n">is_vaccine</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">farm</span><span class="o">=</span><span class="n">ganaderia</span><span class="p">)</span>
+										<span class="p">)</span> <span class="o">&amp;</span> 
+										<span class="p">(</span><span class="n">Q</span><span class="p">(</span><span class="n">expiration_date__icontains</span><span class="o">=</span><span class="n">search</span><span class="p">)</span> <span class="o">|</span>
+										<span class="n">Q</span><span class="p">(</span><span class="n">name__icontains</span><span class="o">=</span><span class="n">search</span><span class="p">))</span>
+									<span class="p">)</span>
+	<span class="n">data</span> <span class="o">=</span> <span class="s">&#39;[&#39;</span>
+	<span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">medicaments</span><span class="p">:</span>
+		<span class="k">if</span> <span class="n">data</span> <span class="o">==</span> <span class="s">&#39;[&#39;</span><span class="p">:</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;{&quot;pk&quot;: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">id</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;, &#39;</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;,{&quot;pk&quot;: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">id</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;, &#39;</span>
+		<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;&quot;fields&quot;: {&#39;</span>
+		<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;&quot;name&quot;: &quot;&#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="o">+</span><span class="s">&#39;&quot;&#39;</span>
+		<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;expiration_date&quot;: &quot;&#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">expiration_date</span><span class="p">)</span> <span class="o">+</span><span class="s">&#39;&quot;&#39;</span>
+		<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;sex&quot;: &quot;&#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">sex</span><span class="p">)</span> <span class="o">+</span><span class="s">&#39;&quot;&#39;</span>
+		<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;amount&quot;: &quot;&#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">amount</span><span class="p">)</span> <span class="o">+</span><span class="s">&#39;&quot;&#39;</span>
+		<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;unit&quot;: &quot;&#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">unit</span><span class="p">)</span> <span class="o">+</span><span class="s">&#39;&quot;&#39;</span>
+		<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;}}&#39;</span>
+	<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;]&#39;</span>
+	
+	<span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">mimetype</span><span class="o">=</span><span class="s">&#39;application/json&#39;</span><span class="p">)</span>
+</div>
+<span class="nd">@login_required</span>
+<div class="viewcode-block" id="ajaxFood_view"><a class="viewcode-back" href="../../../webServices.wsGanados.html#webServices.wsGanados.views.ajaxFood_view">[docs]</a><span class="k">def</span> <span class="nf">ajaxFood_view</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+	<span class="n">search</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="p">[</span><span class="s">&#39;search&#39;</span><span class="p">]</span>
+	<span class="n">user</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span>
+	<span class="n">ganaderia</span> <span class="o">=</span> <span class="n">Ganaderia</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">perfil</span><span class="o">=</span><span class="n">user</span><span class="p">)</span>
+	
+	<span class="n">foods</span> <span class="o">=</span> <span class="n">Food</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
+										<span class="p">(</span>
+											<span class="n">Q</span><span class="p">(</span><span class="n">farm</span><span class="o">=</span><span class="n">ganaderia</span><span class="p">)</span>
+										<span class="p">)</span> <span class="o">&amp;</span> 
+										<span class="p">(</span><span class="n">Q</span><span class="p">(</span><span class="n">expiration_date__icontains</span><span class="o">=</span><span class="n">search</span><span class="p">)</span> <span class="o">|</span>
+										<span class="n">Q</span><span class="p">(</span><span class="n">name__icontains</span><span class="o">=</span><span class="n">search</span><span class="p">))</span>
+									<span class="p">)</span>
+	
+	<span class="n">data</span> <span class="o">=</span> <span class="s">&#39;[&#39;</span>
+	<span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">foods</span><span class="p">:</span>
+		<span class="k">if</span> <span class="n">data</span> <span class="o">==</span> <span class="s">&#39;[&#39;</span><span class="p">:</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;{&quot;pk&quot;: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">id</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;, &#39;</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;,{&quot;pk&quot;: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">id</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;, &#39;</span>
+		<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;&quot;fields&quot;: {&#39;</span>
+		<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;&quot;name&quot;: &quot;&#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="o">+</span><span class="s">&#39;&quot;&#39;</span>
+		<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;expiration_date&quot;: &quot;&#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">expiration_date</span><span class="p">)</span> <span class="o">+</span><span class="s">&#39;&quot;&#39;</span>
+		<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;phase&quot;: &quot;&#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">phase</span><span class="p">)</span> <span class="o">+</span><span class="s">&#39;&quot;&#39;</span>
+		<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;amount&quot;: &quot;&#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">amount</span><span class="p">)</span> <span class="o">+</span><span class="s">&#39;&quot;&#39;</span>
+		<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;unit&quot;: &quot;&#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">unit</span><span class="p">)</span> <span class="o">+</span><span class="s">&#39;&quot;&#39;</span>
+		<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;}}&#39;</span>
+	<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;]&#39;</span>
+	
+	<span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">mimetype</span><span class="o">=</span><span class="s">&#39;application/json&#39;</span><span class="p">)</span>
+
+</div>
+<span class="nd">@login_required</span>
+<div class="viewcode-block" id="ajaxAssignCattleVaccine_view"><a class="viewcode-back" href="../../../webServices.wsGanados.html#webServices.wsGanados.views.ajaxAssignCattleVaccine_view">[docs]</a><span class="k">def</span> <span class="nf">ajaxAssignCattleVaccine_view</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+	<span class="n">search</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="p">[</span><span class="s">&#39;search&#39;</span><span class="p">]</span>
+	<span class="n">listCattle</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="p">[</span><span class="s">&#39;listCattle&#39;</span><span class="p">])</span>
+	<span class="n">user</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span>
+	<span class="n">ganaderia</span> <span class="o">=</span> <span class="n">Ganaderia</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">perfil</span><span class="o">=</span><span class="n">user</span><span class="p">)</span>
+	
+	<span class="k">if</span> <span class="n">ganaderia</span><span class="o">.</span><span class="n">configuracion</span><span class="o">.</span><span class="n">tipo_identificacion</span> <span class="o">==</span> <span class="s">&#39;simple&#39;</span><span class="p">:</span>
+		<span class="n">ganados</span> <span class="o">=</span> <span class="n">Ganado</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
+											<span class="n">Q</span><span class="p">(</span><span class="n">ganaderia</span><span class="o">=</span><span class="n">ganaderia</span><span class="p">)</span> <span class="o">&amp;</span>
+											<span class="p">(</span>
+												<span class="n">Q</span><span class="p">(</span><span class="n">nacimiento__icontains</span><span class="o">=</span><span class="n">search</span><span class="p">)</span> <span class="o">|</span>
+												<span class="n">Q</span><span class="p">(</span><span class="n">identificacion_simple__nombre__icontains</span><span class="o">=</span><span class="n">search</span><span class="p">)</span> <span class="o">|</span>
+												<span class="n">Q</span><span class="p">(</span><span class="n">identificacion_simple__rp__icontains</span><span class="o">=</span><span class="n">search</span><span class="p">)</span>
+											<span class="p">)</span>
+										<span class="p">)</span>
+		<span class="c"># serializando</span>
+		<span class="n">data</span> <span class="o">=</span> <span class="s">&#39;[&#39;</span>
+		<span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">ganados</span><span class="p">:</span>
+			<span class="k">if</span> <span class="n">data</span> <span class="o">==</span> <span class="s">&#39;[&#39;</span><span class="p">:</span>
+				<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;{&quot;pk&quot;: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">id</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;, &#39;</span>
+			<span class="k">else</span><span class="p">:</span>
+				<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;,{&quot;pk&quot;: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">id</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;, &#39;</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;&quot;fields&quot;: {&#39;</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;&quot;rp&quot;: &quot;&#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">identificacion_simple</span><span class="o">.</span><span class="n">rp</span><span class="p">)</span> <span class="o">+</span><span class="s">&#39;&quot;&#39;</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;imagen&quot;: &quot;&#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">imagen</span><span class="p">)</span> <span class="o">+</span><span class="s">&#39;&quot;&#39;</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;nombre&quot;: &quot;&#39;</span><span class="o">+</span> <span class="n">g</span><span class="o">.</span><span class="n">identificacion_simple</span><span class="o">.</span><span class="n">nombre</span> <span class="o">+</span><span class="s">&#39;&quot;&#39;</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;edad_anios&quot;: &#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">edad_anios</span> <span class="p">)</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;edad_meses&quot;: &#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">edad_meses</span> <span class="p">)</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;edad_dias&quot;: &#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">edad_dias</span> <span class="p">)</span>
+
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;}}&#39;</span>
+		<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;]&#39;</span>
+
+	<span class="k">else</span><span class="p">:</span>
+		<span class="n">ganados</span> <span class="o">=</span> <span class="n">Ganado</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
+											<span class="n">Q</span><span class="p">(</span><span class="n">ganaderia</span><span class="o">=</span><span class="n">ganaderia</span><span class="p">)</span> <span class="o">&amp;</span>
+											<span class="p">(</span>
+												<span class="n">Q</span><span class="p">(</span><span class="n">nacimiento__icontains</span><span class="o">=</span><span class="n">search</span><span class="p">)</span> <span class="o">|</span>
+												<span class="n">Q</span><span class="p">(</span><span class="n">identificacion_ecuador__nombre__icontains</span><span class="o">=</span><span class="n">search</span><span class="p">)</span> <span class="o">|</span>
+												<span class="n">Q</span><span class="p">(</span><span class="n">identificacion_ecuador__rp__icontains</span><span class="o">=</span><span class="n">search</span><span class="p">)</span>
+											<span class="p">)</span>
+										<span class="p">)</span>
+		<span class="c"># serializando</span>
+		<span class="n">data</span> <span class="o">=</span> <span class="s">&#39;[&#39;</span>
+		<span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">ganados</span><span class="p">:</span>
+			<span class="k">if</span> <span class="n">data</span> <span class="o">==</span> <span class="s">&#39;[&#39;</span><span class="p">:</span>
+				<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;{&quot;pk&quot;: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">id</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;, &#39;</span>
+			<span class="k">else</span><span class="p">:</span>
+				<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;,{&quot;pk&quot;: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">id</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;, &#39;</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;&quot;fields&quot;: {&#39;</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;&quot;rp&quot;: &quot;&#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">identificacion_ecuador</span><span class="o">.</span><span class="n">rp</span><span class="p">)</span> <span class="o">+</span><span class="s">&#39;&quot;&#39;</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;imagen&quot;: &quot;&#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">imagen</span><span class="p">)</span> <span class="o">+</span><span class="s">&#39;&quot;&#39;</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;nombre&quot;: &quot;&#39;</span><span class="o">+</span> <span class="n">g</span><span class="o">.</span><span class="n">identificacion_ecuador</span><span class="o">.</span><span class="n">nombre</span> <span class="o">+</span><span class="s">&#39;&quot;&#39;</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;edad_anios&quot;: &#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">edad_anios</span> <span class="p">)</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;edad_meses&quot;: &#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">edad_meses</span> <span class="p">)</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;edad_dias&quot;: &#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">edad_dias</span> <span class="p">)</span>
+
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;}}&#39;</span>
+		<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;]&#39;</span>
+
+	<span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">mimetype</span><span class="o">=</span><span class="s">&#39;application/json&#39;</span><span class="p">)</span>
+
+</div>
+<span class="nd">@login_required</span>
+<div class="viewcode-block" id="ajaxAssignCattleVaccineFinal"><a class="viewcode-back" href="../../../webServices.wsGanados.html#webServices.wsGanados.views.ajaxAssignCattleVaccineFinal">[docs]</a><span class="k">def</span> <span class="nf">ajaxAssignCattleVaccineFinal</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+	<span class="n">id_wormer</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="p">[</span><span class="s">&#39;id_vaccine&#39;</span><span class="p">]</span>
+	<span class="n">listCattle</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="p">[</span><span class="s">&#39;listCattle&#39;</span><span class="p">])</span>
+	<span class="n">user</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span>
+	<span class="n">ganaderia</span> <span class="o">=</span> <span class="n">Ganaderia</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">perfil</span><span class="o">=</span><span class="n">user</span><span class="p">)</span>
+	<span class="n">wormer</span> <span class="o">=</span> <span class="n">Medicament</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">id_wormer</span><span class="p">)</span>
+	<span class="n">listCattle</span> <span class="o">=</span> <span class="n">listCattle</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&#39;[&#39;</span><span class="p">,</span><span class="s">&#39;&#39;</span><span class="p">)</span>
+	<span class="n">listCattle</span> <span class="o">=</span> <span class="n">listCattle</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&#39;]&#39;</span><span class="p">,</span><span class="s">&#39;&#39;</span><span class="p">)</span>
+	<span class="n">listCattle</span> <span class="o">=</span> <span class="n">listCattle</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&#39;,&#39;</span><span class="p">,</span><span class="s">&#39;&#39;</span><span class="p">)</span>
+	<span class="n">listCattle</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">listCattle</span><span class="p">)</span>
+
+	<span class="n">date_now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span>
+	<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">listCattle</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+		<span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">listCattle</span><span class="p">)</span> <span class="o">*</span> <span class="n">wormer</span><span class="o">.</span><span class="n">amount_application</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">wormer</span><span class="o">.</span><span class="n">amount</span><span class="p">:</span>
+			<span class="n">application_wormer</span> <span class="o">=</span> <span class="n">ApplicationMedicament</span><span class="p">()</span>
+			<span class="n">application_wormer</span><span class="o">.</span><span class="n">date</span> <span class="o">=</span> <span class="n">date_now</span>
+			<span class="n">application_wormer</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="mi">0</span>
+			<span class="n">application_wormer</span><span class="o">.</span><span class="n">medicament</span> <span class="o">=</span> <span class="n">wormer</span>
+			<span class="n">application_wormer</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+			<span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">listCattle</span><span class="p">)):</span>
+				<span class="n">application_wormer</span><span class="o">.</span><span class="n">cattle</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">listCattle</span><span class="p">[</span><span class="n">c</span><span class="p">])</span>
+			<span class="n">wormer</span><span class="o">.</span><span class="n">amount</span><span class="o">=</span><span class="n">wormer</span><span class="o">.</span><span class="n">amount</span> <span class="o">-</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">listCattle</span><span class="p">)</span><span class="o">*</span><span class="n">wormer</span><span class="o">.</span><span class="n">amount_application</span><span class="p">)</span>
+			<span class="n">wormer</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+			<span class="n">data</span> <span class="o">=</span> <span class="s">&#39;[ { &quot;state&quot;: 0} ]&#39;</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="k">if</span> <span class="n">wormer</span><span class="o">.</span><span class="n">unit</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+				<span class="n">unit_display</span> <span class="o">=</span> <span class="s">&#39;ml&#39;</span>
+			<span class="k">elif</span> <span class="n">wormer</span><span class="o">.</span><span class="n">unit</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span> 
+				<span class="n">unit_display</span><span class="o">=</span><span class="s">&#39;gr&#39;</span>
+			<span class="k">elif</span> <span class="n">wormer</span><span class="o">.</span><span class="n">unit</span><span class="o">==</span><span class="mi">2</span><span class="p">:</span> 
+				<span class="n">unit_display</span><span class="o">=</span><span class="s">&#39;lbs&#39;</span> 
+			<span class="k">elif</span> <span class="n">wormer</span><span class="o">.</span><span class="n">unit</span><span class="o">==</span><span class="mi">3</span><span class="p">:</span> 
+				<span class="n">unit_display</span><span class="o">=</span><span class="s">&#39;kg&#39;</span> 
+			<span class="k">elif</span> <span class="n">wormer</span><span class="o">.</span><span class="n">unit</span><span class="o">==</span><span class="mi">4</span><span class="p">:</span> 
+				<span class="n">unit_display</span><span class="o">=</span><span class="s">&#39;paquetes&#39;</span>
+			<span class="n">data</span> <span class="o">=</span> <span class="s">&#39;[ {&quot;state&quot;: 1, &quot;amount&quot;:&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">wormer</span><span class="o">.</span><span class="n">amount</span><span class="p">)</span><span class="o">+</span><span class="s">&#39;, &quot;amount_now&quot;: &#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">listCattle</span><span class="p">)</span><span class="o">*</span><span class="n">wormer</span><span class="o">.</span><span class="n">amount_application</span><span class="p">)</span><span class="o">+</span><span class="s">&#39;, &quot;unit&quot;: &quot;&#39;</span><span class="o">+</span><span class="n">unit_display</span><span class="o">+</span><span class="s">&#39;&quot; , &quot;consumer_amount&quot;: &quot;&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">wormer</span><span class="o">.</span><span class="n">amount_application</span><span class="p">)</span><span class="o">+</span><span class="s">&#39;&quot;}]&#39;</span>
+	<span class="k">else</span><span class="p">:</span>
+		<span class="n">data</span> <span class="o">=</span> <span class="s">&#39;[ { &quot;state&quot;: 2} ]&#39;</span>
+
+	<span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">mimetype</span><span class="o">=</span><span class="s">&#39;application/json&#39;</span><span class="p">)</span>
+
+
+</div>
+<span class="nd">@login_required</span>
+<div class="viewcode-block" id="ajaxAssignCattleWormer_view"><a class="viewcode-back" href="../../../webServices.wsGanados.html#webServices.wsGanados.views.ajaxAssignCattleWormer_view">[docs]</a><span class="k">def</span> <span class="nf">ajaxAssignCattleWormer_view</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+	<span class="n">search</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="p">[</span><span class="s">&#39;search&#39;</span><span class="p">]</span>
+	<span class="n">listCattle</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="p">[</span><span class="s">&#39;listCattle&#39;</span><span class="p">])</span>
+	<span class="n">user</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span>
+	<span class="n">ganaderia</span> <span class="o">=</span> <span class="n">Ganaderia</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">perfil</span><span class="o">=</span><span class="n">user</span><span class="p">)</span>
+	
+	<span class="k">if</span> <span class="n">ganaderia</span><span class="o">.</span><span class="n">configuracion</span><span class="o">.</span><span class="n">tipo_identificacion</span> <span class="o">==</span> <span class="s">&#39;simple&#39;</span><span class="p">:</span>
+		<span class="n">ganados</span> <span class="o">=</span> <span class="n">Ganado</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
+											<span class="n">Q</span><span class="p">(</span><span class="n">ganaderia</span><span class="o">=</span><span class="n">ganaderia</span><span class="p">)</span> <span class="o">&amp;</span>
+											<span class="p">(</span>
+												<span class="n">Q</span><span class="p">(</span><span class="n">nacimiento__icontains</span><span class="o">=</span><span class="n">search</span><span class="p">)</span> <span class="o">|</span>
+												<span class="n">Q</span><span class="p">(</span><span class="n">identificacion_simple__nombre__icontains</span><span class="o">=</span><span class="n">search</span><span class="p">)</span> <span class="o">|</span>
+												<span class="n">Q</span><span class="p">(</span><span class="n">identificacion_simple__rp__icontains</span><span class="o">=</span><span class="n">search</span><span class="p">)</span>
+											<span class="p">)</span>
+										<span class="p">)</span>
+		<span class="c"># serializando</span>
+		<span class="n">data</span> <span class="o">=</span> <span class="s">&#39;[&#39;</span>
+		<span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">ganados</span><span class="p">:</span>
+			<span class="k">if</span> <span class="n">data</span> <span class="o">==</span> <span class="s">&#39;[&#39;</span><span class="p">:</span>
+				<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;{&quot;pk&quot;: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">id</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;, &#39;</span>
+			<span class="k">else</span><span class="p">:</span>
+				<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;,{&quot;pk&quot;: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">id</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;, &#39;</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;&quot;fields&quot;: {&#39;</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;&quot;rp&quot;: &quot;&#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">identificacion_simple</span><span class="o">.</span><span class="n">rp</span><span class="p">)</span> <span class="o">+</span><span class="s">&#39;&quot;&#39;</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;imagen&quot;: &quot;&#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">imagen</span><span class="p">)</span> <span class="o">+</span><span class="s">&#39;&quot;&#39;</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;nombre&quot;: &quot;&#39;</span><span class="o">+</span> <span class="n">g</span><span class="o">.</span><span class="n">identificacion_simple</span><span class="o">.</span><span class="n">nombre</span> <span class="o">+</span><span class="s">&#39;&quot;&#39;</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;edad_anios&quot;: &#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">edad_anios</span> <span class="p">)</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;edad_meses&quot;: &#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">edad_meses</span> <span class="p">)</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;edad_dias&quot;: &#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">edad_dias</span> <span class="p">)</span>
+
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;}}&#39;</span>
+		<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;]&#39;</span>
+
+	<span class="k">else</span><span class="p">:</span>
+		<span class="n">ganados</span> <span class="o">=</span> <span class="n">Ganado</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
+											<span class="n">Q</span><span class="p">(</span><span class="n">ganaderia</span><span class="o">=</span><span class="n">ganaderia</span><span class="p">)</span> <span class="o">&amp;</span>
+											<span class="p">(</span>
+												<span class="n">Q</span><span class="p">(</span><span class="n">nacimiento__icontains</span><span class="o">=</span><span class="n">search</span><span class="p">)</span> <span class="o">|</span>
+												<span class="n">Q</span><span class="p">(</span><span class="n">identificacion_ecuador__nombre__icontains</span><span class="o">=</span><span class="n">search</span><span class="p">)</span> <span class="o">|</span>
+												<span class="n">Q</span><span class="p">(</span><span class="n">identificacion_ecuador__rp__icontains</span><span class="o">=</span><span class="n">search</span><span class="p">)</span>
+											<span class="p">)</span>
+										<span class="p">)</span>
+		<span class="c"># serializando</span>
+		<span class="n">data</span> <span class="o">=</span> <span class="s">&#39;[&#39;</span>
+		<span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">ganados</span><span class="p">:</span>
+			<span class="k">if</span> <span class="n">data</span> <span class="o">==</span> <span class="s">&#39;[&#39;</span><span class="p">:</span>
+				<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;{&quot;pk&quot;: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">id</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;, &#39;</span>
+			<span class="k">else</span><span class="p">:</span>
+				<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;,{&quot;pk&quot;: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">id</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;, &#39;</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;&quot;fields&quot;: {&#39;</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;&quot;rp&quot;: &quot;&#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">identificacion_ecuador</span><span class="o">.</span><span class="n">rp</span><span class="p">)</span> <span class="o">+</span><span class="s">&#39;&quot;&#39;</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;imagen&quot;: &quot;&#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">imagen</span><span class="p">)</span> <span class="o">+</span><span class="s">&#39;&quot;&#39;</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;nombre&quot;: &quot;&#39;</span><span class="o">+</span> <span class="n">g</span><span class="o">.</span><span class="n">identificacion_ecuador</span><span class="o">.</span><span class="n">nombre</span> <span class="o">+</span><span class="s">&#39;&quot;&#39;</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;edad_anios&quot;: &#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">edad_anios</span> <span class="p">)</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;edad_meses&quot;: &#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">edad_meses</span> <span class="p">)</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;edad_dias&quot;: &#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">edad_dias</span> <span class="p">)</span>
+
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;}}&#39;</span>
+		<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;]&#39;</span>
+
+	<span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">mimetype</span><span class="o">=</span><span class="s">&#39;application/json&#39;</span><span class="p">)</span>
+</div>
+<span class="nd">@login_required</span>
+<div class="viewcode-block" id="ajaxAssignCattleWormerFinal"><a class="viewcode-back" href="../../../webServices.wsGanados.html#webServices.wsGanados.views.ajaxAssignCattleWormerFinal">[docs]</a><span class="k">def</span> <span class="nf">ajaxAssignCattleWormerFinal</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+	<span class="n">id_wormer</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="p">[</span><span class="s">&#39;id_wormer&#39;</span><span class="p">]</span>
+	<span class="n">listCattle</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="p">[</span><span class="s">&#39;listCattle&#39;</span><span class="p">])</span>
+	<span class="n">user</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span>
+	<span class="n">ganaderia</span> <span class="o">=</span> <span class="n">Ganaderia</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">perfil</span><span class="o">=</span><span class="n">user</span><span class="p">)</span>
+	<span class="n">wormer</span> <span class="o">=</span> <span class="n">Medicament</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">id_wormer</span><span class="p">)</span>
+	<span class="n">listCattle</span> <span class="o">=</span> <span class="n">listCattle</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&#39;[&#39;</span><span class="p">,</span><span class="s">&#39;&#39;</span><span class="p">)</span>
+	<span class="n">listCattle</span> <span class="o">=</span> <span class="n">listCattle</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&#39;]&#39;</span><span class="p">,</span><span class="s">&#39;&#39;</span><span class="p">)</span>
+	<span class="n">listCattle</span> <span class="o">=</span> <span class="n">listCattle</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&#39;,&#39;</span><span class="p">,</span><span class="s">&#39;&#39;</span><span class="p">)</span>
+	<span class="n">listCattle</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">listCattle</span><span class="p">)</span>
+
+	<span class="n">date_now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span>
+	<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">listCattle</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+		<span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">listCattle</span><span class="p">)</span> <span class="o">*</span> <span class="n">wormer</span><span class="o">.</span><span class="n">amount_application</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">wormer</span><span class="o">.</span><span class="n">amount</span><span class="p">:</span>
+			<span class="n">application_wormer</span> <span class="o">=</span> <span class="n">ApplicationMedicament</span><span class="p">()</span>
+			<span class="n">application_wormer</span><span class="o">.</span><span class="n">date</span> <span class="o">=</span> <span class="n">date_now</span>
+			<span class="n">application_wormer</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="mi">0</span>
+			<span class="n">application_wormer</span><span class="o">.</span><span class="n">medicament</span> <span class="o">=</span> <span class="n">wormer</span>
+			<span class="n">application_wormer</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+			<span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">listCattle</span><span class="p">)):</span>
+				<span class="n">application_wormer</span><span class="o">.</span><span class="n">cattle</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">listCattle</span><span class="p">[</span><span class="n">c</span><span class="p">])</span>
+			<span class="n">wormer</span><span class="o">.</span><span class="n">amount</span><span class="o">=</span><span class="n">wormer</span><span class="o">.</span><span class="n">amount</span> <span class="o">-</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">listCattle</span><span class="p">)</span><span class="o">*</span><span class="n">wormer</span><span class="o">.</span><span class="n">amount_application</span><span class="p">)</span>
+			<span class="n">wormer</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+			<span class="n">data</span> <span class="o">=</span> <span class="s">&#39;[ { &quot;state&quot;: 0} ]&#39;</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="k">if</span> <span class="n">wormer</span><span class="o">.</span><span class="n">unit</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+				<span class="n">unit_display</span> <span class="o">=</span> <span class="s">&#39;ml&#39;</span>
+			<span class="k">elif</span> <span class="n">wormer</span><span class="o">.</span><span class="n">unit</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span> 
+				<span class="n">unit_display</span><span class="o">=</span><span class="s">&#39;gr&#39;</span>
+			<span class="k">elif</span> <span class="n">wormer</span><span class="o">.</span><span class="n">unit</span><span class="o">==</span><span class="mi">2</span><span class="p">:</span> 
+				<span class="n">unit_display</span><span class="o">=</span><span class="s">&#39;lbs&#39;</span> 
+			<span class="k">elif</span> <span class="n">wormer</span><span class="o">.</span><span class="n">unit</span><span class="o">==</span><span class="mi">3</span><span class="p">:</span> 
+				<span class="n">unit_display</span><span class="o">=</span><span class="s">&#39;kg&#39;</span> 
+			<span class="k">elif</span> <span class="n">wormer</span><span class="o">.</span><span class="n">unit</span><span class="o">==</span><span class="mi">4</span><span class="p">:</span> 
+				<span class="n">unit_display</span><span class="o">=</span><span class="s">&#39;paquetes&#39;</span>
+			<span class="n">data</span> <span class="o">=</span> <span class="s">&#39;[ {&quot;state&quot;: 1, &quot;amount&quot;:&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">wormer</span><span class="o">.</span><span class="n">amount</span><span class="p">)</span><span class="o">+</span><span class="s">&#39;, &quot;amount_now&quot;: &#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">listCattle</span><span class="p">)</span><span class="o">*</span><span class="n">wormer</span><span class="o">.</span><span class="n">amount_application</span><span class="p">)</span><span class="o">+</span><span class="s">&#39;, &quot;unit&quot;: &quot;&#39;</span><span class="o">+</span><span class="n">unit_display</span><span class="o">+</span><span class="s">&#39;&quot; , &quot;consumer_amount&quot;: &quot;&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">wormer</span><span class="o">.</span><span class="n">amount_application</span><span class="p">)</span><span class="o">+</span><span class="s">&#39;&quot;}]&#39;</span>
+	<span class="k">else</span><span class="p">:</span>
+		<span class="n">data</span> <span class="o">=</span> <span class="s">&#39;[ { &quot;state&quot;: 2} ]&#39;</span>
+
+	<span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">mimetype</span><span class="o">=</span><span class="s">&#39;application/json&#39;</span><span class="p">)</span>
+
+
+</div>
+<span class="nd">@login_required</span>
+<div class="viewcode-block" id="ajaxAssignCattleFood_view"><a class="viewcode-back" href="../../../webServices.wsGanados.html#webServices.wsGanados.views.ajaxAssignCattleFood_view">[docs]</a><span class="k">def</span> <span class="nf">ajaxAssignCattleFood_view</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+	<span class="n">search</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="p">[</span><span class="s">&#39;search&#39;</span><span class="p">]</span>
+	<span class="n">listCattle</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="p">[</span><span class="s">&#39;listCattle&#39;</span><span class="p">])</span>
+	<span class="n">user</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span>
+	<span class="n">ganaderia</span> <span class="o">=</span> <span class="n">Ganaderia</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">perfil</span><span class="o">=</span><span class="n">user</span><span class="p">)</span>
+	
+	<span class="k">if</span> <span class="n">ganaderia</span><span class="o">.</span><span class="n">configuracion</span><span class="o">.</span><span class="n">tipo_identificacion</span> <span class="o">==</span> <span class="s">&#39;simple&#39;</span><span class="p">:</span>
+		<span class="n">ganados</span> <span class="o">=</span> <span class="n">Ganado</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
+											<span class="n">Q</span><span class="p">(</span><span class="n">ganaderia</span><span class="o">=</span><span class="n">ganaderia</span><span class="p">)</span> <span class="o">&amp;</span>
+											<span class="p">(</span>
+												<span class="n">Q</span><span class="p">(</span><span class="n">nacimiento__icontains</span><span class="o">=</span><span class="n">search</span><span class="p">)</span> <span class="o">|</span>
+												<span class="n">Q</span><span class="p">(</span><span class="n">identificacion_simple__nombre__icontains</span><span class="o">=</span><span class="n">search</span><span class="p">)</span> <span class="o">|</span>
+												<span class="n">Q</span><span class="p">(</span><span class="n">identificacion_simple__rp__icontains</span><span class="o">=</span><span class="n">search</span><span class="p">)</span>
+											<span class="p">)</span>
+										<span class="p">)</span>
+		<span class="c"># serializando</span>
+		<span class="n">data</span> <span class="o">=</span> <span class="s">&#39;[&#39;</span>
+		<span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">ganados</span><span class="p">:</span>
+			<span class="k">if</span> <span class="n">data</span> <span class="o">==</span> <span class="s">&#39;[&#39;</span><span class="p">:</span>
+				<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;{&quot;pk&quot;: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">id</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;, &#39;</span>
+			<span class="k">else</span><span class="p">:</span>
+				<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;,{&quot;pk&quot;: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">id</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;, &#39;</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;&quot;fields&quot;: {&#39;</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;&quot;rp&quot;: &quot;&#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">identificacion_simple</span><span class="o">.</span><span class="n">rp</span><span class="p">)</span> <span class="o">+</span><span class="s">&#39;&quot;&#39;</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;imagen&quot;: &quot;&#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">imagen</span><span class="p">)</span> <span class="o">+</span><span class="s">&#39;&quot;&#39;</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;nombre&quot;: &quot;&#39;</span><span class="o">+</span> <span class="n">g</span><span class="o">.</span><span class="n">identificacion_simple</span><span class="o">.</span><span class="n">nombre</span> <span class="o">+</span><span class="s">&#39;&quot;&#39;</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;edad_anios&quot;: &#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">edad_anios</span> <span class="p">)</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;edad_meses&quot;: &#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">edad_meses</span> <span class="p">)</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;edad_dias&quot;: &#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">edad_dias</span> <span class="p">)</span>
+
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;}}&#39;</span>
+		<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;]&#39;</span>
+
+	<span class="k">else</span><span class="p">:</span>
+		<span class="n">ganados</span> <span class="o">=</span> <span class="n">Ganado</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
+											<span class="n">Q</span><span class="p">(</span><span class="n">ganaderia</span><span class="o">=</span><span class="n">ganaderia</span><span class="p">)</span> <span class="o">&amp;</span>
+											<span class="p">(</span>
+												<span class="n">Q</span><span class="p">(</span><span class="n">nacimiento__icontains</span><span class="o">=</span><span class="n">search</span><span class="p">)</span> <span class="o">|</span>
+												<span class="n">Q</span><span class="p">(</span><span class="n">identificacion_ecuador__nombre__icontains</span><span class="o">=</span><span class="n">search</span><span class="p">)</span> <span class="o">|</span>
+												<span class="n">Q</span><span class="p">(</span><span class="n">identificacion_ecuador__rp__icontains</span><span class="o">=</span><span class="n">search</span><span class="p">)</span>
+											<span class="p">)</span>
+										<span class="p">)</span>
+		<span class="c"># serializando</span>
+		<span class="n">data</span> <span class="o">=</span> <span class="s">&#39;[&#39;</span>
+		<span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">ganados</span><span class="p">:</span>
+			<span class="k">if</span> <span class="n">data</span> <span class="o">==</span> <span class="s">&#39;[&#39;</span><span class="p">:</span>
+				<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;{&quot;pk&quot;: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">id</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;, &#39;</span>
+			<span class="k">else</span><span class="p">:</span>
+				<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;,{&quot;pk&quot;: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">id</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;, &#39;</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;&quot;fields&quot;: {&#39;</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;&quot;rp&quot;: &quot;&#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">identificacion_ecuador</span><span class="o">.</span><span class="n">rp</span><span class="p">)</span> <span class="o">+</span><span class="s">&#39;&quot;&#39;</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;imagen&quot;: &quot;&#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">imagen</span><span class="p">)</span> <span class="o">+</span><span class="s">&#39;&quot;&#39;</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;nombre&quot;: &quot;&#39;</span><span class="o">+</span> <span class="n">g</span><span class="o">.</span><span class="n">identificacion_ecuador</span><span class="o">.</span><span class="n">nombre</span> <span class="o">+</span><span class="s">&#39;&quot;&#39;</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;edad_anios&quot;: &#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">edad_anios</span> <span class="p">)</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;edad_meses&quot;: &#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">edad_meses</span> <span class="p">)</span>
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;, &quot;edad_dias&quot;: &#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">edad_dias</span> <span class="p">)</span>
+
+			<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;}}&#39;</span>
+		<span class="n">data</span> <span class="o">+=</span> <span class="s">&#39;]&#39;</span>
+
+	<span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">mimetype</span><span class="o">=</span><span class="s">&#39;application/json&#39;</span><span class="p">)</span>
+
+
+</div>
+<span class="nd">@login_required</span>
+<div class="viewcode-block" id="ajaxAssignCattleFoodFinal"><a class="viewcode-back" href="../../../webServices.wsGanados.html#webServices.wsGanados.views.ajaxAssignCattleFoodFinal">[docs]</a><span class="k">def</span> <span class="nf">ajaxAssignCattleFoodFinal</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+	<span class="n">id_food</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="p">[</span><span class="s">&#39;id_food&#39;</span><span class="p">]</span>
+	<span class="n">listCattle</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="p">[</span><span class="s">&#39;listCattle&#39;</span><span class="p">])</span>
+	<span class="n">user</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span>
+	<span class="n">ganaderia</span> <span class="o">=</span> <span class="n">Ganaderia</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">perfil</span><span class="o">=</span><span class="n">user</span><span class="p">)</span>
+	<span class="n">food</span> <span class="o">=</span> <span class="n">Food</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">id_food</span><span class="p">)</span>
+	<span class="n">listCattle</span> <span class="o">=</span> <span class="n">listCattle</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&#39;[&#39;</span><span class="p">,</span><span class="s">&#39;&#39;</span><span class="p">)</span>
+	<span class="n">listCattle</span> <span class="o">=</span> <span class="n">listCattle</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&#39;]&#39;</span><span class="p">,</span><span class="s">&#39;&#39;</span><span class="p">)</span>
+	<span class="n">listCattle</span> <span class="o">=</span> <span class="n">listCattle</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&#39;,&#39;</span><span class="p">,</span><span class="s">&#39;&#39;</span><span class="p">)</span>
+	<span class="n">listCattle</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">listCattle</span><span class="p">)</span>
+
+	<span class="n">date_now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span>
+	<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">listCattle</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+		<span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">listCattle</span><span class="p">)</span> <span class="o">*</span> <span class="n">food</span><span class="o">.</span><span class="n">consumer_amount</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">food</span><span class="o">.</span><span class="n">amount</span><span class="p">:</span>
+			<span class="n">application_food</span> <span class="o">=</span> <span class="n">ApplicationFood</span><span class="p">()</span>
+			<span class="n">application_food</span><span class="o">.</span><span class="n">date</span> <span class="o">=</span> <span class="n">date_now</span>
+			<span class="n">application_food</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="mi">0</span>
+			<span class="n">application_food</span><span class="o">.</span><span class="n">food</span> <span class="o">=</span> <span class="n">food</span>
+			<span class="n">application_food</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+			<span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">listCattle</span><span class="p">)):</span>
+				<span class="n">application_food</span><span class="o">.</span><span class="n">cattle</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">listCattle</span><span class="p">[</span><span class="n">c</span><span class="p">])</span>
+			<span class="n">food</span><span class="o">.</span><span class="n">amount</span><span class="o">=</span><span class="n">food</span><span class="o">.</span><span class="n">amount</span> <span class="o">-</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">listCattle</span><span class="p">)</span><span class="o">*</span><span class="n">food</span><span class="o">.</span><span class="n">consumer_amount</span><span class="p">)</span>
+			<span class="n">food</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+			<span class="n">data</span> <span class="o">=</span> <span class="s">&#39;[ { &quot;state&quot;: 0} ]&#39;</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="k">if</span> <span class="n">food</span><span class="o">.</span><span class="n">unit</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+				<span class="n">unit_display</span> <span class="o">=</span> <span class="s">&#39;ml&#39;</span>
+			<span class="k">elif</span> <span class="n">food</span><span class="o">.</span><span class="n">unit</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span> 
+				<span class="n">unit_display</span><span class="o">=</span><span class="s">&#39;gr&#39;</span>
+			<span class="k">elif</span> <span class="n">food</span><span class="o">.</span><span class="n">unit</span><span class="o">==</span><span class="mi">2</span><span class="p">:</span> 
+				<span class="n">unit_display</span><span class="o">=</span><span class="s">&#39;lbs&#39;</span> 
+			<span class="k">elif</span> <span class="n">food</span><span class="o">.</span><span class="n">unit</span><span class="o">==</span><span class="mi">3</span><span class="p">:</span> 
+				<span class="n">unit_display</span><span class="o">=</span><span class="s">&#39;kg&#39;</span> 
+			<span class="k">elif</span> <span class="n">food</span><span class="o">.</span><span class="n">unit</span><span class="o">==</span><span class="mi">4</span><span class="p">:</span> 
+				<span class="n">unit_display</span><span class="o">=</span><span class="s">&#39;paquetes&#39;</span>
+			<span class="n">data</span> <span class="o">=</span> <span class="s">&#39;[ {&quot;state&quot;: 1, &quot;amount&quot;:&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">food</span><span class="o">.</span><span class="n">amount</span><span class="p">)</span><span class="o">+</span><span class="s">&#39;, &quot;amount_now&quot;: &#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">listCattle</span><span class="p">)</span><span class="o">*</span><span class="n">food</span><span class="o">.</span><span class="n">consumer_amount</span><span class="p">)</span><span class="o">+</span><span class="s">&#39;, &quot;unit&quot;: &quot;&#39;</span><span class="o">+</span><span class="n">unit_display</span><span class="o">+</span><span class="s">&#39;&quot; , &quot;consumer_amount&quot;: &quot;&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">food</span><span class="o">.</span><span class="n">consumer_amount</span><span class="p">)</span><span class="o">+</span><span class="s">&#39;&quot;}]&#39;</span>
+	<span class="k">else</span><span class="p">:</span>
+		<span class="n">data</span> <span class="o">=</span> <span class="s">&#39;[ { &quot;state&quot;: 2} ]&#39;</span>
+
+	<span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">mimetype</span><span class="o">=</span><span class="s">&#39;application/json&#39;</span><span class="p">)</span>
+
+</div>
+<span class="nd">@login_required</span>
+<div class="viewcode-block" id="ajaxInsemination_view"><a class="viewcode-back" href="../../../webServices.wsGanados.html#webServices.wsGanados.views.ajaxInsemination_view">[docs]</a><span class="k">def</span> <span class="nf">ajaxInsemination_view</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+	<span class="n">search</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="p">[</span><span class="s">&#39;search&#39;</span><span class="p">]</span>
+	<span class="n">user</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span>
+	<span class="n">farm</span> <span class="o">=</span> <span class="n">Ganaderia</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">perfil</span><span class="o">=</span><span class="n">user</span><span class="p">)</span>
+
+	<span class="n">data</span> <span class="o">=</span> <span class="n">serializers</span><span class="o">.</span><span class="n">serialize</span><span class="p">(</span><span class="s">&#39;json&#39;</span><span class="p">,</span> <span class="n">Insemination</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
+				  <span class="p">(</span><span class="n">Q</span><span class="p">(</span><span class="n">farm</span><span class="o">=</span><span class="n">farm</span><span class="p">))</span> <span class="o">&amp;</span>
+				  <span class="p">(</span>	<span class="n">Q</span><span class="p">(</span><span class="n">registration_date__icontains</span><span class="o">=</span><span class="n">search</span><span class="p">)</span> <span class="o">|</span>
+				  	<span class="n">Q</span><span class="p">(</span><span class="n">rp__iexact</span><span class="o">=</span><span class="n">search</span><span class="p">)</span> <span class="o">|</span>
+				  	<span class="n">Q</span><span class="p">(</span><span class="n">name__icontains</span><span class="o">=</span><span class="n">search</span><span class="p">)</span>
+				  <span class="p">)</span> 
+	<span class="p">)</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s">&#39;-rp&#39;</span><span class="p">))</span>
+	
+	<span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">mimetype</span><span class="o">=</span><span class="s">&#39;application/json&#39;</span><span class="p">)</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">HatosGanaderos 1.0 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, @mricharleon.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

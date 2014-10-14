@@ -1,0 +1,58 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2014, @mricharleon
+# This file is distributed under the same license as the HatosGanaderos package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: HatosGanaderos 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-10-09 22:34-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../reports.rst:2
+# 0e3a9c2b77bf4de8aa31ffdc4ebce99f
+msgid "reports package"
+msgstr ""
+
+#: ../../reports.rst:5
+# 0846586f4401447ba0bee2a09175c1f7
+msgid "Submodules"
+msgstr ""
+
+#: ../../reports.rst:8
+# 6221a25301d2490c8c01e1cb5fc28b0f
+msgid "reports.admin module"
+msgstr ""
+
+#: ../../reports.rst:16
+# f748ce6c4b14425b82fc95186a866405
+msgid "reports.models module"
+msgstr ""
+
+#: ../../reports.rst:24
+# 0335d20916614184ab2f9d35df707927
+msgid "reports.tests module"
+msgstr ""
+
+#: ../../reports.rst:32
+# 5584673cbbf140019f5598a83b81c29d
+msgid "reports.views module"
+msgstr ""
+
+#: ../../reports.rst:33
+# ae9a49fc7ce94fd5beaa8aa79447175a
+msgid "Aquí tenemos las vistas del módulo de los reportes, que son eficacez para realizar los procesos de: listar reportes y la vista en si del reporte de ganados hembras de la ganadería. Example usage:"
+msgstr ""
+
+#: ../../reports.rst:80
+# c78bb1b732fe447fb33a0f433b01f473
+msgid "Module contents"
+msgstr ""
+

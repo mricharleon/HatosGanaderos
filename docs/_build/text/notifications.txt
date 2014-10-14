@@ -1,0 +1,82 @@
+
+notifications package
+*********************
+
+
+Submodules
+==========
+
+
+notifications.admin module
+==========================
+
+
+notifications.models module
+===========================
+
+class class notifications.models.Notification(*args, **kwargs)
+
+   Bases: "django.db.models.base.Model"
+
+   Notification(id, start_date, end_date, state, module,
+   ident_cattle_id, ident_medicament_id, ident_food_id, name)
+
+   exception exception DoesNotExist
+
+      Bases: "django.core.exceptions.ObjectDoesNotExist"
+
+   Notification.MODULE_CHOICES = ((0, u'Reproducci\xf3n'), (1, u'Alimentaci\xf3n'), (2, 'Sanidad'), (3, u'Producci\xf3n'))
+
+   exception exception Notification.MultipleObjectsReturned
+
+      Bases: "django.core.exceptions.MultipleObjectsReturned"
+
+   Notification.NAME_CHOICES = ((0, 'Ganado en celo'), (1, 'Registro del servicio'), (2, u'Verificaci\xf3n del celo'), (3, 'Fecha de posible parto'), (4, 'Cantidad reducida de pajuelas'), (5, u'Registro de orde\xf1o'), (6, 'Cantidad reducida de la vacuna'), (7, 'Cantidad reducida del desparacitador'), (8, u'Fecha pr\xf3xima de vencimiento de la vacuna'), (9, u'Fecha pr\xf3xima de vencimiento del desparacitador'), (10, u'Fecha pr\xf3xima de aplicaci\xf3n de la vacuna'), (11, u'Fecha pr\xf3xima de aplicaci\xf3n del desparacitador'), (12, 'Cantidad reducida del alimento'), (13, u'Fecha pr\xf3xima de vencimiento del alimento'), (14, u'Fecha pr\xf3xima de aplicaci\xf3n del alimento'))
+
+   Notification.STATE_CHOICES = ((0, 'No realizado'), (1, 'Realizado'), (2, 'Pendiente'))
+
+   Notification.get_module_display(*moreargs, **morekwargs)
+
+   Notification.get_name_display(*moreargs, **morekwargs)
+
+   Notification.get_next_by_end_date(*moreargs, **morekwargs)
+
+   Notification.get_next_by_start_date(*moreargs, **morekwargs)
+
+   Notification.get_previous_by_end_date(*moreargs, **morekwargs)
+
+   Notification.get_previous_by_start_date(*moreargs, **morekwargs)
+
+   Notification.get_state_display(*moreargs, **morekwargs)
+
+   Notification.ident_cattle
+
+   Notification.ident_food
+
+   Notification.ident_medicament
+
+   Notification.objects = <django.db.models.manager.Manager object at 0x2b3a54f12950>
+
+
+notifications.tests module
+==========================
+
+
+notifications.views module
+==========================
+
+notifications.views.list_notifications(request, *args, **kwargs)
+
+notifications.views.list_notifications_alimentacion(request, *args, **kwargs)
+
+notifications.views.list_notifications_produccion(request, *args, **kwargs)
+
+notifications.views.list_notifications_reproduccion(request, *args, **kwargs)
+
+notifications.views.list_notifications_sanidad(request, *args, **kwargs)
+
+notifications.views.realizedNotification(request, *args, **kwargs)
+
+
+Module contents
+===============

@@ -1,0 +1,657 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Módulo Asíncrono &mdash; documentación de HatosGanaderos - 1.0</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="documentación de HatosGanaderos - 1.0" href="index.html"/>
+        <link rel="up" title="Módulo Asíncrono" href="webServices.html"/>
+        <link rel="prev" title="Módulo Asíncrono" href="webServices.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="index.html" class="fa fa-home"> HatosGanaderos</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="Instalación.html">Instalación</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Instalación.html#windows">Windows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Instalación.html#linux">Linux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Instalación.html#mac">Mac</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial 1: Crear Cuentas.html">Tutorial 1: Crear Cuentas</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Tutorial 1: Crear Cuentas.html#registro">Registro</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorial 1: Crear Cuentas.html#recuperar-contrasena">Recuperar Contraseña</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorial 1: Crear Cuentas.html#login">Login</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorial 1: Crear Cuentas.html#modificar-detalles-de-cuenta">Modificar Detalles de Cuenta</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorial 1: Crear Cuentas.html#modificar-clave">Modificar Clave</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorial 1: Crear Cuentas.html#cambiar-correo-electronico">Cambiar Correo Electrónico</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial 2: Configuración.html">Tutorial 2: Configuración</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Tutorial 2: Configuración.html#crear-configuracion-de-la-ganaderia">Crear Configuración de la Ganadería</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial 3: Técnicos.html">Tutorial 3: Técnicos</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Tutorial 3: Técnicos.html#crear-cuentas-de-tecnicos">Crear Cuentas de Técnicos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorial 3: Técnicos.html#listar-cuentas-de-tecnicos">Listar Cuentas de Técnicos</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial 4: Módulo de Reproducción.html">Tutorial 4: Módulo de Reproducción</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Tutorial 4: Módulo de Reproducción.html#registrar-ganados">Registrar Ganados</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorial 4: Módulo de Reproducción.html#listar-ganados">Listar ganados</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorial 4: Módulo de Reproducción.html#actualizar-datos-del-ganado">Actualizar Datos del Ganado</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorial 4: Módulo de Reproducción.html#agregar-celo">Agregar Celo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorial 4: Módulo de Reproducción.html#agregar-inseminacion-o-monta">Agregar Inseminación o Monta</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorial 4: Módulo de Reproducción.html#verificacion-de-celo">Verificación de Celo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorial 4: Módulo de Reproducción.html#agregar-problemas-de-gestacion">Agregar Problemas de Gestación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorial 4: Módulo de Reproducción.html#agregar-gestacion-correcta">Agregar Gestación Correcta</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorial 4: Módulo de Reproducción.html#registrar-esperma">Registrar Esperma</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorial 4: Módulo de Reproducción.html#listar-esperma">Listar Esperma</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorial 4: Módulo de Reproducción.html#actualizar-datos-de-esperma">Actualizar Datos de Esperma</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial 5: Módulo de Producción.html">Tutorial 5: Módulo de Producción</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Tutorial 5: Módulo de Producción.html#listar-ganados-de-produccion">Listar Ganados de Producción</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorial 5: Módulo de Producción.html#agregar-ordeno">Agregar Ordeño</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorial 5: Módulo de Producción.html#editar-ordeno-diario">Editar Ordeño Diario</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial 6: Módulo de Sanidad.html">Tutorial 6: Módulo de Sanidad</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Tutorial 6: Módulo de Sanidad.html#agregar-desparasitador">Agregar Desparasitador</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorial 6: Módulo de Sanidad.html#listar-desparasitador">Listar Desparasitador</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorial 6: Módulo de Sanidad.html#actualizar-datos-del-desparasitador">Actualizar Datos del Desparasitador</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorial 6: Módulo de Sanidad.html#asignar-desparasitador-a-ganados">Asignar Desparasitador a Ganados</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorial 6: Módulo de Sanidad.html#agregar-vacuna">Agregar Vacuna</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorial 6: Módulo de Sanidad.html#listar-vacuna">Listar Vacuna</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorial 6: Módulo de Sanidad.html#actualizar-datos-de-la-vacuna">Actualizar Datos de la Vacuna</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorial 6: Módulo de Sanidad.html#asignar-vacuna-a-ganados">Asignar Vacuna a Ganados</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial 7: Módulo de Alimentación.html">Tutorial 7: Módulo de Alimentación</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Tutorial 7: Módulo de Alimentación.html#agregar-alimento">Agregar Alimento</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorial 7: Módulo de Alimentación.html#actualizar-alimento">Actualizar Alimento</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorial 7: Módulo de Alimentación.html#asignar-el-alimento-al-ganado">Asignar el Alimento al Ganado</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial 8: Mensajería.html">Tutorial 8: Mensajería</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Tutorial 8: Mensajería.html#enviar-mensajes">Enviar Mensajes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorial 8: Mensajería.html#leer-mensajes">Leer Mensajes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial 9: Reportes.html">Tutorial 9: Reportes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Tutorial 9: Reportes.html#generar-un-reporte">Generar un Reporte</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial 10: Notificaciones.html">Tutorial 10: Notificaciones</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Tutorial 10: Notificaciones.html#gestionar-notificaciones">Gestionar Notificaciones</a></li>
+</ul>
+</li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="SIDGV.html">Módulo SIDGV</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="SIDGV.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SIDGV.html#module-SIDGV.settings">SIDGV.settings module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SIDGV.html#sidgv-settings-dotcloud-module">SIDGV.settings_dotcloud module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SIDGV.html#module-SIDGV.urls">SIDGV.urls module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SIDGV.html#module-SIDGV.wsgi">SIDGV.wsgi module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SIDGV.html#module-SIDGV">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="alimentos.html">Módulo de Alimentos</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="alimentos.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="alimentos.html#module-alimentos.admin">alimentos.admin module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="alimentos.html#module-alimentos.forms">alimentos.forms module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="alimentos.html#module-alimentos.models">alimentos.models module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="alimentos.html#module-alimentos.tests">alimentos.tests module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="alimentos.html#module-alimentos.views">alimentos.views module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="alimentos.html#module-alimentos">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ganados.html">Módulo de Ganados</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ganados.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ganados.html#module-ganados.admin">ganados.admin module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ganados.html#module-ganados.forms">ganados.forms module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ganados.html#ganados-models-module">ganados.models module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ganados.html#module-ganados.tests">ganados.tests module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ganados.html#module-ganados.views">ganados.views module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ganados.html#module-ganados">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="medicament.html">Módulo de Medicamentos</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="medicament.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="medicament.html#module-medicament.admin">medicament.admin module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="medicament.html#module-medicament.forms">medicament.forms module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="medicament.html#module-medicament.models">medicament.models module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="medicament.html#module-medicament.tests">medicament.tests module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="medicament.html#module-medicament.views">medicament.views module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="medicament.html#module-medicament">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="messages.html">Módulo de Mensajería</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="messages.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="messages.html#module-messages.admin">messages.admin module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="messages.html#module-messages.forms">messages.forms module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="messages.html#module-messages.models">messages.models module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="messages.html#module-messages.tests">messages.tests module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="messages.html#module-messages.views">messages.views module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="messages.html#module-messages">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="notifications.html">Módulo de Notificaciones</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="notifications.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notifications.html#module-notifications.admin">notifications.admin module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notifications.html#module-notifications.models">notifications.models module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notifications.html#module-notifications.tests">notifications.tests module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notifications.html#module-notifications.views">notifications.views module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notifications.html#module-notifications">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="profiles.html">Módulo del Perfil</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="profiles.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="profiles.html#module-profiles.admin">profiles.admin module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="profiles.html#module-profiles.forms">profiles.forms module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="profiles.html#profiles-models-module">profiles.models module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="profiles.html#module-profiles.tests">profiles.tests module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="profiles.html#module-profiles.views">profiles.views module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="profiles.html#module-profiles">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="reports.html">Módulo de Reportes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="reports.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reports.html#module-reports.admin">reports.admin module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reports.html#module-reports.models">reports.models module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reports.html#module-reports.tests">reports.tests module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reports.html#reports-views-module">reports.views module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reports.html#module-reports">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="webServices.html">Módulo Asíncrono</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="webServices.html#subpackages">Subpackages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webServices.html#module-webServices">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">HatosGanaderos</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="webServices.html">Módulo Asíncrono</a> &raquo;</li>
+      
+    <li>Módulo Asíncrono</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="_sources/webServices.wsGanados.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="webservices-wsganados-package">
+<h1>Módulo Asíncrono<a class="headerlink" href="#webservices-wsganados-package" title="Enlazar permanentemente con este título">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Enlazar permanentemente con este título">¶</a></h2>
+</div>
+<div class="section" id="module-webServices.wsGanados.admin">
+<span id="webservices-wsganados-admin-module"></span><h2>webServices.wsGanados.admin module<a class="headerlink" href="#module-webServices.wsGanados.admin" title="Enlazar permanentemente con este título">¶</a></h2>
+</div>
+<div class="section" id="module-webServices.wsGanados.models">
+<span id="webservices-wsganados-models-module"></span><h2>webServices.wsGanados.models module<a class="headerlink" href="#module-webServices.wsGanados.models" title="Enlazar permanentemente con este título">¶</a></h2>
+</div>
+<div class="section" id="module-webServices.wsGanados.tests">
+<span id="webservices-wsganados-tests-module"></span><h2>webServices.wsGanados.tests module<a class="headerlink" href="#module-webServices.wsGanados.tests" title="Enlazar permanentemente con este título">¶</a></h2>
+</div>
+<div class="section" id="module-webServices.wsGanados.urls">
+<span id="webservices-wsganados-urls-module"></span><h2>webServices.wsGanados.urls module<a class="headerlink" href="#module-webServices.wsGanados.urls" title="Enlazar permanentemente con este título">¶</a></h2>
+</div>
+<div class="section" id="module-webServices.wsGanados.views">
+<span id="webservices-wsganados-views-module"></span><h2>webServices.wsGanados.views module<a class="headerlink" href="#module-webServices.wsGanados.views" title="Enlazar permanentemente con este título">¶</a></h2>
+<dl class="class">
+<dt id="webServices.wsGanados.views.AgentAlimentacion">
+<em class="property">class </em><tt class="descclassname">webServices.wsGanados.views.</tt><tt class="descname">AgentAlimentacion</tt><big>(</big><em>agentjid</em>, <em>password</em>, <em>resource='spade'</em>, <em>port=5222</em>, <em>debug=[]</em>, <em>p2p=False</em><big>)</big><a class="reference internal" href="_modules/webServices/wsGanados/views.html#AgentAlimentacion"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#webServices.wsGanados.views.AgentAlimentacion" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clases base: <tt class="xref py py-class docutils literal"><span class="pre">spade.Agent.Agent</span></tt></p>
+<dl class="class">
+<dt id="webServices.wsGanados.views.AgentAlimentacion.BehaviourAlimentacion">
+<em class="property">class </em><tt class="descname">BehaviourAlimentacion</tt><a class="reference internal" href="_modules/webServices/wsGanados/views.html#AgentAlimentacion.BehaviourAlimentacion"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#webServices.wsGanados.views.AgentAlimentacion.BehaviourAlimentacion" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clases base: <tt class="xref py py-class docutils literal"><span class="pre">spade.Behaviour.OneShotBehaviour</span></tt></p>
+<dl class="method">
+<dt id="webServices.wsGanados.views.AgentAlimentacion.BehaviourAlimentacion.onEnd">
+<tt class="descname">onEnd</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/webServices/wsGanados/views.html#AgentAlimentacion.BehaviourAlimentacion.onEnd"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#webServices.wsGanados.views.AgentAlimentacion.BehaviourAlimentacion.onEnd" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="webServices.wsGanados.views.AgentAlimentacion.BehaviourAlimentacion.onStart">
+<tt class="descname">onStart</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/webServices/wsGanados/views.html#AgentAlimentacion.BehaviourAlimentacion.onStart"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#webServices.wsGanados.views.AgentAlimentacion.BehaviourAlimentacion.onStart" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="webServices.wsGanados.views.AgentProduccion">
+<em class="property">class </em><tt class="descclassname">webServices.wsGanados.views.</tt><tt class="descname">AgentProduccion</tt><big>(</big><em>agentjid</em>, <em>password</em>, <em>resource='spade'</em>, <em>port=5222</em>, <em>debug=[]</em>, <em>p2p=False</em><big>)</big><a class="reference internal" href="_modules/webServices/wsGanados/views.html#AgentProduccion"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#webServices.wsGanados.views.AgentProduccion" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clases base: <tt class="xref py py-class docutils literal"><span class="pre">spade.Agent.Agent</span></tt></p>
+<dl class="class">
+<dt id="webServices.wsGanados.views.AgentProduccion.BehaviourProduccion">
+<em class="property">class </em><tt class="descname">BehaviourProduccion</tt><a class="reference internal" href="_modules/webServices/wsGanados/views.html#AgentProduccion.BehaviourProduccion"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#webServices.wsGanados.views.AgentProduccion.BehaviourProduccion" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clases base: <tt class="xref py py-class docutils literal"><span class="pre">spade.Behaviour.OneShotBehaviour</span></tt></p>
+<dl class="method">
+<dt id="webServices.wsGanados.views.AgentProduccion.BehaviourProduccion.onEnd">
+<tt class="descname">onEnd</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/webServices/wsGanados/views.html#AgentProduccion.BehaviourProduccion.onEnd"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#webServices.wsGanados.views.AgentProduccion.BehaviourProduccion.onEnd" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="webServices.wsGanados.views.AgentProduccion.BehaviourProduccion.onStart">
+<tt class="descname">onStart</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/webServices/wsGanados/views.html#AgentProduccion.BehaviourProduccion.onStart"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#webServices.wsGanados.views.AgentProduccion.BehaviourProduccion.onStart" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="webServices.wsGanados.views.AgentReproduccion">
+<em class="property">class </em><tt class="descclassname">webServices.wsGanados.views.</tt><tt class="descname">AgentReproduccion</tt><big>(</big><em>agentjid</em>, <em>password</em>, <em>resource='spade'</em>, <em>port=5222</em>, <em>debug=[]</em>, <em>p2p=False</em><big>)</big><a class="reference internal" href="_modules/webServices/wsGanados/views.html#AgentReproduccion"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#webServices.wsGanados.views.AgentReproduccion" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clases base: <tt class="xref py py-class docutils literal"><span class="pre">spade.Agent.Agent</span></tt></p>
+<dl class="class">
+<dt id="webServices.wsGanados.views.AgentReproduccion.BehaviourReproduccion">
+<em class="property">class </em><tt class="descname">BehaviourReproduccion</tt><a class="reference internal" href="_modules/webServices/wsGanados/views.html#AgentReproduccion.BehaviourReproduccion"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#webServices.wsGanados.views.AgentReproduccion.BehaviourReproduccion" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clases base: <tt class="xref py py-class docutils literal"><span class="pre">spade.Behaviour.OneShotBehaviour</span></tt></p>
+<dl class="method">
+<dt id="webServices.wsGanados.views.AgentReproduccion.BehaviourReproduccion.onEnd">
+<tt class="descname">onEnd</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/webServices/wsGanados/views.html#AgentReproduccion.BehaviourReproduccion.onEnd"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#webServices.wsGanados.views.AgentReproduccion.BehaviourReproduccion.onEnd" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="webServices.wsGanados.views.AgentReproduccion.BehaviourReproduccion.onStart">
+<tt class="descname">onStart</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/webServices/wsGanados/views.html#AgentReproduccion.BehaviourReproduccion.onStart"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#webServices.wsGanados.views.AgentReproduccion.BehaviourReproduccion.onStart" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="webServices.wsGanados.views.AgentSanidad">
+<em class="property">class </em><tt class="descclassname">webServices.wsGanados.views.</tt><tt class="descname">AgentSanidad</tt><big>(</big><em>agentjid</em>, <em>password</em>, <em>resource='spade'</em>, <em>port=5222</em>, <em>debug=[]</em>, <em>p2p=False</em><big>)</big><a class="reference internal" href="_modules/webServices/wsGanados/views.html#AgentSanidad"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#webServices.wsGanados.views.AgentSanidad" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clases base: <tt class="xref py py-class docutils literal"><span class="pre">spade.Agent.Agent</span></tt></p>
+<dl class="class">
+<dt id="webServices.wsGanados.views.AgentSanidad.BehaviourSanidad">
+<em class="property">class </em><tt class="descname">BehaviourSanidad</tt><a class="reference internal" href="_modules/webServices/wsGanados/views.html#AgentSanidad.BehaviourSanidad"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#webServices.wsGanados.views.AgentSanidad.BehaviourSanidad" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clases base: <tt class="xref py py-class docutils literal"><span class="pre">spade.Behaviour.OneShotBehaviour</span></tt></p>
+<dl class="method">
+<dt id="webServices.wsGanados.views.AgentSanidad.BehaviourSanidad.onEnd">
+<tt class="descname">onEnd</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/webServices/wsGanados/views.html#AgentSanidad.BehaviourSanidad.onEnd"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#webServices.wsGanados.views.AgentSanidad.BehaviourSanidad.onEnd" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="webServices.wsGanados.views.AgentSanidad.BehaviourSanidad.onStart">
+<tt class="descname">onStart</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/webServices/wsGanados/views.html#AgentSanidad.BehaviourSanidad.onStart"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#webServices.wsGanados.views.AgentSanidad.BehaviourSanidad.onStart" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="webServices.wsGanados.views.BeliefAlimentacion">
+<em class="property">class </em><tt class="descclassname">webServices.wsGanados.views.</tt><tt class="descname">BeliefAlimentacion</tt><a class="reference internal" href="_modules/webServices/wsGanados/views.html#BeliefAlimentacion"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#webServices.wsGanados.views.BeliefAlimentacion" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="webServices.wsGanados.views.BeliefProduccion">
+<em class="property">class </em><tt class="descclassname">webServices.wsGanados.views.</tt><tt class="descname">BeliefProduccion</tt><a class="reference internal" href="_modules/webServices/wsGanados/views.html#BeliefProduccion"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#webServices.wsGanados.views.BeliefProduccion" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="webServices.wsGanados.views.BeliefReproduccion">
+<em class="property">class </em><tt class="descclassname">webServices.wsGanados.views.</tt><tt class="descname">BeliefReproduccion</tt><a class="reference internal" href="_modules/webServices/wsGanados/views.html#BeliefReproduccion"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#webServices.wsGanados.views.BeliefReproduccion" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="webServices.wsGanados.views.BeliefSanidad">
+<em class="property">class </em><tt class="descclassname">webServices.wsGanados.views.</tt><tt class="descname">BeliefSanidad</tt><a class="reference internal" href="_modules/webServices/wsGanados/views.html#BeliefSanidad"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#webServices.wsGanados.views.BeliefSanidad" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="webServices.wsGanados.views.DesireAlimentacion">
+<em class="property">class </em><tt class="descclassname">webServices.wsGanados.views.</tt><tt class="descname">DesireAlimentacion</tt><a class="reference internal" href="_modules/webServices/wsGanados/views.html#DesireAlimentacion"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#webServices.wsGanados.views.DesireAlimentacion" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="webServices.wsGanados.views.DesireProduccion">
+<em class="property">class </em><tt class="descclassname">webServices.wsGanados.views.</tt><tt class="descname">DesireProduccion</tt><a class="reference internal" href="_modules/webServices/wsGanados/views.html#DesireProduccion"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#webServices.wsGanados.views.DesireProduccion" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="webServices.wsGanados.views.DesireReproduccion">
+<em class="property">class </em><tt class="descclassname">webServices.wsGanados.views.</tt><tt class="descname">DesireReproduccion</tt><a class="reference internal" href="_modules/webServices/wsGanados/views.html#DesireReproduccion"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#webServices.wsGanados.views.DesireReproduccion" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="webServices.wsGanados.views.DesireSanidad">
+<em class="property">class </em><tt class="descclassname">webServices.wsGanados.views.</tt><tt class="descname">DesireSanidad</tt><a class="reference internal" href="_modules/webServices/wsGanados/views.html#DesireSanidad"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#webServices.wsGanados.views.DesireSanidad" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="webServices.wsGanados.views.IntentionAlimentacion">
+<em class="property">class </em><tt class="descclassname">webServices.wsGanados.views.</tt><tt class="descname">IntentionAlimentacion</tt><a class="reference internal" href="_modules/webServices/wsGanados/views.html#IntentionAlimentacion"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#webServices.wsGanados.views.IntentionAlimentacion" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="method">
+<dt id="webServices.wsGanados.views.IntentionAlimentacion.assignNotification">
+<tt class="descname">assignNotification</tt><big>(</big><em>d</em>, <em>datee</em>, <em>name</em><big>)</big><a class="reference internal" href="_modules/webServices/wsGanados/views.html#IntentionAlimentacion.assignNotification"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#webServices.wsGanados.views.IntentionAlimentacion.assignNotification" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="webServices.wsGanados.views.IntentionAlimentacion.sendNotificationAmountFood">
+<tt class="descname">sendNotificationAmountFood</tt><big>(</big><em>desire_amount_food</em><big>)</big><a class="reference internal" href="_modules/webServices/wsGanados/views.html#IntentionAlimentacion.sendNotificationAmountFood"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#webServices.wsGanados.views.IntentionAlimentacion.sendNotificationAmountFood" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="webServices.wsGanados.views.IntentionAlimentacion.sendNotificationExpirationFood">
+<tt class="descname">sendNotificationExpirationFood</tt><big>(</big><em>desire_expiration_food</em><big>)</big><a class="reference internal" href="_modules/webServices/wsGanados/views.html#IntentionAlimentacion.sendNotificationExpirationFood"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#webServices.wsGanados.views.IntentionAlimentacion.sendNotificationExpirationFood" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="webServices.wsGanados.views.IntentionProduction">
+<em class="property">class </em><tt class="descclassname">webServices.wsGanados.views.</tt><tt class="descname">IntentionProduction</tt><a class="reference internal" href="_modules/webServices/wsGanados/views.html#IntentionProduction"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#webServices.wsGanados.views.IntentionProduction" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="method">
+<dt id="webServices.wsGanados.views.IntentionProduction.assignNotification">
+<tt class="descname">assignNotification</tt><big>(</big><em>d</em><big>)</big><a class="reference internal" href="_modules/webServices/wsGanados/views.html#IntentionProduction.assignNotification"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#webServices.wsGanados.views.IntentionProduction.assignNotification" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="webServices.wsGanados.views.IntentionProduction.sendNotificationOrdenio">
+<tt class="descname">sendNotificationOrdenio</tt><big>(</big><em>desire_ordenio</em><big>)</big><a class="reference internal" href="_modules/webServices/wsGanados/views.html#IntentionProduction.sendNotificationOrdenio"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#webServices.wsGanados.views.IntentionProduction.sendNotificationOrdenio" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="webServices.wsGanados.views.IntentionReproduccion">
+<em class="property">class </em><tt class="descclassname">webServices.wsGanados.views.</tt><tt class="descname">IntentionReproduccion</tt><a class="reference internal" href="_modules/webServices/wsGanados/views.html#IntentionReproduccion"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#webServices.wsGanados.views.IntentionReproduccion" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="method">
+<dt id="webServices.wsGanados.views.IntentionReproduccion.assignNotification">
+<tt class="descname">assignNotification</tt><big>(</big><em>d</em>, <em>datee</em>, <em>name</em><big>)</big><a class="reference internal" href="_modules/webServices/wsGanados/views.html#IntentionReproduccion.assignNotification"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#webServices.wsGanados.views.IntentionReproduccion.assignNotification" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="webServices.wsGanados.views.IntentionReproduccion.sendNotificationCelo">
+<tt class="descname">sendNotificationCelo</tt><big>(</big><em>desire_celo</em><big>)</big><a class="reference internal" href="_modules/webServices/wsGanados/views.html#IntentionReproduccion.sendNotificationCelo"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#webServices.wsGanados.views.IntentionReproduccion.sendNotificationCelo" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="webServices.wsGanados.views.IntentionReproduccion.sendNotificationPajuela">
+<tt class="descname">sendNotificationPajuela</tt><big>(</big><em>desire_pajuelas</em><big>)</big><a class="reference internal" href="_modules/webServices/wsGanados/views.html#IntentionReproduccion.sendNotificationPajuela"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#webServices.wsGanados.views.IntentionReproduccion.sendNotificationPajuela" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="webServices.wsGanados.views.IntentionReproduccion.sendNotificationParto">
+<tt class="descname">sendNotificationParto</tt><big>(</big><em>desire_parto</em><big>)</big><a class="reference internal" href="_modules/webServices/wsGanados/views.html#IntentionReproduccion.sendNotificationParto"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#webServices.wsGanados.views.IntentionReproduccion.sendNotificationParto" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="webServices.wsGanados.views.IntentionReproduccion.sendNotificationService">
+<tt class="descname">sendNotificationService</tt><big>(</big><em>desire_service</em><big>)</big><a class="reference internal" href="_modules/webServices/wsGanados/views.html#IntentionReproduccion.sendNotificationService"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#webServices.wsGanados.views.IntentionReproduccion.sendNotificationService" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="webServices.wsGanados.views.IntentionReproduccion.sendNotificationVerification">
+<tt class="descname">sendNotificationVerification</tt><big>(</big><em>desire_verification</em><big>)</big><a class="reference internal" href="_modules/webServices/wsGanados/views.html#IntentionReproduccion.sendNotificationVerification"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#webServices.wsGanados.views.IntentionReproduccion.sendNotificationVerification" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="webServices.wsGanados.views.IntentionSanidad">
+<em class="property">class </em><tt class="descclassname">webServices.wsGanados.views.</tt><tt class="descname">IntentionSanidad</tt><a class="reference internal" href="_modules/webServices/wsGanados/views.html#IntentionSanidad"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#webServices.wsGanados.views.IntentionSanidad" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="method">
+<dt id="webServices.wsGanados.views.IntentionSanidad.assignNotification">
+<tt class="descname">assignNotification</tt><big>(</big><em>d</em>, <em>datee</em>, <em>name</em><big>)</big><a class="reference internal" href="_modules/webServices/wsGanados/views.html#IntentionSanidad.assignNotification"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#webServices.wsGanados.views.IntentionSanidad.assignNotification" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="webServices.wsGanados.views.IntentionSanidad.sendNotificationAmountVaccine">
+<tt class="descname">sendNotificationAmountVaccine</tt><big>(</big><em>desire_amount_vaccine</em><big>)</big><a class="reference internal" href="_modules/webServices/wsGanados/views.html#IntentionSanidad.sendNotificationAmountVaccine"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#webServices.wsGanados.views.IntentionSanidad.sendNotificationAmountVaccine" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="webServices.wsGanados.views.IntentionSanidad.sendNotificationAmountWormer">
+<tt class="descname">sendNotificationAmountWormer</tt><big>(</big><em>desire_amount_wormer</em><big>)</big><a class="reference internal" href="_modules/webServices/wsGanados/views.html#IntentionSanidad.sendNotificationAmountWormer"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#webServices.wsGanados.views.IntentionSanidad.sendNotificationAmountWormer" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="webServices.wsGanados.views.IntentionSanidad.sendNotificationExpirationVaccine">
+<tt class="descname">sendNotificationExpirationVaccine</tt><big>(</big><em>desire_expiration_vaccine</em><big>)</big><a class="reference internal" href="_modules/webServices/wsGanados/views.html#IntentionSanidad.sendNotificationExpirationVaccine"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#webServices.wsGanados.views.IntentionSanidad.sendNotificationExpirationVaccine" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="webServices.wsGanados.views.IntentionSanidad.sendNotificationExpirationWormer">
+<tt class="descname">sendNotificationExpirationWormer</tt><big>(</big><em>desire_expiration_wormer</em><big>)</big><a class="reference internal" href="_modules/webServices/wsGanados/views.html#IntentionSanidad.sendNotificationExpirationWormer"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#webServices.wsGanados.views.IntentionSanidad.sendNotificationExpirationWormer" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="webServices.wsGanados.views.ajaxAssignCattleFoodFinal">
+<tt class="descclassname">webServices.wsGanados.views.</tt><tt class="descname">ajaxAssignCattleFoodFinal</tt><big>(</big><em>request</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/webServices/wsGanados/views.html#ajaxAssignCattleFoodFinal"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#webServices.wsGanados.views.ajaxAssignCattleFoodFinal" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="webServices.wsGanados.views.ajaxAssignCattleFood_view">
+<tt class="descclassname">webServices.wsGanados.views.</tt><tt class="descname">ajaxAssignCattleFood_view</tt><big>(</big><em>request</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/webServices/wsGanados/views.html#ajaxAssignCattleFood_view"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#webServices.wsGanados.views.ajaxAssignCattleFood_view" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="webServices.wsGanados.views.ajaxAssignCattleVaccineFinal">
+<tt class="descclassname">webServices.wsGanados.views.</tt><tt class="descname">ajaxAssignCattleVaccineFinal</tt><big>(</big><em>request</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/webServices/wsGanados/views.html#ajaxAssignCattleVaccineFinal"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#webServices.wsGanados.views.ajaxAssignCattleVaccineFinal" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="webServices.wsGanados.views.ajaxAssignCattleVaccine_view">
+<tt class="descclassname">webServices.wsGanados.views.</tt><tt class="descname">ajaxAssignCattleVaccine_view</tt><big>(</big><em>request</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/webServices/wsGanados/views.html#ajaxAssignCattleVaccine_view"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#webServices.wsGanados.views.ajaxAssignCattleVaccine_view" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="webServices.wsGanados.views.ajaxAssignCattleWormerFinal">
+<tt class="descclassname">webServices.wsGanados.views.</tt><tt class="descname">ajaxAssignCattleWormerFinal</tt><big>(</big><em>request</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/webServices/wsGanados/views.html#ajaxAssignCattleWormerFinal"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#webServices.wsGanados.views.ajaxAssignCattleWormerFinal" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="webServices.wsGanados.views.ajaxAssignCattleWormer_view">
+<tt class="descclassname">webServices.wsGanados.views.</tt><tt class="descname">ajaxAssignCattleWormer_view</tt><big>(</big><em>request</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/webServices/wsGanados/views.html#ajaxAssignCattleWormer_view"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#webServices.wsGanados.views.ajaxAssignCattleWormer_view" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="webServices.wsGanados.views.ajaxCattleMaleRp_view">
+<tt class="descclassname">webServices.wsGanados.views.</tt><tt class="descname">ajaxCattleMaleRp_view</tt><big>(</big><em>request</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/webServices/wsGanados/views.html#ajaxCattleMaleRp_view"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#webServices.wsGanados.views.ajaxCattleMaleRp_view" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="webServices.wsGanados.views.ajaxCattleMale_view">
+<tt class="descclassname">webServices.wsGanados.views.</tt><tt class="descname">ajaxCattleMale_view</tt><big>(</big><em>request</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/webServices/wsGanados/views.html#ajaxCattleMale_view"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#webServices.wsGanados.views.ajaxCattleMale_view" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="webServices.wsGanados.views.ajaxFood_view">
+<tt class="descclassname">webServices.wsGanados.views.</tt><tt class="descname">ajaxFood_view</tt><big>(</big><em>request</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/webServices/wsGanados/views.html#ajaxFood_view"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#webServices.wsGanados.views.ajaxFood_view" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="webServices.wsGanados.views.ajaxGanadosMachosInseminacion_view">
+<tt class="descclassname">webServices.wsGanados.views.</tt><tt class="descname">ajaxGanadosMachosInseminacion_view</tt><big>(</big><em>request</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/webServices/wsGanados/views.html#ajaxGanadosMachosInseminacion_view"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#webServices.wsGanados.views.ajaxGanadosMachosInseminacion_view" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="webServices.wsGanados.views.ajaxInsemination_view">
+<tt class="descclassname">webServices.wsGanados.views.</tt><tt class="descname">ajaxInsemination_view</tt><big>(</big><em>request</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/webServices/wsGanados/views.html#ajaxInsemination_view"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#webServices.wsGanados.views.ajaxInsemination_view" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="webServices.wsGanados.views.ajaxRefresh">
+<tt class="descclassname">webServices.wsGanados.views.</tt><tt class="descname">ajaxRefresh</tt><big>(</big><em>request</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/webServices/wsGanados/views.html#ajaxRefresh"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#webServices.wsGanados.views.ajaxRefresh" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="webServices.wsGanados.views.ajaxVaccine_view">
+<tt class="descclassname">webServices.wsGanados.views.</tt><tt class="descname">ajaxVaccine_view</tt><big>(</big><em>request</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/webServices/wsGanados/views.html#ajaxVaccine_view"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#webServices.wsGanados.views.ajaxVaccine_view" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="webServices.wsGanados.views.wsGanadosHembras_view">
+<tt class="descclassname">webServices.wsGanados.views.</tt><tt class="descname">wsGanadosHembras_view</tt><big>(</big><em>request</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/webServices/wsGanados/views.html#wsGanadosHembras_view"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#webServices.wsGanados.views.wsGanadosHembras_view" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="webServices.wsGanados.views.wsGanadosProduccion_view">
+<tt class="descclassname">webServices.wsGanados.views.</tt><tt class="descname">wsGanadosProduccion_view</tt><big>(</big><em>request</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/webServices/wsGanados/views.html#wsGanadosProduccion_view"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#webServices.wsGanados.views.wsGanadosProduccion_view" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="webServices.wsGanados.views.wsGanados_view">
+<tt class="descclassname">webServices.wsGanados.views.</tt><tt class="descname">wsGanados_view</tt><big>(</big><em>request</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/webServices/wsGanados/views.html#wsGanados_view"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#webServices.wsGanados.views.wsGanados_view" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="webServices.wsGanados.views.wsWormer_view">
+<tt class="descclassname">webServices.wsGanados.views.</tt><tt class="descname">wsWormer_view</tt><big>(</big><em>request</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/webServices/wsGanados/views.html#wsWormer_view"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#webServices.wsGanados.views.wsWormer_view" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-webServices.wsGanados">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-webServices.wsGanados" title="Enlazar permanentemente con este título">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="webServices.html" class="btn btn-neutral" title="Módulo Asíncrono"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, @mricharleon.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

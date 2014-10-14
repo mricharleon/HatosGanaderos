@@ -1,0 +1,137 @@
+{% extends 'userena/base_userena.html' %}
+{% load i18n %}
+{% load url from future %}
+
+{% block title %}Listado de esperma{% endblock %}
+
+{% block js %}
+<script type='text/javascript'>
+  $(document).ready(function() {
+    carga_datos();
+    function carga_datos(){
+      var antes;
+      var busqueda = $("#busqueda").val();
+        $.ajax({
+          data: {'search': busqueda},
+          type:'GET',
+          contentType: 'application/json; charset=utf-8',
+          dateType:'json',
+          url:'/ajax/insemination/',
+          beforeSend: function(objeto){
+            antes = (new Date()).getTime(); 
+            $('.message_results').html('Buscando "'+busqueda+'"');
+          },
+          
+          success:function(response){
+            var despues = (new Date()).getTime();
+            tiempo = (despues - antes) / 1000;
+            $('.account_list2').empty();
+            if(response!=''){
+              for (var i = 0; i < response.length; i++) {
+                
+                var name = response[i].fields.name.charAt(0).toUpperCase() + response[i].fields.name.slice(1); 
+
+                var breed;
+                if (response[i].fields.breed == 0)
+                  breed = 'Angus';
+                else if (response[i].fields.breed == 1)
+                  breed = 'Ankole';
+                else if (response[i].fields.breed == 2)
+                  breed = 'Asturiana de los Valles';
+                else if (response[i].fields.breed == 3)
+                  breed = 'Avilenia';
+                else if (response[i].fields.breed == 4)
+                  breed = 'Blonde D Aquitaine';
+                else if (response[i].fields.breed == 5)
+                  breed = 'Braford';
+                else if (response[i].fields.breed == 6)
+                  breed = 'Brahman';
+                else if (response[i].fields.breed == 7)
+                  breed = 'Braunvieh';
+                else if (response[i].fields.breed == 8)
+                  breed = 'Brava';
+                else if (response[i].fields.breed == 9)
+                  breed = 'Cachena';
+                else if (response[i].fields.breed == 10)
+                  breed = 'Charolais';
+                else if (response[i].fields.breed == 11)
+                  breed = 'Chianina';
+                else if (response[i].fields.breed == 12)
+                  breed = 'Sin Definir';
+                
+    
+                /*creando urls*/
+                var link_edit_insemination = '{% url 'edit_insemination' 'NEWVALUESTUB' %}';
+                link_edit_insemination = link_edit_insemination.replace('NEWVALUESTUB', response[i].pk);
+                
+                var menu = "<a href='"+link_edit_insemination+"'>"+
+                          "<li>Actualizar</li></a>"
+
+                $('.account_list2').append(
+                    "<div class=cinta>"+
+                      "<div class=context_menu>"+
+                        "<ul>"+menu+"</ul>"+
+                      "</div>"+
+                    "<a>"+ 
+                      "<div>"+
+                              "<h4 class=texto_propiedades1>" + name+ "</h4>" +
+                              "<hr>"+
+                              "<h4 class=texto_propiedades4>" + breed + "</h4>" +
+                              "<h4 class=texto_propiedades2>" + response[i].fields.amount_pajuelas + " Pajuelas</h4>" +
+                              "<h4 class=texto_propiedades3>" + response[i].fields.registration_date + "</h4>" +
+                        "</div>"+
+                    "</a>"+
+                    "<p>"+
+                      "<span>"+response[i].fields.rp+"</span>"+
+                    "</p>"+
+                  "</div>"
+                ); 
+
+                if(response.length == 1){
+                  $('.message_results').html(response.length + ' resultado encontrado. (');
+                  $('.message_results').append(tiempo + ' segundos)');
+                }else{
+                  $('.message_results').html(response.length + ' resultados encontrados. (');
+                  $('.message_results').append(tiempo + ' segundos)');
+                }
+              }
+            }else{
+              $('.message_results').html('No se encuentra "'+busqueda+'"');
+            }
+          },
+
+          error: function(objeto, error){
+            $('.message_results').html('<strong>¡Se produjo un error!</strong> &nbsp; Verifica tu conexión a internet ó Contacta al administrador.');
+          },
+
+        });
+    }
+
+    $( "#busqueda" ).on('keyup', function(tecla) {
+      carga_datos();
+    });
+});
+
+</script>
+{% endblock %}
+
+{% block presentation %}
+<div class="presentacion_principal">
+    <h3>Lista de Esperma</h3>
+    <h4>Listado de esperma registrada en la ganadería.</h4>
+    <input type="text" class="busqueda" id="busqueda"  placeholder="RP, nombre o fecha de registro" >
+    <div class="message_results">
+      
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+
+<div class="account_list2">
+
+<div class="content">
+
+
+
+{% endblock %}

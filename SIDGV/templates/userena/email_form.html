@@ -36,6 +36,7 @@
           {% endif %}
     {% csrf_token %}
     <section class="container">
+    {{form.email.label_tag}}
         <div class="user">
           <img src="{{STATIC_URL}}img/help.png"/>
           <ul>

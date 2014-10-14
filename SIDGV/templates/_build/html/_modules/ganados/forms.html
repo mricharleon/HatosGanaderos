@@ -1,0 +1,280 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>ganados.forms &mdash; HatosGanaderos 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="HatosGanaderos 1.0 documentation" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">HatosGanaderos 1.0 documentation</a> &raquo;</li>
+          <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for ganados.forms</h1><div class="highlight"><pre>
+<span class="c"># -*- coding: utf-8 -*-</span>
+<span class="kn">from</span> <span class="nn">django</span> <span class="kn">import</span> <span class="n">forms</span>
+<span class="kn">from</span> <span class="nn">django.utils.translation</span> <span class="kn">import</span> <span class="n">ugettext_lazy</span> <span class="k">as</span> <span class="n">_</span>
+<span class="kn">from</span> <span class="nn">ganados.models</span> <span class="kn">import</span> <span class="n">Identificacion_Simple</span><span class="p">,</span> <span class="n">Identificacion_Ecuador</span><span class="p">,</span> <span class="n">Ganado</span><span class="p">,</span> <span class="n">Etapa</span><span class="p">,</span> <span class="n">Celo</span><span class="p">,</span> <span class="n">Ordenio</span><span class="p">,</span> <span class="n">Verification</span><span class="p">,</span> <span class="n">Attempt</span><span class="p">,</span> <span class="n">Gestacion</span><span class="p">,</span> <span class="n">ProblemaGestacion</span><span class="p">,</span> <span class="n">Insemination</span>
+
+<span class="kn">from</span> <span class="nn">userena.forms</span> <span class="kn">import</span> <span class="n">SignupForm</span>
+
+<div class="viewcode-block" id="inseminationForm"><a class="viewcode-back" href="../../ganados.html#ganados.forms.inseminationForm">[docs]</a><span class="k">class</span> <span class="nc">inseminationForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">ModelForm</span><span class="p">):</span>
+<div class="viewcode-block" id="inseminationForm.Meta"><a class="viewcode-back" href="../../ganados.html#ganados.forms.inseminationForm.Meta">[docs]</a>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">Insemination</span>
+        <span class="n">exclude</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;down_insemination&#39;</span><span class="p">,</span> <span class="s">&#39;farm&#39;</span><span class="p">,</span> <span class="s">&#39;rp&#39;</span><span class="p">]</span>
+        <span class="n">widgets</span> <span class="o">=</span> <span class="p">{</span>
+                  <span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;placeholder&#39;</span><span class="p">:</span> <span class="s">&#39;Nombre&#39;</span><span class="p">}),</span>
+                  <span class="s">&#39;registration_date&#39;</span><span class="p">:</span> <span class="n">forms</span><span class="o">.</span><span class="n">DateInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;class&#39;</span><span class="p">:</span> <span class="s">&#39;datetimepicker2&#39;</span><span class="p">,</span> <span class="s">&#39;placeholder&#39;</span><span class="p">:</span> <span class="s">&#39;Fecha de registro&#39;</span><span class="p">}),</span>
+                  <span class="s">&#39;amount_pajuelas&#39;</span><span class="p">:</span> <span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;placeholder&#39;</span><span class="p">:</span> <span class="s">&#39;Número de pajuelas&#39;</span><span class="p">}),</span>
+                  <span class="s">&#39;observations&#39;</span><span class="p">:</span> <span class="n">forms</span><span class="o">.</span><span class="n">Textarea</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;placeholder&#39;</span><span class="p">:</span> <span class="s">&#39;Observaciones&#39;</span><span class="p">})</span>
+        <span class="p">}</span>
+</div></div>
+<div class="viewcode-block" id="tipoSimpleForm"><a class="viewcode-back" href="../../ganados.html#ganados.forms.tipoSimpleForm">[docs]</a><span class="k">class</span> <span class="nc">tipoSimpleForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">ModelForm</span><span class="p">):</span>
+<div class="viewcode-block" id="tipoSimpleForm.Meta"><a class="viewcode-back" href="../../ganados.html#ganados.forms.tipoSimpleForm.Meta">[docs]</a>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">Identificacion_Simple</span>
+        <span class="n">exclude</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;rp&#39;</span><span class="p">,]</span>
+        <span class="n">widgets</span> <span class="o">=</span> <span class="p">{</span>
+                  <span class="s">&#39;nombre&#39;</span><span class="p">:</span><span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;placeholder&#39;</span><span class="p">:</span> <span class="s">&#39;Nombre&#39;</span><span class="p">}),</span>
+                  <span class="s">&#39;rp_madre&#39;</span><span class="p">:</span><span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{</span>
+                                  <span class="s">&#39;placeholder&#39;</span><span class="p">:</span> <span class="s">&#39;RP de la madre&#39;</span><span class="p">,</span>
+                                  <span class="s">&#39;data-reveal-id&#39;</span><span class="p">:</span> <span class="s">&#39;myModal&#39;</span><span class="p">}),</span>
+                  <span class="s">&#39;rp_padre&#39;</span><span class="p">:</span><span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{</span>
+                                  <span class="s">&#39;placeholder&#39;</span><span class="p">:</span> <span class="s">&#39;RP del padre&#39;</span><span class="p">,</span>
+                                  <span class="s">&#39;data-reveal-id&#39;</span><span class="p">:</span> <span class="s">&#39;myModal2&#39;</span><span class="p">}),</span>
+        <span class="p">}</span>
+</div></div>
+<div class="viewcode-block" id="tipoNormaEcuadorForm"><a class="viewcode-back" href="../../ganados.html#ganados.forms.tipoNormaEcuadorForm">[docs]</a><span class="k">class</span> <span class="nc">tipoNormaEcuadorForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">ModelForm</span><span class="p">):</span>
+<div class="viewcode-block" id="tipoNormaEcuadorForm.Meta"><a class="viewcode-back" href="../../ganados.html#ganados.forms.tipoNormaEcuadorForm.Meta">[docs]</a>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">Identificacion_Ecuador</span>
+        <span class="n">exclude</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;rp&#39;</span><span class="p">,]</span>
+        <span class="n">widgets</span> <span class="o">=</span> <span class="p">{</span>
+                   <span class="s">&#39;siglas_pais&#39;</span><span class="p">:</span> <span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;placeholder&#39;</span><span class="p">:</span> <span class="s">&#39;Siglas del País&#39;</span><span class="p">}),</span>
+                   <span class="s">&#39;codigo_pais&#39;</span><span class="p">:</span> <span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;placeholder&#39;</span><span class="p">:</span> <span class="s">&#39;Código del País&#39;</span><span class="p">}),</span>
+                   <span class="s">&#39;codigo_provincia&#39;</span><span class="p">:</span> <span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;placeholder&#39;</span><span class="p">:</span> <span class="s">&#39;Código de Provincia&#39;</span><span class="p">}),</span>
+                   <span class="s">&#39;numero_serie&#39;</span><span class="p">:</span> <span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;placeholder&#39;</span><span class="p">:</span> <span class="s">&#39;Número de Serie&#39;</span><span class="p">}),</span>
+                   <span class="s">&#39;codigo_barras&#39;</span><span class="p">:</span> <span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;placeholder&#39;</span><span class="p">:</span> <span class="s">&#39;Código de Barras&#39;</span><span class="p">}),</span>
+                   <span class="s">&#39;nombre&#39;</span><span class="p">:</span><span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;placeholder&#39;</span><span class="p">:</span> <span class="s">&#39;Nombre&#39;</span><span class="p">}),</span>
+                   <span class="s">&#39;rp_madre&#39;</span><span class="p">:</span><span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{</span>
+                                  <span class="s">&#39;placeholder&#39;</span><span class="p">:</span> <span class="s">&#39;RP de la madre&#39;</span><span class="p">,</span>
+                                  <span class="s">&#39;data-reveal-id&#39;</span><span class="p">:</span> <span class="s">&#39;myModal&#39;</span><span class="p">}),</span>
+                   <span class="s">&#39;rp_padre&#39;</span><span class="p">:</span><span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{</span>
+                                  <span class="s">&#39;placeholder&#39;</span><span class="p">:</span> <span class="s">&#39;RP del padre&#39;</span><span class="p">,</span>
+                                  <span class="s">&#39;data-reveal-id&#39;</span><span class="p">:</span> <span class="s">&#39;myModal2&#39;</span><span class="p">}),</span>
+        <span class="p">}</span>
+</div></div>
+<div class="viewcode-block" id="ordenioForm"><a class="viewcode-back" href="../../ganados.html#ganados.forms.ordenioForm">[docs]</a><span class="k">class</span> <span class="nc">ordenioForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">ModelForm</span><span class="p">):</span>
+<div class="viewcode-block" id="ordenioForm.Meta"><a class="viewcode-back" href="../../ganados.html#ganados.forms.ordenioForm.Meta">[docs]</a>  <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">Ordenio</span>
+    <span class="n">exclude</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;total&#39;</span><span class="p">,</span>
+               <span class="s">&#39;numero_ordenio&#39;</span><span class="p">,</span>
+               <span class="s">&#39;ganado&#39;</span><span class="p">,</span>
+               <span class="s">&#39;fecha&#39;</span><span class="p">]</span>
+    <span class="n">widgets</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s">&#39;cantidad&#39;</span><span class="p">:</span> <span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{</span>
+                            <span class="s">&#39;placeholder&#39;</span><span class="p">:</span> <span class="s">&#39;Número de litros de leche&#39;</span>
+                  <span class="p">}),</span>
+                <span class="s">&#39;observaciones&#39;</span><span class="p">:</span> <span class="n">forms</span><span class="o">.</span><span class="n">Textarea</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{</span>
+                            <span class="s">&#39;placeholder&#39;</span><span class="p">:</span> <span class="s">&#39;Observaciones&#39;</span>
+                  <span class="p">})</span>
+    <span class="p">}</span>
+</div></div>
+<div class="viewcode-block" id="etapaForm"><a class="viewcode-back" href="../../ganados.html#ganados.forms.etapaForm">[docs]</a><span class="k">class</span> <span class="nc">etapaForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">ModelForm</span><span class="p">):</span>
+<div class="viewcode-block" id="etapaForm.Meta"><a class="viewcode-back" href="../../ganados.html#ganados.forms.etapaForm.Meta">[docs]</a>  <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">Etapa</span>
+    <span class="n">exclude</span> <span class="o">=</span><span class="p">[</span><span class="s">&#39;is_active&#39;</span><span class="p">]</span>
+</div></div>
+<div class="viewcode-block" id="ganadoForm"><a class="viewcode-back" href="../../ganados.html#ganados.forms.ganadoForm">[docs]</a><span class="k">class</span> <span class="nc">ganadoForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">ModelForm</span><span class="p">):</span>
+<div class="viewcode-block" id="ganadoForm.Meta"><a class="viewcode-back" href="../../ganados.html#ganados.forms.ganadoForm.Meta">[docs]</a>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">Ganado</span>
+        <span class="n">exclude</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;ganaderia&#39;</span><span class="p">,</span> 
+                   <span class="s">&#39;identificacion_simple&#39;</span><span class="p">,</span> 
+                   <span class="s">&#39;identificacion_ecuador&#39;</span><span class="p">,</span>
+                   <span class="s">&#39;edad&#39;</span><span class="p">,</span>
+                   <span class="s">&#39;etapa&#39;</span><span class="p">,</span>
+                   <span class="s">&#39;verificacion&#39;</span><span class="p">,</span>
+                   <span class="s">&#39;celo&#39;</span><span class="p">,</span>
+                   <span class="s">&#39;ciclo&#39;</span><span class="p">,</span>
+                   <span class="s">&#39;gestacion&#39;</span><span class="p">,</span>
+                   <span class="s">&#39;ordenio&#39;</span><span class="p">,</span>
+                   <span class="s">&#39;edad_anios&#39;</span><span class="p">,</span>
+                   <span class="s">&#39;edad_meses&#39;</span><span class="p">,</span>
+                   <span class="s">&#39;edad_dias&#39;</span><span class="p">,</span>
+                   <span class="p">]</span>
+        <span class="n">widgets</span> <span class="o">=</span><span class="p">{</span>
+                    <span class="s">&#39;nacimiento&#39;</span><span class="p">:</span> <span class="n">forms</span><span class="o">.</span><span class="n">DateInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{</span>
+                                    <span class="s">&#39;class&#39;</span><span class="p">:</span> <span class="s">&#39;datetimepicker2&#39;</span><span class="p">,</span>
+                                    <span class="s">&#39;placeholder&#39;</span><span class="p">:</span> <span class="s">&#39;Fecha de nacimiento&#39;</span>
+                      <span class="p">}),</span>
+                    <span class="s">&#39;observaciones&#39;</span><span class="p">:</span> <span class="n">forms</span><span class="o">.</span><span class="n">Textarea</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{</span>
+                                    <span class="s">&#39;placeholder&#39;</span><span class="p">:</span> <span class="s">&#39;Observaciones&#39;</span>
+                      <span class="p">}),</span>
+                    <span class="s">&#39;imagen&#39;</span><span class="p">:</span> <span class="n">forms</span><span class="o">.</span><span class="n">FileInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{}),</span>
+                    <span class="s">&#39;live_weight&#39;</span><span class="p">:</span> <span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{</span>
+                                    <span class="s">&#39;placeholder&#39;</span><span class="p">:</span> <span class="s">&#39;¿Cuál es el peso vivo?&#39;</span>
+                    <span class="p">}),</span>
+        <span class="p">}</span>      
+</div></div>
+<div class="viewcode-block" id="editaGanadoCeloForm"><a class="viewcode-back" href="../../ganados.html#ganados.forms.editaGanadoCeloForm">[docs]</a><span class="k">class</span> <span class="nc">editaGanadoCeloForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">ModelForm</span><span class="p">):</span>
+<div class="viewcode-block" id="editaGanadoCeloForm.Meta"><a class="viewcode-back" href="../../ganados.html#ganados.forms.editaGanadoCeloForm.Meta">[docs]</a>  <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">Celo</span>
+    <span class="n">exclude</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;ganado&#39;</span><span class="p">,</span>
+               <span class="s">&#39;is_active&#39;</span><span class="p">,</span>
+               <span class="s">&#39;fecha_fin&#39;</span><span class="p">,</span>
+               <span class="s">&#39;estado&#39;</span><span class="p">]</span>
+    <span class="n">widgets</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s">&#39;fecha_inicio&#39;</span><span class="p">:</span> <span class="n">forms</span><span class="o">.</span><span class="n">DateInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{</span>
+                                  <span class="s">&#39;class&#39;</span><span class="p">:</span> <span class="s">&#39;datetimepicker&#39;</span><span class="p">,</span>
+                                  <span class="s">&#39;placeholder&#39;</span><span class="p">:</span> <span class="s">u&#39;¿Cuándo inicio el celo?&#39;</span>
+                  <span class="p">}),</span>
+                <span class="s">&#39;observaciones&#39;</span><span class="p">:</span> <span class="n">forms</span><span class="o">.</span><span class="n">Textarea</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{</span>
+                                  <span class="s">&#39;placeholder&#39;</span><span class="p">:</span> <span class="s">&#39;Observaciones&#39;</span>
+                  <span class="p">})</span>
+    <span class="p">}</span>
+</div></div>
+<div class="viewcode-block" id="attemptForm"><a class="viewcode-back" href="../../ganados.html#ganados.forms.attemptForm">[docs]</a><span class="k">class</span> <span class="nc">attemptForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">ModelForm</span><span class="p">):</span>
+<div class="viewcode-block" id="attemptForm.Meta"><a class="viewcode-back" href="../../ganados.html#ganados.forms.attemptForm.Meta">[docs]</a>  <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">Attempt</span>
+    <span class="n">exclude</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;attempt&#39;</span><span class="p">,</span> <span class="s">&#39;attempt_date&#39;</span><span class="p">,</span> <span class="s">&#39;state&#39;</span><span class="p">,</span> <span class="s">&#39;verification&#39;</span><span class="p">]</span>
+    <span class="n">widgets</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s">&#39;rp_father&#39;</span><span class="p">:</span> <span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{</span>
+                                  <span class="s">&#39;placeholder&#39;</span><span class="p">:</span> <span class="s">&#39;RP del padre&#39;</span><span class="p">,</span>
+                                  <span class="s">&#39;data-reveal-id&#39;</span><span class="p">:</span> <span class="s">&#39;myModal2&#39;</span>
+                  <span class="p">}),</span>
+                <span class="s">&#39;observations&#39;</span><span class="p">:</span> <span class="n">forms</span><span class="o">.</span><span class="n">Textarea</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{</span>
+                                  <span class="s">&#39;placeholder&#39;</span><span class="p">:</span> <span class="s">&#39;Observaciones&#39;</span>
+                  <span class="p">})</span>
+    <span class="p">}</span>
+</div></div>
+<div class="viewcode-block" id="verificationForm"><a class="viewcode-back" href="../../ganados.html#ganados.forms.verificationForm">[docs]</a><span class="k">class</span> <span class="nc">verificationForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">ModelForm</span><span class="p">):</span>
+<div class="viewcode-block" id="verificationForm.Meta"><a class="viewcode-back" href="../../ganados.html#ganados.forms.verificationForm.Meta">[docs]</a>  <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">Verification</span>
+
+</div></div>
+<div class="viewcode-block" id="attemptServiceForm"><a class="viewcode-back" href="../../ganados.html#ganados.forms.attemptServiceForm">[docs]</a><span class="k">class</span> <span class="nc">attemptServiceForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">ModelForm</span><span class="p">):</span>
+<div class="viewcode-block" id="attemptServiceForm.Meta"><a class="viewcode-back" href="../../ganados.html#ganados.forms.attemptServiceForm.Meta">[docs]</a>  <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">Attempt</span>
+    <span class="n">exclude</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;verification&#39;</span><span class="p">]</span>
+</div></div>
+<div class="viewcode-block" id="verifyAttemptForm"><a class="viewcode-back" href="../../ganados.html#ganados.forms.verifyAttemptForm">[docs]</a><span class="k">class</span> <span class="nc">verifyAttemptForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">ModelForm</span><span class="p">):</span>
+<div class="viewcode-block" id="verifyAttemptForm.Meta"><a class="viewcode-back" href="../../ganados.html#ganados.forms.verifyAttemptForm.Meta">[docs]</a>  <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">Attempt</span>
+    <span class="n">exclude</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;attempt&#39;</span><span class="p">,</span> <span class="s">&#39;attempt_date&#39;</span><span class="p">,</span> <span class="s">&#39;verification&#39;</span><span class="p">]</span>
+    <span class="n">widgets</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s">&#39;rp_father&#39;</span><span class="p">:</span> <span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{</span>
+                                  <span class="s">&#39;placeholder&#39;</span><span class="p">:</span> <span class="s">&#39;RP del padre&#39;</span><span class="p">,</span>
+                                  <span class="s">&#39;data-reveal-id&#39;</span><span class="p">:</span> <span class="s">&#39;myModal2&#39;</span>
+                  <span class="p">}),</span>
+                <span class="s">&#39;observations&#39;</span><span class="p">:</span> <span class="n">forms</span><span class="o">.</span><span class="n">Textarea</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{</span>
+                                  <span class="s">&#39;placeholder&#39;</span><span class="p">:</span> <span class="s">&#39;Observaciones&#39;</span>
+                  <span class="p">})</span>
+    <span class="p">}</span>
+</div></div>
+<div class="viewcode-block" id="gestacionForm"><a class="viewcode-back" href="../../ganados.html#ganados.forms.gestacionForm">[docs]</a><span class="k">class</span> <span class="nc">gestacionForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">ModelForm</span><span class="p">):</span>
+<div class="viewcode-block" id="gestacionForm.Meta"><a class="viewcode-back" href="../../ganados.html#ganados.forms.gestacionForm.Meta">[docs]</a>  <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">Gestacion</span>
+    <span class="n">exclude</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;problema&#39;</span><span class="p">,</span> <span class="s">&#39;is_active&#39;</span><span class="p">,</span> <span class="s">&#39;ganado&#39;</span><span class="p">]</span>
+    <span class="n">widgets</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s">&#39;fecha_servicio&#39;</span><span class="p">:</span> <span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{</span>
+                                  <span class="s">&#39;placeholder&#39;</span><span class="p">:</span> <span class="s">&#39;Fecha del Servicio&#39;</span><span class="p">,</span>
+                                  <span class="s">&#39;class&#39;</span><span class="p">:</span> <span class="s">&#39;datetimepicker2&#39;</span>
+                  <span class="p">}),</span>
+                <span class="s">&#39;fecha_parto&#39;</span><span class="p">:</span> <span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{</span>
+                                  <span class="s">&#39;placeholder&#39;</span><span class="p">:</span> <span class="s">&#39;Fecha Posible del Parto&#39;</span><span class="p">,</span>
+                                  <span class="s">&#39;class&#39;</span><span class="p">:</span> <span class="s">&#39;datetimepicker2&#39;</span>
+                  <span class="p">}),</span>
+                <span class="s">&#39;observaciones&#39;</span><span class="p">:</span> <span class="n">forms</span><span class="o">.</span><span class="n">Textarea</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{</span>
+                                  <span class="s">&#39;placeholder&#39;</span><span class="p">:</span> <span class="s">&#39;Observaciones&#39;</span>
+                  <span class="p">})</span>
+    <span class="p">}</span>
+</div></div>
+<div class="viewcode-block" id="problemGestacionForm"><a class="viewcode-back" href="../../ganados.html#ganados.forms.problemGestacionForm">[docs]</a><span class="k">class</span> <span class="nc">problemGestacionForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">ModelForm</span><span class="p">):</span>
+<div class="viewcode-block" id="problemGestacionForm.Meta"><a class="viewcode-back" href="../../ganados.html#ganados.forms.problemGestacionForm.Meta">[docs]</a>  <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span> 
+    <span class="n">model</span> <span class="o">=</span> <span class="n">ProblemaGestacion</span>
+    <span class="n">widgets</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s">&#39;fecha_problema&#39;</span><span class="p">:</span> <span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{</span>
+                                  <span class="s">&#39;placeholder&#39;</span><span class="p">:</span> <span class="s">&#39;Fecha del Problema&#39;</span><span class="p">,</span>
+                                  <span class="s">&#39;class&#39;</span><span class="p">:</span> <span class="s">&#39;datetimepicker2&#39;</span>
+                  <span class="p">}),</span>
+                <span class="s">&#39;observaciones&#39;</span><span class="p">:</span> <span class="n">forms</span><span class="o">.</span><span class="n">Textarea</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{</span>
+                                  <span class="s">&#39;placeholder&#39;</span><span class="p">:</span> <span class="s">&#39;Observaciones&#39;</span>
+                  <span class="p">})</span>
+    <span class="p">}</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">HatosGanaderos 1.0 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, @mricharleon.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

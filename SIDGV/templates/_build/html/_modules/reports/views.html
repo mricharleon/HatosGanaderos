@@ -1,0 +1,201 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>reports.views &mdash; HatosGanaderos 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="HatosGanaderos 1.0 documentation" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">HatosGanaderos 1.0 documentation</a> &raquo;</li>
+          <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for reports.views</h1><div class="highlight"><pre>
+<span class="c"># -*- coding: utf-8 -*-</span>
+<span class="kn">from</span> <span class="nn">django.contrib.auth.decorators</span> <span class="kn">import</span> <span class="n">login_required</span>
+<span class="kn">from</span> <span class="nn">django.core.urlresolvers</span> <span class="kn">import</span> <span class="n">reverse</span>
+<span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">redirect</span>
+<span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">render_to_response</span>
+<span class="kn">from</span> <span class="nn">django.template</span> <span class="kn">import</span> <span class="n">RequestContext</span>
+<span class="kn">from</span> <span class="nn">django.contrib.auth.models</span> <span class="kn">import</span> <span class="n">User</span>
+<span class="kn">from</span> <span class="nn">django.core.exceptions</span> <span class="kn">import</span> <span class="n">ObjectDoesNotExist</span>
+<span class="kn">from</span> <span class="nn">django.db.models</span> <span class="kn">import</span> <span class="n">Q</span>
+
+
+<span class="kn">from</span> <span class="nn">ganados.models</span> <span class="kn">import</span> <span class="n">Ganaderia</span><span class="p">,</span> <span class="n">Ganado</span><span class="p">,</span> <span class="n">Gestacion</span><span class="p">,</span> <span class="n">ProblemaGestacion</span><span class="p">,</span> <span class="n">Ordenio</span>
+<span class="kn">from</span> <span class="nn">profiles.models</span> <span class="kn">import</span> <span class="n">Configuracion</span>
+<span class="kn">from</span> <span class="nn">alimentos.models</span> <span class="kn">import</span> <span class="n">ApplicationFood</span>
+<span class="kn">from</span> <span class="nn">medicament.models</span> <span class="kn">import</span> <span class="n">ApplicationMedicament</span><span class="p">,</span> <span class="n">Medicament</span>
+
+<div class="viewcode-block" id="list_reports"><a class="viewcode-back" href="../../reports.html#reports.views.list_reports">[docs]</a><span class="k">def</span> <span class="nf">list_reports</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+	<span class="k">return</span> <span class="n">render_to_response</span><span class="p">(</span><span class="s">&#39;list_reports.html&#39;</span><span class="p">,</span>
+		<span class="n">context_instance</span><span class="o">=</span><span class="n">RequestContext</span><span class="p">(</span><span class="n">request</span><span class="p">))</span>
+</div>
+<div class="viewcode-block" id="view_report_female"><a class="viewcode-back" href="../../reports.html#reports.views.view_report_female">[docs]</a><span class="k">def</span> <span class="nf">view_report_female</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">id_cattle</span><span class="p">):</span>
+	<span class="n">user</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span>
+	<span class="n">farm</span> <span class="o">=</span> <span class="n">Ganaderia</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">perfil</span><span class="o">=</span><span class="n">user</span><span class="p">)</span>
+	<span class="n">configuration</span> <span class="o">=</span> <span class="n">Configuracion</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">farm</span><span class="o">.</span><span class="n">configuracion</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+
+	<span class="n">cattle</span> <span class="o">=</span> <span class="n">Ganado</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">id_cattle</span><span class="p">,</span> <span class="n">ganaderia</span><span class="o">=</span><span class="n">farm</span><span class="p">)</span>
+	<span class="n">problem_gestacion</span> <span class="o">=</span> <span class="n">ProblemaGestacion</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">cattle</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+
+	<span class="n">total_births</span> <span class="o">=</span> <span class="n">Gestacion</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
+			<span class="n">Q</span><span class="p">(</span><span class="n">ganado</span><span class="o">=</span><span class="n">cattle</span><span class="p">)</span> <span class="o">&amp;</span>
+			<span class="o">~</span><span class="n">Q</span><span class="p">(</span><span class="n">problema</span><span class="o">=</span><span class="n">problem_gestacion</span><span class="p">)</span>
+		<span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+	<span class="n">total_problems_births</span> <span class="o">=</span><span class="n">ProblemaGestacion</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">cattle</span><span class="o">.</span><span class="n">id</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+	<span class="k">if</span> <span class="n">configuration</span><span class="o">.</span><span class="n">tipo_identificacion</span><span class="o">==</span><span class="s">&#39;simple&#39;</span><span class="p">:</span>
+		<span class="k">try</span><span class="p">:</span>
+			<span class="n">cattle_mother</span> <span class="o">=</span> <span class="n">Ganado</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">identificacion_simple__rp</span><span class="o">=</span><span class="n">cattle</span><span class="o">.</span><span class="n">identificacion_simple</span><span class="o">.</span><span class="n">rp_madre</span><span class="p">)</span>
+		<span class="k">except</span> <span class="n">ObjectDoesNotExist</span><span class="p">:</span>
+			<span class="n">cattle_mother</span> <span class="o">=</span> <span class="s">&#39;Desconocida&#39;</span>
+
+		<span class="k">try</span><span class="p">:</span>
+			<span class="n">cattle_father</span> <span class="o">=</span> <span class="n">Ganado</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">identificacion_simple__rp</span><span class="o">=</span><span class="n">cattle</span><span class="o">.</span><span class="n">identificacion_simple</span><span class="o">.</span><span class="n">rp_padre</span><span class="p">)</span>
+		<span class="k">except</span> <span class="n">ObjectDoesNotExist</span><span class="p">:</span>
+			<span class="n">cattle_father</span> <span class="o">=</span> <span class="s">&#39;Desconocido&#39;</span>
+		
+	<span class="k">else</span><span class="p">:</span>
+		<span class="k">try</span><span class="p">:</span>
+			<span class="n">cattle_mother</span> <span class="o">=</span> <span class="n">Ganado</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">identificacion_ecuador__rp</span><span class="o">=</span><span class="n">cattle</span><span class="o">.</span><span class="n">identificacion_ecuador</span><span class="o">.</span><span class="n">rp_madre</span><span class="p">)</span>
+		<span class="k">except</span> <span class="n">ObjectDoesNotExist</span><span class="p">:</span>
+			<span class="n">cattle_mother</span> <span class="o">=</span> <span class="s">&#39;Desconocida&#39;</span>
+
+		<span class="k">try</span><span class="p">:</span>
+			<span class="n">cattle_father</span> <span class="o">=</span> <span class="n">Ganado</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">identificacion_ecuador__rp</span><span class="o">=</span><span class="n">cattle</span><span class="o">.</span><span class="n">identificacion_ecuador</span><span class="o">.</span><span class="n">rp_padre</span><span class="p">)</span>
+		<span class="k">except</span> <span class="n">ObjectDoesNotExist</span><span class="p">:</span>
+			<span class="n">cattle_father</span> <span class="o">=</span> <span class="s">&#39;Desconocido&#39;</span>
+	<span class="n">ordenio</span> <span class="o">=</span> <span class="n">Ordenio</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">ganado</span><span class="o">=</span><span class="n">cattle</span><span class="p">)</span>
+	<span class="n">count_milk</span> <span class="o">=</span> <span class="mi">0</span>
+	<span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+	<span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">ordenio</span><span class="p">:</span>
+		<span class="k">if</span> <span class="n">o</span><span class="o">.</span><span class="n">numero_ordenio</span><span class="o">==</span><span class="n">configuration</span><span class="o">.</span><span class="n">numero_ordenios</span><span class="p">:</span>
+			<span class="n">count_milk</span> <span class="o">+=</span> <span class="n">o</span><span class="o">.</span><span class="n">total</span>
+			<span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+	<span class="n">count_milk</span> <span class="o">=</span> <span class="n">count_milk</span> <span class="o">/</span> <span class="n">count</span>
+
+	<span class="n">application_food</span> <span class="o">=</span> <span class="n">ApplicationFood</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">cattle</span><span class="o">=</span><span class="n">cattle</span><span class="p">)</span>
+	<span class="n">food</span> <span class="o">=</span> <span class="p">[]</span>
+	<span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">application_food</span><span class="p">:</span>
+		<span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">food</span><span class="o">.</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">food</span><span class="p">:</span>
+			<span class="n">food</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">food</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+			<span class="n">food</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;(&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">food</span><span class="o">.</span><span class="n">consumer_amount</span><span class="p">)</span><span class="o">+</span><span class="s">&#39; &#39;</span><span class="o">+</span><span class="n">f</span><span class="o">.</span><span class="n">food</span><span class="o">.</span><span class="n">get_unit_display</span><span class="p">()</span><span class="o">+</span><span class="s">&#39;) &#39;</span><span class="p">)</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="n">index</span> <span class="o">=</span> <span class="n">food</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">food</span><span class="o">.</span><span class="n">name</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span>
+			<span class="n">food</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;(&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">food</span><span class="o">.</span><span class="n">consumer_amount</span><span class="p">)</span><span class="o">+</span><span class="s">&#39; &#39;</span><span class="o">+</span><span class="n">f</span><span class="o">.</span><span class="n">food</span><span class="o">.</span><span class="n">get_unit_display</span><span class="p">()</span><span class="o">+</span><span class="s">&#39;) &#39;</span>
+
+	<span class="n">medicament_wormer</span> <span class="o">=</span> <span class="n">Medicament</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">farm</span><span class="o">=</span><span class="n">farm</span><span class="p">,</span> <span class="n">is_wormer</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+	<span class="n">application_medicament_wormer</span> <span class="o">=</span> <span class="n">ApplicationMedicament</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">medicament</span><span class="o">=</span><span class="n">medicament_wormer</span><span class="p">)</span>
+	<span class="n">wormer</span> <span class="o">=</span> <span class="p">[]</span>
+	<span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">application_medicament_wormer</span><span class="p">:</span>
+		<span class="k">if</span> <span class="n">w</span><span class="o">.</span><span class="n">medicament</span><span class="o">.</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">wormer</span><span class="p">:</span>
+			<span class="n">wormer</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">medicament</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+			<span class="n">wormer</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;(&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">medicament</span><span class="o">.</span><span class="n">amount_application</span><span class="p">)</span><span class="o">+</span><span class="s">&#39; &#39;</span><span class="o">+</span><span class="n">w</span><span class="o">.</span><span class="n">medicament</span><span class="o">.</span><span class="n">get_unit_display</span><span class="p">()</span><span class="o">+</span><span class="s">&#39;) &#39;</span><span class="p">)</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="n">index</span> <span class="o">=</span> <span class="n">wormer</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">medicament</span><span class="o">.</span><span class="n">name</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span>
+			<span class="n">wormer</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;(&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">medicament</span><span class="o">.</span><span class="n">amount_application</span><span class="p">)</span><span class="o">+</span><span class="s">&#39; &#39;</span><span class="o">+</span><span class="n">w</span><span class="o">.</span><span class="n">medicament</span><span class="o">.</span><span class="n">get_unit_display</span><span class="p">()</span><span class="o">+</span><span class="s">&#39;) &#39;</span>
+
+	
+	<span class="n">medicament_vaccine</span> <span class="o">=</span> <span class="n">Medicament</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">farm</span><span class="o">=</span><span class="n">farm</span><span class="p">,</span> <span class="n">is_vaccine</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+	<span class="n">application_medicament_vaccine</span> <span class="o">=</span> <span class="n">ApplicationMedicament</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">medicament</span><span class="o">=</span><span class="n">medicament_vaccine</span><span class="p">)</span>
+	<span class="n">vaccine</span> <span class="o">=</span> <span class="p">[]</span>
+	<span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">application_medicament_vaccine</span><span class="p">:</span>
+		<span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">medicament</span><span class="o">.</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">vaccine</span><span class="p">:</span>
+			<span class="n">vaccine</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">medicament</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+			<span class="n">vaccine</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;(&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">medicament</span><span class="o">.</span><span class="n">amount_application</span><span class="p">)</span><span class="o">+</span><span class="s">&#39; &#39;</span><span class="o">+</span><span class="n">v</span><span class="o">.</span><span class="n">medicament</span><span class="o">.</span><span class="n">get_unit_display</span><span class="p">()</span><span class="o">+</span><span class="s">&#39;) &#39;</span><span class="p">)</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="n">index</span> <span class="o">=</span> <span class="n">vaccine</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">medicament</span><span class="o">.</span><span class="n">name</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span>
+			<span class="n">vaccine</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;(&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">medicament</span><span class="o">.</span><span class="n">amount_application</span><span class="p">)</span><span class="o">+</span><span class="s">&#39; &#39;</span><span class="o">+</span><span class="n">v</span><span class="o">.</span><span class="n">medicament</span><span class="o">.</span><span class="n">get_unit_display</span><span class="p">()</span><span class="o">+</span><span class="s">&#39;) &#39;</span>
+	
+
+	<span class="k">return</span> <span class="n">render_to_response</span><span class="p">(</span><span class="s">&#39;view_report_female.html&#39;</span><span class="p">,</span>
+		<span class="p">{</span><span class="s">&#39;cattle&#39;</span><span class="p">:</span> <span class="n">cattle</span><span class="p">,</span>
+		 <span class="s">&#39;total_births&#39;</span><span class="p">:</span> <span class="n">total_births</span><span class="p">,</span>
+		 <span class="s">&#39;total_problems_births&#39;</span><span class="p">:</span> <span class="n">total_problems_births</span><span class="p">,</span>
+		 <span class="s">&#39;cattle_mother&#39;</span><span class="p">:</span> <span class="n">cattle_mother</span><span class="p">,</span>
+		 <span class="s">&#39;cattle_father&#39;</span><span class="p">:</span> <span class="n">cattle_father</span><span class="p">,</span>
+		 <span class="s">&#39;count_milk&#39;</span><span class="p">:</span> <span class="n">count_milk</span><span class="p">,</span>
+		 <span class="s">&#39;food&#39;</span><span class="p">:</span> <span class="n">food</span><span class="p">,</span>
+		 <span class="s">&#39;wormer&#39;</span><span class="p">:</span> <span class="n">wormer</span><span class="p">,</span>
+		 <span class="s">&#39;vaccine&#39;</span><span class="p">:</span> <span class="n">vaccine</span><span class="p">,</span>
+		 <span class="p">},</span>
+		<span class="n">context_instance</span><span class="o">=</span><span class="n">RequestContext</span><span class="p">(</span><span class="n">request</span><span class="p">))</span>	
+</pre></div></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">HatosGanaderos 1.0 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, @mricharleon.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

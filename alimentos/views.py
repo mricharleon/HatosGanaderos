@@ -11,6 +11,7 @@ from ganados.forms import *
 from alimentos.forms import *
 from alimentos.models import *
 from django.contrib.auth.models import User
+from profiles.views import number_messages
 
 from datetime import date
 import datetime, dateutil
@@ -21,7 +22,11 @@ from dateutil.relativedelta import *
 @login_required
 def add_food(request):
 	user = request.user
-	ganaderia = Ganaderia.objects.get(perfil=user)
+	number_message = number_messages(request, user.username)
+	try:
+		ganaderia = Ganaderia.objects.get(perfil=user)
+	except ObjectDoesNotExist:
+		return redirect(reverse('agrega_ganaderia_config'))
 
 	if request.method == 'POST':
 		formAlimento = alimentoForm(request.POST)
@@ -36,12 +41,14 @@ def add_food(request):
 		formAlimento = alimentoForm()
 
 	return render_to_response('add_food.html',
-		{'formAlimento': formAlimento},
+		{'formAlimento': formAlimento,
+		 'number_messages': number_message},
 		context_instance=RequestContext(request))
 
 @login_required
 def list_food(request):
 	username = request.user.username
+	number_message = number_messages(request, username)
 	id_user = User.objects.filter(username=username)
 	ganaderia = Ganaderia.objects.get(perfil=id_user)
 
@@ -49,12 +56,14 @@ def list_food(request):
 		alimentos = Food.objects.all().filter(farm=ganaderia)
 
 	return render_to_response('list_food.html',
-		{'alimentos': alimentos},
+		{'alimentos': alimentos,
+		 'number_messages': number_message},
 		context_instance=RequestContext(request))
 
 @login_required
 def edit_food(request, alimento_id):
 	user = request.user
+	number_message = number_messages(request, user.username)
 	ganaderia = Ganaderia.objects.get(perfil=user)
 
 	alimento = Food.objects.get(id=alimento_id)
@@ -73,18 +82,18 @@ def edit_food(request, alimento_id):
 
 	return render_to_response('edit_food.html',
 		{'formAlimento': formAlimento,
-		 'alimento_id': alimento_id},
+		 'alimento_id': alimento_id,
+		  'number_messages': number_message},
 		context_instance=RequestContext(request))	
 
 @login_required
 def asigna_alimento(request, alimento_id):
 	user = request.user
-	ganaderia = Ganaderia.objects.get(perfil=user)
-	configuracion = Configuracion.objects.get(id=ganaderia.configuracion_id)
+	number_message = number_messages(request, user.username)
 	
 	return render_to_response('asigna_alimento.html',
 		{'id_food': alimento_id,
-		},
+		 'number_messages': number_message},
 		context_instance=RequestContext(request))
 
 

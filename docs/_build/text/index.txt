@@ -1,0 +1,161 @@
+
+Welcome to HatosGanaderos's documentation!
+******************************************
+
+Contents:
+
+* SIDGV package
+
+  * Submodules
+
+  * SIDGV.settings module
+
+  * SIDGV.settings_dotcloud module
+
+  * SIDGV.urls module
+
+  * SIDGV.wsgi module
+
+  * Module contents
+
+* alimentos package
+
+  * Submodules
+
+  * alimentos.admin module
+
+  * alimentos.forms module
+
+  * alimentos.models module
+
+  * alimentos.tests module
+
+  * alimentos.views module
+
+  * Module contents
+
+* ganados package
+
+  * Submodules
+
+  * ganados.admin module
+
+  * ganados.forms module
+
+  * ganados.models module
+
+  * ganados.tests module
+
+  * ganados.views module
+
+  * Module contents
+
+* manage module
+
+* medicament package
+
+  * Submodules
+
+  * medicament.admin module
+
+  * medicament.forms module
+
+  * medicament.models module
+
+  * medicament.tests module
+
+  * medicament.views module
+
+  * Module contents
+
+* messages package
+
+  * Submodules
+
+  * messages.admin module
+
+  * messages.forms module
+
+  * messages.models module
+
+  * messages.tests module
+
+  * messages.views module
+
+  * Module contents
+
+* notifications package
+
+  * Submodules
+
+  * notifications.admin module
+
+  * notifications.models module
+
+  * notifications.tests module
+
+  * notifications.views module
+
+  * Module contents
+
+* profiles package
+
+  * Submodules
+
+  * profiles.admin module
+
+  * profiles.forms module
+
+  * profiles.models module
+
+  * profiles.tests module
+
+  * profiles.views module
+
+  * Module contents
+
+* reports package
+
+  * Submodules
+
+  * reports.admin module
+
+  * reports.models module
+
+  * reports.tests module
+
+  * reports.views module
+
+  * Module contents
+
+* webServices package
+
+  * Subpackages
+
+    * webServices.wsGanados package
+
+      * Submodules
+
+      * webServices.wsGanados.admin module
+
+      * webServices.wsGanados.models module
+
+      * webServices.wsGanados.tests module
+
+      * webServices.wsGanados.urls module
+
+      * webServices.wsGanados.views module
+
+      * Module contents
+
+  * Module contents
+
+
+Indices and tables
+******************
+
+* *Index*
+
+* *Module Index*
+
+* *Search Page*

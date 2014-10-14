@@ -1,0 +1,94 @@
+{% extends 'userena/base_userena.html' %}
+{% load i18n %}
+{% load url from future %}
+
+{% block title %}Editar Esperma{% endblock %}
+
+{% block content_title %}<h2 class="content-title">{% trans 'Profiles' %}</h2>{% endblock %}
+
+{% block presentation %}
+<div class="presentacionSignup">
+    <h3>Edita tu Registro</h3>
+    <h4>Ahora podras actualizar los datos del esperma.</h4>
+    <ul id="profile-nav">
+      <li><a href="{% url 'list_cattle' %}">Listar Hembras</a></li>
+      <li><a href="{% url 'list_cattle_male' %}">Listar Machos</a></li>
+      <li><a href="{% url 'list_insemination' %}">Listar Esperma</a></li>
+    </ul>
+       
+</div>
+{% endblock presentation %}
+
+
+{% block content %}
+<div class="formSignup">
+  <span class="crearCuenta">
+      Editar Esperma  [{{insemination_id}}]
+  </span>
+   <form action="" enctype="multipart/form-data" method="post">     
+      
+      {% csrf_token %}
+
+      <section class="container">
+        <div class="user">
+          <img src="{{STATIC_URL}}img/help.png"/>
+          <ul>
+            <h5 class="sep">{{formInsemination.name.label_tag}}</h5>
+          </ul>
+        </div>
+      </section>
+      {{formInsemination.name.errors}}
+      {{formInsemination.name}}
+      
+      <section class="container">
+        <div class="user">
+          <img src="{{STATIC_URL}}img/help.png"/>
+          <ul>
+            <h5 class="sep">{{formInsemination.registration_date.label_tag}}</h5>
+          </ul>
+        </div>
+      </section>
+      {{formInsemination.registration_date.errors}}
+      {{formInsemination.registration_date}}
+
+      <section class="container">
+        <div class="user">
+          <img src="{{STATIC_URL}}img/help.png"/>
+          <ul>
+            <h5 class="sep">{{formInsemination.amount_pajuelas.label_tag}}</h5>
+          </ul>
+        </div>
+      </section>
+      {{formInsemination.amount_pajuelas.errors}}
+      {{formInsemination.amount_pajuelas}}
+      
+      <section class="container">
+        <div class="user">
+          <img src="{{STATIC_URL}}img/help.png"/>
+          <ul>
+            <h5 class="sep">{{formInsemination.breed.label_tag}}</h5>
+          </ul>
+        </div>
+      </section>
+        <label for="select" class="select">
+          {{formInsemination.breed.errors}}
+          {{formInsemination.breed}}
+        </label>
+
+      <section class="container">
+        <div class="user">
+          <img src="{{STATIC_URL}}img/help.png"/>
+          <ul>
+            <h5 class="sep">{{formInsemination.observations.label_tag}}</h5>
+          </ul>
+        </div>
+      </section>
+      {{formInsemination.observations.errors}}
+      {{formInsemination.observations}}
+
+        
+        <input type="submit" value="{% trans "Save" %}" />
+        
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,130 @@
+\select@language {spanish}
+\contentsline {chapter}{\numberline {1}Qu\IeC {\'e} es HatosGanaderos?}{3}{chapter.1}
+\contentsline {chapter}{\numberline {2}\IeC {\textquestiondown }Com\IeC {\'o} empiezo?}{5}{chapter.2}
+\contentsline {section}{\numberline {2.1}Instalaci\IeC {\'o}n}{5}{section.2.1}
+\contentsline {subsection}{\numberline {2.1.1}Windows}{5}{subsection.2.1.1}
+\contentsline {subsection}{\numberline {2.1.2}Linux}{5}{subsection.2.1.2}
+\contentsline {subsection}{\numberline {2.1.3}Mac}{5}{subsection.2.1.3}
+\contentsline {section}{\numberline {2.2}Tutorial 1: Crear Cuentas}{5}{section.2.2}
+\contentsline {subsection}{\numberline {2.2.1}Registro}{5}{subsection.2.2.1}
+\contentsline {subsection}{\numberline {2.2.2}Recuperar Contrase\IeC {\~n}a}{5}{subsection.2.2.2}
+\contentsline {subsection}{\numberline {2.2.3}Login}{5}{subsection.2.2.3}
+\contentsline {subsection}{\numberline {2.2.4}Modificar Detalles de Cuenta}{5}{subsection.2.2.4}
+\contentsline {subsection}{\numberline {2.2.5}Modificar Clave}{5}{subsection.2.2.5}
+\contentsline {subsection}{\numberline {2.2.6}Cambiar Correo Electr\IeC {\'o}nico}{5}{subsection.2.2.6}
+\contentsline {section}{\numberline {2.3}Tutorial 2: Configuraci\IeC {\'o}n}{5}{section.2.3}
+\contentsline {subsection}{\numberline {2.3.1}Crear Configuraci\IeC {\'o}n de la Ganader\IeC {\'\i }a}{6}{subsection.2.3.1}
+\contentsline {section}{\numberline {2.4}Tutorial 3: T\IeC {\'e}cnicos}{6}{section.2.4}
+\contentsline {subsection}{\numberline {2.4.1}Crear Cuentas de T\IeC {\'e}cnicos}{6}{subsection.2.4.1}
+\contentsline {subsection}{\numberline {2.4.2}Listar Cuentas de T\IeC {\'e}cnicos}{6}{subsection.2.4.2}
+\contentsline {section}{\numberline {2.5}Tutorial 4: M\IeC {\'o}dulo de Reproducci\IeC {\'o}n}{6}{section.2.5}
+\contentsline {subsection}{\numberline {2.5.1}Registrar Ganados}{6}{subsection.2.5.1}
+\contentsline {subsection}{\numberline {2.5.2}Listar ganados}{6}{subsection.2.5.2}
+\contentsline {subsection}{\numberline {2.5.3}Actualizar Datos del Ganado}{6}{subsection.2.5.3}
+\contentsline {subsection}{\numberline {2.5.4}Agregar Celo}{6}{subsection.2.5.4}
+\contentsline {subsection}{\numberline {2.5.5}Agregar Inseminaci\IeC {\'o}n o Monta}{6}{subsection.2.5.5}
+\contentsline {subsection}{\numberline {2.5.6}Verificaci\IeC {\'o}n de Celo}{6}{subsection.2.5.6}
+\contentsline {subsection}{\numberline {2.5.7}Agregar Problemas de Gestaci\IeC {\'o}n}{6}{subsection.2.5.7}
+\contentsline {subsection}{\numberline {2.5.8}Agregar Gestaci\IeC {\'o}n Correcta}{6}{subsection.2.5.8}
+\contentsline {subsection}{\numberline {2.5.9}Registrar Esperma}{6}{subsection.2.5.9}
+\contentsline {subsection}{\numberline {2.5.10}Listar Esperma}{6}{subsection.2.5.10}
+\contentsline {subsection}{\numberline {2.5.11}Actualizar Datos de Esperma}{6}{subsection.2.5.11}
+\contentsline {section}{\numberline {2.6}Tutorial 5: M\IeC {\'o}dulo de Producci\IeC {\'o}n}{6}{section.2.6}
+\contentsline {subsection}{\numberline {2.6.1}Listar Ganados de Producci\IeC {\'o}n}{7}{subsection.2.6.1}
+\contentsline {subsection}{\numberline {2.6.2}Agregar Orde\IeC {\~n}o}{7}{subsection.2.6.2}
+\contentsline {subsection}{\numberline {2.6.3}Editar Orde\IeC {\~n}o Diario}{7}{subsection.2.6.3}
+\contentsline {section}{\numberline {2.7}Tutorial 6: M\IeC {\'o}dulo de Sanidad}{7}{section.2.7}
+\contentsline {subsection}{\numberline {2.7.1}Agregar Desparasitador}{7}{subsection.2.7.1}
+\contentsline {subsection}{\numberline {2.7.2}Listar Desparasitador}{7}{subsection.2.7.2}
+\contentsline {subsection}{\numberline {2.7.3}Actualizar Datos del Desparasitador}{7}{subsection.2.7.3}
+\contentsline {subsection}{\numberline {2.7.4}Asignar Desparasitador a Ganados}{7}{subsection.2.7.4}
+\contentsline {subsection}{\numberline {2.7.5}Agregar Vacuna}{7}{subsection.2.7.5}
+\contentsline {subsection}{\numberline {2.7.6}Listar Vacuna}{7}{subsection.2.7.6}
+\contentsline {subsection}{\numberline {2.7.7}Actualizar Datos de la Vacuna}{7}{subsection.2.7.7}
+\contentsline {subsection}{\numberline {2.7.8}Asignar Vacuna a Ganados}{7}{subsection.2.7.8}
+\contentsline {section}{\numberline {2.8}Tutorial 7: M\IeC {\'o}dulo de Alimentaci\IeC {\'o}n}{7}{section.2.8}
+\contentsline {subsection}{\numberline {2.8.1}Agregar Alimento}{7}{subsection.2.8.1}
+\contentsline {subsection}{\numberline {2.8.2}Actualizar Alimento}{7}{subsection.2.8.2}
+\contentsline {subsection}{\numberline {2.8.3}Asignar el Alimento al Ganado}{7}{subsection.2.8.3}
+\contentsline {section}{\numberline {2.9}Tutorial 8: Mensajer\IeC {\'\i }a}{7}{section.2.9}
+\contentsline {subsection}{\numberline {2.9.1}Enviar Mensajes}{8}{subsection.2.9.1}
+\contentsline {subsection}{\numberline {2.9.2}Leer Mensajes}{8}{subsection.2.9.2}
+\contentsline {section}{\numberline {2.10}Tutorial 9: Reportes}{8}{section.2.10}
+\contentsline {subsection}{\numberline {2.10.1}Generar un Reporte}{8}{subsection.2.10.1}
+\contentsline {section}{\numberline {2.11}Tutorial 10: Notificaciones}{8}{section.2.11}
+\contentsline {subsection}{\numberline {2.11.1}Gestionar Notificaciones}{8}{subsection.2.11.1}
+\contentsline {chapter}{\numberline {3}M\IeC {\'o}dulos}{9}{chapter.3}
+\contentsline {section}{\numberline {3.1}M\IeC {\'o}dulo SIDGV}{9}{section.3.1}
+\contentsline {subsection}{\numberline {3.1.1}Submodules}{9}{subsection.3.1.1}
+\contentsline {subsection}{\numberline {3.1.2}SIDGV.settings module}{9}{subsection.3.1.2}
+\contentsline {subsection}{\numberline {3.1.3}SIDGV.settings\_dotcloud module}{9}{subsection.3.1.3}
+\contentsline {subsection}{\numberline {3.1.4}SIDGV.urls module}{9}{subsection.3.1.4}
+\contentsline {subsection}{\numberline {3.1.5}SIDGV.wsgi module}{9}{subsection.3.1.5}
+\contentsline {subsection}{\numberline {3.1.6}Module contents}{9}{subsection.3.1.6}
+\contentsline {section}{\numberline {3.2}M\IeC {\'o}dulo de Alimentos}{10}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}Submodules}{10}{subsection.3.2.1}
+\contentsline {subsection}{\numberline {3.2.2}alimentos.admin module}{10}{subsection.3.2.2}
+\contentsline {subsection}{\numberline {3.2.3}alimentos.forms module}{10}{subsection.3.2.3}
+\contentsline {subsection}{\numberline {3.2.4}alimentos.models module}{10}{subsection.3.2.4}
+\contentsline {subsection}{\numberline {3.2.5}alimentos.tests module}{11}{subsection.3.2.5}
+\contentsline {subsection}{\numberline {3.2.6}alimentos.views module}{11}{subsection.3.2.6}
+\contentsline {subsection}{\numberline {3.2.7}Module contents}{12}{subsection.3.2.7}
+\contentsline {section}{\numberline {3.3}M\IeC {\'o}dulo de Ganados}{12}{section.3.3}
+\contentsline {subsection}{\numberline {3.3.1}Submodules}{12}{subsection.3.3.1}
+\contentsline {subsection}{\numberline {3.3.2}ganados.admin module}{12}{subsection.3.3.2}
+\contentsline {subsection}{\numberline {3.3.3}ganados.forms module}{12}{subsection.3.3.3}
+\contentsline {subsection}{\numberline {3.3.4}ganados.models module}{16}{subsection.3.3.4}
+\contentsline {subsection}{\numberline {3.3.5}ganados.tests module}{21}{subsection.3.3.5}
+\contentsline {subsection}{\numberline {3.3.6}ganados.views module}{21}{subsection.3.3.6}
+\contentsline {subsection}{\numberline {3.3.7}Module contents}{22}{subsection.3.3.7}
+\contentsline {section}{\numberline {3.4}M\IeC {\'o}dulo de Medicamentos}{22}{section.3.4}
+\contentsline {subsection}{\numberline {3.4.1}Submodules}{22}{subsection.3.4.1}
+\contentsline {subsection}{\numberline {3.4.2}medicament.admin module}{22}{subsection.3.4.2}
+\contentsline {subsection}{\numberline {3.4.3}medicament.forms module}{22}{subsection.3.4.3}
+\contentsline {subsection}{\numberline {3.4.4}medicament.models module}{23}{subsection.3.4.4}
+\contentsline {subsection}{\numberline {3.4.5}medicament.tests module}{24}{subsection.3.4.5}
+\contentsline {subsection}{\numberline {3.4.6}medicament.views module}{24}{subsection.3.4.6}
+\contentsline {subsection}{\numberline {3.4.7}Module contents}{25}{subsection.3.4.7}
+\contentsline {section}{\numberline {3.5}M\IeC {\'o}dulo de Mensajer\IeC {\'\i }a}{25}{section.3.5}
+\contentsline {subsection}{\numberline {3.5.1}Submodules}{25}{subsection.3.5.1}
+\contentsline {subsection}{\numberline {3.5.2}messages.admin module}{25}{subsection.3.5.2}
+\contentsline {subsection}{\numberline {3.5.3}messages.forms module}{25}{subsection.3.5.3}
+\contentsline {subsection}{\numberline {3.5.4}messages.models module}{25}{subsection.3.5.4}
+\contentsline {subsection}{\numberline {3.5.5}messages.tests module}{26}{subsection.3.5.5}
+\contentsline {subsection}{\numberline {3.5.6}messages.views module}{26}{subsection.3.5.6}
+\contentsline {subsection}{\numberline {3.5.7}Module contents}{26}{subsection.3.5.7}
+\contentsline {section}{\numberline {3.6}M\IeC {\'o}dulo de Notificaciones}{26}{section.3.6}
+\contentsline {subsection}{\numberline {3.6.1}Submodules}{26}{subsection.3.6.1}
+\contentsline {subsection}{\numberline {3.6.2}notifications.admin module}{26}{subsection.3.6.2}
+\contentsline {subsection}{\numberline {3.6.3}notifications.models module}{26}{subsection.3.6.3}
+\contentsline {subsection}{\numberline {3.6.4}notifications.tests module}{27}{subsection.3.6.4}
+\contentsline {subsection}{\numberline {3.6.5}notifications.views module}{27}{subsection.3.6.5}
+\contentsline {subsection}{\numberline {3.6.6}Module contents}{27}{subsection.3.6.6}
+\contentsline {section}{\numberline {3.7}M\IeC {\'o}dulo del Perfil}{27}{section.3.7}
+\contentsline {subsection}{\numberline {3.7.1}Submodules}{27}{subsection.3.7.1}
+\contentsline {subsection}{\numberline {3.7.2}profiles.admin module}{27}{subsection.3.7.2}
+\contentsline {subsection}{\numberline {3.7.3}profiles.forms module}{27}{subsection.3.7.3}
+\contentsline {subsection}{\numberline {3.7.4}profiles.models module}{28}{subsection.3.7.4}
+\contentsline {subsection}{\numberline {3.7.5}profiles.tests module}{29}{subsection.3.7.5}
+\contentsline {subsection}{\numberline {3.7.6}profiles.views module}{29}{subsection.3.7.6}
+\contentsline {subsection}{\numberline {3.7.7}Module contents}{30}{subsection.3.7.7}
+\contentsline {section}{\numberline {3.8}M\IeC {\'o}dulo de Reportes}{30}{section.3.8}
+\contentsline {subsection}{\numberline {3.8.1}Submodules}{30}{subsection.3.8.1}
+\contentsline {subsection}{\numberline {3.8.2}reports.admin module}{30}{subsection.3.8.2}
+\contentsline {subsection}{\numberline {3.8.3}reports.models module}{30}{subsection.3.8.3}
+\contentsline {subsection}{\numberline {3.8.4}reports.tests module}{30}{subsection.3.8.4}
+\contentsline {subsection}{\numberline {3.8.5}reports.views module}{30}{subsection.3.8.5}
+\contentsline {subsection}{\numberline {3.8.6}Module contents}{31}{subsection.3.8.6}
+\contentsline {section}{\numberline {3.9}M\IeC {\'o}dulo As\IeC {\'\i }ncrono}{31}{section.3.9}
+\contentsline {subsection}{\numberline {3.9.1}Subpackages}{31}{subsection.3.9.1}
+\contentsline {subsubsection}{M\IeC {\'o}dulo As\IeC {\'\i }ncrono}{31}{subsubsection*.475}
+\contentsline {paragraph}{Submodules}{31}{paragraph*.476}
+\contentsline {paragraph}{webServices.wsGanados.admin module}{31}{paragraph*.477}
+\contentsline {paragraph}{webServices.wsGanados.models module}{31}{paragraph*.478}
+\contentsline {paragraph}{webServices.wsGanados.tests module}{31}{paragraph*.479}
+\contentsline {paragraph}{webServices.wsGanados.urls module}{31}{paragraph*.480}
+\contentsline {paragraph}{webServices.wsGanados.views module}{31}{paragraph*.481}
+\contentsline {paragraph}{Module contents}{33}{paragraph*.543}
+\contentsline {subsection}{\numberline {3.9.2}Module contents}{33}{subsection.3.9.2}
+\contentsline {chapter}{\numberline {4}Indice y Tablas}{35}{chapter.4}
+\contentsline {chapter}{\IeC {\'I}ndice de M\IeC {\'o}dulos Python}{37}{section*.544}

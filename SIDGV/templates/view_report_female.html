@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load url from future %}
+
+{% block title %} Reporte {% endblock %}
+
+
+{% block presentation %}
+    <div class="presentacionSignup">
+        <h3>Reporte</h3>
+        <h4>Genera tus reportes</h4>
+        <ul id="profile-nav">
+        <li><a href="{% url 'list_reports' %}">Reporte Hembras</a></li>
+          <li><a href="{% url 'list_cattle' %}">Reporte Machos</a></li>
+        </ul>
+    </div>
+{% endblock presentation %}
+
+{% block content %}
+
+<div class="formSignup">
+  <span class="crearCuenta">
+      Reporte Generado
+  </span>
+
+<fieldset>
+<legend>Datos informativos</legend>
+<b>Nombre:</b>
+  {{ cattle.identificacion_simple.nombre }}
+  {{ cattle.identificacion_ecuador.nombre }}
+<br><b>RP:</b>
+  {{ cattle.identificacion_simple.rp }}
+  {{ cattle.identificacion_ecuador.rp }}
+<br><b>Raza:</b>
+  {{ cattle.get_raza_display }}
+<br><b>Nacimiento:</b>
+  {{ cattle.nacimiento }}
+<br><b>Edad:</b>
+  {{cattle.edad_anios}} año{{ cattle.edad_anios|pluralize:'s' }},
+  {{cattle.edad_meses}} mes{{ cattle.edad_meses|pluralize:'es' }} y 
+  {{cattle.edad_dias}} día{{ cattle.edad_dias|pluralize:'s' }} 
+<br><b>Madre:</b>
+  {{cattle_mother}} 
+  {% if cattle_mother != 'Desconocida' %}
+    con rp {{cattle_mother.identificacion_ecuador.rp}}{{cattle_mother.identificacion_simple.rp}}
+  {% endif %}
+<br><b>Padre:</b>
+  {{cattle_father}} 
+  {% if cattle_father != 'Desconocido' %}
+    con rp {{cattle_mother.identificacion_ecuador.rp}}{{cattle_mother.identificacion_simple.rp}}
+  {% endif %}
+  
+</fieldset>
+<br>
+<fieldset>
+  <legend>Reproducción</legend>
+  <b>Celos:</b> 
+    {{cattle.celos.count}} celo{{cattle.celos.count|pluralize:'s'}}
+  <br><b>Partos:</b> 
+    {{total_births}}{{total_births|pluralize:' parto, partos'}}
+  <br><b>Problemas en el parto:</b> 
+    {{total_problems_births}}{{total_problems_births|pluralize:' problema, problemas'}}
+</fieldset>
+<br>
+<fieldset>
+  <legend>Producción</legend>
+  <b>Promedio leche:</b> 
+    {{count_milk}} {{count_milk|pluralize:' litro, litros'}}/día
+</fieldset>
+<br>
+<fieldset>
+  <legend>Alimentación</legend>
+  <b>Alimentos consumidos:</b> 
+    {% for f in food %}
+      <br>{{f|capfirst}} 
+    {% endfor %}
+</fieldset>
+<br>
+<fieldset>
+  <legend>Sanidad</legend>
+  <b>Desparasitadores administrados:</b>
+    {% for w in wormer %}
+      <br>{{w|capfirst}}
+    {% endfor %}
+  <br><b>Vacunas administradas:</b>
+    {% for v in vaccine %}
+      <br>{{v|capfirst}}
+    {% endfor %}
+</fieldset>
+
+</div>
+
+
+{% endblock %}

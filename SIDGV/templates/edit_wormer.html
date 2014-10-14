@@ -6,6 +6,32 @@
 
 {% block content_title %}<h2 class="content-title">{% trans 'Profiles' %}</h2>{% endblock %}
 
+{% block js %}
+<script type='text/javascript'>
+  $(document).ready(function() {
+
+    if($("#id_number_application").val() == 0){
+      $(".number_application").css("display", "none");
+      $("#id_number_application").css("display", "none");
+    }
+
+    $('select#id_option_number_application').on('change',function(){
+      var valor = $(this).val();
+      if (valor == 1){
+        $("#id_number_application").val('0');
+        $(".number_application").css("display", "none");
+        $("#id_number_application").css("display", "none");
+      }else if (valor == 0){
+        $("#id_number_application").val('');
+        $(".number_application").css("display", "");
+        $("#id_number_application").css("display", "");
+      }
+    });
+    
+  }); 
+</script>
+{% endblock %}
+
 {% block presentation %}
 <div class="presentacionSignup">
     <h3>Editar la Medicina</h3>
@@ -135,7 +161,7 @@
             {{form_wormer.option_number_application}}
           </label>
 
-          <section class="container">
+          <section class="container number_application">
             <div class="user">
               <img src="{{STATIC_URL}}img/help.png"/>
               <ul>

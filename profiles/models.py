@@ -79,7 +79,7 @@ class Profile(UserenaLanguageBaseProfile):
     user = models.OneToOneField(user_model_label,
                                 unique=True,
                                 verbose_name=_('user'),
-                                related_name='profile')
+                                related_name='profile_user')
     gender = models.PositiveSmallIntegerField(_('gender'),
                                               choices=GENDER_CHOICES,
                                               blank=True,

@@ -1,0 +1,32 @@
+.. HatosGanaderos documentation master file, created by
+   sphinx-quickstart on Sun Oct  5 19:31:55 2014.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+Welcome to HatosGanaderos's documentation!
+==========================================
+
+Contents:
+
+.. toctree::
+   :maxdepth: 6
+
+   SIDGV
+   alimentos
+   ganados
+   manage
+   medicament
+   messages
+   notifications
+   profiles
+   reports
+   webServices
+
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
+

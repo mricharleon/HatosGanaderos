@@ -1,0 +1,276 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Tutorial &mdash; documentación de HatosGanaderos - 1.0</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="documentación de HatosGanaderos - 1.0" href="index.html"/>
+        <link rel="next" title="SIDGV package" href="SIDGV.html"/>
+        <link rel="prev" title="Instalación" href="Instalación.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="index.html" class="fa fa-home"> HatosGanaderos</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Instalación.html">Instalación</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Instalación.html#windows">Windows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Instalación.html#linux">Linux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Instalación.html#mac">Mac</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#modulo-de-reproduccion">Módulo de Reproducción</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#modulo-de-produccion">Módulo de Producción</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#modulo-de-sanidad">Módulo de Sanidad</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#modulo-de-alimentacion">Módulo de Alimentación</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="SIDGV.html">SIDGV package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="SIDGV.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SIDGV.html#module-SIDGV.settings">SIDGV.settings module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SIDGV.html#sidgv-settings-dotcloud-module">SIDGV.settings_dotcloud module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SIDGV.html#module-SIDGV.urls">SIDGV.urls module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SIDGV.html#module-SIDGV.wsgi">SIDGV.wsgi module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SIDGV.html#module-SIDGV">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="alimentos.html">alimentos package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="alimentos.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="alimentos.html#module-alimentos.admin">alimentos.admin module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="alimentos.html#module-alimentos.forms">alimentos.forms module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="alimentos.html#module-alimentos.models">alimentos.models module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="alimentos.html#module-alimentos.tests">alimentos.tests module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="alimentos.html#module-alimentos.views">alimentos.views module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="alimentos.html#module-alimentos">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ganados.html">ganados package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ganados.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ganados.html#module-ganados.admin">ganados.admin module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ganados.html#module-ganados.forms">ganados.forms module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ganados.html#ganados-models-module">ganados.models module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ganados.html#module-ganados.tests">ganados.tests module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ganados.html#module-ganados.views">ganados.views module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ganados.html#module-ganados">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="manage.html">manage module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="medicament.html">medicament package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="medicament.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="medicament.html#module-medicament.admin">medicament.admin module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="medicament.html#module-medicament.forms">medicament.forms module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="medicament.html#module-medicament.models">medicament.models module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="medicament.html#module-medicament.tests">medicament.tests module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="medicament.html#module-medicament.views">medicament.views module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="medicament.html#module-medicament">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="messages.html">messages package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="messages.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="messages.html#module-messages.admin">messages.admin module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="messages.html#module-messages.forms">messages.forms module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="messages.html#module-messages.models">messages.models module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="messages.html#module-messages.tests">messages.tests module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="messages.html#module-messages.views">messages.views module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="messages.html#module-messages">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="notifications.html">notifications package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="notifications.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notifications.html#module-notifications.admin">notifications.admin module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notifications.html#module-notifications.models">notifications.models module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notifications.html#module-notifications.tests">notifications.tests module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notifications.html#module-notifications.views">notifications.views module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notifications.html#module-notifications">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="profiles.html">profiles package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="profiles.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="profiles.html#module-profiles.admin">profiles.admin module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="profiles.html#module-profiles.forms">profiles.forms module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="profiles.html#profiles-models-module">profiles.models module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="profiles.html#module-profiles.tests">profiles.tests module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="profiles.html#module-profiles.views">profiles.views module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="profiles.html#module-profiles">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="reports.html">reports package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="reports.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reports.html#module-reports.admin">reports.admin module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reports.html#module-reports.models">reports.models module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reports.html#module-reports.tests">reports.tests module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reports.html#reports-views-module">reports.views module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reports.html#module-reports">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="webServices.html">webServices package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="webServices.html#subpackages">Subpackages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webServices.html#module-webServices">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">HatosGanaderos</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Tutorial</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="_sources/Tutorial.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="tutorial">
+<h1>Tutorial<a class="headerlink" href="#tutorial" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>HatosGanaderos es un sistema web que te ayuda con el control y organización de reproducción, alimentación, sanidad y producción de tu entidad ganadera.</p>
+<div class="section" id="modulo-de-reproduccion">
+<h2>Módulo de Reproducción<a class="headerlink" href="#modulo-de-reproduccion" title="Enlazar permanentemente con este título">¶</a></h2>
+</div>
+<div class="section" id="modulo-de-produccion">
+<h2>Módulo de Producción<a class="headerlink" href="#modulo-de-produccion" title="Enlazar permanentemente con este título">¶</a></h2>
+</div>
+<div class="section" id="modulo-de-sanidad">
+<h2>Módulo de Sanidad<a class="headerlink" href="#modulo-de-sanidad" title="Enlazar permanentemente con este título">¶</a></h2>
+</div>
+<div class="section" id="modulo-de-alimentacion">
+<h2>Módulo de Alimentación<a class="headerlink" href="#modulo-de-alimentacion" title="Enlazar permanentemente con este título">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="SIDGV.html" class="btn btn-neutral float-right" title="SIDGV package"/>Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="Instalación.html" class="btn btn-neutral" title="Instalación"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, @mricharleon.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

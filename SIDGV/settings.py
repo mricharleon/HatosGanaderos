@@ -1,11 +1,12 @@
 # Django settings for Userena SIDGV project.
 # -*- encoding: utf-8 -*-
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
-#ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['*']
 
 import os
+
 settings_dir = os.path.dirname(__file__)
 PROJECT_ROOT = os.path.abspath(os.path.dirname(settings_dir))
 
@@ -20,11 +21,11 @@ DATABASES = {
     'default': {
         
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'practica',
-        'USER': 'administrador',
-        'PASSWORD': '12345',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
+        'NAME': '',
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '',
+        'PORT': '',
     }
 }
 
@@ -60,8 +61,12 @@ USE_L10N = True
 USE_TZ = True
 MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'public/media/')
 MEDIA_URL = '/media/'
-STATIC_ROOT = os.path.join(PROJECT_ROOT, 'public/static/')
+#STATIC_ROOT = os.path.join(PROJECT_ROOT, '/static/')
+
+STATIC_ROOT = os.sep.join(os.path.abspath(__file__).split(os.sep)[:-2] + ['static'])
 STATIC_URL = '/static/'
+
+#STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 
 STATICFILES_DIRS = (
     os.path.join(PROJECT_ROOT, 'SIDGV/static/'),
@@ -85,6 +90,7 @@ TEMPLATE_LOADERS = (
 )
 
 MIDDLEWARE_CLASSES = (
+    'ssl_redirect.middleware.SSLRedirectMiddleware',
     # para la seguridad de django secure
     #'djangosecure.middleware.SecurityMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -139,26 +145,66 @@ INSTALLED_APPS = (
     'easy_thumbnails',
     'ganados',
     'alimentos',
+    'notifications',
+    'reports',
     #'webServices.wsGanados',
     'drealtime', 
     'messages',
     'medicament',
     'mockups',
-    #'django_extensions',
-    #'djangosecure',
+    'django_extensions',
+    'djangosecure',
+    'django_cron',
+)
+
+# django realtime
+ISHOUT_CLIENT_ADDR = '192.168.1.2:5500'
+ISHOUT_API_ADDR = '127.0.0.1:6600'
+ISHOUT_HTTPS = True
+
+
+CRON_CLASSES = [
+    "ganados.cron.CronJobProduccion",
+    "django_cron.cron.FailedRunsNotificationCronJob",
+    # ...
+]
+#ALLOW_PARALLEL_RUNS = True
+#CRON_CACHE = 'cron_cache'
+
+USE_TLS = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+SSL_DOMAIN = 'https://192.168.1.2:1290'
+SSL_SECTIONS = (
+    '/list_cattle',
+    '/agrega_ganaderia_config',
+    '/agrega_ganado_ordenio',
+    '/list_cattle_male',
+    '/lista_ganado_produccion',
+    '/list_insemination',
+    '/list_food',
+    '/list_wormer',
+    '/list_vaccine',
+    '/accounts',
+    '/add_attempt_service',
+    '/admin',
+    '/messages',
 )
 
 
+
 # django xtension
-'''
-SECURE_SSL_REDIRECT = False
+
+SECURE_SSL_REDIRECT = True
 SECURE_HSTS_SECONDS = 3
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_FRAME_DENY = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
 SECURE_BROWSER_XSS_FILTER = True
-SESSION_COOKIE_SECURE = False
-'''
+SESSION_COOKIE_SECURE = True
+
+CRSF_COOKIE_SECURE = True
+SESSION_EXPIRE_AT_BROWSER_CLOSE=True
 
 
 

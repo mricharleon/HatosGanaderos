@@ -11,6 +11,19 @@
       var valorInput = '1, 2, 3';
       $("#id_cattle").val(valorInput + " ... Nuevo");
     });
+
+    $('select#id_option_number_application').on('change',function(){
+      var valor = $(this).val();
+      if (valor == 1){
+        $("#id_number_application").val('0');
+        $(".number_application").css("display", "none");
+        $("#id_number_application").css("display", "none");
+      }else if (valor == 0){
+        $("#id_number_application").val('');
+        $(".number_application").css("display", "");
+        $("#id_number_application").css("display", "");
+      }
+    });
     
   }); 
 </script>
@@ -146,8 +159,8 @@
             {{form_wormer.option_number_application.errors}}
             {{form_wormer.option_number_application}}
           </label>
-
-          <section class="container">
+          
+          <section class="container number_application">
             <div class="user">
               <img src="{{STATIC_URL}}img/help.png"/>
               <ul>

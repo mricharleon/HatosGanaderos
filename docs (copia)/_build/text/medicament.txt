@@ -1,0 +1,169 @@
+
+medicament package
+******************
+
+
+Submodules
+==========
+
+
+medicament.admin module
+=======================
+
+
+medicament.forms module
+=======================
+
+class class medicament.forms.vaccineForm(data=None, files=None, auto_id=u'id_%s', prefix=None, initial=None, error_class=<class 'django.forms.util.ErrorList'>, label_suffix=None, empty_permitted=False, instance=None)
+
+   Bases: "django.forms.models.ModelForm"
+
+   class class Meta
+
+      exclude = ['farm', 'is_vaccine', 'status', 'is_wormer', 'cattle']
+
+      model
+
+         alias of "Medicament"
+
+      widgets = {'amount': <django.forms.widgets.TextInput object at 0x2b3a56099850>, 'name': <django.forms.widgets.TextInput object at 0x2b3a557c8090>, 'live_weight': <django.forms.widgets.TextInput object at 0x2b3a560999d0>, 'cattle': <django.forms.widgets.TextInput object at 0x2b3a56099890>, 'expiration_date': <django.forms.widgets.DateInput object at 0x2b3a56099810>, 'number_application': <django.forms.widgets.TextInput object at 0x2b3a56099950>, 'interval': <django.forms.widgets.TextInput object at 0x2b3a56099990>, 'application_age': <django.forms.widgets.TextInput object at 0x2b3a560998d0>, 'observations': <django.forms.widgets.Textarea object at 0x2b3a56099a10>, 'amount_application': <django.forms.widgets.TextInput object at 0x2b3a56099910>}
+
+   vaccineForm.base_fields = {'name': <django.forms.fields.CharField object at 0x2b3a56099ad0>, 'expiration_date': <django.forms.fields.DateField object at 0x2b3a56099b10>, 'unit': <django.forms.fields.TypedChoiceField object at 0x2b3a56099b50>, 'amount': <django.forms.fields.FloatField object at 0x2b3a56099bd0>, 'sex': <django.forms.fields.TypedChoiceField object at 0x2b3a56099c50>, 'application_age': <django.forms.fields.IntegerField object at 0x2b3a56099cd0>, 'time_application_age': <django.forms.fields.TypedChoiceField object at 0x2b3a56099d10>, 'amount_application': <django.forms.fields.FloatField object at 0x2b3a56099d90>, 'option_number_application': <django.forms.fields.TypedChoiceField object at 0x2b3a557c86d0>, 'number_application': <django.forms.fields.IntegerField object at 0x2b3a56099e10>, 'interval': <django.forms.fields.IntegerField object at 0x2b3a56099e50>, 'time_interval': <django.forms.fields.TypedChoiceField object at 0x2b3a56099e90>, 'administration_route': <django.forms.fields.TypedChoiceField object at 0x2b3a56099f10>, 'observations': <django.forms.fields.CharField object at 0x2b3a56099f90>, 'is_active': <django.forms.fields.BooleanField object at 0x2b3a56099fd0>}
+
+   vaccineForm.declared_fields = {}
+
+   vaccineForm.media
+
+class class medicament.forms.wormerForm(data=None, files=None, auto_id=u'id_%s', prefix=None, initial=None, error_class=<class 'django.forms.util.ErrorList'>, label_suffix=None, empty_permitted=False, instance=None)
+
+   Bases: "django.forms.models.ModelForm"
+
+   class class Meta
+
+      exclude = ['farm', 'is_vaccine', 'status', 'is_wormer', 'cattle']
+
+      model
+
+         alias of "Medicament"
+
+      widgets = {'amount': <django.forms.widgets.TextInput object at 0x2b3a557c8b10>, 'name': <django.forms.widgets.TextInput object at 0x2b3a56099350>, 'live_weight': <django.forms.widgets.TextInput object at 0x2b3a56099250>, 'cattle': <django.forms.widgets.TextInput object at 0x2b3a557c8990>, 'expiration_date': <django.forms.widgets.DateInput object at 0x2b3a56099050>, 'number_application': <django.forms.widgets.TextInput object at 0x2b3a560992d0>, 'interval': <django.forms.widgets.TextInput object at 0x2b3a56099210>, 'application_age': <django.forms.widgets.TextInput object at 0x2b3a56099110>, 'observations': <django.forms.widgets.Textarea object at 0x2b3a56099290>, 'amount_application': <django.forms.widgets.TextInput object at 0x2b3a560991d0>}
+
+   wormerForm.base_fields = {'name': <django.forms.fields.CharField object at 0x2b3a557b5610>, 'expiration_date': <django.forms.fields.DateField object at 0x2b3a56099190>, 'unit': <django.forms.fields.TypedChoiceField object at 0x2b3a557b5cd0>, 'amount': <django.forms.fields.FloatField object at 0x2b3a557c8590>, 'sex': <django.forms.fields.TypedChoiceField object at 0x2b3a560990d0>, 'application_age': <django.forms.fields.IntegerField object at 0x2b3a560994d0>, 'time_application_age': <django.forms.fields.TypedChoiceField object at 0x2b3a56099510>, 'amount_application': <django.forms.fields.FloatField object at 0x2b3a557c8950>, 'option_number_application': <django.forms.fields.TypedChoiceField object at 0x2b3a56099550>, 'number_application': <django.forms.fields.IntegerField object at 0x2b3a56099610>, 'interval': <django.forms.fields.IntegerField object at 0x2b3a56099650>, 'time_interval': <django.forms.fields.TypedChoiceField object at 0x2b3a56099690>, 'administration_route': <django.forms.fields.TypedChoiceField object at 0x2b3a56099710>, 'observations': <django.forms.fields.CharField object at 0x2b3a55ea1750>, 'is_active': <django.forms.fields.BooleanField object at 0x2b3a56099750>}
+
+   wormerForm.declared_fields = {}
+
+   wormerForm.media
+
+
+medicament.models module
+========================
+
+class class medicament.models.ApplicationMedicament(*args, **kwargs)
+
+   Bases: "django.db.models.base.Model"
+
+   ApplicationMedicament(id, date, medicament_id, status)
+
+   exception exception DoesNotExist
+
+      Bases: "django.core.exceptions.ObjectDoesNotExist"
+
+   exception exception ApplicationMedicament.MultipleObjectsReturned
+
+      Bases: "django.core.exceptions.MultipleObjectsReturned"
+
+   ApplicationMedicament.STATUS_CHOICES = ((0, 'Realizado'), (1, 'Cancelado'))
+
+   ApplicationMedicament.cattle
+
+   ApplicationMedicament.get_next_by_date(*moreargs, **morekwargs)
+
+   ApplicationMedicament.get_previous_by_date(*moreargs, **morekwargs)
+
+   ApplicationMedicament.get_status_display(*moreargs, **morekwargs)
+
+   ApplicationMedicament.medicament
+
+   ApplicationMedicament.objects = <django.db.models.manager.Manager object at 0x2b3a54f12150>
+
+class class medicament.models.Medicament(*args, **kwargs)
+
+   Bases: "django.db.models.base.Model"
+
+   Medicament(id, name, expiration_date, unit, amount, sex, farm_id,
+   application_age, time_application_age, amount_application,
+   option_number_application, number_application, interval,
+   time_interval, administration_route, observations, is_vaccine,
+   is_wormer, is_active)
+
+   ADMINISTRATION_ROUTE_CHOICES = ((0, 'Intravenosa'), (1, 'Intramuscular'), (2, u'Subcut\xe1nea'), (3, 'Intraperitoneal'), (4, 'Oral'), (5, 'Rectal'), (6, 'Intrauterina'), (7, 'Intramamaria'), (8, u'T\xf3pica'))
+
+   exception exception DoesNotExist
+
+      Bases: "django.core.exceptions.ObjectDoesNotExist"
+
+   exception exception Medicament.MultipleObjectsReturned
+
+      Bases: "django.core.exceptions.MultipleObjectsReturned"
+
+   Medicament.OPTION_NUMBER_APPLICATION = ((0, 'Veces exactas'), (1, 'Repetitivo'))
+
+   Medicament.SEX_CHOICES = ((0, 'Hembra'), (1, 'Macho'), (2, 'Hembra y Macho'))
+
+   Medicament.TIME_APPLICATION_AGE_CHOICES = ((0, u'Aplicaci\xf3n en d\xedas'), (1, 'Aplicaci\xc3\xb3n en meses'), (2, u'Aplicaci\xf3n en a\xf1os'))
+
+   Medicament.TIME_INTERVAL_CHOICES = ((0, u'Intervalo en d\xedas'), (1, 'Intervalo en meses'), (2, u'Intervalo en a\xf1os'))
+
+   Medicament.UNIT_CHOICES = ((0, 'ml'), (1, 'gr'), (2, 'lbs'), (3, 'Kg'), (4, 'Paquetes'))
+
+   Medicament.application_medicament_cattle
+
+   Medicament.farm
+
+   Medicament.get_administration_route_display(*moreargs, **morekwargs)
+
+   Medicament.get_next_by_expiration_date(*moreargs, **morekwargs)
+
+   Medicament.get_option_number_application_display(*moreargs, **morekwargs)
+
+   Medicament.get_previous_by_expiration_date(*moreargs, **morekwargs)
+
+   Medicament.get_sex_display(*moreargs, **morekwargs)
+
+   Medicament.get_time_application_age_display(*moreargs, **morekwargs)
+
+   Medicament.get_time_interval_display(*moreargs, **morekwargs)
+
+   Medicament.get_unit_display(*moreargs, **morekwargs)
+
+   Medicament.notification_medicament
+
+   Medicament.objects = <django.db.models.manager.Manager object at 0x2b3a54f03650>
+
+
+medicament.tests module
+=======================
+
+
+medicament.views module
+=======================
+
+medicament.views.add_vaccine(request, *args, **kwargs)
+
+medicament.views.add_wormer(request, *args, **kwargs)
+
+medicament.views.asign_vaccine(request, *args, **kwargs)
+
+medicament.views.asign_wormer(request, *args, **kwargs)
+
+medicament.views.edit_vaccine(request, *args, **kwargs)
+
+medicament.views.edit_wormer(request, *args, **kwargs)
+
+medicament.views.list_vaccine(request, *args, **kwargs)
+
+medicament.views.list_wormer(request, *args, **kwargs)
+
+
+Module contents
+===============

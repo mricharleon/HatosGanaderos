@@ -1,0 +1,37 @@
+body
+  min-width 200px
+
+.container
+  margin-left auto
+  margin-right auto
+  width 200px
+  &.small
+    text-align center
+    width 200px
+  &.big
+    width 100%
+    max-width 480px
+    min-width 200px
+
+// media query
+// panatalla mediana
+@media screen and (min-width: 480px) 
+  body
+    min-width 1200px
+
+  .container
+    margin-left auto
+    margin-right auto
+    width 1200px
+    &.small
+      text-align center
+      width 900px
+    &.big
+      width 100%
+      max-width 1500px
+      min-width 1200px
+
+  
+
+// panatalla grande
+//@media screen and (min-width: 768px)

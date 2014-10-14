@@ -1,0 +1,432 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>profiles package &mdash; HatosGanaderos 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="HatosGanaderos 1.0 documentation" href="index.html" />
+    <link rel="next" title="reports package" href="reports.html" />
+    <link rel="prev" title="notifications package" href="notifications.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="reports.html" title="reports package"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="notifications.html" title="notifications package"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">HatosGanaderos 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="profiles-package">
+<h1>profiles package<a class="headerlink" href="#profiles-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-profiles.admin">
+<span id="profiles-admin-module"></span><h2>profiles.admin module<a class="headerlink" href="#module-profiles.admin" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-profiles.forms">
+<span id="profiles-forms-module"></span><h2>profiles.forms module<a class="headerlink" href="#module-profiles.forms" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="profiles.forms.ConfiguracionForm">
+<em class="property">class </em><tt class="descclassname">profiles.forms.</tt><tt class="descname">ConfiguracionForm</tt><big>(</big><em>data=None</em>, <em>files=None</em>, <em>auto_id=u'id_%s'</em>, <em>prefix=None</em>, <em>initial=None</em>, <em>error_class=&lt;class 'django.forms.util.ErrorList'&gt;</em>, <em>label_suffix=None</em>, <em>empty_permitted=False</em>, <em>instance=None</em><big>)</big><a class="reference internal" href="_modules/profiles/forms.html#ConfiguracionForm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#profiles.forms.ConfiguracionForm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">django.forms.models.ModelForm</span></tt></p>
+<dl class="class">
+<dt id="profiles.forms.ConfiguracionForm.Meta">
+<em class="property">class </em><tt class="descname">Meta</tt><a class="reference internal" href="_modules/profiles/forms.html#ConfiguracionForm.Meta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#profiles.forms.ConfiguracionForm.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="profiles.forms.ConfiguracionForm.Meta.exclude">
+<tt class="descname">exclude</tt><em class="property"> = ['etapa_vientre']</em><a class="headerlink" href="#profiles.forms.ConfiguracionForm.Meta.exclude" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="profiles.forms.ConfiguracionForm.Meta.model">
+<tt class="descname">model</tt><a class="headerlink" href="#profiles.forms.ConfiguracionForm.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <tt class="xref py py-class docutils literal"><span class="pre">Configuracion</span></tt></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="profiles.forms.ConfiguracionForm.Meta.widgets">
+<tt class="descname">widgets</tt><em class="property"> = {'etapa_ternera': &lt;django.forms.widgets.TextInput object at 0x2aebfaf9fed0&gt;, 'celo_duracion': &lt;django.forms.widgets.TextInput object at 0x2aebfaf9fa50&gt;, 'periodo_gestacion': &lt;django.forms.widgets.TextInput object at 0x2aebfaf9fb50&gt;, 'periodo_lactancia': &lt;django.forms.widgets.TextInput object at 0x2aebfaf9f310&gt;, 'celo_duracion_error': &lt;django.forms.widgets.TextInput object at 0x2aebfaf9fd10&gt;, 'celo_despues_parto': &lt;django.forms.widgets.TextInput object at 0x2aebfaf9f950&gt;, 'celo_despues_parto_error': &lt;django.forms.widgets.TextInput object at 0x2aebfaf9f850&gt;, 'celo_frecuencia_error': &lt;django.forms.widgets.TextInput object at 0x2aebfaf9fc50&gt;, 'periodo_seco': &lt;django.forms.widgets.TextInput object at 0x2aebfaf9fd50&gt;, 'periodo_vacio': &lt;django.forms.widgets.TextInput object at 0x2aebfaf9fe10&gt;, 'intentos_verificacion_celo': &lt;django.forms.widgets.TextInput object at 0x2aebfaf9f2d0&gt;, 'celo_frecuencia': &lt;django.forms.widgets.TextInput object at 0x2aebfaf9fe90&gt;, 'etapa_vacona': &lt;django.forms.widgets.TextInput object at 0x2aebfaf9f590&gt;, 'etapa_vientre': &lt;django.forms.widgets.TextInput object at 0x2aebfaf9f710&gt;, 'numero_ordenios': &lt;django.forms.widgets.TextInput object at 0x2aebfaf9fb10&gt;}</em><a class="headerlink" href="#profiles.forms.ConfiguracionForm.Meta.widgets" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="profiles.forms.ConfiguracionForm.base_fields">
+<tt class="descclassname">ConfiguracionForm.</tt><tt class="descname">base_fields</tt><em class="property"> = {'tipo_identificacion': &lt;django.forms.fields.TypedChoiceField object at 0x2aebfa8253d0&gt;, 'celo_frecuencia': &lt;django.forms.fields.IntegerField object at 0x2aebfb0f1690&gt;, 'celo_frecuencia_error': &lt;django.forms.fields.IntegerField object at 0x2aebfa825a10&gt;, 'celo_duracion': &lt;django.forms.fields.IntegerField object at 0x2aebfb0f1610&gt;, 'celo_duracion_error': &lt;django.forms.fields.IntegerField object at 0x2aebfb0f1450&gt;, 'celo_despues_parto': &lt;django.forms.fields.IntegerField object at 0x2aebfb0f1490&gt;, 'celo_despues_parto_error': &lt;django.forms.fields.IntegerField object at 0x2aebfb0f1090&gt;, 'intentos_verificacion_celo': &lt;django.forms.fields.IntegerField object at 0x2aebfb0f1410&gt;, 'etapa_ternera': &lt;django.forms.fields.IntegerField object at 0x2aebfa8251d0&gt;, 'etapa_vacona': &lt;django.forms.fields.IntegerField object at 0x2aebfb0f13d0&gt;, 'periodo_gestacion': &lt;django.forms.fields.IntegerField object at 0x2aebfb0f10d0&gt;, 'periodo_seco': &lt;django.forms.fields.IntegerField object at 0x2aebfb0f1190&gt;, 'periodo_lactancia': &lt;django.forms.fields.IntegerField object at 0x2aebfb0f1250&gt;, 'periodo_vacio': &lt;django.forms.fields.IntegerField object at 0x2aebfb0f1350&gt;, 'numero_ordenios': &lt;django.forms.fields.IntegerField object at 0x2aebfb0f1290&gt;}</em><a class="headerlink" href="#profiles.forms.ConfiguracionForm.base_fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="profiles.forms.ConfiguracionForm.declared_fields">
+<tt class="descclassname">ConfiguracionForm.</tt><tt class="descname">declared_fields</tt><em class="property"> = {}</em><a class="headerlink" href="#profiles.forms.ConfiguracionForm.declared_fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="profiles.forms.ConfiguracionForm.media">
+<tt class="descclassname">ConfiguracionForm.</tt><tt class="descname">media</tt><a class="headerlink" href="#profiles.forms.ConfiguracionForm.media" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="profiles.forms.GanaderiaForm">
+<em class="property">class </em><tt class="descclassname">profiles.forms.</tt><tt class="descname">GanaderiaForm</tt><big>(</big><em>data=None</em>, <em>files=None</em>, <em>auto_id=u'id_%s'</em>, <em>prefix=None</em>, <em>initial=None</em>, <em>error_class=&lt;class 'django.forms.util.ErrorList'&gt;</em>, <em>label_suffix=None</em>, <em>empty_permitted=False</em>, <em>instance=None</em><big>)</big><a class="reference internal" href="_modules/profiles/forms.html#GanaderiaForm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#profiles.forms.GanaderiaForm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">django.forms.models.ModelForm</span></tt></p>
+<dl class="class">
+<dt id="profiles.forms.GanaderiaForm.Meta">
+<em class="property">class </em><tt class="descname">Meta</tt><a class="reference internal" href="_modules/profiles/forms.html#GanaderiaForm.Meta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#profiles.forms.GanaderiaForm.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="profiles.forms.GanaderiaForm.Meta.fields">
+<tt class="descname">fields</tt><em class="property"> = ('nombreEntidad', 'direccion')</em><a class="headerlink" href="#profiles.forms.GanaderiaForm.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="profiles.forms.GanaderiaForm.Meta.model">
+<tt class="descname">model</tt><a class="headerlink" href="#profiles.forms.GanaderiaForm.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <tt class="xref py py-class docutils literal"><span class="pre">Ganaderia</span></tt></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="profiles.forms.GanaderiaForm.Meta.widgets">
+<tt class="descname">widgets</tt><em class="property"> = {'nombreEntidad': &lt;django.forms.widgets.TextInput object at 0x2aebfaf9f990&gt;, 'direccion': &lt;django.forms.widgets.TextInput object at 0x2aebfb0f12d0&gt;}</em><a class="headerlink" href="#profiles.forms.GanaderiaForm.Meta.widgets" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="profiles.forms.GanaderiaForm.base_fields">
+<tt class="descclassname">GanaderiaForm.</tt><tt class="descname">base_fields</tt><em class="property"> = {'nombreEntidad': &lt;django.forms.fields.CharField object at 0x2aebfb0f15d0&gt;, 'direccion': &lt;django.forms.fields.CharField object at 0x2aebfb0f19d0&gt;}</em><a class="headerlink" href="#profiles.forms.GanaderiaForm.base_fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="profiles.forms.GanaderiaForm.declared_fields">
+<tt class="descclassname">GanaderiaForm.</tt><tt class="descname">declared_fields</tt><em class="property"> = {}</em><a class="headerlink" href="#profiles.forms.GanaderiaForm.declared_fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="profiles.forms.GanaderiaForm.media">
+<tt class="descclassname">GanaderiaForm.</tt><tt class="descname">media</tt><a class="headerlink" href="#profiles.forms.GanaderiaForm.media" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="profiles.forms.SignupFormExtra">
+<em class="property">class </em><tt class="descclassname">profiles.forms.</tt><tt class="descname">SignupFormExtra</tt><big>(</big><em>*args</em>, <em>**kw</em><big>)</big><a class="reference internal" href="_modules/profiles/forms.html#SignupFormExtra"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#profiles.forms.SignupFormExtra" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">userena.forms.SignupForm</span></tt></p>
+<p>A form to SIDGVnstrate how to add extra fields to the signup form, in this
+case adding the first and last name.</p>
+<dl class="attribute">
+<dt id="profiles.forms.SignupFormExtra.base_fields">
+<tt class="descname">base_fields</tt><em class="property"> = {'username': &lt;django.forms.fields.RegexField object at 0x2aebfa365d50&gt;, 'email': &lt;django.forms.fields.EmailField object at 0x2aebfa365f50&gt;, 'password1': &lt;django.forms.fields.CharField object at 0x2aebfa374090&gt;, 'password2': &lt;django.forms.fields.CharField object at 0x2aebfa374190&gt;, 'first_name': &lt;django.forms.fields.CharField object at 0x2aebfa825c90&gt;, 'last_name': &lt;django.forms.fields.CharField object at 0x2aebfb0f1b50&gt;}</em><a class="headerlink" href="#profiles.forms.SignupFormExtra.base_fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="profiles.forms.SignupFormExtra.media">
+<tt class="descname">media</tt><a class="headerlink" href="#profiles.forms.SignupFormExtra.media" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="profiles.forms.SignupFormExtra.save">
+<tt class="descname">save</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/profiles/forms.html#SignupFormExtra.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#profiles.forms.SignupFormExtra.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Override the save method to save the first and last name to the user
+field.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="profiles-models-module">
+<h2>profiles.models module<a class="headerlink" href="#profiles-models-module" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-profiles.models"></span><dl class="class">
+<dt id="profiles.models.Configuracion">
+<em class="property">class </em><tt class="descclassname">profiles.models.</tt><tt class="descname">Configuracion</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/profiles/models.html#Configuracion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#profiles.models.Configuracion" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">django.db.models.base.Model</span></tt></p>
+<p>Configuracion(id, tipo_identificacion, celo_frecuencia, celo_frecuencia_error, celo_duracion, celo_duracion_error, celo_despues_parto, celo_despues_parto_error, intentos_verificacion_celo, etapa_ternera, etapa_vacona, etapa_vientre, periodo_gestacion, periodo_seco, periodo_lactancia, periodo_vacio, numero_ordenios)</p>
+<dl class="exception">
+<dt id="profiles.models.Configuracion.DoesNotExist">
+<em class="property">exception </em><tt class="descname">DoesNotExist</tt><a class="headerlink" href="#profiles.models.Configuracion.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></tt></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="profiles.models.Configuracion.IDENTIFICACION_CHOICES">
+<tt class="descclassname">Configuracion.</tt><tt class="descname">IDENTIFICACION_CHOICES</tt><em class="property"> = (('simple', 'Simple'), ('norma_ecuador', 'Norma Ecuador'))</em><a class="headerlink" href="#profiles.models.Configuracion.IDENTIFICACION_CHOICES" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="profiles.models.Configuracion.MultipleObjectsReturned">
+<em class="property">exception </em><tt class="descclassname">Configuracion.</tt><tt class="descname">MultipleObjectsReturned</tt><a class="headerlink" href="#profiles.models.Configuracion.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></tt></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="profiles.models.Configuracion.ganaderia">
+<tt class="descclassname">Configuracion.</tt><tt class="descname">ganaderia</tt><a class="headerlink" href="#profiles.models.Configuracion.ganaderia" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="profiles.models.Configuracion.get_tipo_identificacion_display">
+<tt class="descclassname">Configuracion.</tt><tt class="descname">get_tipo_identificacion_display</tt><big>(</big><em>*moreargs</em>, <em>**morekwargs</em><big>)</big><a class="headerlink" href="#profiles.models.Configuracion.get_tipo_identificacion_display" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="profiles.models.Configuracion.objects">
+<tt class="descclassname">Configuracion.</tt><tt class="descname">objects</tt><em class="property"> = &lt;django.db.models.manager.Manager object at 0x2aebf9fd2550&gt;</em><a class="headerlink" href="#profiles.models.Configuracion.objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="profiles.models.Ganaderia">
+<em class="property">class </em><tt class="descclassname">profiles.models.</tt><tt class="descname">Ganaderia</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/profiles/models.html#Ganaderia"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#profiles.models.Ganaderia" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">django.db.models.base.Model</span></tt></p>
+<p>Ganaderia(id, nombreEntidad, direccion, configuracion_id)</p>
+<dl class="exception">
+<dt id="profiles.models.Ganaderia.DoesNotExist">
+<em class="property">exception </em><tt class="descname">DoesNotExist</tt><a class="headerlink" href="#profiles.models.Ganaderia.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></tt></p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="profiles.models.Ganaderia.MultipleObjectsReturned">
+<em class="property">exception </em><tt class="descclassname">Ganaderia.</tt><tt class="descname">MultipleObjectsReturned</tt><a class="headerlink" href="#profiles.models.Ganaderia.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></tt></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="profiles.models.Ganaderia.configuracion">
+<tt class="descclassname">Ganaderia.</tt><tt class="descname">configuracion</tt><a class="headerlink" href="#profiles.models.Ganaderia.configuracion" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="profiles.models.Ganaderia.farm_foods">
+<tt class="descclassname">Ganaderia.</tt><tt class="descname">farm_foods</tt><a class="headerlink" href="#profiles.models.Ganaderia.farm_foods" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="profiles.models.Ganaderia.ganados">
+<tt class="descclassname">Ganaderia.</tt><tt class="descname">ganados</tt><a class="headerlink" href="#profiles.models.Ganaderia.ganados" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="profiles.models.Ganaderia.insemination_farm">
+<tt class="descclassname">Ganaderia.</tt><tt class="descname">insemination_farm</tt><a class="headerlink" href="#profiles.models.Ganaderia.insemination_farm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="profiles.models.Ganaderia.medicaments">
+<tt class="descclassname">Ganaderia.</tt><tt class="descname">medicaments</tt><a class="headerlink" href="#profiles.models.Ganaderia.medicaments" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="profiles.models.Ganaderia.objects">
+<tt class="descclassname">Ganaderia.</tt><tt class="descname">objects</tt><em class="property"> = &lt;django.db.models.manager.Manager object at 0x2aebf9fdec50&gt;</em><a class="headerlink" href="#profiles.models.Ganaderia.objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="profiles.models.Ganaderia.perfil">
+<tt class="descclassname">Ganaderia.</tt><tt class="descname">perfil</tt><a class="headerlink" href="#profiles.models.Ganaderia.perfil" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="profiles.models.Profile">
+<em class="property">class </em><tt class="descclassname">profiles.models.</tt><tt class="descname">Profile</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/profiles/models.html#Profile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#profiles.models.Profile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">userena.models.UserenaLanguageBaseProfile</span></tt></p>
+<p>Default profile</p>
+<dl class="exception">
+<dt id="profiles.models.Profile.DoesNotExist">
+<em class="property">exception </em><tt class="descname">DoesNotExist</tt><a class="headerlink" href="#profiles.models.Profile.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></tt></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="profiles.models.Profile.GENDER_CHOICES">
+<tt class="descclassname">Profile.</tt><tt class="descname">GENDER_CHOICES</tt><em class="property"> = ((1, &lt;django.utils.functional.__proxy__ object at 0x2aebf9fd24d0&gt;), (2, &lt;django.utils.functional.__proxy__ object at 0x2aebf9fd25d0&gt;))</em><a class="headerlink" href="#profiles.models.Profile.GENDER_CHOICES" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="profiles.models.Profile.MultipleObjectsReturned">
+<em class="property">exception </em><tt class="descclassname">Profile.</tt><tt class="descname">MultipleObjectsReturned</tt><a class="headerlink" href="#profiles.models.Profile.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></tt></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="profiles.models.Profile.ganaderia_perfil">
+<tt class="descclassname">Profile.</tt><tt class="descname">ganaderia_perfil</tt><a class="headerlink" href="#profiles.models.Profile.ganaderia_perfil" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="profiles.models.Profile.get_gender_display">
+<tt class="descclassname">Profile.</tt><tt class="descname">get_gender_display</tt><big>(</big><em>*moreargs</em>, <em>**morekwargs</em><big>)</big><a class="headerlink" href="#profiles.models.Profile.get_gender_display" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="profiles.models.Profile.get_language_display">
+<tt class="descclassname">Profile.</tt><tt class="descname">get_language_display</tt><big>(</big><em>*moreargs</em>, <em>**morekwargs</em><big>)</big><a class="headerlink" href="#profiles.models.Profile.get_language_display" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="profiles.models.Profile.get_privacy_display">
+<tt class="descclassname">Profile.</tt><tt class="descname">get_privacy_display</tt><big>(</big><em>*moreargs</em>, <em>**morekwargs</em><big>)</big><a class="headerlink" href="#profiles.models.Profile.get_privacy_display" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="profiles.models.Profile.objects">
+<tt class="descclassname">Profile.</tt><tt class="descname">objects</tt><em class="property"> = &lt;userena.managers.UserenaBaseProfileManager object at 0x2aebf9fd2e50&gt;</em><a class="headerlink" href="#profiles.models.Profile.objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="profiles.models.Profile.receiver_">
+<tt class="descclassname">Profile.</tt><tt class="descname">receiver_</tt><a class="headerlink" href="#profiles.models.Profile.receiver_" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="profiles.models.Profile.sender_">
+<tt class="descclassname">Profile.</tt><tt class="descname">sender_</tt><a class="headerlink" href="#profiles.models.Profile.sender_" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="profiles.models.Profile.user">
+<tt class="descclassname">Profile.</tt><tt class="descname">user</tt><a class="headerlink" href="#profiles.models.Profile.user" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-profiles.tests">
+<span id="profiles-tests-module"></span><h2>profiles.tests module<a class="headerlink" href="#module-profiles.tests" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-profiles.views">
+<span id="profiles-views-module"></span><h2>profiles.views module<a class="headerlink" href="#module-profiles.views" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="profiles.views.agrega_ganaderia_config">
+<tt class="descclassname">profiles.views.</tt><tt class="descname">agrega_ganaderia_config</tt><big>(</big><em>request</em><big>)</big><a class="reference internal" href="_modules/profiles/views.html#agrega_ganaderia_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#profiles.views.agrega_ganaderia_config" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="profiles.views.home">
+<tt class="descclassname">profiles.views.</tt><tt class="descname">home</tt><big>(</big><em>request</em><big>)</big><a class="reference internal" href="_modules/profiles/views.html#home"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#profiles.views.home" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="profiles.views.number_messages">
+<tt class="descclassname">profiles.views.</tt><tt class="descname">number_messages</tt><big>(</big><em>request</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/profiles/views.html#number_messages"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#profiles.views.number_messages" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-profiles">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-profiles" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">profiles package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-profiles.admin">profiles.admin module</a></li>
+<li><a class="reference internal" href="#module-profiles.forms">profiles.forms module</a></li>
+<li><a class="reference internal" href="#profiles-models-module">profiles.models module</a></li>
+<li><a class="reference internal" href="#module-profiles.tests">profiles.tests module</a></li>
+<li><a class="reference internal" href="#module-profiles.views">profiles.views module</a></li>
+<li><a class="reference internal" href="#module-profiles">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="notifications.html"
+                        title="previous chapter">notifications package</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="reports.html"
+                        title="next chapter">reports package</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/profiles.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="reports.html" title="reports package"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="notifications.html" title="notifications package"
+             >previous</a> |</li>
+        <li><a href="index.html">HatosGanaderos 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, @mricharleon.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

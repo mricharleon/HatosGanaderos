@@ -11,12 +11,15 @@
     <h3>Edita tu Ganado</h3>
     <h4>Ahora podras actualizar los datos de tu ganado.</h4>
     <ul id="profile-nav">
-      <li><a href="{% url 'lista_ganado' %}">Listar Ganado</a></li>
       {% for c in ganado.ciclos.all %}
         {% if c.nombre != 3 and c.is_active %}
-            <li><a href="{% url 'edita_ganado_celo' user.username id_cattle %}">Editar Celo</a></li>
+            <li><a href="{% url 'edita_ganado_celo' id_cattle %}">Editar Celo</a></li>
         {% endif %}
       {% endfor %}
+      <li><a href="{% url 'list_cattle' %}">Listar Hembras</a></li>
+      <li><a href="{% url 'list_cattle_male' %}">Listar Machos</a></li>
+      <li><a href="{% url 'add_insemination' %}">Registrar Esperma</a></li>
+      <li><a href="{% url 'list_insemination' %}">Listar Esperma</a></li>
     </ul>
        
 </div>
@@ -32,38 +35,20 @@
       
       {% csrf_token %}
 
-      <section class="container">
-        <div class="user">
-          <img src="{{STATIC_URL}}img/help.png"/>
-          <ul>
-            <h5 class="sep">{{formIdentificacion.nombre.label_tag}}</h5>
-          </ul>
-        </div>
-      </section>
-      {{formIdentificacion.nombre.errors}}
-      {{formIdentificacion.nombre}}
+      {% for form in formIdentificacion %}
+        <section class="container">
+          <div class="user">
+            <img src="{{STATIC_URL}}img/help.png"/>
+            <ul>
+              <h5 class="sep">{{form.label_tag}}</h5>
+            </ul>
+          </div>
+        </section>
+        {{form.errors}}
+        {{form}}
+      {% endfor %}
 
-      <section class="container">
-        <div class="user">
-          <img src="{{STATIC_URL}}img/help.png"/>
-          <ul>
-            <h5 class="sep">{{formIdentificacion.rp_madre.label_tag}}</h5>
-          </ul>
-        </div>
-      </section>
-      {{formIdentificacion.rp_madre.errors}}
-      {{formIdentificacion.rp_madre}}
-
-      <section class="container">
-        <div class="user">
-          <img src="{{STATIC_URL}}img/help.png"/>
-          <ul>
-            <h5 class="sep">{{formIdentificacion.rp_padre.label_tag}}</h5>
-          </ul>
-        </div>
-      </section>
-      {{formIdentificacion.rp_padre.errors}}
-      {{formIdentificacion.rp_padre}}
+      
       
       <section class="container">
         <div class="user">
@@ -124,6 +109,30 @@
         <label for="select" class="select">
           {{formGanado.forma_concepcion.errors}}
           {{formGanado.forma_concepcion}}
+        </label>
+
+      <section class="container">
+        <div class="user">
+          <img src="{{STATIC_URL}}img/help.png"/>
+          <ul>
+            <h5 class="sep">{{formGanado.live_weight.label_tag}}</h5>
+          </ul>
+        </div>
+      </section>
+      {{formGanado.live_weight.errors}}
+      {{formGanado.live_weight}}
+
+      <section class="container">
+        <div class="user">
+          <img src="{{STATIC_URL}}img/help.png"/>
+          <ul>
+            <h5 class="sep">{{formGanado.unit_live_weight.label_tag}}</h5>
+          </ul>
+        </div>
+      </section>
+        <label for="select" class="select">
+          {{formGanado.unit_live_weight.errors}}
+          {{formGanado.unit_live_weight}}
         </label>
 
       <section class="container">

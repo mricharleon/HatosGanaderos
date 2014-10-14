@@ -37,13 +37,12 @@ class Medicament(models.Model):
                             default=0)
     amount_application = models.FloatField(u'cantidad de aplicación')
     OPTION_NUMBER_APPLICATION = (
-        (0, 'Única vez'),
-        (1, 'Veces exactas'),
-        (2, 'Repetitivo')
+        (0, 'Veces exactas'),
+        (1, 'Repetitivo')
         )
     option_number_application = models.PositiveSmallIntegerField('Ciclo de la medicina',
-                            choices = OPTION_NUMBER_APPLICATION,
-                            default=0)
+                            choices = OPTION_NUMBER_APPLICATION
+                            )
     number_application = models.IntegerField(u'Número de aplicaciones')
     interval = models.IntegerField('Intervalo de tiempo')
     TIME_INTERVAL_CHOICES = (

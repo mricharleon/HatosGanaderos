@@ -1,0 +1,94 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2014, @mricharleon
+# This file is distributed under the same license as the HatosGanaderos package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: HatosGanaderos 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-10-09 22:34-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../alimentos.rst:2
+# 2446d8c117bb48b7986a87590e4119ed
+msgid "alimentos package"
+msgstr ""
+
+#: ../../alimentos.rst:5
+# 06d15f6507da49d3a346b0457cdc940f
+msgid "Submodules"
+msgstr ""
+
+#: ../../alimentos.rst:8
+# a4597b70f28942979eda1fa855e9cca9
+msgid "alimentos.admin module"
+msgstr ""
+
+#: ../../alimentos.rst:16
+# ebb70cb9bdc5418f8d6e49c0f1fdf2f4
+msgid "alimentos.forms module"
+msgstr ""
+
+#: ../../<autodoc>:1
+# e5a9ec426cb24c5485701bf547f255a9
+msgid "Bases: :class:`django.forms.models.ModelForm`"
+msgstr ""
+
+#: ../../alimentos.rst:24
+# 9037c25f8cf94b399756b3a5b32a992e
+msgid "alimentos.models module"
+msgstr ""
+
+#: ../../<autodoc>:1
+#: ../../<autodoc>:1
+# 736df3af5c124a5aa9822aff87f14963
+# 36fed62c2ac644e5a73736cff7f28e15
+msgid "Bases: :class:`django.db.models.base.Model`"
+msgstr ""
+
+#: ../../../alimentos/models.py:docstring of alimentos.models.ApplicationFood:1
+# a7c314a741b6436195cdc52d4c578dd5
+msgid "ApplicationFood(id, date, food_id, status)"
+msgstr ""
+
+#: ../../<autodoc>:1
+#: ../../<autodoc>:1
+# 161f8f8d03214651bb5157e83e7cbbab
+# 57b29e2314ab40b48ab62dbda6535896
+msgid "Bases: :class:`django.core.exceptions.ObjectDoesNotExist`"
+msgstr ""
+
+#: ../../<autodoc>:1
+#: ../../<autodoc>:1
+# 5b1b3361406c4747bfca89cf72bf0feb
+# 8dd40273bc7a444790ce4cf5cf8f51a4
+msgid "Bases: :class:`django.core.exceptions.MultipleObjectsReturned`"
+msgstr ""
+
+#: ../../../alimentos/models.py:docstring of alimentos.models.Food:1
+# 149ccc5147a041eaa2873f0b6c3d0ff4
+msgid "Food(id, name, expiration_date, unit, amount, sex, farm_id, phase, consumer_amount, interval, time_interval, administration_route, observations, is_active)"
+msgstr ""
+
+#: ../../alimentos.rst:32
+# e70420f2b3ce468cbeea5a2b1ef12eed
+msgid "alimentos.tests module"
+msgstr ""
+
+#: ../../alimentos.rst:40
+# 681f59bb10024c3798b0fa710e765a42
+msgid "alimentos.views module"
+msgstr ""
+
+#: ../../alimentos.rst:49
+# 9b5bd8ad9b82441d996b174dd08c0f19
+msgid "Module contents"
+msgstr ""
+
