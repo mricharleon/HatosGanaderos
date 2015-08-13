@@ -5,10 +5,12 @@ Sistema de Administración y Control de Ganados Vacunos, brinda la posibilidad d
 ## Instalación ##
 
 Crear y activar un entorno virtual (virtualenv)
-	sudo apt-get install python-virtualenv
+
+    sudo apt-get install python-virtualenv
 	
 Clonar el proyecto
-	git clone https://github.com/mricharleon/HatosGanaderos.git
+
+    git clone https://github.com/mricharleon/HatosGanaderos.git
 
 ## Contacto ##
 
