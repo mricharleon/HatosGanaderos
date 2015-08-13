@@ -33,6 +33,15 @@ Entrar a la consola de administración de PostgreSQL
     virtualenv -p /usr/bin/python2.7 ~/HatosGanaderos
     source ~/HatosGanaderos/bin/activate
 
+#### Instalar Nodejs ####
+Para servir notificaciones en tiempo real se hace necesario utilizar algunas librerías js.
+
+    sudo apt-get install npm
+
+#### Instalar ishout.js ####
+Es una librería necesaria para el envio de notificaciones en tiempo real.
+    npm install ishout.js
+
 #### Instalar Nginx ####
 Para servir los datos estáticos del sistema HatosGanaderos se hace uso de nginx.
 
