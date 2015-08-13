@@ -1,10 +1,14 @@
 # HatosGanaderos #
-Sistema de Administración y Control de Ganados Vacunos, brinda la posibilidad de gestionar el ganado en cuatro aspectos fundamentales de una entidad ganadera: Reproducción, alimentación, Sanidad y Producción. A través de tecnologías como ** Python, Django, NodeJs, ishout.js, Django Realtime, PostgreSQL, etc. ** 
+Sistema web de Administración y Control de Ganados Vacunos através de **agentes inteligentes deliberativos**, brinda la posibilidad de gestionar el ganado en cuatro aspectos fundamentales de una entidad ganadera: Reproducción, alimentación, Sanidad y Producción. A través de tecnologías como **Python, Django, NodeJs, ishout.js, Django Realtime, PostgreSQL, etc.** 
 
 ## Instalación de Hatos Ganaderos ##
 Para realizar la instalación se debe preparar un entorno de ejecución:
 
 ### Prerrequisitos ###
+
+Instalar Python
+
+    sudo apt-get install python2.7
 
 Instalar PostgreSQL
 
@@ -34,6 +38,13 @@ Clonar el proyecto
 Dentro del entorno virtual(~/HatosGanaderos/) activado
 
     git clone https://github.com/mricharleon/HatosGanaderos.git
+
+Instalar librerias con pip
+
+    pip install -r requirements.txt
+
+## Ejecución del sistema  ##
+Para la ejecución del sistema web HatosGanaderos se requiere seguir los siguientes pasos:
 
 ## Contacto ##
 
