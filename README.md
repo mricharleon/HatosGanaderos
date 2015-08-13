@@ -35,7 +35,6 @@ Dentro del entorno virtual(~/HatosGanaderos/) activado
 
     git clone https://github.com/mricharleon/HatosGanaderos.git
 
-
 ## Contacto ##
 
 Para mayor información sobre como probar el sistema, comunicarse a mrleonr@unl.edu.ec
