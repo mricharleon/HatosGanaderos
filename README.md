@@ -20,7 +20,8 @@ Cambiar clave a usuario postgres
 
 Crear usuario nuevo
 
-    sudo postgres
+    su postgres
+    psql
     CREATE USER user_hg PASSWORD 'password';
 
 Asignar permisos a usuario
