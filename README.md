@@ -81,6 +81,17 @@ Instalar librerias con pip
 ## Ejecución del sistema  ##
 Para la ejecución del sistema web HatosGanaderos se requiere seguir los siguientes pasos:
 
+**Importante**
+Configurar el settings.py del proyecto como:
+
+ * La dirección ip de tu máquina(en el archivo se especifica donde modifiques)
+
+Crear datos por defecto en la BD
+
+    ./manage.py syncdb
+
+Ahora si con estos pasos a ejecutar el sistema web HatosGanaderos
+
 **Primera Terminal**
 
     redis-server
