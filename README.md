@@ -4,8 +4,6 @@ Sistema web de Administración y Control de Ganados Vacunos através de **agente
 ## Instalación de Hatos Ganaderos ##
 Para realizar la instalación se debe preparar un entorno de ejecución:
 
-### Prerrequisitos ###
-
 #### Instalar Python ####
 El lenguaje de programación que requiere el sistema es Python en su versión 2.7.
 
@@ -48,10 +46,23 @@ Es una librería necesaria para el envio de notificaciones en tiempo real.
 #### Instalar Nginx ####
 Para servir los datos estáticos del sistema HatosGanaderos se hace uso de nginx.
 
+    sudo apt-get install nginx
+    
+Configurar el archivo de configuración de nginx:
+
+    sudo vim /etc/nginx/sites-avalaible/default
+    sudo ln -s /etc/nginx/sites-avalaible/default /etc/nginx/sites-enabled/default
+
+En este archivo se coloca la información del archivo que se encuentra dentro de la carpeta conf_nginx
+
+Ahora reiniciamos el servidor
+
+    sudo /etc/init.d/nginx restart
+
 #### Instalar gunicorn ####
 Para servir los datos dinámicos del sistema HatosGanaderos se hace uso de gunicorn.
 
-### Instalar HatosGanaderos ###
+#### Clonar el proyecto ####
 	
 Clonar el proyecto dentro del entorno virtual(~/HatosGanaderos/) activado
 
