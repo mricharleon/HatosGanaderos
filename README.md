@@ -36,10 +36,13 @@ Entrar a la consola de administración de PostgreSQL
 #### Instalar Nodejs ####
 Para servir notificaciones en tiempo real se hace necesario utilizar algunas librerías js.
 
-    sudo apt-get install npm
+    sudo apt-get install curl
+    curl --silent --location https://deb.nodesource.com/setup_0.12 | bash -
+    sudo apt-get install --yes nodejs
 
 #### Instalar ishout.js ####
 Es una librería necesaria para el envio de notificaciones en tiempo real.
+
     npm install ishout.js
 
 #### Instalar Nginx ####
