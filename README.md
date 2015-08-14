@@ -18,11 +18,18 @@ Cambiar clave a usuario postgres
 
     sudo passwd postgres
 
-Entrar a la consola de administración de PostgreSQL
+Crear usuario nuevo
 
     sudo postgres
-    psql postgres
-    ALTER ROLE postgres PASSWORD 'contraseña_de_usuario';
+    CREATE USER user_hg PASSWORD 'password';
+
+Asignar permisos a usuario
+
+    ALTER ROLE user_hg WITH SUPERUSER;
+
+Crear BD 
+
+    CREATE DATABASE bd_hg WITH OWNER user_hg;
     \q
 
 #### Instalar, crear y activar un entorno virtual (virtualenv) ####
