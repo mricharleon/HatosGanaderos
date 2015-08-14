@@ -43,6 +43,10 @@ Es una librería necesaria para el envio de notificaciones en tiempo real.
 
     npm install ishout.js
 
+#### Instalar redis-sever ####
+
+    sudo apt-get install redis-server
+
 #### Instalar Nginx ####
 Para servir los datos estáticos del sistema HatosGanaderos se hace uso de nginx.
 
@@ -62,6 +66,8 @@ Ahora reiniciamos el servidor
 #### Instalar gunicorn ####
 Para servir los datos dinámicos del sistema HatosGanaderos se hace uso de gunicorn.
 
+    sudo apt-get install gunicorn
+
 #### Clonar el proyecto ####
 	
 Clonar el proyecto dentro del entorno virtual(~/HatosGanaderos/) activado
@@ -74,6 +80,23 @@ Instalar librerias con pip
 
 ## Ejecución del sistema  ##
 Para la ejecución del sistema web HatosGanaderos se requiere seguir los siguientes pasos:
+
+**Primera Terminal**
+
+    redis-server
+
+**Segunda Terminal**
+
+    node ~/node_modules/ishout.js/server.js
+
+**Tercera terminal**
+
+    configure.py 127.0.0.1
+    runspade.py
+
+**Cuarta terminal**
+
+    gunicorn ~/HatosGanaderos/HatosGanaderos/SIDGV.wsgi:application -w3
 
 
 
