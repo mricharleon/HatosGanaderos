@@ -6,21 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
     <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
 
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
-    <title>Hatosganaderos by mricharleon</title>
+    <title>HatosGanaderos by mricharleon</title>
   </head>
 
   <body>
     <header>
       <div class="inner">
-        <h1>Hatosganaderos</h1>
-        <h2>(en construcción) Sistema web de control y organización de multiples entidades ganaderas presentando notificaciones para realizar acciones sobre los ganados vacunos, a través de agentes deliberativos (spade)</h2>
+        <h1>HatosGanaderos</h1>
+        <h2>Sistema web de Administración y Control de Ganados Vacunos a través de agentes inteligentes deliberativos, brinda la posibilidad de gestionar el ganado en cuatro aspectos fundamentales de una entidad ganadera: Reproducción, alimentación, Sanidad y Producción. A través de tecnologías como Python, Django, NodeJs, ishout.js, Django Realtime, PostgreSQL, SPADE, etc.</h2>
         <a href="https://github.com/mricharleon/HatosGanaderos" class="button"><small>View project on</small> GitHub</a>
       </div>
     </header>
@@ -28,51 +28,173 @@
     <div id="content-wrapper">
       <div class="inner clearfix">
         <section id="main-content">
-          <h3>
-<a name="bienvenido-a-hatosganaderos" class="anchor" href="#bienvenido-a-hatosganaderos"><span class="octicon octicon-link"></span></a>Bienvenido a HatosGanaderos.</h3>
+          <h1>
+<a id="hatosganaderos" class="anchor" href="#hatosganaderos" aria-hidden="true"><span class="octicon octicon-link"></span></a>HatosGanaderos</h1>
 
-<p>HatosGanaderos es un sistema web que te ayuda con el control y organización de:</p>
+<p>Sistema web de Administración y Control de Ganados Vacunos através de <strong>agentes inteligentes deliberativos</strong>, brinda la posibilidad de gestionar el ganado en cuatro aspectos fundamentales de una entidad ganadera: Reproducción, Alimentación, Sanidad y Producción. A través de tecnologías como <strong>Python, Django, NodeJs, ishout.js, Django Realtime, PostgreSQL, SPADE, etc.</strong> </p>
 
-<pre><code>Reproducción
-Alimentación
-Sanidad y
-Producción
+<h2>
+<a id="instalación-de-hatos-ganaderos" class="anchor" href="#instalaci%C3%B3n-de-hatos-ganaderos" aria-hidden="true"><span class="octicon octicon-link"></span></a>Instalación de Hatos Ganaderos</h2>
+
+<p>Para realizar la instalación se debe preparar un entorno de ejecución:</p>
+
+<h4>
+<a id="instalar-python" class="anchor" href="#instalar-python" aria-hidden="true"><span class="octicon octicon-link"></span></a>Instalar Python</h4>
+
+<p>El lenguaje de programación que requiere el sistema es Python en su versión 2.7.</p>
+
+<pre><code>sudo apt-get install python2.7
 </code></pre>
 
-<p>A través de un sistema de notificaciones te alerta de las acciones que debes realizar en la entidad ganadera.</p>
+<h4>
+<a id="instalar-postgresql" class="anchor" href="#instalar-postgresql" aria-hidden="true"><span class="octicon octicon-link"></span></a>Instalar PostgreSQL</h4>
 
-<h3>
-<a name="designer-templates" class="anchor" href="#designer-templates"><span class="octicon octicon-link"></span></a>Designer Templates</h3>
+<p>Como motor de BD hace uso de PostgreSQL por ser eficiente.</p>
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
-
-<h3>
-<a name="reproducci%C3%B3n" class="anchor" href="#reproducci%C3%B3n"><span class="octicon octicon-link"></span></a>Reproducción</h3>
-
-<p>El módulo de reproducción esta disponible con el objetivo de mejorar el control de tus ganados en los apectos siguientes: agregar, editar, manejo de etapas, ciclos, celo, gestación. Es un módulo que debe estar a tu alcance.</p>
-
-<h3>
-<a name="alimentaci%C3%B3n" class="anchor" href="#alimentaci%C3%B3n"><span class="octicon octicon-link"></span></a>Alimentación</h3>
-
-<p>El módulo de alimentación tiene la finalidad de registrar y editar el alimento que suministres a tus ganados con atributos como fecha de caducidad, cantidad de producto, etapa, etc. Además se mantiene un registro del consumo de alimento de cada animal.</p>
-
-<h3>
-<a name="sanidad" class="anchor" href="#sanidad"><span class="octicon octicon-link"></span></a>Sanidad</h3>
-
-<p>El módulo de sanidad se encargará de registrar, editar y asignar las medicinas que brindes a tus ganados, medicinas como: desparacitadores y vacunas. De está manera podrás obtener ganados sanos además de cumplir con las normas o leyes de cada país en proveer vacunas a tus ganados..</p>
-
-<h3>
-<a name="producci%C3%B3n" class="anchor" href="#producci%C3%B3n"><span class="octicon octicon-link"></span></a>Producción</h3>
-
-<p>El módulo de producción está encargado de mantener el registro diario de la producción de leche, los ordeños diarios son configurables y sabrás cuán productivo es un ganado. Además podrás tomar las medidas necesarias para incrementar más su productividad.</p>
-
-<h3>
-<a name="soporte-o-contacto" class="anchor" href="#soporte-o-contacto"><span class="octicon octicon-link"></span></a>Soporte o Contacto</h3>
-
-<p>Para poder contactar escribir a:</p>
-
-<pre><code>Twitter: @mricharleon
+<pre><code>sudo apt-get install postgresql-9-4
 </code></pre>
+
+<p>Cambiar clave a usuario postgres</p>
+
+<pre><code>sudo passwd postgres
+</code></pre>
+
+<p>Crear usuario nuevo</p>
+
+<pre><code>su postgres
+psql
+CREATE USER user_hg PASSWORD 'password';
+</code></pre>
+
+<p>Asignar permisos a usuario</p>
+
+<pre><code>ALTER ROLE user_hg WITH SUPERUSER;
+</code></pre>
+
+<p>Crear BD </p>
+
+<pre><code>CREATE DATABASE bd_hg WITH OWNER user_hg;
+\q
+</code></pre>
+
+<h4>
+<a id="instalar-crear-y-activar-un-entorno-virtual-virtualenv" class="anchor" href="#instalar-crear-y-activar-un-entorno-virtual-virtualenv" aria-hidden="true"><span class="octicon octicon-link"></span></a>Instalar, crear y activar un entorno virtual (virtualenv)</h4>
+
+<pre><code>sudo apt-get install python-virtualenv
+virtualenv -p /usr/bin/python2.7 ~/HatosGanaderos
+source ~/HatosGanaderos/bin/activate
+</code></pre>
+
+<h4>
+<a id="instalar-nodejs" class="anchor" href="#instalar-nodejs" aria-hidden="true"><span class="octicon octicon-link"></span></a>Instalar Nodejs</h4>
+
+<p>Para servir notificaciones en tiempo real se hace necesario utilizar algunas librerías js.</p>
+
+<pre><code>sudo apt-get install curl
+curl --silent --location https://deb.nodesource.com/setup_0.12 | bash -
+sudo apt-get install --yes nodejs
+</code></pre>
+
+<h4>
+<a id="instalar-ishoutjs" class="anchor" href="#instalar-ishoutjs" aria-hidden="true"><span class="octicon octicon-link"></span></a>Instalar ishout.js</h4>
+
+<p>Es una librería necesaria para el envio de notificaciones en tiempo real.</p>
+
+<pre><code>npm install ishout.js
+</code></pre>
+
+<h4>
+<a id="instalar-redis-sever" class="anchor" href="#instalar-redis-sever" aria-hidden="true"><span class="octicon octicon-link"></span></a>Instalar redis-sever</h4>
+
+<pre><code>sudo apt-get install redis-server
+</code></pre>
+
+<h4>
+<a id="instalar-nginx" class="anchor" href="#instalar-nginx" aria-hidden="true"><span class="octicon octicon-link"></span></a>Instalar Nginx</h4>
+
+<p>Para servir los datos estáticos del sistema HatosGanaderos se hace uso de nginx.</p>
+
+<pre><code>sudo apt-get install nginx
+</code></pre>
+
+<p>Configurar el archivo de configuración de nginx:</p>
+
+<pre><code>sudo vim /etc/nginx/sites-avalaible/default
+sudo ln -s /etc/nginx/sites-avalaible/default /etc/nginx/sites-enabled/default
+</code></pre>
+
+<p>En este archivo se coloca la información del archivo que se encuentra dentro de la carpeta conf_nginx</p>
+
+<p>Ahora reiniciamos el servidor</p>
+
+<pre><code>sudo /etc/init.d/nginx restart
+</code></pre>
+
+<h4>
+<a id="instalar-gunicorn" class="anchor" href="#instalar-gunicorn" aria-hidden="true"><span class="octicon octicon-link"></span></a>Instalar gunicorn</h4>
+
+<p>Para servir los datos dinámicos del sistema HatosGanaderos se hace uso de gunicorn.</p>
+
+<pre><code>sudo apt-get install gunicorn
+</code></pre>
+
+<h4>
+<a id="clonar-el-proyecto" class="anchor" href="#clonar-el-proyecto" aria-hidden="true"><span class="octicon octicon-link"></span></a>Clonar el proyecto</h4>
+
+<p>Clonar el proyecto dentro del entorno virtual(~/HatosGanaderos/) activado</p>
+
+<pre><code>git clone https://github.com/mricharleon/HatosGanaderos.git
+</code></pre>
+
+<p>Instalar librerias con pip</p>
+
+<pre><code>pip install -r requirements.txt
+</code></pre>
+
+<h2>
+<a id="ejecución-del-sistema" class="anchor" href="#ejecuci%C3%B3n-del-sistema" aria-hidden="true"><span class="octicon octicon-link"></span></a>Ejecución del sistema</h2>
+
+<p>Para la ejecución del sistema web HatosGanaderos se requiere seguir los siguientes pasos:</p>
+
+<p><strong>Importante</strong>
+Configurar el settings.py del proyecto como:</p>
+
+<ul>
+<li>La dirección ip de tu máquina(en el archivo se especifica donde modifiques)</li>
+</ul>
+
+<p>Crear datos por defecto en la BD</p>
+
+<pre><code>./manage.py syncdb
+</code></pre>
+
+<p>Ahora si con estos pasos a ejecutar el sistema web HatosGanaderos</p>
+
+<p><strong>Primera Terminal</strong></p>
+
+<pre><code>redis-server
+</code></pre>
+
+<p><strong>Segunda Terminal</strong></p>
+
+<pre><code>node ~/node_modules/ishout.js/server.js
+</code></pre>
+
+<p><strong>Tercera terminal</strong></p>
+
+<pre><code>configure.py 127.0.0.1
+runspade.py
+</code></pre>
+
+<p><strong>Cuarta terminal</strong></p>
+
+<pre><code>gunicorn ~/HatosGanaderos/HatosGanaderos/SIDGV.wsgi:application -w3
+</code></pre>
+
+<h2>
+<a id="contacto" class="anchor" href="#contacto" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contacto</h2>
+
+<p>Para mayor información sobre como probar el sistema, comunicarse a <a href="mailto:mrleonr@unl.edu.ec">mrleonr@unl.edu.ec</a></p>
         </section>
 
         <aside id="sidebar">
