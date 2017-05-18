@@ -1293,8 +1293,6 @@ def wsGanadosProduccion_view(request):
 											)
 										)
 
-		print '===>>>>', ganados.count()
-
 		celos = Celo.objects.filter(is_active=True, ganado_id=ganados)
 		etapas = Etapa.objects.filter(is_active=True, ganado_id=ganados)
 		ciclos = Ciclo.objects.filter(is_active=True, ganado_id=ganados)
@@ -2195,7 +2193,6 @@ def ajaxAddListNotificationsSanidadRealizadas(request):
 		# serializando
 		data = '['
 		for n in notificaciones:
-			print 'yyyyyyyyyyyyyyyyyyyy: ', n.id
 			if data == '[':
 				data += '{"pk": ' + str(n.id) + ', '
 			else:
@@ -2382,11 +2379,8 @@ class BeliefSanidad:
 		cattles = Ganado.objects.filter(ganaderia=farm, down_cattle=None)
 
 		for v in vaccines: # recorre las vacunas
-			#print 'jjjjjjjjjjjjj: ', v.name
 			for c in cattles: # recorre los ganados
-				#print '\n ganadooo: #', c.id
 				if v.option_number_application==0: # veces exactas de aplicar vacuna
-					#print 'kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk'
 					if ApplicationMedicament.objects.filter(cattle=c, medicament=v).count() > 0: # no es la primera vacuna
 						av = ApplicationMedicament.objects.filter(cattle=c, medicament=v)
 						av_final = av.reverse()[:1]
@@ -2460,12 +2454,10 @@ class BeliefSanidad:
 						while control: # repite multiples veces
 							date_now = (c.nacimiento + relativedelta(months=(v.interval*i)))
 							if (date_now == three_days_after): # comprueba que sea el dia de aplicar
-								print 'primer if'
 								self.beliefs_application_vaccine.append(v.id)
 								self.beliefs_application_vaccine2.append(c.id)
 								control = False # termina el while
 							elif(date_now > date.today()):
-								#print 'segundo if'
 								control = False
 							i+=1
 
@@ -2483,11 +2475,8 @@ class BeliefSanidad:
 
 		# para los wormers
 		for v in wormers: # recorre las wormers
-			#print 'jjjjjjjjjjjjj: ', v.name
 			for c in cattles: # recorre los ganados
-				#print '\n ganadooo: #', c.id
 				if v.option_number_application==0: # veces exactas de aplicar vacuna
-					#print 'kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk'
 					if ApplicationMedicament.objects.filter(cattle=c, medicament=v).count() > 0: # no es la primera vacuna
 						av = ApplicationMedicament.objects.filter(cattle=c, medicament=v)
 						av_final = av.reverse()[:1]
@@ -2561,12 +2550,10 @@ class BeliefSanidad:
 						while control: # repite multiples veces
 							date_now = (c.nacimiento + relativedelta(months=(v.interval*i)))
 							if (date_now == three_days_after): # comprueba que sea el dia de aplicar
-								print 'primer if'
 								self.beliefs_application_wormer.append(v.id)
 								self.beliefs_application_wormer2.append(c.id)
 								control = False # termina el while
 							elif(date_now > date.today()):
-								#print 'segundo if'
 								control = False
 							i+=1
 
@@ -2615,7 +2602,6 @@ class IntentionSanidad:
 		msg = 'Notificación, REALIZADA con ÉXITO'
 		n = Notification.objects.filter(state=2, farm=farm).count()
 		for u in users:
-			# print "enviando a: ", u.username
 			ishout_client.emit(
 					u.id,
 					'notifications',
@@ -2645,7 +2631,6 @@ class IntentionSanidad:
 		msg = 'Notificación, REALIZADA con ÉXITO'
 		n = Notification.objects.filter(state=2, farm=farm).count()
 		for u in users:
-			# print "enviando a: ", u.username
 			ishout_client.emit(
 					u.id,
 					'notifications',
@@ -2799,17 +2784,14 @@ class AgentSanidad(spade.Agent.Agent):
 		def _process(self):
 			user = User.objects.get(id=user_name)
 			farm = Ganaderia.objects.get(perfil=user)
-			# print "Inicio del proceso del BehaviourSanidad"
 			beliefs = BeliefSanidad()
 			desires = DesireSanidad()
 			intention = IntentionSanidad()
 						
 			msg2 = self._receive(block=True,timeout=1)
-			#print "\nAgente sanidad, recibio el msj:"
 			list_beliefs_ordenio_celo = msg2.getContent().split(',') 
 			agent2 = list_beliefs_ordenio_celo[0]
 			del(list_beliefs_ordenio_celo[0])
-			#print list_beliefs_ordenio_celo, " del agente: ", agent2
 
 			# compruebo de que haya medicamentos
 			list_medicaments_cattle = []
@@ -2828,22 +2810,14 @@ class AgentSanidad(spade.Agent.Agent):
 										list_medicaments_cattle.append(str(cattle_app.id))
 
 				msg_to_reproduccion.addReceiver(spade.AID.aid(agent2+"@127.0.0.1",["xmpp://"+agent2+"@127.0.0.1"]))
-				#print 'antes'
-				#print 'list_medicaments_cattle: ', list_medicaments_cattle
-				#print 'list_beliefs_ordenio_celo: ', list_beliefs_ordenio_celo
 				
 				if list_beliefs_ordenio_celo == []:
 					list_beliefs_ordenio_celo = [n for n in list_beliefs_ordenio_celo if n not in list_medicaments_cattle]
 					msg_to_reproduccion.setContent( character.join(list_beliefs_ordenio_celo) )
-					#print 'PRODUCCION'
 				else:	
 					list_beliefs_ordenio_celo = [n for n in list_medicaments_cattle if n not in list_beliefs_ordenio_celo]
 					msg_to_reproduccion.setContent( character.join(list_medicaments_cattle) )
-					#print 'REPRODUCCION'
 
-				#print 'despues'
-				#print 'list_medicaments_cattle: ', list_medicaments_cattle
-				#print 'list_beliefs_ordenio_celo: ', list_beliefs_ordenio_celo
 				self.myAgent.send(msg_to_reproduccion)
 			else:
 				msg_to_reproduccion.addReceiver(spade.AID.aid(agent2+"@127.0.0.1",["xmpp://"+agent2+"@127.0.0.1"]))
@@ -2852,31 +2826,21 @@ class AgentSanidad(spade.Agent.Agent):
 			
 			if 6 in desires.desires:
 				intention.sendNotificationAmountVaccine(beliefs.beliefs_amount_vaccine)
-				print "Notificación: beliefs_amount_vaccine, Enviada"
 			if 7 in desires.desires:
 				intention.sendNotificationAmountWormer(beliefs.beliefs_amount_wormer)
-				print "Notificación: beliefs_amount_wormer, Enviada"
 			if 8 in desires.desires:
 				intention.sendNotificationExpirationVaccine(beliefs.beliefs_expiration_vaccine)
-				print "Notificación: beliefs_expiration_vaccine, Enviada"
 			if 9 in desires.desires:
 				intention.sendNotificationExpirationWormer(beliefs.beliefs_expiration_wormer)
-				print "Notificación: beliefs_expiration_wormer, Enviada"
 			if 10 in desires.desires:
-				print "Notificación:daaaa"
 				intention.sendNotificationApplicationVaccine(beliefs.beliefs_application_vaccine, beliefs.beliefs_application_vaccine2)
-				print "Notificación:da"
 			if 11 in desires.desires:
-				print "Notificación:daaaa"
 				intention.sendNotificationApplicationWormer(beliefs.beliefs_application_wormer, beliefs.beliefs_application_wormer2)
-				print "Notificación:da"
 
 		def onEnd(self):
-			# print "fin del BehaviourSanidad . . ."
 			sys.exit(0)
 
 	def _setup(self):
-		# print "Inicio del AgentSanidad . . ."
 		
 		template = spade.Behaviour.ACLTemplate()
 		template.setSender(spade.AID.aid("agent_reproduccion@127.0.0.1",["xmpp://agent_reproduccion@127.0.0.1"]))
@@ -2936,7 +2900,6 @@ class IntentionProduction:
 		notification.save()
 
 	def sendNotificationOrdenio(self, beliefs_ordenio):
-		#print 'estos sonooooooooooooooooooooooooooooo ', beliefs_ordenio
 		user = User.objects.get(id=user_name)
 		farm = Ganaderia.objects.get(perfil=user)
 
@@ -2959,7 +2922,6 @@ class IntentionProduction:
 		msg = 'Notificación, REALIZADA con ÉXITO'
 		n = Notification.objects.filter(state=2, farm=farm).count()
 		for u in users:
-			print "enviando a: ", u.username
 
 			ishout_client.emit(
 					u.id,
@@ -2991,14 +2953,11 @@ class AgentProduccion(spade.Agent.Agent):
 			if msg2.getContent() != '':
 				if 5 in desires.desires:
 					intention.sendNotificationOrdenio( list(msg2.getContent().split(',')) )
-					# print "Notificación enviada"
 
 		def onEnd(self):
-			#print "fin del BehaviourProduccion . . ."
 			sys.exit(0)
 
 	def _setup(self):
-		#print "Inicio del AgentProduccion . . ."
 		template = spade.Behaviour.ACLTemplate()
 		template.setSender(spade.AID.aid("agent_sanidad@127.0.0.1",["xmpp://agent_sanidad@127.0.0.1"]))
 		t = spade.Behaviour.MessageTemplate(template)
@@ -3035,13 +2994,9 @@ class BeliefAlimentacion:
 		foods = Food.objects.filter(farm=farm, is_active=True)
 		cattles = Ganado.objects.filter(ganaderia=farm, down_cattle=None)
 
-		print 'foods: ', foods.count()
-		print 'cattles: ', cattles.count()
 
 		for f in foods: # recorre las foods
-			#print 'jjjjjjjjjjjjj: ', v.name
 			for c in cattles: # recorre los ganados
-				print '\n ganadooo: #', c.identificacion_simple.nombre, f.phase
 
 				control = True
 				if f.phase==0: # si es para terneras
@@ -3159,7 +3114,6 @@ class BeliefAlimentacion:
 									elif(date_now > date.today()):
 										control = False
 									i+=1
-				print 'terminoooooooooooooooooooooooooooooooooó '
 
 
 class DesireAlimentacion:
@@ -3190,7 +3144,6 @@ class IntentionAlimentacion:
 		msg = 'Notificación, REALIZADA con ÉXITO'
 		n = Notification.objects.filter(state=2, farm=farm).count()
 		for u in users:
-			# print "enviando a: ", u.username
 			ishout_client.emit(
 					u.id,
 					'notifications',
@@ -3220,7 +3173,6 @@ class IntentionAlimentacion:
 		msg = 'Notificación, REALIZADA con ÉXITO'
 		n = Notification.objects.filter(state=2, farm=farm).count()
 		for u in users:
-			# print "enviando a: ", u.username
 			ishout_client.emit(
 					u.id,
 					'notifications',
@@ -3268,8 +3220,6 @@ class IntentionAlimentacion:
 
 
 	def sendNotificationApplicationFood(self, beliefs_application_food, beliefs_application_food2):
-		print '===============> ', beliefs_application_food
-		print '===============> ', beliefs_application_food2
 		one_day_before = date.today() - relativedelta(days=1)
 
 		l = len(beliefs_application_food)
@@ -3294,26 +3244,20 @@ class AgentAlimentacion(spade.Agent.Agent):
 			print "inicio del BehaviourAlimentacion . . ."
 
 		def _process(self):
-			# print "Inicio del proceso del BehaviourAlimentacion"
 			beliefs = BeliefAlimentacion()
 			desires = DesireAlimentacion()
 			intention = IntentionAlimentacion()
 			if 12 in desires.desires:
 				intention.sendNotificationAmountFood(beliefs.beliefs_amount_food)
-				# print "Notificación: beliefs_amount_food, Enviada"
 			if 13 in desires.desires:
 				intention.sendNotificationExpirationFood(beliefs.beliefs_expiration_food)
-				# print "Notificación: beliefs_expiration_food, Enviada"
 			if 14 in desires.desires:
 				intention.sendNotificationApplicationFood(beliefs.beliefs_application_food, beliefs.beliefs_application_food2)
-				# print "Notificación: beliefs_expiration_food, Enviada"
 
 		def onEnd(self):
-			# print "fin del BehaviourAlimentacion . . ."
 			sys.exit(0)
 
 	def _setup(self):
-		# print "Inicio del AgentAlimentacion . . ."
 		b = self.BehaviourAlimentacion()
 		self.addBehaviour(b, None)
 
@@ -3392,7 +3336,6 @@ class BeliefReproduccion:
 							self.beliefs_terneras.append(t.id)
 						if (DeferEtapa.objects.filter(cattle_id=t, is_active=True).count() > 0):
 							defer = DeferEtapa.objects.get(cattle_id=t, is_active=True)
-							#print '------->2 ', ((t.nacimiento + relativedelta(months=configuration.etapa_ternera)) + relativedelta(days=defer.number_days+1))
 							if ((t.nacimiento + relativedelta(months=configuration.etapa_ternera)) + relativedelta(days=defer.number_days+1) == date.today()):
 								self.beliefs_terneras.append(t.id)
 		except ObjectDoesNotExist:
@@ -3420,7 +3363,6 @@ class BeliefReproduccion:
 			for f in fierro:
 				for e in f.etapas.all():
 					if e.is_active:
-						#print 'fecha vientre ', (( f.nacimiento + relativedelta(months=configuration.etapa_vacona_fierro) ) - relativedelta(days=10))
 						if (DeferEtapa.objects.filter(cattle_id=f, is_active=True).count() > 0):
 							defer = DeferEtapa.objects.get(cattle_id=f, is_active=True)
 							if ((f.nacimiento + relativedelta(months=configuration.etapa_vacona_fierro)) + relativedelta(days=defer.number_days+1) == date.today()):
@@ -3508,7 +3450,6 @@ class IntentionReproduccion:
 		msg = 'Notificación, REALIZADA con ÉXITO'
 		n = Notification.objects.filter(state=2, farm=farm).count()
 		for u in users:
-			# print "enviando a: ", u.username
 			ishout_client.emit(
 					u.id,
 					'notifications',
@@ -3517,7 +3458,6 @@ class IntentionReproduccion:
 				)
 
 	def sendNotificationCelo(self, beliefs_celo):
-		print 'beliefs_celoooooo ', beliefs_celo
 		datee = date.today() + timedelta(days=3)
 		one_day_before = date.today() - relativedelta(days=1)
 		user = User.objects.get(id=user_name)
@@ -3525,7 +3465,6 @@ class IntentionReproduccion:
 		configuration = Configuracion.objects.get(id=farm.configuracion_id)
 		try:
 			cattles = Ganado.objects.filter( Q(ganaderia=farm, ciclos__nombre=0, ciclos__is_active=True) & (Q(etapas__nombre='3') | Q(etapas__nombre='4')) )
-			print '111111111111111'
 			for c in cattles:
 
 				if c.verification_cattle.all():
@@ -3573,7 +3512,6 @@ class IntentionReproduccion:
 					fecha = fecha.replace('-', '')
 
 					fecha = datetime.datetime.strptime(fecha, "%Y%m%d").date()
-					print 'siiiiiiiiiiiiiiii', type(fecha), fecha
 
 					date_celo = fecha + relativedelta( days=(configuration.celo_frecuencia - configuration.celo_frecuencia_error) )
 					end_date_celo = fecha + relativedelta( days=(configuration.celo_frecuencia + configuration.celo_frecuencia_error) )
@@ -3589,7 +3527,6 @@ class IntentionReproduccion:
 							notifi.save()
 						except ObjectDoesNotExist:
 							pass
-					print 'fechas:: ', date.today(), date_celo, end_date_celo
 
 					if ( date.today() == date_celo ): # si hoy == a la fecha de celo 
 						try:
@@ -3611,8 +3548,6 @@ class IntentionReproduccion:
 								celo.is_active = True
 								celo.save()
 								self.assignNotification(c.id, end_date.date(), 0)
-					else:
-						print 'no es posible'
 				elif ((date_parto != 'verificacion') & (date_parto != None)):  # si existe una previa gestacion (!=)
 					days_after_parto = configuration.celo_despues_parto
 					days_after_parto_error = configuration.celo_despues_parto_error
@@ -3683,9 +3618,7 @@ class IntentionReproduccion:
 						pass
 
 
-					#print date.today(), ' == ', date_now_ciclo, ' == ', date_now_celo
 					if (date.today() == date_now_ciclo) | (date.today() == date_now_celo):
-						#print 'llllleeeeggggooooooo'
 						start_date = datetime.datetime.now(pytz.timezone('America/Guayaquil'))
 						if days_frequency_celo_error == 0:
 							duration_celo = datetime.timedelta(hours=configuration.celo_duracion + configuration.celo_duracion_error)
@@ -3719,7 +3652,6 @@ class IntentionReproduccion:
 						if c.celos.all():
 							for c_celo in c.celos.all(): # itera los celos que haya tenido
 								f = c_celo.fecha_fin - datetime.timedelta(hours=5)
-								#print 'llego yupi jaja222', f, ' <= ',  datetime.datetime.now(pytz.timezone('America/Guayaquil'))
 								if (c_celo.is_active==True) & (c_celo.fecha_fin<=datetime.datetime.now(pytz.timezone('America/Guayaquil')) ):
 									c_celo.is_active = False
 									c_celo.save()
@@ -3728,10 +3660,8 @@ class IntentionReproduccion:
 			users = User.objects.filter(profile_user__ganaderia_perfil=farm)
 
 			msg = 'Notificación, REALIZADA con ÉXITO'
-			print msg
 			n = Notification.objects.filter(state=2, farm=farm).count()
 			for u in users:
-				# print "enviando a: ", u.username
 				ishout_client.emit(
 						u.id,
 						'notifications',
@@ -3740,10 +3670,9 @@ class IntentionReproduccion:
 					)
 
 		except ObjectDoesNotExist:
-			print 'no entrooooooo'
+			pass
 
 	def sendNotificationService(self, beliefs_service):
-		print beliefs_service, 'service'
 		one_day_before = date.today() - relativedelta(days=1)
 		user = User.objects.get(id=user_name)
 		farm = Ganaderia.objects.get(perfil=user)
@@ -3754,48 +3683,35 @@ class IntentionReproduccion:
 			datee = date.today() + timedelta(days=configuration.celo_frecuencia_error*2)
 
 		for d in beliefs_service:
-			print 'holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa0000', datee
 			try:
 				notifi = Notification.objects.get(ident_cattle_id=d, start_date=date.today(), end_date=datee, module=0, name=1)
-				print 'holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', datee
 			except ObjectDoesNotExist:
 				try:
 					notifi = Notification.objects.get(ident_cattle_id=d, state=2, end_date=date.today(), module=0, name=1)
-					print 'holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa2', datee
 					notifi.state = 0
 					notifi.save()
 				except ObjectDoesNotExist:
 					try:
 						notifi = Notification.objects.get(ident_cattle_id=d, state=2, module=0, name=1)
-						print 'holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa3', datee
 					except ObjectDoesNotExist:
 						try:
 							notifi = Notification.objects.get(ident_cattle_id=d, state=0, module=0, name=1, end_date=date.today())
-							print 'holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa4', datee
 						except ObjectDoesNotExist:
 							try:
 								notifi = Notification.objects.get(ident_cattle_id=d, state=0, module=0, name=1, end_date__gt=date.today())# mayor que
-								print 'holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa5', datee
 								self.assignNotification(d, datee, 1)
 							except ObjectDoesNotExist:
 								try:
 									notifi = Notification.objects.get(ident_cattle_id=d, state=0, module=0, name=1, end_date__lt=date.today())# mayor que
-									print 'holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa6', datee
 								except ObjectDoesNotExist:
 									try:
 										notifi = Notification.objects.filter(ident_cattle_id=d, state=1, module=0, name=1).reverse()[:1]
-										print 'holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa7', datee
 										if notifi.count() > 0:
-											print 'holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa8', datee
 											for t in notifi:
-												print 'holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa9', datee
 												if ( (date.today() <= t.end_date) | (date.today()-relativedelta(days=1) <= t.end_date) ):
-													print 'holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa11', datee
 												else:
-													print 'holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa12', datee
 													self.assignNotification(d, datee, 1)
 										else:
-											print 'holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa10', datee
 											self.assignNotification(d, datee, 1)
 									except ObjectDoesNotExist:
 										self.assignNotification(d, datee, 1)
@@ -3807,7 +3723,6 @@ class IntentionReproduccion:
 		msg = 'Notificación, REALIZADA con ÉXITO'
 		n = Notification.objects.filter(state=2, farm=farm).count()
 		for u in users:
-			print "enviando a: ", u.username
 			ishout_client.emit(
 					u.id,
 					'notifications',
@@ -3851,7 +3766,6 @@ class IntentionReproduccion:
 		msg = 'Notificación, REALIZADA con ÉXITO'
 		n = Notification.objects.filter(state=2, farm=farm).count()
 		for u in users:
-			# print "enviando a: ", u.username
 			ishout_client.emit(
 					u.id,
 					'notifications',
@@ -3865,7 +3779,6 @@ class IntentionReproduccion:
 		user = User.objects.get(id=user_name)
 		farm = Ganaderia.objects.get(perfil=user)
 		configuration = Configuracion.objects.get(id=farm.configuracion_id)
-		#print 'datee', datee
 
 		for d in beliefs_parto:
 			try:
@@ -3889,7 +3802,6 @@ class IntentionReproduccion:
 		msg = 'Notificación, REALIZADA con ÉXITO'
 		n = Notification.objects.filter(state=2, farm=farm).count()
 		for u in users:
-			# print "enviando a: ", u.username
 			ishout_client.emit(
 					u.id,
 					'notifications',
@@ -3917,7 +3829,6 @@ class IntentionReproduccion:
 		msg = 'Notificación, REALIZADA con ÉXITO'
 		n = Notification.objects.filter(state=2, farm=farm).count()
 		for u in users:
-			# print "enviando a: ", u.username
 			ishout_client.emit(
 					u.id,
 					'notifications',
@@ -3953,7 +3864,6 @@ class IntentionReproduccion:
 		msg = 'Notificación, REALIZADA con ÉXITO'
 		n = Notification.objects.filter(state=2, farm=farm).count()
 		for u in users:
-			# print "enviando a: ", u.username
 			ishout_client.emit(
 					u.id,
 					'notifications',
@@ -4027,7 +3937,6 @@ class IntentionReproduccion:
 		msg = 'Notificación, REALIZADA con ÉXITO'
 		n = Notification.objects.filter(state=2, farm=farm).count()
 		for u in users:
-			# print "enviando a: ", u.username
 			ishout_client.emit(
 					u.id,
 					'notifications',
@@ -4036,7 +3945,6 @@ class IntentionReproduccion:
 				)
 
 	def sendNotificationFierro(self, beliefs_media):
-		print 'eeeeeeeeeeeeeeeeeeeeeeeeeeeeeee; ', beliefs_media
 		datee = date.today() + relativedelta(days=10)
 		one_day_before = date.today() - relativedelta(days=1)
 		user = User.objects.get(id=user_name)
@@ -4104,14 +4012,10 @@ class IntentionReproduccion:
 		for d in beliefs_fierro:
 			try:
 				notifi = Notification.objects.get(ident_cattle_id=d, start_date=date.today(), end_date=datee, module=0, name=17 )
-				#print 'llljkjkjkjkjk'
 			except ObjectDoesNotExist:
 				try:
 					notifi = Notification.objects.filter( Q(ident_cattle_id=d, state=2, end_date=one_day_before, module=0, name=17) | Q(ident_cattle_id=d, state=1, end_date=one_day_before, module=0, name=17) )
-					#print 'llljkjkjkjkjk222', notifi.count()
 					if notifi.count() > 0:
-						#print 'llljkjkjkjkjk333'
-						# desactiva etapa anterior
 						etapa_last = Etapa.objects.get(ganado_id=d, is_active=True)
 						etapa_last.is_active = False
 						etapa_last.save()
@@ -4144,7 +4048,6 @@ class IntentionReproduccion:
 							n.state = 1
 							n.save()
 					else:
-						#print 'llljkjkjkjkjk444'
 						try:
 							notifi = Notification.objects.get(ident_cattle_id=d, state=2, module=0, name=17)
 						except ObjectDoesNotExist:
@@ -4243,8 +4146,6 @@ class IntentionReproduccion:
 				cc.edad_meses = edad_meses
 				cc.edad_dias = edad_dias
 				cc.save()
-				print 'Proceso: [CAMBIAR EDAD], Ejecutado'
-			print 'Proceso: [CAMBIAR EDAD], No Necesario Ejecutar'
 
 	def sendNotificationChangeCicloSeco(self, beliefs_seco):
 		datee = date.today() + relativedelta(days=3)
@@ -4300,7 +4201,6 @@ class AgentReproduccion(spade.Agent.Agent):
 			print "inicio del BehaviourReproduccion . . ."
 
 		def _process(self):
-			print "Inicio del proceso del BehaviourReproduccion"
 			beliefs = BeliefReproduccion()
 			desires = DesireReproduccion()
 			intention = IntentionReproduccion()
@@ -4314,54 +4214,34 @@ class AgentReproduccion(spade.Agent.Agent):
 			self.myAgent.send(msg)
 
 			msg3 = self._receive(block=True,timeout=1)
-			#print 'esto es msg3: ', msg3.getContent()
 			if msg3.getContent() != '':
 				if 0 in desires.desires:
-					print '000'
 					intention.sendNotificationCelo( list(msg3.getContent().split(',')) )
-					print "Notificación: beliefs_celo, Enviada", list(msg3.getContent().split(','))
 			if 1 in desires.desires:
-				print '1'
 				intention.sendNotificationService(beliefs.beliefs_service)
-				print "11"
 			if 2 in desires.desires:
 				intention.sendNotificationVerification(beliefs.beliefs_verification)
-				print "Notificación: beliefs_verification, Enviada"
 			if 3 in desires.desires:
 				intention.sendNotificationParto(beliefs.beliefs_parto)
-				print "Notificación: beliefs_parto, Enviada"
 			if 4 in desires.desires:
 				intention.sendNotificationPajuela(beliefs.beliefs_pajuelas)
-				print "Notificación: beliefs_pajuelas, Enviada"
 			if 15 in desires.desires:
-				print '15'
 				intention.sendNotificationTerneras(beliefs.beliefs_terneras)
-				print '1515'
 			if 16 in desires.desires:
-				print '16'
 				intention.sendNotificationFierro(beliefs.beliefs_media)
-				print '1616'
 			if 17 in desires.desires:
-				print '17'
 				intention.sendNotificationVientre(beliefs.beliefs_fierro)
-				print '1717'
 			if 18 in desires.desires:
 				intention.sendNotificationVaca(beliefs.beliefs_vientre)
 			if 19 in desires.desires:
-				print '19'
 				intention.changeAge(beliefs.beliefs_cattles)
-				print '1919'
 			if 20 in desires.desires:
-				print '20'
 				intention.sendNotificationChangeCicloSeco(beliefs.beliefs_seco)
-				print '2020'
 
 		def onEnd(self):
-			# print "fin del BehaviourReproduccion . . ."
 			sys.exit(0)
 
 	def _setup(self):
-		# print "Inicio del AgentReproduccion . . ."
 
 		template2 = spade.Behaviour.ACLTemplate()
 		template2.setSender(spade.AID.aid("agent_sanidad@127.0.0.1",["xmpp://agent_sanidad@127.0.0.1"]))
