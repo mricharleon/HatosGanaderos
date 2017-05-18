@@ -3709,6 +3709,7 @@ class IntentionReproduccion:
 										if notifi.count() > 0:
 											for t in notifi:
 												if ( (date.today() <= t.end_date) | (date.today()-relativedelta(days=1) <= t.end_date) ):
+													pass
 												else:
 													self.assignNotification(d, datee, 1)
 										else:
