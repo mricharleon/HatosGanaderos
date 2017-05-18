@@ -1,9 +1,9 @@
 # Django settings for Userena SIDGV project.
 # -*- encoding: utf-8 -*-
-DEBUG = False
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
-ALLOWED_HOSTS = ['*']
+# ALLOWED_HOSTS = ['*']
 
 import os
 
@@ -11,7 +11,7 @@ settings_dir = os.path.dirname(__file__)
 PROJECT_ROOT = os.path.abspath(os.path.dirname(settings_dir))
 
 ADMINS = (
-    ('mricharleon', 'mricharleon@gmail.com'),
+    ('', ''),
 )
 
 
@@ -21,11 +21,11 @@ DATABASES = {
     'default': {
         
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': '',
-        'USER': '',
+        'NAME': 'bd_hg',
+        'USER': 'user_hg',
         'PASSWORD': '',
-        'HOST': '',
-        'PORT': '',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
@@ -61,12 +61,9 @@ USE_L10N = True
 USE_TZ = True
 MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'public/media/')
 MEDIA_URL = '/media/'
-#STATIC_ROOT = os.path.join(PROJECT_ROOT, '/static/')
 
 STATIC_ROOT = os.sep.join(os.path.abspath(__file__).split(os.sep)[:-2] + ['static'])
 STATIC_URL = '/static/'
-
-#STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 
 STATICFILES_DIRS = (
     os.path.join(PROJECT_ROOT, 'SIDGV/static/'),
@@ -80,8 +77,8 @@ STATICFILES_FINDERS = (
 )
 
 # Make this unique, and don't share it with anybody.
-#SECRET_KEY = '_g-js)o8z#8=9pr1&amp;05h^1_#)91sbo-)g^(*=-+epxmt4kc9m#'
 SECRET_KEY = '#bfph1+o@5_#+sfv##*@5m@pgc9cx6_(hcx@o#hlw!t&i-@gc7'
+
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
@@ -96,12 +93,12 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'drealtime.middleware.iShoutCookieMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.locale.LocaleMiddleware',
-    'userena.middleware.UserenaLocaleMiddleware',
+    # change languages UserenaAuthenticationBackend
+    #'userena.middleware.UserenaLocaleMiddleware',
 )
 
 # Add the Guardian and userena authentication backends
@@ -118,7 +115,6 @@ LOGOUT_URL = '/accounts/signout/'
 AUTH_PROFILE_MODULE = 'profiles.Profile'
 USERENA_DISABLE_PROFILE_LIST = True
 USERENA_MUGSHOT_SIZE = 140
-
 
 
 ROOT_URLCONF = 'SIDGV.urls'
@@ -158,23 +154,20 @@ INSTALLED_APPS = (
 )
 
 # django realtime
-ISHOUT_CLIENT_ADDR = '192.168.1.2:5500'
+ISHOUT_CLIENT_ADDR = '127.0.0.1:5500'
 ISHOUT_API_ADDR = '127.0.0.1:6600'
-ISHOUT_HTTPS = True
+ISHOUT_HTTPS = False
 
 
 CRON_CLASSES = [
     "ganados.cron.CronJobProduccion",
     "django_cron.cron.FailedRunsNotificationCronJob",
-    # ...
 ]
-#ALLOW_PARALLEL_RUNS = True
-#CRON_CACHE = 'cron_cache'
 
-USE_TLS = True
+USE_TLS = False
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-SSL_DOMAIN = 'https://192.168.1.2:1290'
+SSL_DOMAIN = 'http://127.0.0.1:1200'
 SSL_SECTIONS = (
     '/list_cattle',
     '/agrega_ganaderia_config',
@@ -191,26 +184,21 @@ SSL_SECTIONS = (
     '/messages',
 )
 
-
-
 # django xtension
-
 SECURE_SSL_REDIRECT = True
 SECURE_HSTS_SECONDS = 3
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_FRAME_DENY = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
 SECURE_BROWSER_XSS_FILTER = True
-SESSION_COOKIE_SECURE = True
+# enable django admin
+SESSION_COOKIE_SECURE = False
 
 CRSF_COOKIE_SECURE = True
 SESSION_EXPIRE_AT_BROWSER_CLOSE=True
 
 
-
-
 # para graficar la BD
-
 GRAPH_MODELS={'all_applications':True,
                 'group_models':True,
             }
