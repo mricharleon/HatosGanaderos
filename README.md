@@ -85,6 +85,7 @@ Clonar el proyecto dentro del entorno virtual(~/HatosGanaderos/) activado
 Instalar librerias con pip
 
     pip install -r requirements.txt
+    Copiar la carpeta userena en entorno virtual (lib/python2.7/site-packages)
 
 ## Ejecución del sistema  ##
 Para la ejecución del sistema web HatosGanaderos se requiere seguir los siguientes pasos:
@@ -97,6 +98,11 @@ Configurar el settings.py del proyecto como:
 Crear datos por defecto en la BD
 
     ./manage.py syncdb
+    ./manage migrate userena
+    ./manage migrate easy_thumbnails
+    ./manage migrate django_extensions
+    ./manage migrate django_cron
+    ./manage migrate guardian
 
 Ahora si con estos pasos a ejecutar el sistema web HatosGanaderos
 

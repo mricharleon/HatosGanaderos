@@ -91,9 +91,13 @@ naranja = #E05421
 	font-style: normal;
 }
 
+#donutchart
+	width 99% !important
+
+
 body
 	background-color #fbfbfb
-	color gris_oscuro
+	color #fff
 	font-family 'Raleway'
 	font-size 17px
 
@@ -268,7 +272,37 @@ a
 					-webkit-font-smoothing: antialiased;
 					-moz-osx-font-smoothing: grayscale;
 
+#hide_button
+	width 50px
+	height 50px
+	border-width 0px
+	border-radius 50%
+	font-size 100px
+	min-width 50px !important
+	background #E1E0E0
+	color #FBFBFB
+	&:hover
+		background #6A6A6A
+		color #fff
 
+
+fieldset
+	border 3px solid transparent
+	background white
+	border-radius 5px
+	padding 13px
+	box-shadow 0px 0px 5px #ccc
+	margin 10px 5px 0px 5px
+
+fieldset > legend 
+	background #8D0168
+	color #fff
+	padding 5px 7px 
+	font-size 15px
+	font-weight bold
+	border-radius 5px
+	box-shadow 0 0 0 5px #ddd
+	margin-top 5px
 
 .left
 	float left
@@ -525,7 +559,8 @@ label
 #profile-nav li:nth-child(2) a{ border-right: 5px solid #00AE87; }
 #profile-nav li:nth-child(3) a{ border-right: 5px solid #FFC663; }
 #profile-nav li:nth-child(4) a{ border-right: 5px solid #DD6077; }
-#profile-nav li:last-child a{ border-right: 5px solid #DF3345; }
+#profile-nav li:nth-child(5) a{ border-right: 5px solid #DF3345; }
+#profile-nav li:last-child a{ border-right: 5px solid #888; }
 
 #profile-nav li a:before { 
   content: "";
@@ -545,7 +580,8 @@ label
 #profile-nav li:nth-child(2) a:before{ background: #00AE87; }
 #profile-nav li:nth-child(3) a:before{ background: #FFC663; }
 #profile-nav li:nth-child(4) a:before{ background: #DD6077; }
-#profile-nav li:last-child a:before{ background: #DF3345; }
+#profile-nav li:nth-child(5) a:before{ background: #DF3345; }
+#profile-nav li:last-child a:before{ background: #888; }
 
 // fin prueba radial menu
 
@@ -575,10 +611,10 @@ label
 	text-align center
 	.context_menu
 		color #333
-		background blanco
+		background white
 		border-radius 3px
 		font-family 'Raleway'
-		height 175px
+		height 210px
 		opacity 0
 		position absolute
 		width 90px
@@ -621,7 +657,7 @@ label
 			box-shadow 0 2px 6px gris_medio
 			border-radius 5px
 			float left
-			height 175px
+			height 210px
 			margin 3px
 			padding 0
 			position relative
@@ -683,7 +719,7 @@ label
 		color #333
 		background blanco
 		border-radius 3px
-		height 110px
+		height 125px
 		opacity 0
 		position absolute
 		width 130px
@@ -725,7 +761,7 @@ label
 			box-shadow 0 2px 6px gris_medio
 			border-radius 5px
 			float left
-			height 100px
+			height 115px
 			margin 3px
 			padding 10px 0 0 0
 			position relative
@@ -781,18 +817,117 @@ label
 	margin 0
 	padding 0
 	text-align center
+
+// ##############################################################
+// para uno o más ordeños en producción
+
+#checkboxOrdenio
+	background-color #eee
+	padding 5px
+	text-align right
+	text-shadow 0px 0px 3px white
+
+
 	
 // ##############################################################
 // para mensajes
+
+.contextual00,
+.contextual111,
+.contextual22,
+.contextual33,
+.contextual44,
+.contextual55,
+.contextual66,
+.contextual77,
+.contextual88,
+.contextual99,
+.contextual1010,
+.contextual1111,
+.contextual1212,
+.contextual1313,
+.contextual1414,
+.contextual1515,
+.contextual1616,
+.contextual1717,
+.contextual1818,
+.contextual1919,
+.contextual2020
+	border-left 8px solid white
+	border-right 8px solid white
+	border-bottom 8px solid white
+	max-height: 200px;
+	background #92016B
+	border-top 1px solid #888
+	border-radius 1px 1px 20px 20px
+	width 75px
+	margin 5px -5px 0px -5px
+	padding 3px 10px
+	a
+		color #aaa
+		padding 2px 0 0 0
+		max-height: 0px;
+		overflow: hidden;
+		-webkit-transition: max-height 0.4s;
+		-moz-transition: max-height 0.4s;
+		transition: max-height 0.4s;
+		&:hover
+			color white
+			text-shadow 0 0 8px white
+
+
+.contextual0,
+.contextual1,
+.contextual2,
+.contextual3,
+.contextual4,
+.contextual5,
+.contextual6,
+.contextual7,
+.contextual8,
+.contextual9,
+.contextual10,
+.contextual11,
+.contextual12,
+.contextual13,
+.contextual14,
+.contextual15,
+.contextual16,
+.contextual17,
+.contextual18,
+.contextual19,
+.contextual20
+	border-left 8px solid white
+	border-right 8px solid white
+	border-bottom 8px solid white
+	max-height: 0px;
+	overflow: hidden;
+	/* Set our transitions up. */
+	-webkit-transition: all .4s;
+	-moz-transition: all .4s;
+	transition: all .4s;
+	a
+		color #aaa
+		padding 2px 0 0 0
+		max-height: 200px;
+		overflow: hidden;
+		/* Set our transitions up. */
+		-webkit-transition: max-height 0.4s;
+		-moz-transition: max-height 0.4s;
+		transition: max-height 0.4s;
+		&:hover
+			color white
+			text-shadow 0 0 8px white
+
 #messages
 	margin 0
 	padding 0
+	
 	li
 		background blanco	
 		border-radius 5px
 		border-bottom 1px solid #bbb
 		border-top 1px solid #bbb
-		height 100%
 		list-style none
 		margin-bottom 10px
 		padding 5px 5px 0 5px
@@ -837,10 +972,65 @@ label
 				margin 0
 				padding 0
 		&:hover
-			background #ECEFF5
+			border-top 1px solid #92016B
+			border-bottom 1px solid transparent
 			border-radius 6px
+			/*box-shadow 0px 0px 2px #aaa*/
 			cursor pointer
+	#c0,
+	#c1,
+	#c2,
+	#c3,
+	#c4,
+	#c5,
+	#c6,
+	#c7,
+	#c8,
+	#c9,
+	#c10,
+	#c11,
+	#c12,
+	#c13,
+	#c14,
+	#c15,
+	#c16,
+	#c17,
+	#c18,
+	#c19,
+	#c20
+		&:hover
+			.contextual0,
+			.contextual1,
+			.contextual2,
+			.contextual3,
+			.contextual4,
+			.contextual5,
+			.contextual6,
+			.contextual7,
+			.contextual8,
+			.contextual9,
+			.contextual10,
+			.contextual11,
+			.contextual12,
+			.contextual13,
+			.contextual14,
+			.contextual15,
+			.contextual16,
+			.contextual17,
+			.contextual18,
+			.contextual19,
+			.contextual20
+				max-height: 200px;
+				background #92016B
+				border-top 1px solid #888
+				border-radius 1px 1px 20px 20px
+				/*box-shadow 0px 0px 2px #aaa*/
+				margin 5px -5px 0px -5px
+				padding 5px
+				a
+					max-height: 200px;
 
+	
 .formResponseMessage
 	background-color #F5F3F3
 	margin -15px 0 45px 0 
@@ -870,6 +1060,7 @@ label
 input[type=text]
 input[type=email]
 input[type=password]
+input[type=number]
 	background #F8F8F8
 	border: none;
 	border-bottom 1px solid #bbb
@@ -1481,11 +1672,13 @@ input[class='busqueda']
 		position: absolute;
 		display: inline-block;
 		left: -20px;
-		box-shadow: 0px 0px 10px rgba(0,0,0,0.2), inset 0px 5px 30px rgba(0,0,0,0.2);
+		box-shadow: 1px 1px 10px rgba(0,0,0,0.3), inset 0px 5px 30px rgba(0,0,0,0.2);
 		text-align: center;
 		text-transform: uppercase;
 		top: 7px;
-		background: #555;
+		background: #F1D903;
+		color: black;
+		text-shadow: 0px 0px 2px white;
 		width: 68px;
 		padding: 1px 0px 1px 0px;
 		-webkit-transform: rotate(-45deg);
@@ -1503,7 +1696,7 @@ input[class='busqueda']
 		left: 24px;
 		z-index: -1;
 		border: 17px solid;
-		border-color: transparent transparent #333 transparent;
+		border-color: transparent transparent #C4AD00 transparent;
 	}
 	
 	.cinta p:after {
@@ -1515,9 +1708,70 @@ input[class='busqueda']
 		z-index: -10;
 		left: -5px;
 		border: 10px solid;
-		border-color: #222 transparent transparent transparent;
+		border-color: #C4AD00 transparent transparent transparent;
 	}
 
+
+// #################################################
+// MENU DE ETAPAS
+// #################################################
+.menu{display:block;}
+ 
+.menu li{display: inline-block;
+position: relative;
+z-index:100;
+background: #1A7D90}
+ 
+.menu li a {font-weight:400;
+text-decoration:none;
+padding:5px 8px 5px 8px;
+display:block;
+color:#ffffff;
+ 
+-webkit-transition: all 0.2s ease-in-out 0s;
+   -moz-transition: all 0.2s ease-in-out 0s;
+   -o-transition: all 0.2s ease-in-out 0s;
+   -ms-transition: all 0.2s ease-in-out 0s;
+   transition: all 0.2s ease-in-out 0s;
+}
+ 
+.menu li a:hover, .menu li:hover > a{color:#ffffff;
+background:#9CA3DA;}
+/* hide the second level menu */
+.menu ul {display: none;
+margin: 0;
+height: 20px;
+padding: 0px;
+width: 150px;
+position: absolute;
+top: 28px;
+left: 0px;
+background: #fff;
+}
+ 
+/* display second level menu on hover */
+.menu li:hover > ul{ display: block;}
+ 
+.menu ul li {display:block;
+float: none;
+background:none;
+margin:0;
+padding:0;
+}
+ 
+.menu ul li a {font-size:14px;
+font-weight:normal;
+display:block;
+color:#555;
+border-left:3px solid #ffffff;
+background:#eee;
+}
+ 
+.menu ul li a:hover, .menu ul li:hover > a{
+background:#ddd;
+border-left:3px solid #9CA3DA;
+color:#797979;
+}
 
 
 // #################################################
@@ -1617,6 +1871,9 @@ input[class='busqueda']
 // #################################################
 
 @media screen and (min-width: 480px)	
+	#donutchart
+		width 100%
+		
 	.presentacion		
 		h3
 			font-size 25px
@@ -1639,19 +1896,19 @@ input[class='busqueda']
 
 	.account_list
 		.context_menu
-			height 175px
+			height 190px
 			width 125px			
 		a
 			div
-				height 175px
+				height 190px
 				width 125px
 	.account_list2
 		.context_menu
-			height 110px
+			height 125px
 			width 135px
 		a
 			div
-				height 100px
+				height 115px
 				width 135px
 
 	.formRegistroEntidad2
@@ -1694,6 +1951,9 @@ input[class='busqueda']
 
 // pantalla grande
 @media screen and (min-width: 768px)
+
+	#donutchart
+		width 100%
 	
 	.header
 		.titular
@@ -1757,21 +2017,21 @@ input[class='busqueda']
 	.account_list
 		padding 0 4% 0 6%
 		.context_menu
-			height 165px
+			height 190px
 			width 145px	
 		a
 			div
-				height 165px
+				height 190px
 				width 145px
 
 	.account_list2
 		padding 0 4% 0 6%
 		.context_menu
-			height 110px
+			height 125px
 			width 150px
 		a
 			div
-				height 100px
+				height 115px
 				width 150px
 	.list_attempt
 		color gris_oscuro
@@ -1802,7 +2062,5 @@ input[class='busqueda']
 						left 10px
 						top 10px
 						width 85px
-
-	
 
 	

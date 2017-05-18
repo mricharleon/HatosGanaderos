@@ -39,24 +39,44 @@
                   if(response[i].fields.edad_dias == 1) dias = ' día'; else dias = ' dias';
 
                   var nombre = response[i].fields.nombre.charAt(0).toUpperCase() + response[i].fields.nombre.slice(1); 
-                  var link_add_ordenio = '{% url 'agrega_ganado_ordenio' user.username 'NEWVALUESTUB' %}';
+                  var link_add_ordenio = '{% url 'agrega_ganado_ordenio' 'NEWVALUESTUB' %}';
                   link_add_ordenio = link_add_ordenio.replace('NEWVALUESTUB', response[i].pk);
 
-                  /*formatear el celo y etapa*/
-                  var etapa, celo;
-                  if ( (response[i].fields.etapa=='Ternera') || (response[i].fields.etapa=='Vacona') && (response[i].fields.ciclo!=0) ){
-                    etapa = response[i].fields.etapa;
-                    celo = '';
-                  } else if( (response[i].fields.verificacion=='True') ){
-                    etapa = 'En verificación';
-                    celo = response[i].fields.celo;
-                  } else if( (response[i].fields.ciclo == 3) ){
-                    etapa = 'Gestación';
-                    celo = '';
-                  }else{
-                    etapa = response[i].fields.etapa;
-                    celo = response[i].fields.celo;
-                  }
+                  /*formatear el celo, ciclo y etapa*/
+                var etapa, celo, ciclo;
+                if ( response[i].fields.ciclo0 == 1 ){
+                  ciclo = 'Seco';
+                  etapa = response[i].fields.etapa;
+                  celo = '';
+                } else if( (response[i].fields.verificacion=='True') ){
+                  ciclo = 'En verificación';
+                  etapa = response[i].fields.etapa;
+                  celo = response[i].fields.celo;
+                } else if( (response[i].fields.ciclo0 == 3) ){
+                  ciclo = 'Gestación';
+                  etapa = response[i].fields.etapa;
+                  celo = '';
+                }else if (((response[i].fields.ciclo0 == 0) && (response[i].fields.ciclo1 == 2)) || ((response[i].fields.ciclo1 == 0) && (response[i].fields.ciclo0 == 2))){
+                  ciclo = 'Lactancia - Vacío';
+                  etapa = response[i].fields.etapa;
+                  celo = response[i].fields.celo;
+                }else if (((response[i].fields.ciclo0 == 2) && (response[i].fields.ciclo1 == 3)) || ((response[i].fields.ciclo1 == 2) && (response[i].fields.ciclo0 == 3))){
+                  ciclo = 'Gesta - Lactancia';
+                  etapa = response[i].fields.etapa;
+                  celo = '';
+                }else if (response[i].fields.ciclo0 == 2) {
+                  ciclo = 'Lactancia';
+                  etapa = response[i].fields.etapa;
+                  celo = response[i].fields.celo;
+                }else if (response[i].fields.ciclo0 == 0){
+                  ciclo = 'Vacío';
+                  etapa = response[i].fields.etapa;
+                  celo = response[i].fields.celo;
+                }else if ( (response[i].fields.etapa == 'Ternera') || (response[i].fields.etapa == 'Vacona media') || (response[i].fields.etapa == 'Vacona fierro') ){
+                  ciclo = '';
+                  etapa = response[i].fields.etapa;
+                  celo = '';
+                }
 
                   $('.account_list').append(
                     "<div class=cinta>"+
@@ -71,9 +91,10 @@
                         "<span class=id_cattle>"+response[i].pk+"</span>"+
                           "<img src={{MEDIA_URL}}"+response[i].fields.imagen+" />"+
                                 "<h4 class=texto_propiedades1>" + nombre+ "</h4>" +
-                                "<hr>"+
-                                "<h4 class=texto_propiedades4>" + response[i].fields.celo + "</h4>" +
-                                "<h4 class=texto_propiedades2>" + etapa + "</h4>" +
+                              "<hr>"+
+                              "<h4 class=texto_propiedades4>" + celo + "</h4>"+
+                              "<h4 class=texto_propiedades4>" + ciclo + "</h4>" +
+                              "<h4 class=texto_propiedades2>" + etapa + "</h2>" +
                                 "<h4 class=texto_propiedades3>" + response[i].fields.edad_anios+ anios +
                                   + response[i].fields.edad_meses+ meses +
                                   + response[i].fields.edad_dias+ dias +"</h4>" +

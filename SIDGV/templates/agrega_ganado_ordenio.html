@@ -8,7 +8,7 @@
 {% block presentation %}
  <script>
 $(function() {
-$( "#id_nacimiento" ).datepicker();
+  $( "#id_nacimiento" ).datepicker();
 });
 </script>
 {% comment %}Dirty hack. Will use django-guardian in the future.{% endcomment %}
@@ -16,12 +16,11 @@ $( "#id_nacimiento" ).datepicker();
         <h3>Agrega el Ordeño Diario</h3>
         <h4>Bienvenido ahora podrás registrar la productividad.</h4>
         <ul id="profile-nav">
-            <li><a href="{% url 'lista_ganado_produccion' user.username %}">Listar Ganado</a></li>
-            
+            <li><a href="{% url 'lista_ganado_produccion' %}">Listar Ganado</a></li>
             {% for o in range %}
              {% if o == 0 %}
              {% else %}
-              <li><a href="{% url 'edita_ganado_ordenio' user.username ganado_id o %}">Editar Ordeño {{o}}</a></li>
+              <li><a href="{% url 'edita_ganado_ordenio' ganado_id o %}">Editar Ordeño {{o}}</a></li>
              {% endif %}
             {% endfor %}
         </ul>
@@ -29,7 +28,7 @@ $( "#id_nacimiento" ).datepicker();
 {% endblock presentation %}
 
 {% block content %}
-
+.contextual3,
 <div class="formSignup">
   <span class="crearCuenta">
       Agregar Ordeño 
@@ -41,6 +40,9 @@ $( "#id_nacimiento" ).datepicker();
       {% csrf_token %}
       <center><b>Hoy:</b> {{ fecha }}</center>
       <center>( {{ num_ordenios }} de {{ total_ordenios }} )</center>
+
+
+
       
       <section class="container">
         <div class="user">
@@ -62,11 +64,29 @@ $( "#id_nacimiento" ).datepicker();
         </div>
       </section>
       {{formOrdenio.observaciones.errors}}
-      {{formOrdenio.observaciones}}    
+      {{formOrdenio.observaciones}}  
+
         
-        <input type="submit" value="{% trans "Save" %}" />
+      <input type="submit" value="{% trans "Save" %} el Ordeño" />
         
+    {% if num_ordenios == 1 %}
+      <div id="checkboxOrdenio">
+        <section class="container">
+          <div class="user">
+            <ul>
+              <h5 class="sep">{{formOrdenio.unique_ordenio.label_tag}}</h5>
+            </ul>
+          </div>
+        </section>
+        {{formOrdenio.unique_ordenio.errors}}
+        {{formOrdenio.unique_ordenio}}  
+        Ordeño Único
+      </div>
+    {% endif %}
+
     </form>
+
+    
   {% else %}
     <center><h4>{{ msj }}</h4></center>
   {% endif %}

@@ -1,0 +1,186 @@
+{% extends 'userena/base_userena.html' %}
+{% load i18n %}
+{% load url from future %}
+
+{% block title %}Listado de ganados Hembras{% endblock %}
+
+{% block js %}
+<script type='text/javascript'>
+  $(document).ready(function() {
+    carga_datos();
+    function carga_datos(){
+      var antes;
+      var busqueda = $("#busqueda").val();
+        $.ajax({
+          data: {'search': busqueda},
+          type:'GET',
+          contentType: 'application/json; charset=utf-8',
+          dateType:'json',
+          url:'/ws/ganados/media',
+          beforeSend: function(objeto){
+            antes = (new Date()).getTime(); 
+            $('.message_results').html('Buscando "'+busqueda+'"');
+          },
+          
+          success:function(response){
+            var despues = (new Date()).getTime();
+            tiempo = (despues - antes) / 1000;
+            $('.account_list').empty();
+            if(response!=''){
+              for (var i = 0; i < response.length; i++) {
+                
+                var anios, meses, dias;
+                if(response[i].fields.edad_anios == 1) anios = ' año, '; else  anios = ' años, ';
+                if(response[i].fields.edad_meses == 1) meses = ' mes y '; else meses = ' meses y ';
+                if(response[i].fields.edad_dias == 1) dias = ' día'; else dias = ' dias';
+                
+                var nombre = response[i].fields.nombre.charAt(0).toUpperCase() + response[i].fields.nombre.slice(1); 
+                /*creando urls*/
+                var link_edit_cattle_celo = '{% url 'edita_ganado_celo' 'NEWVALUESTUB' %}';
+                link_edit_cattle_celo = link_edit_cattle_celo.replace('NEWVALUESTUB', response[i].pk);
+                var link_edit_cattle = '{% url 'edita_ganado' 'NEWVALUESTUB' %}';
+                link_edit_cattle = link_edit_cattle.replace('NEWVALUESTUB', response[i].pk);
+                var link_gestacion = '{% url 'gestacion' 'NEWVALUESTUB' %}';
+                link_gestacion = link_gestacion.replace('NEWVALUESTUB', response[i].pk);
+                var link_service = '{% url 'add_service' 'NEWVALUESTUB' %}';
+                link_service = link_service.replace('NEWVALUESTUB', response[i].pk);
+
+                var link_down_cattle = '{% url 'add_down_cattle' 'NEWVALUESTUB' %}';
+                link_down_cattle = link_down_cattle.replace('NEWVALUESTUB', response[i].pk);
+                
+                /*formatear el celo y etapa*/
+                var etapa, celo;
+                if ( (response[i].fields.etapa=='Ternera') || (response[i].fields.etapa=='Vacona media') || (response[i].fields.etapa=='Vacona fierro') || (response[i].fields.etapa=='Vacona vientre') && (response[i].fields.ciclo!=0) ){
+                  etapa = response[i].fields.etapa;
+                  celo = '';
+                } else if( (response[i].fields.verificacion=='True') ){
+                  etapa = 'En verificación';
+                  celo = response[i].fields.celo;
+                } else if( (response[i].fields.ciclo == 3) ){
+                  etapa = 'Gestación';
+                  celo = '';
+                }else{
+                  etapa = response[i].fields.etapa;
+                  celo = response[i].fields.celo;
+                }
+
+                var menu;
+                if( (response[i].fields.etapa=='Ternera') || (response[i].fields.etapa=='Vacona media') || (response[i].fields.etapa=='Vacona fierro')  ){
+                  menu = "<a href='"+link_edit_cattle+"'>"+
+                          "<li>Actualizar</li></a>"+
+                          "<a href='"+link_down_cattle+"'>"+
+                          "<li>Dar de Baja</li></a>"
+                          
+                }else if( response[i].fields.ciclo == 3 ){
+                  menu =  "<a href='"+link_gestacion+"'>"+
+                          "<li>Gestacion</li></a>"+
+                          "<a href='"+link_edit_cattle+"'>"+
+                          "<li>Actualizar</li></a>"+
+                          "<a href='"+link_down_cattle+"'>"+
+                          "<li>Dar de Baja</li></a>"
+
+                }else if( response[i].fields.celo == 'En Celo' ){
+                  menu =  "<a href='"+link_edit_cattle_celo+"'>"+
+                          "<li>Celo</li></a>"+
+                          "<a href='"+link_service+"'>"+
+                          "<li>Servicio</li></a>"+
+                          "<a href='"+link_edit_cattle+"'>"+
+                          "<li>Actualizar</li></a>"+
+                          "<a href='"+link_down_cattle+"'>"+
+                          "<li>Dar de Baja</li></a>"
+
+                }else {
+                  menu =  "<a href='"+link_edit_cattle_celo+"'>"+
+                          "<li>Celo</li></a>"+
+                          "<a href='"+link_edit_cattle+"'>"+
+                          "<li>Actualizar</li></a>"+
+                          "<a href='"+link_down_cattle+"'>"+
+                          "<li>Dar de Baja</li></a>"
+
+                }
+
+                $('.account_list').append(
+                    "<div class=cinta>"+
+                      "<div class=context_menu>"+
+                        "<ul>"+menu+"</ul>"+
+                      "</div>"+
+                    "<a>"+ 
+                      "<div>"+
+                        "<img src={{MEDIA_URL}}"+response[i].fields.imagen+" />"+
+                              "<h4 class=texto_propiedades1>" + nombre+ "</h4>" +
+                              "<hr>"+
+                              "<h4 class=texto_propiedades2>" + etapa + "</h4>" +
+                              "<h4 class=texto_propiedades3>" + response[i].fields.edad_anios+ anios +
+                                + response[i].fields.edad_meses+ meses +
+                                + response[i].fields.edad_dias+ dias +"</h4>" +
+                        "</div>"+
+                    "</a>"+
+                    "<p>"+
+                      "<span>"+response[i].fields.rp+"</span>"+
+                    "</p>"+
+                  "</div>"
+                ); 
+
+                if(response.length == 1){
+                  $('.message_results').html(response.length + ' resultado encontrado. (');
+                  $('.message_results').append(tiempo + ' segundos)');
+                }else{
+                  $('.message_results').html(response.length + ' resultados encontrados. (');
+                  $('.message_results').append(tiempo + ' segundos)');
+                }
+              }
+            }else{
+              $('.message_results').html('No se encuentra "'+busqueda+'"');
+            }
+          },
+
+          error: function(objeto, error){
+            $('.message_results').html('<strong>¡Se produjo un error!</strong> &nbsp; Verifica tu conexión a internet ó Contacta al administrador.');
+          },
+
+        });
+    }
+
+    $( "#busqueda" ).on('keyup', function(tecla) {
+      carga_datos();
+    });
+});
+
+</script>
+{% endblock %}
+
+{% block presentation %}
+<div class="presentacion_principal">
+    <h3>Lista de Vaconas Medias</h3>
+    <h4>Listado de vaconas medias registradas en la ganadería..</h4>
+    <input type="text" class="busqueda" id="busqueda"  placeholder="RP, nombre o año de nacimiento" >
+    <div class="message_results">
+      
+    </div>
+</div>
+<nav>
+    <ul class="menu">
+   <li><a href="#"><i class="icon-home"></i>Etapas</a>
+   <ul class="sub-menu">
+   <li><a href="{% url 'list_cattle_terneras' %}">Ternera</a></li>
+   <li><a href="{% url 'list_cattle_media' %}">Vacona Media</a></li>
+   <li><a href="{% url 'list_cattle_fierro' %}">Vacona Fierro</a></li>
+   <li><a href="{% url 'list_cattle_vientre' %}">Vacona Vientre</a></li>
+   <li><a href="{% url 'list_cattle_vaca' %}">Vaca</a></li>
+   <li><a href="{% url 'list_cattle' %}">Todas</a></li>
+   <center><li><a href="{% url 'list_down_cattle' %}">Dados de Baja</a></li></center>
+   </ul>
+   </li>
+  
+  </nav>
+{% endblock %}
+
+{% block content %}
+
+<div class="account_list">
+
+<div class="content">
+
+
+
+{% endblock %}

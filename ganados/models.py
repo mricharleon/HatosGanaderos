@@ -48,7 +48,8 @@ class DownCattle(models.Model):
     CAUSE_DOWN_CHOICES = (
         (0, 'Muerte'),
         (1, 'Venta'),
-        (2, 'Desaparición'))
+        (2, u'Desaparición'),
+        (2, u'Ingreso erróneo'))
     cause_down = models.PositiveSmallIntegerField('Causa de la Baja',
                                         choices=CAUSE_DOWN_CHOICES,
                                         )
@@ -160,6 +161,7 @@ class Ordenio(models.Model):
     total = models.IntegerField('Total de leche')
     observaciones = models.TextField('Observaciones', max_length=150, blank=True, null=True)
     ganado = models.ForeignKey(Ganado, null=True, related_name='ordenios')
+    unique_ordenio = models.BooleanField(u'Guardar único ordeño', blank=True)
     
     def __unicode__(self):
         return self.fecha
@@ -233,12 +235,20 @@ class Gestacion(models.Model):
     def __unicode__(self):
         return self.fecha_servicio
 
+class DeferEtapa(models.Model):
+    number_days = models.PositiveIntegerField('Días de postergación')
+    observations = models.TextField('Observaciones', max_length=250)
+    is_active = models.BooleanField()
+    cattle_id = models.ForeignKey(Ganado, related_name='cattle_id_ganado', blank=True, null=True)
+
 class Etapa(models.Model):
     fecha_inicio = models.DateField('Fecha de inicio')
     NOMBRE_CHOICES = (
         (0, 'Ternera'),
-        (1, 'Vacona'),
-        (2, 'Vientre'),
+        (1, 'Vacona media'),
+        (2, 'Vacona fierro'),
+        (3, 'Vacona vientre'),
+        (4, 'Vaca'),
         )
     nombre = models.PositiveSmallIntegerField('Etapa',
                                             choices=NOMBRE_CHOICES
@@ -255,7 +265,7 @@ class DownInsemination(models.Model):
     date = models.DateField('Fecha de Baja')
     CAUSE_DOWN_CHOICES = (
         (0, 'Agotamiento'),
-        (1, u'Muestra inválida')
+        (1, u'Muestra no adecuada')
         )
     cause_down = models.PositiveSmallIntegerField('Causa de la Baja',
                                         choices=CAUSE_DOWN_CHOICES,

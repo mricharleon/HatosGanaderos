@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="{{STATIC_URL}}css/normalize.css">
+  <link rel="stylesheet" href="{{STATIC_URL}}css/style.css">
+  
+  <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+<header>
+{% if user.is_authenticated %}
+  <div class="logo left">
+    <img src="{{STATIC_URL}}img/logo.png" alt="SID_GV">
+  </div>
+{% endif %}
+  <div class="titular">
+    <h1 class="titulo">Sistema Inteligente Deliberativo de Ganado Vacuno</h1>
+    <span class="subtitulo">Mejorando tu Ganadería</span>
+  </div>
+  {% block header %} 
+  <nav>
+    {% block nav %}
+    {% if user.is_authenticated %}
+      <div class="usuario">
+        <figure class="avatar">
+          <img class="mugshot" src="{{ user.profile.get_mugshot_url }}" />
+        </figure>
+        <div class="menu" href="#">
+          <div class="menu_expan">
+
+            <div class="espacio_menu1">
+              <div class="titulo_menu_expan">Módulos</div>
+              <hr>
+              <a class="items" href="#">Reproducción</a>
+              <a class="items" href="#">Sanidad</a>
+              <a class="items" href="#">Producción</a>
+              <a class="items" href="#">Alimentación</a>
+            </div>
+            
+            <div class="espacio_menu2">
+              <div class="titulo_menu_expan">Configuración</div>
+              <hr>
+              <a class="items" href="{% url 'userena_profile_detail' user.username %}">Mi Cuenta</a>
+              <a class="items" href="{% url 'userena_profile_list' %}">Técnicos</a>
+              <a class="items" href="{% url 'userena_umessages_list' %}">Mensajes</a>
+            </div>
+
+            <div class="espacio_menu3">
+              <div class="titulo_menu_expan">Sesión</div>
+              <hr>
+              <a class="items" href="{% url 'userena_signout' %}">Salir</a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    {% else %}
+    {% endif %}
+    {% endblock nav %}
+  </nav>
+  {% endblock header %}
+</header> 
+
+<section>
+  
+  <article>
+    {% block presentation %} 
+
+    {% endblock %}
+  </article>
+
+  <article>
+    {% block content %}
+      
+    {% endblock %}
+  </article>
+
+</section>
+
+<footer>
+  {% block footer %}
+    
+  {% endblock %}
+</footer>
+  
+</body>
+</html>

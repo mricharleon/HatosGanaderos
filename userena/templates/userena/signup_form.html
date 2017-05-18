@@ -1,0 +1,70 @@
+{% extends 'userena/base_userena.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "Signup" %}{% endblock %}
+
+{% block presentation %}
+<div class="presentacionSignup">
+    <h3>Haz tomado una excelente decisión</h3>
+        <h4>Ahora podras administrar tus registros de producción, alimentación, sanidad y producción. Además alertas y sugerencias oportunas.</h4>
+</div>
+{% endblock presentation %}
+
+{% block content %}
+<div class="formSignup">
+<span class="crearCuenta">
+    Crear Cuenta
+</span>
+    <form action="" method="post">
+      {% csrf_token %}
+
+        <section class="container">
+            <div class="user">
+              <img src="{{STATIC_URL}}img/help.png"/>
+              <ul>
+                <h5 class="sep">{{form.username.label_tag}}</h5>
+              </ul>
+            </div>
+        </section>
+        {{form.username.errors}}
+        {{form.username}}
+
+        <section class="container">
+            <div class="user">
+              <img src="{{STATIC_URL}}img/help.png"/>
+              <ul>
+                <h5 class="sep">{{form.email.label_tag}}</h5>
+              </ul>
+            </div>
+        </section>
+        {{form.email.errors}}
+        {{form.email}}
+
+        {{ form.non_field_errors }}
+        <section class="container">
+            <div class="user">
+              <img src="{{STATIC_URL}}img/help.png"/>
+              <ul>
+                <h5 class="sep">{{form.password1.label_tag}}</h5>
+              </ul>
+            </div>
+        </section>
+        {{form.password1.errors}}
+        {{form.password1}}
+
+        <section class="container">
+            <div class="user">
+              <img src="{{STATIC_URL}}img/help.png"/>
+              <ul>
+                <h5 class="sep">{{form.password2.label_tag}}</h5>
+              </ul>
+            </div>
+        </section>
+        {{form.password2.errors}}
+        {{form.password2}}
+        
+      <input type="submit" value="{% trans "Signup"%}" />
+      <a href="/"><input type="button" value="Atrás" /></a>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,179 @@
+{% extends 'userena/base_userena.html' %}
+{% load i18n %}
+{% load url from future %}
+
+{% block title %}Lista de Ganados Dados de Baja{% endblock %}
+
+{% block js %}
+<script type='text/javascript'>
+  $(document).ready(function() {
+    carga_datos();
+    function carga_datos(){
+      var antes;
+      var busqueda = $("#busqueda").val();
+        $.ajax({
+          data: {'search': busqueda},
+          type:'GET',
+          contentType: 'application/json; charset=utf-8',
+          dateType:'json',
+          url:'/ajax/downCattle/',
+          beforeSend: function(objeto){
+            antes = (new Date()).getTime(); 
+            $('.message_results').html('Buscando "'+busqueda+'"');
+          },
+          
+          success:function(response){
+            var despues = (new Date()).getTime();
+            tiempo = (despues - antes) / 1000;
+            $('.account_list').empty();
+            if(response!=''){
+              for (var i = 0; i < response.length; i++) {
+                
+                var anios, meses, dias;
+                if(response[i].fields.edad_anios == 1) anios = ' año, '; else  anios = ' años, ';
+                if(response[i].fields.edad_meses == 1) meses = ' mes y '; else meses = ' meses y ';
+                if(response[i].fields.edad_dias == 1) dias = ' día'; else dias = ' dias';
+                
+                var nombre = response[i].fields.nombre.charAt(0).toUpperCase() + response[i].fields.nombre.slice(1); 
+                /*creando urls*/
+                
+                var link_view_report_female = '{% url 'view_report_female' 'NEWVALUESTUB' %}';
+                link_view_report_female = link_view_report_female.replace('NEWVALUESTUB', response[i].fields.rp);
+                
+                
+                /*formatear el celo, ciclo y etapa*/
+                var etapa, celo, ciclo;
+                if ( response[i].fields.ciclo0 == 1 ){
+                  ciclo = 'Seco';
+                  etapa = response[i].fields.etapa;
+                  celo = '';
+                } else if( (response[i].fields.verificacion=='True') ){
+                  ciclo = 'En verificación';
+                  etapa = response[i].fields.etapa;
+                  celo = '';
+                }else if (((response[i].fields.ciclo0 == 1) && (response[i].fields.ciclo1 == 3)) || ((response[i].fields.ciclo1 == 1) && (response[i].fields.ciclo0 == 3))){
+                  ciclo = 'Seco - Gestación';
+                  etapa = response[i].fields.etapa;
+                  celo = '';
+                }else if( (response[i].fields.ciclo0 == 3) ){
+                  ciclo = 'Gestación';
+                  etapa = response[i].fields.etapa;
+                  celo = '';
+                }else if (((response[i].fields.ciclo0 == 0) && (response[i].fields.ciclo1 == 2)) || ((response[i].fields.ciclo1 == 0) && (response[i].fields.ciclo0 == 2))){
+                  ciclo = 'Lactancia - Vacío';
+                  etapa = response[i].fields.etapa;
+                  celo = response[i].fields.celo;
+                }else if (((response[i].fields.ciclo0 == 2) && (response[i].fields.ciclo1 == 3)) || ((response[i].fields.ciclo1 == 2) && (response[i].fields.ciclo0 == 3))){
+                  ciclo = 'Gesta - Lactancia';
+                  etapa = response[i].fields.etapa;
+                  celo = '';
+                }else if (response[i].fields.ciclo0 == 2) {
+                  ciclo = 'Lactancia';
+                  etapa = response[i].fields.etapa;
+                  celo = response[i].fields.celo;
+                }else if (response[i].fields.ciclo0 == 0){
+                  ciclo = 'Vacío';
+                  etapa = response[i].fields.etapa;
+                  celo = response[i].fields.celo;
+                }else if ( (response[i].fields.etapa == 'Ternera') || (response[i].fields.etapa == 'Vacona media') || (response[i].fields.etapa == 'Vacona fierro') ){
+                  ciclo = '';
+                  etapa = response[i].fields.etapa;
+                  celo = '';
+                }
+
+
+                var menu;
+                if( (response[i].fields.etapa=='Ternera') || (response[i].fields.etapa=='Vacona media') || (response[i].fields.etapa=='Vacona fierro')  ){
+                  menu = "<a href='"+link_view_report_female+"'>"+
+                          "<li>Reporte</li></a>"
+                          
+                }
+
+
+                $('.account_list').append(
+                    "<div class=cinta>"+
+                      "<div class=context_menu>"+
+                        "<ul>"+menu+"</ul>"+
+                      "</div>"+
+                    "<a>"+ 
+                      "<div>"+
+                        "<img src={{MEDIA_URL}}"+response[i].fields.imagen+" />"+
+                              "<h4 class=texto_propiedades1>" + nombre+ "</h4>" +
+                              "<hr>"+
+                              "<h4 class=texto_propiedades4>" + celo + "</h4>"+
+                              "<h4 class=texto_propiedades4>" + ciclo + "</h4>" +
+                              "<h4 class=texto_propiedades2>" + etapa + "</h2>" +
+                              "<h4 class=texto_propiedades3>" + response[i].fields.edad_anios+ anios +
+                                + response[i].fields.edad_meses+ meses +
+                                + response[i].fields.edad_dias+ dias +"</h4>" +
+                        "</div>"+
+                    "</a>"+
+                    "<p>"+
+                      "<span>"+response[i].fields.rp+"</span>"+
+                    "</p>"+
+                  "</div>"
+                ); 
+
+                if(response.length == 1){
+                  $('.message_results').html(response.length + ' resultado encontrado. (');
+                  $('.message_results').append(tiempo + ' segundos)');
+                }else{
+                  $('.message_results').html(response.length + ' resultados encontrados. (');
+                  $('.message_results').append(tiempo + ' segundos)');
+                }
+              }
+            }else{
+              $('.message_results').html('No se encuentra "'+busqueda+'"');
+            }
+          },
+
+          error: function(objeto, error){
+            $('.message_results').html('<strong>¡Se produjo un error!</strong> &nbsp; Verifica tu conexión a internet ó Contacta al administrador.');
+          },
+
+        });
+    }
+
+    $( "#busqueda" ).on('keyup', function(tecla) {
+      carga_datos();
+    });
+});
+
+</script>
+{% endblock %}
+
+{% block presentation %}
+<div class="presentacion_principal">
+    <h3>Lista de Ganados Dados de Baja</h3>
+    <h4>Listado de ganados registrados en la ganadería</h4>
+    <input type="text" class="busqueda" id="busqueda"  placeholder="RP, nombre o año de nacimiento" >
+    <div class="message_results">
+      
+    </div>
+</div>
+<nav>
+    <ul class="menu">
+   <li><a href="#"><i class="icon-home"></i>Filtrar</a>
+   <ul class="sub-menu">
+   <li><a href="{% url 'list_cattle_terneras' %}">Ternera</a></li>
+   <li><a href="{% url 'list_cattle_media' %}">Vacona Media</a></li>
+   <li><a href="{% url 'list_cattle_fierro' %}">Vacona Fierro</a></li>
+   <li><a href="{% url 'list_cattle_vientre' %}">Vacona Vientre</a></li>
+   <li><a href="{% url 'list_cattle_vaca' %}">Vaca</a></li>
+   <li><a href="{% url 'list_cattle' %}">Todos</a></li>
+   <center><li><a href="{% url 'list_cattle' %}">Dados de Baja</a></li></center>
+   </ul>
+   </li>
+  
+  </nav>
+{% endblock %}
+
+{% block content %}
+
+<div class="account_list">
+
+<div class="content">
+
+
+
+{% endblock %}

@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load url from future %}
+
+{% block title %} Dar de Baja {% endblock %}
+
+
+{% block presentation %}
+    <div class="presentacionSignup">
+        <h3>Dar de Baja al Registro de Semen</h3>
+        <h4>Bienvenido a dar de baja tus registros.</h4>
+        <ul id="profile-nav">
+          <li><a href="{% url 'list_cattle' %}">Listar Hembras</a></li>
+          <li><a href="{% url 'list_cattle_male' %}">Listar Machos</a></li>
+          <li><a href="{% url 'list_insemination' %}">Listar Esperma</a></li>
+        </ul>
+    </div>
+{% endblock presentation %}
+
+{% block content %}
+
+<div class="formSignup">
+  <span class="crearCuenta">
+      Dar de baja al Registro
+  </span>
+
+  <div class="account_list">
+    <div class="cinta">
+      <a href="">
+        <div style='height:100% !important;'>
+          <span class="id_cattle">              
+            <h4 class="texto_propiedades1">
+              {{sperm.name |capfirst}}
+            </h4>
+            <h4 class="texto_propiedades4">
+              {{sperm.get_breed_display}}
+            </h4>
+            <h4 class="texto_propiedades2">
+              {{sperm.amount_pajuelas}} {{sperm.amount_pajuelas |pluralize:" Pajuela, Pajuelas"}}
+            </h4>
+            <h4 class="texto_propiedades3">
+              {{sperm.registration_date}}
+            </h4>
+          </span>
+        </div>
+      </a>
+      <p>
+        <span>
+          {{sperm.rp}}
+          {{sperm.rp}}
+        </span>
+      </p>
+    </div>    
+  </div>
+
+
+   <form action="" enctype="multipart/form-data" method="post">     
+      {% csrf_token %}
+
+      <section class="container">
+        <div class="user">
+          <img src="{{STATIC_URL}}img/help.png"/>
+          <ul>
+            <h5 class="sep">{{formDownInseminationForm.date.label_tag}}</h5>
+          </ul>
+        </div>
+      </section>
+      {{formDownInseminationForm.date.errors}}
+      {{formDownInseminationForm.date}}
+
+      <section class="container">
+        <div class="user">
+          <img src="{{STATIC_URL}}img/help.png"/>
+          <ul>
+            <h5 class="sep">{{formDownInseminationForm.cause_down.label_tag}}</h5>
+          </ul>
+        </div>
+      </section>
+      <label for="select" class="select">
+        {{formDownInseminationForm.cause_down.errors}}
+        {{formDownInseminationForm.cause_down}}
+      </label>
+     
+      <section class="container">
+        <div class="user">
+          <img src="{{STATIC_URL}}img/help.png"/>
+          <ul>
+            <h5 class="sep">{{formDownInseminationForm.observations.label_tag}}</h5>
+          </ul>
+        </div>
+      </section>
+      {{formDownInseminationForm.observations.errors}}
+      {{formDownInseminationForm.observations}}
+
+      <input type="submit" value="{% trans "Save" %}" />
+    </form>
+</div>
+
+{% endblock %}

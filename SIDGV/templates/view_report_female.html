@@ -10,8 +10,9 @@
         <h3>Reporte</h3>
         <h4>Genera tus reportes</h4>
         <ul id="profile-nav">
-        <li><a href="{% url 'list_reports' %}">Reporte Hembras</a></li>
-          <li><a href="{% url 'list_cattle' %}">Reporte Machos</a></li>
+        <li><a href="{% url 'list_cattle_male' %}">Listar Machos</a></li>
+        <li><a href="{% url 'generate_pdf' cattle.id %}">Generar PDF</a></li>
+        <li><a href="{% url 'list_reports' %}">Generar Otro Reporte</a></li>
         </ul>
     </div>
 {% endblock presentation %}
@@ -28,6 +29,8 @@
 <b>Nombre:</b>
   {{ cattle.identificacion_simple.nombre }}
   {{ cattle.identificacion_ecuador.nombre }}
+  ({{etapa.get_nombre_display}})
+
 <br><b>RP:</b>
   {{ cattle.identificacion_simple.rp }}
   {{ cattle.identificacion_ecuador.rp }}
@@ -35,25 +38,49 @@
   {{ cattle.get_raza_display }}
 <br><b>Nacimiento:</b>
   {{ cattle.nacimiento }}
+<br><b>Concepción:</b>
+{% if cattle_father.name != None %}
+  Inseminación
+{% else %}
+  Monta
+{% endif %}
 <br><b>Edad:</b>
   {{cattle.edad_anios}} año{{ cattle.edad_anios|pluralize:'s' }},
   {{cattle.edad_meses}} mes{{ cattle.edad_meses|pluralize:'es' }} y 
   {{cattle.edad_dias}} día{{ cattle.edad_dias|pluralize:'s' }} 
 <br><b>Madre:</b>
-  {{cattle_mother}} 
+  {% if cattle_mother == 'Desconocida' %}
+    {{cattle_mother}}
+  {% endif %}
+  {{cattle_mother.identificacion_simple.nombre}} 
+  {{cattle_mother.identificacion_ecuador.nombre}} 
   {% if cattle_mother != 'Desconocida' %}
-    con rp {{cattle_mother.identificacion_ecuador.rp}}{{cattle_mother.identificacion_simple.rp}}
+    con RP: {{cattle_mother.identificacion_ecuador.rp}}{{cattle_mother.identificacion_simple.rp}}
   {% endif %}
 <br><b>Padre:</b>
-  {{cattle_father}} 
-  {% if cattle_father != 'Desconocido' %}
-    con rp {{cattle_mother.identificacion_ecuador.rp}}{{cattle_mother.identificacion_simple.rp}}
+  {% if cattle_father.name == None %}
+    {{cattle_father}} 
   {% endif %}
+  {{cattle_father.identificacion_simple.nombre}} 
+  {{cattle_father.identificacion_ecuador.nombre}}
+  {{cattle_father.name}} 
+  {% if cattle_father != 'Desconocido' %}
+    con RP: {{cattle_father.identificacion_ecuador.rp}}{{cattle_father.identificacion_simple.rp}}{{cattle_father.rp}}
+  {% endif %}
+  <br>
+{% if cattle.down_cattle %}
+  <br><b>Dado de Baja:</b>
+    {{cattle.down_cattle.observations}}
+  <br><b>Fecha de Baja:</b>
+    {{cattle.down_cattle.date}}
+{% endif %}
+
+
   
 </fieldset>
 <br>
 <fieldset>
-  <legend>Reproducción</legend>
+  <legend>Módulo Reproducción</legend>
   <b>Celos:</b> 
     {{cattle.celos.count}} celo{{cattle.celos.count|pluralize:'s'}}
   <br><b>Partos:</b> 
@@ -63,29 +90,47 @@
 </fieldset>
 <br>
 <fieldset>
-  <legend>Producción</legend>
+  <legend>Módulo Producción</legend>
   <b>Promedio leche:</b> 
     {{count_milk}} {{count_milk|pluralize:' litro, litros'}}/día
 </fieldset>
 <br>
 <fieldset>
-  <legend>Alimentación</legend>
+  <legend>Módulo Alimentación</legend>
   <b>Alimentos consumidos:</b> 
     {% for f in food %}
-      <br>{{f|capfirst}} 
+      <ul>
+        <li>
+          {{f|capfirst}} 
+        </li>
+      </ul>
     {% endfor %}
 </fieldset>
 <br>
 <fieldset>
-  <legend>Sanidad</legend>
+  <legend>Módulo Sanidad</legend>
   <b>Desparasitadores administrados:</b>
     {% for w in wormer %}
-      <br>{{w|capfirst}}
+      <ul>
+        <li>
+          {{w|capfirst}} 
+        </li>
+      </ul>
     {% endfor %}
-  <br><b>Vacunas administradas:</b>
+
+  {% if not wormer %}
+    <br><br>
+  {% endif %}
+
+  <b>Vacunas administradas:</b>
     {% for v in vaccine %}
-      <br>{{v|capfirst}}
+      <ul>
+        <li>
+          {{v|capfirst}}
+        </li>
+      </ul>
     {% endfor %}
+
 </fieldset>
 
 </div>

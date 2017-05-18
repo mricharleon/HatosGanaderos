@@ -1,0 +1,35 @@
+{% extends 'umessages/base_message.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "Compose" %}{% endblock %}
+
+{% block presentation %}
+
+
+    <div class="presentacionSignup">
+        <h3>Sistema de mensajes</h3>
+        <ul id="profile-nav">
+            <li>Bienvenid@, selecciona tu destinatario y redacta tu mensaje.</li>
+            </a></li>
+        </ul>
+    </div>
+
+{% endblock presentation %}
+
+{% block content %}
+<div class="formSignup">
+  <span class="crearCuenta">
+      {% trans "Messages" %}
+  </span>
+  <div id="details">
+		<form action="" method="post" id="compose_message_form">
+		  {% csrf_token %}
+		 
+		    {{ form.as_p }}
+		 
+		  <input type="submit" name="send" value="{% trans "Send" %}" />
+		  <a href="{% url 'userena_umessages_list' %}"><input type="button" value="Atrás" /></a>
+      
+		</form>
+</div>
+{% endblock %}

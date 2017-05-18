@@ -24,32 +24,7 @@
 
 	
 	<title>{% block title %}{% endblock %}</title>
-	{% load drealtimetags %}
-	{% ishout_js %}
-	<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-	<script type='text/javascript'>
-		
-		    // use .on() to add a listener. you can add as many listeners as you want.
-		    ishout.on('alertchannel', function(data){
-		      var dt = eval('(' + data.msg + ')');
-		      if(data.number_messages > 0){
-		      	$("#messages2").css("visibility", "visible");
-		      	$('#messages2').html(data.number_messages);
-		      }else{
-		      	$("#messages2").css("visibility", "visible");
-		      }
-		    }).on('notifications', function(data){
-		      if(data.number_notifications > 0){
-		      	$("#notifications").css("visibility", "visible");
-		      	$('#notifications').html(data.number_notifications);
-		      }else{
-		      	$("#notifications").css("visibility", "hidden");
-		      }
-		    }).init();
-
-		    // .init() will authenticate against the ishout.js server, and open the WebSocket connection.
-		    //ishout.init();
-	  </script>
+	
 </head>
 <body>
 <header class="header">
@@ -103,7 +78,7 @@
 							<hr>
 							<a class="items" href="{% url 'add_cattle' %}">Reproducción</a>
 							<a class="items" href="{% url 'add_wormer' %}">Sanidad</a>
-							<a class="items" href="{% url 'lista_ganado_produccion' user.username %}">Producción</a>
+							<a class="items" href="{% url 'lista_ganado_produccion' %}">Producción</a>
 							<a class="items" href="{% url 'add_food' %}">Alimentación</a>
 							<a class="items" href="{% url 'messages_list' %}">Mensajería</a>
 							<a class="items" href="{% url 'list_notifications' %}">Notificaciones</a>
@@ -154,6 +129,7 @@
 
 <footer>
 	{% block footer %}
+
 		
 	{% endblock %}
 </footer>
@@ -282,6 +258,33 @@ $('#datetimepicker12').datetimepicker({
 	}
 });
 </script>
+
+{% load drealtimetags %}
+{% ishout_js %}
+<script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type='text/javascript'>
+	
+	    // use .on() to add a listener. you can add as many listeners as you want.
+	    ishout.on('alertchannel', function(data){
+	      var dt = eval('(' + data.msg + ')');
+	      if(data.number_messages > 0){
+	      	$("#messages2").css("visibility", "visible");
+	      	$('#messages2').html(data.number_messages);
+	      }else{
+	      	$("#messages2").css("visibility", "visible");
+	      }
+	    }).on('notifications', function(data){
+	      if(data.number_notifications > 0){
+	      	$("#notifications").css("visibility", "visible");
+	      	$('#notifications').html(data.number_notifications);
+	      }else{
+	      	$("#notifications").css("visibility", "hidden");
+	      }
+	    }).init();
+
+	    // .init() will authenticate against the ishout.js server, and open the WebSocket connection.
+	    //ishout.init();
+  </script>
 	
 <script>
 	function refresh() {
@@ -303,7 +306,7 @@ $('#datetimepicker12').datetimepicker({
           },
 
         });
-			bucle = setTimeout(function(){refresh()}, 50000);
+		bucle = setTimeout(function(){refresh()}, 60000);
 	}
 	
 	refresh();

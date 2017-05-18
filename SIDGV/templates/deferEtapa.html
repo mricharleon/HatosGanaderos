@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+
+{% block title %}Aplazar Notificación{% endblock %}
+
+
+{% block presentation %}
+{% comment %}Dirty hack. Will use django-guardian in the future.{% endcomment %}
+    <div class="presentacionSignup">
+      <h3>Notificaciones</h3>
+      <h4>{{user.username|capfirst}}, administra tus notificaciones</h4>
+        <ul id="profile-nav">
+            <li><a href="{% url 'list_notifications_reproduccion' %}">Reproducción <span class="burbuja">{{number_reproduccion}}</span></a></li>
+            <li><a href="{% url 'list_notifications_sanidad' %}">Sanidad <span class="burbuja">{{number_sanidad}} </span></a></li>
+            <li><a href="{% url 'list_notifications_produccion' %}">Producción <span class="burbuja">{{number_produccion}} </span></a></li>
+            <li><a href="{% url 'list_notifications_alimentacion' %}">Alimentación <span class="burbuja"> {{number_alimentacion}} </span></a></li>
+            <li><a href="{% url 'list_notifications' %}">Todas <span class="burbuja">{{number_todas}} </span></a></li>
+        </ul>
+    </div>
+{% endblock presentation %}
+
+{% block content %}
+<div class="formSignup">
+  <span class="crearCuenta">
+      Aplazar Notificación  
+  </span>
+   <form action="" enctype="multipart/form-data" method="post">    
+
+   <div>
+      <center>
+        <b>{{ notification.get_name_display }}</b><br>
+      </center>
+      <p>
+      <b>Nombre:</b>
+        {{ notification.ident_cattle.identificacion_simple.nombre }}
+        {{ notification.ident_cattle.identificacion_ecuador.nombre }}<br>
+      <b>RP:</b>
+        {{ notification.ident_cattle.identificacion_simple.rp }}
+        {{ notification.ident_cattle.identificacion_ecuador.rp }}<br>
+      <b>Inicio:</b>
+        {{ notification.start_date }}<br>
+      <b>Fin:</b>
+        {{ notification.end_date }}
+      </p>
+   </div> 
+      
+      {% csrf_token %}
+
+        <section class="container">
+          <div class="user">
+            <img src="{{STATIC_URL}}img/help.png"/>
+            <ul>
+              <h5 class="sep">{{formDeferEtapa.number_days.label_tag}}</h5>
+            </ul>
+          </div>
+        </section>
+        {{formDeferEtapa.number_days.errors}}
+        {{formDeferEtapa.number_days}}
+
+        <section class="container">
+          <div class="user">
+            <img src="{{STATIC_URL}}img/help.png"/>
+            <ul>
+              <h5 class="sep">{{formDeferEtapa.observations.label_tag}}</h5>
+            </ul>
+          </div>
+        </section>
+        {{formDeferEtapa.observations.errors}}
+        {{formDeferEtapa.observations}}
+      
+        
+        <input type="submit" value="Aplazar" />
+        
+    </form>
+</div>
+{% endblock %}

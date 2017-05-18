@@ -13,12 +13,15 @@ $( "#id_nacimiento" ).datepicker();
 </script>
 {% comment %}Dirty hack. Will use django-guardian in the future.{% endcomment %}
     <div class="presentacionSignup">
+        <h3>Edita el Ordeño Diario</h3>
+        <h4>Bienvenido ahora podrás editar tus registros.</h4>
         <ul id="profile-nav">
-            <li class="selected"><a href="{% url 'agrega_ganado_ordenio' user.username ganado_id %}">Agregar Ordeño Diario</a></li>
+            <li class="selected"><a href="{% url 'agrega_ganado_ordenio' ganado_id %}">Agregar Ordeño Diario</a></li>
+            
             {% for o in range %}
              {% if o == 0 %}
              {% else %}
-              <li><a href="{% url 'edita_ganado_ordenio' user.username ganado_id o %}">Editar Ordeño {{o}}</a></li>
+              <li><a href="{% url 'edita_ganado_ordenio' ganado_id o %}">Editar Ordeño {{o}}</a></li>
              {% endif %}
             {% endfor %}
         </ul>
@@ -58,6 +61,21 @@ $( "#id_nacimiento" ).datepicker();
       {{formOrdenio.observaciones}}
                    
         <input type="submit" value="{% trans "Save" %}" />
+
+      {% if num_ordenios == 1 %}
+      <div id="checkboxOrdenio">
+        <section class="container">
+          <div class="user">
+            <ul>
+              <h5 class="sep">{{formOrdenio.unique_ordenio.label_tag}}</h5>
+            </ul>
+          </div>
+        </section>
+        {{formOrdenio.unique_ordenio.errors}}
+        {{formOrdenio.unique_ordenio}}  
+        Grabar Ordeño Único
+      </div>
+    {% endif %}
         
     </form>
 </div>

@@ -4,9 +4,6 @@
 
 {% block title %}Notificaciones Alimentación{% endblock %}
 
-{% block js %}
-
-{% endblock js %}
 
 {% block presentation %}
 {% comment %}Dirty hack. Will use django-guardian in the future.{% endcomment %}
@@ -14,11 +11,10 @@
       <h3>Notificaciones</h3>
       <h4>{{user.username|capfirst}}, administra tus notificaciones</h4>
         <ul id="profile-nav">
-            <li><a href="{% url 'list_notifications_reproduccion' %}">Reproducción <span class="burbuja">{{number_reproduccion}}</span></a></li>
-            <li><a href="{% url 'list_notifications_sanidad' %}">Sanidad <span class="burbuja">{{number_sanidad}} </span></a></li>
-            <li><a href="{% url 'list_notifications_produccion' %}">Producción <span class="burbuja">{{number_produccion}} </span></a></li>
-            <li><a href="{% url 'list_notifications_alimentacion' %}">Alimentación <span class="burbuja"> {{number_alimentacion}} </span></a></li>
-            <li><a href="{% url 'list_notifications' %}">Todas <span class="burbuja">{{number_todas}} </span></a></li>
+            <li><a href="{% url 'list_notifications_alimentacion_realizadas' %}">Realizadas <span class="burbuja">{{ number_alimentacion_realizadas }}</span></a></li>
+            <li><a href="{% url 'list_notifications_alimentacion_norealizadas' %}">No Realizadas <span class="burbuja">{{ number_alimentacion_norealizadas }} </span></a></li>
+
+            <li><a href="{% url 'list_notifications' %}">Regresar</a></li>
         </ul>
     </div>
 {% endblock presentation %}
@@ -28,6 +24,8 @@
   <span class="crearCuenta">
       Notificaciones de Alimentación
   </span>
+
+  <div id="donutchart" style='width:99%'></div>
   
   <div id="details">
 
@@ -36,7 +34,7 @@
       <div id="comentarios">
       </div>      
       {% for message in notifications %}
-        <li>
+        <li id="c{{message.name}}">
           <a href="{% url 'realizedNotification' message.id %}">
             <!--<img src="{{ STATIC_URL }}img/logo.png" class="avatar2" />-->
             <span class="destinatario">{{message.get_name_display}}</span><br>
@@ -64,6 +62,13 @@
             </p>
               
           </a>
+
+          {% if message.get_name_display == 'Fecha próxima de aplicación del alimento' %}
+            <div class="contextual14">
+              <a href="{% url 'realizedNotification' message.id %}">Aceptar</a><br/>
+            </div>
+          {% endif %}
+          
         </li>
         
       {% endfor %}
@@ -71,4 +76,28 @@
   </ul>
 
 </div>
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+  google.load("visualization", "1", {packages:["corechart"]});
+  google.setOnLoadCallback(drawChart);
+  function drawChart() {
+    var data = google.visualization.arrayToDataTable([
+      ['estado', 'cantidad'],
+      ['Realizadas',      {{ number_alimentacion_realizadas }}],
+      ['No Realizadas',  {{ number_alimentacion_norealizadas }}],
+      ['Pendientes',  {{ number_alimentacion }}],
+    ]);
+
+    var options = {
+      title: '¿Cómo Administras tus Notificaciones?',
+      pieHole: 0.2,
+    };
+
+    var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+    chart.draw(data, options);
+  }
+</script>
 {% endblock %}

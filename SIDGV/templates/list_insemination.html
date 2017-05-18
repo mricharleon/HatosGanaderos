@@ -63,9 +63,14 @@
                 /*creando urls*/
                 var link_edit_insemination = '{% url 'edit_insemination' 'NEWVALUESTUB' %}';
                 link_edit_insemination = link_edit_insemination.replace('NEWVALUESTUB', response[i].pk);
+
+                var link_down_insemination = '{% url 'add_down_insemination' 'NEWVALUESTUB' %}';
+                link_down_insemination = link_down_insemination.replace('NEWVALUESTUB', response[i].pk);
                 
                 var menu = "<a href='"+link_edit_insemination+"'>"+
-                          "<li>Actualizar</li></a>"
+                          "<li>Actualizar</li></a>"+
+                          "<a href='"+link_down_insemination+"'>"+
+                          "<li>Dar de Baja</li></a>";
 
                 $('.account_list2').append(
                     "<div class=cinta>"+

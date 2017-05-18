@@ -8,7 +8,7 @@ from userena.forms import SignupForm
 class ConfiguracionForm(forms.ModelForm):
     class Meta:
         model = Configuracion
-        exclude = ['etapa_vientre']
+        exclude = ['etapa_vaca']
         widgets = {
                   'celo_frecuencia':forms.TextInput(attrs={}),
                   'celo_frecuencia_error':forms.TextInput(attrs={}),
@@ -18,13 +18,16 @@ class ConfiguracionForm(forms.ModelForm):
                   'celo_despues_parto_error':forms.TextInput(attrs={}),
                   'intentos_verificacion_celo':forms.TextInput(attrs={}),
                   'etapa_ternera':forms.TextInput(attrs={}),
-                  'etapa_vacona':forms.TextInput(attrs={}),
-                  'etapa_vientre':forms.TextInput(attrs={}),
+                  'etapa_vacona_media':forms.TextInput(attrs={}),
+                  'etapa_vacona_fierro':forms.TextInput(attrs={}),
+                  'etapa_vacona_vientre':forms.TextInput(attrs={}),
+                  'etapa_vaca':forms.TextInput(attrs={}),
                   'periodo_gestacion':forms.TextInput(attrs={}),
                   'periodo_seco':forms.TextInput(attrs={}),
                   'periodo_lactancia':forms.TextInput(attrs={}),
                   'periodo_vacio':forms.TextInput(attrs={}),
                   'numero_ordenios':forms.TextInput(attrs={}),
+                  'initial_rp':forms.TextInput(attrs={}),
                   
         }
 
@@ -59,6 +62,7 @@ class SignupFormExtra(SignupForm):
         form instead at the end.
         
         """
+        
         super(SignupFormExtra, self).__init__(*args, **kw)
         # Put the first and last name at the top
         new_order = self.fields.keyOrder[:-2]
@@ -82,6 +86,4 @@ class SignupFormExtra(SignupForm):
         # Userena expects to get the new user from this form, so return the new
         # user.
         return new_user
-
-
 

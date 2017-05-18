@@ -4,9 +4,6 @@
 
 {% block title %}Notificaciones{% endblock %}
 
-{% block js %}
-
-{% endblock js %}
 
 {% block presentation %}
 {% comment %}Dirty hack. Will use django-guardian in the future.{% endcomment %}
@@ -24,11 +21,15 @@
 {% endblock presentation %}
 
 {% block content %}
+
+
 <div class="formSignup">
   <span class="crearCuenta">
       Todas las Notificaciones
   </span>
   
+<div id="donutchart"></div>
+
   <div id="details">
 
   <ul id="messages" class="list-view">
@@ -36,22 +37,32 @@
       <div id="comentarios">
       </div>      
       {% for message in notifications %}
-        <li>
-          <a href="{% url 'realizedNotification' message.id %}">
+        <li id="c{{message.name}}">
+          <a >
             <!--<img src="{{ STATIC_URL }}img/logo.png" class="avatar2" />-->
             <span class="destinatario">{{message.get_name_display}}</span><br>
             
             <p>
+              {% if message.ident_medicament.name %}
+                {{ message.ident_medicament.name }} 
+                {{ message.ident_medicament.amount }} {{ message.ident_medicament.get_unit_display}}{{message.ident_food.amount}} {{ message.ident_food.get_unit_display}}</br>
+              {% endif %}
+
                 {{ message.ident_cattle.identificacion_simple.nombre }}
                 {{ message.ident_cattle.identificacion_ecuador.nombre }}
-                {{ message.ident_medicament.name }}
+                {{ message.ident_sperm.name }}
               
-                ({{ message.ident_cattle.identificacion_simple.rp }}
+                ( {{ message.ident_cattle.identificacion_simple.rp }}
                 {{ message.ident_cattle.identificacion_ecuador.rp }}
-                {{ message.ident_medicament.amount }} {{ message.ident_medicament.get_unit_display }} )
-                <p>
-                  {{ message.ident_medicament.expiration_date }}
-                </p>
+                {{ message.ident_sperm.rp }})
+
+                {{ message.ident_food.name }}                 
+
+                {% if message.name == 8 or message.name == 9 or message.name == 13 %}
+                  <p>
+                    <b>Vence: </b>{{ message.ident_medicament.expiration_date }}
+                  </p>
+                {% endif %}
             </p>
             <p><b>Inicio:</b>
                 {{ message.start_date }}
@@ -62,11 +73,167 @@
             </p>
               
           </a>
-        </li>
         
-      {% endfor %}
+          {% if message.get_name_display == 'Ganado en celo' %}
+            <div class="contextual0">
+              <a href="{% url 'realizedNotification' message.id %}">Aceptar</a><br/>
+              <a href="{% url 'deferEtapa' message.id %}">Aplazar la Notificación</a>
+            </div>
+          {% endif %}
 
+          {% if message.get_name_display == 'Registro del servicio' %}
+            <div class="contextual1">
+              <a href="{% url 'realizedNotificationBefore' message.id message.ident_cattle.id %}">Aceptar y Registrar</a><br/>
+              <a href="{% url 'deferEtapa' message.id %}">Aplazar la Notificación</a>
+            </div>
+          {% endif %}
+
+          {% if message.get_name_display == 'Verificación del celo' %}
+            <div class="contextual2">
+              <a href="{% url 'realizedNotification' message.id %}">Aceptar</a><br/>
+              <a href="{% url 'deferEtapa' message.id %}">Aplazar la Notificación</a>
+            </div>
+          {% endif %}
+
+          {% if message.get_name_display == 'Fecha de posible parto' %}
+            <div class="contextual3">
+              <a href="{% url 'realizedNotification' message.id %}">Aceptar</a><br/>
+              <a href="{% url 'deferEtapa' message.id %}">Aplazar la Notificación</a>
+            </div>
+          {% endif %}
+
+          {% if message.get_name_display == 'Cantidad reducida de pajuelas' %}
+            <div class="contextual4">
+              <a href="{% url 'realizedNotification' message.id %}">Aceptar</a><br/>
+              <a href="{% url 'deferEtapa' message.id %}">Aplazar la Notificación</a>
+            </div>
+          {% endif %}
+
+          {% if message.get_name_display == 'Registro de ordeño' %}
+            <div class="contextual5">
+              <a href="{% url 'realizedNotification' message.id %}">Aceptar</a><br/>
+            </div>
+          {% endif %}
+
+          {% if message.get_name_display == 'Cantidad reducida de la vacuna' %}
+            <div class="contextual6">
+              <a href="{% url 'realizedNotification' message.id %}">Aceptar</a><br/>
+            </div>
+          {% endif %}
+
+          {% if message.get_name_display == 'Cantidad reducida del desparasitador' %}
+            <div class="contextual7">
+              <a href="{% url 'realizedNotification' message.id %}">Aceptar</a><br/>
+            </div>
+          {% endif %}
+
+          {% if message.get_name_display == 'Fecha próxima de vencimiento de la vacuna' %}
+            <div class="contextual8">
+              <a href="{% url 'realizedNotification' message.id %}">Aceptar</a><br/>
+            </div>
+          {% endif %}
+
+          {% if message.get_name_display == 'Fecha próxima de vencimiento del desparasitador' %}
+            <div class="contextual9">
+              <a href="{% url 'realizedNotification' message.id %}">Aceptar</a><br/>
+            </div>
+          {% endif %}
+
+          {% if message.get_name_display == 'Fecha próxima de aplicación de la vacuna' %}
+            <div class="contextual10">
+              <a href="{% url 'realizedNotification' message.id %}">Aceptar</a><br/>
+            </div>
+          {% endif %}
+
+          {% if message.get_name_display == 'Fecha próxima de aplicación del desparasitador' %}
+            <div class="contextual11">
+              <a href="{% url 'realizedNotification' message.id %}">Aceptar</a><br/>
+            </div>
+          {% endif %}
+
+          {% if message.get_name_display == 'Cantidad reducida del alimento' %}
+            <div class="contextual12">
+              <a href="{% url 'realizedNotification' message.id %}">Aceptar</a><br/>
+            </div>
+          {% endif %}
+
+          {% if message.get_name_display == 'Fecha próxima de vencimiento del alimento' %}
+            <div class="contextual13">
+              <a href="{% url 'realizedNotification' message.id %}">Aceptar</a><br/>
+            </div>
+          {% endif %}
+
+          {% if message.get_name_display == 'Fecha próxima de aplicación del alimento' %}
+            <div class="contextual14">
+              <a href="{% url 'realizedNotification' message.id %}">Aceptar</a><br/>
+            </div>
+          {% endif %}
+
+          {% if message.get_name_display == 'Cambio de etapa a Vacona Media' %}
+            <div class="contextual15">
+              <a href="{% url 'realizedNotification' message.id %}">Aceptar</a><br/>
+              <a href="{% url 'deferEtapa' message.id %}">Aplazar la Notificación</a>
+            </div>
+          {% endif %}
+
+          {% if message.get_name_display == 'Cambio de etapa a Vacona Fierro' %}
+            <div class="contextual16">
+              <a href="{% url 'realizedNotification' message.id %}">Aceptar</a><br/>
+              <a href="{% url 'deferEtapa' message.id %}">Aplazar la Notificación</a>
+            </div>
+          {% endif %}
+
+          {% if message.get_name_display == 'Cambio de etapa a Vacona Vientre' %}
+            <div class="contextual17">
+              <a href="{% url 'realizedNotification' message.id %}">Aceptar</a><br/>
+              <a href="{% url 'deferEtapa' message.id %}">Aplazar la Notificación</a>
+            </div>
+          {% endif %}
+
+          {% if message.get_name_display == 'Cambio de etapa a Vaca' %}
+            <div class="contextual18">
+              <a href="{% url 'realizedNotification' message.id %}">Aceptar</a><br/>
+              <a href="{% url 'deferEtapa' message.id %}">Aplazar la Notificación</a>
+            </div>
+          {% endif %}
+
+          {% if message.get_name_display == 'Cambio a ciclo seco' %}
+            <div class="contextual20">
+              <a href="{% url 'realizedNotification' message.id %}">Aceptar</a><br/>
+              <a href="{% url 'deferEtapa' message.id %}">Aplazar la Notificación</a>
+            </div>
+          {% endif %}
+
+        </li>
+
+      {% endfor %}
   </ul>
 
 </div>
+
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+  google.load("visualization", "1", {packages:["corechart"]});
+  google.setOnLoadCallback(drawChart);
+  function drawChart() {
+    var data = google.visualization.arrayToDataTable([
+      ['modulos', 'cantidad'],
+      ['Reproducción',      {{number_reproduccion}}],
+      ['Producción',  {{number_produccion}}],
+      ['Sanidad', {{number_sanidad}}],
+      ['Alimentación',    {{number_alimentacion}}]
+    ]);
+
+    var options = {
+      title: 'Mis Notificaciones en Porcentajes',
+      pieHole: 0.2,
+    };
+
+    var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+    chart.draw(data, options);
+  }
+</script>
 {% endblock %}

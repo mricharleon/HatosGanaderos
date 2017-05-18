@@ -11,11 +11,11 @@
     $('select#id_option_number_application').on('change',function(){
       var valor = $(this).val();
       if (valor == 1){
-        $("#id_number_application").html('0');
+        $("#id_number_application").val('0');
         $(".number_application").css("display", "none");
         $("#id_number_application").css("display", "none");
       }else if (valor == 0){
-        $("#id_number_application").html('');
+        $("#id_number_application").val('');
         $(".number_application").css("display", "");
         $("#id_number_application").css("display", "");
       }
@@ -32,8 +32,8 @@
         <h3>Agrega la vacuna</h3>
     <h4>Ahora podras agregar los datos de la vacuna.</h4>
     <ul id="profile-nav">
-    <li><a href="{% url 'add_wormer' %}">Agregar Desparacitador</a></li>
-      <li><a href="{% url 'list_wormer' %}">Listar Desparacitadores</a></li>
+    <li><a href="{% url 'add_wormer' %}">Agregar Desparasitador</a></li>
+      <li><a href="{% url 'list_wormer' %}">Listar Desparasitadores</a></li>
       <li><a href="{% url 'list_vaccine' %}">Listar Vacunas</a></li>      
     </ul>
     </div>

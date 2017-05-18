@@ -44,45 +44,93 @@
                 link_gestacion = link_gestacion.replace('NEWVALUESTUB', response[i].pk);
                 var link_service = '{% url 'add_service' 'NEWVALUESTUB' %}';
                 link_service = link_service.replace('NEWVALUESTUB', response[i].pk);
+
+                var link_down_cattle = '{% url 'add_down_cattle' 'NEWVALUESTUB' %}';
+                link_down_cattle = link_down_cattle.replace('NEWVALUESTUB', response[i].pk);
                 
-                /*formatear el celo y etapa*/
-                var etapa, celo;
-                if ( (response[i].fields.etapa=='Ternera') || (response[i].fields.etapa=='Vacona') && (response[i].fields.ciclo!=0) ){
+                /*formatear el celo, ciclo y etapa*/
+                var etapa, celo, ciclo;
+                if ( response[i].fields.ciclo0 == 1 ){
+                  ciclo = 'Seco';
                   etapa = response[i].fields.etapa;
                   celo = '';
                 } else if( (response[i].fields.verificacion=='True') ){
-                  etapa = 'En verificación';
-                  celo = response[i].fields.celo;
-                } else if( (response[i].fields.ciclo == 3) ){
-                  etapa = 'Gestación';
+                  ciclo = 'En verificación';
+                  etapa = response[i].fields.etapa;
                   celo = '';
-                }else{
+                }else if (((response[i].fields.ciclo0 == 1) && (response[i].fields.ciclo1 == 3)) || ((response[i].fields.ciclo1 == 1) && (response[i].fields.ciclo0 == 3))){
+                  ciclo = 'Seco - Gestación';
+                  etapa = response[i].fields.etapa;
+                  celo = '';
+                }else if( (response[i].fields.ciclo0 == 3) ){
+                  ciclo = 'Gestación';
+                  etapa = response[i].fields.etapa;
+                  celo = '';
+                }else if (((response[i].fields.ciclo0 == 0) && (response[i].fields.ciclo1 == 2)) || ((response[i].fields.ciclo1 == 0) && (response[i].fields.ciclo0 == 2))){
+                  ciclo = 'Lactancia - Vacío';
                   etapa = response[i].fields.etapa;
                   celo = response[i].fields.celo;
+                }else if (((response[i].fields.ciclo0 == 2) && (response[i].fields.ciclo1 == 3)) || ((response[i].fields.ciclo1 == 2) && (response[i].fields.ciclo0 == 3))){
+                  ciclo = 'Gesta - Lactancia';
+                  etapa = response[i].fields.etapa;
+                  celo = '';
+                }else if (response[i].fields.ciclo0 == 2) {
+                  ciclo = 'Lactancia';
+                  etapa = response[i].fields.etapa;
+                  celo = response[i].fields.celo;
+                }else if (response[i].fields.ciclo0 == 0){
+                  ciclo = 'Vacío';
+                  etapa = response[i].fields.etapa;
+                  celo = response[i].fields.celo;
+                }else if ( (response[i].fields.etapa == 'Ternera') || (response[i].fields.etapa == 'Vacona media') || (response[i].fields.etapa == 'Vacona fierro') ){
+                  ciclo = '';
+                  etapa = response[i].fields.etapa;
+                  celo = '';
                 }
 
+
                 var menu;
-                if( (response[i].fields.etapa=='Ternera') || (response[i].fields.etapa=='Vacona') ){
+                if( (response[i].fields.etapa=='Ternera') || (response[i].fields.etapa=='Vacona media') || (response[i].fields.etapa=='Vacona fierro')  ){
                   menu = "<a href='"+link_edit_cattle+"'>"+
-                          "<li>Actualizar</li></a>"
-                }else if( response[i].fields.ciclo == 3 ){
+                          "<li>Actualizar</li></a>"+
+                          "<a href='"+link_down_cattle+"'>"+
+                          "<li>Dar de Baja</li></a>"
+                          
+                }else if( response[i].fields.ciclo0 == 3 | response[i].fields.ciclo1 == 3){
                   menu =  "<a href='"+link_gestacion+"'>"+
                           "<li>Gestacion</li></a>"+
                           "<a href='"+link_edit_cattle+"'>"+
-                          "<li>Actualizar</li></a>"
+                          "<li>Actualizar</li></a>"+
+                          "<a href='"+link_down_cattle+"'>"+
+                          "<li>Dar de Baja</li></a>"
+
+                }else if( response[i].fields.verificacion == 'True' ){
+                  menu =  "<a href='"+link_service+"'>"+
+                          "<li>Servicio</li></a>"+
+                          "<a href='"+link_edit_cattle+"'>"+
+                          "<li>Actualizar</li></a>"+
+                          "<a href='"+link_down_cattle+"'>"+
+                          "<li>Dar de Baja</li></a>"
+
                 }else if( response[i].fields.celo == 'En Celo' ){
                   menu =  "<a href='"+link_edit_cattle_celo+"'>"+
                           "<li>Celo</li></a>"+
                           "<a href='"+link_service+"'>"+
                           "<li>Servicio</li></a>"+
                           "<a href='"+link_edit_cattle+"'>"+
-                          "<li>Actualizar</li></a>"
+                          "<li>Actualizar</li></a>"+
+                          "<a href='"+link_down_cattle+"'>"+
+                          "<li>Dar de Baja</li></a>"
+
                 }else {
                   menu =  "<a href='"+link_edit_cattle_celo+"'>"+
                           "<li>Celo</li></a>"+
                           "<a href='"+link_edit_cattle+"'>"+
-                          "<li>Actualizar</li></a>"
+                          "<li>Actualizar</li></a>"+
+                          "<a href='"+link_down_cattle+"'>"+
+                          "<li>Dar de Baja</li></a>"
                 }
+
 
                 $('.account_list').append(
                     "<div class=cinta>"+
@@ -94,8 +142,9 @@
                         "<img src={{MEDIA_URL}}"+response[i].fields.imagen+" />"+
                               "<h4 class=texto_propiedades1>" + nombre+ "</h4>" +
                               "<hr>"+
-                              "<h4 class=texto_propiedades4>" + response[i].fields.celo + "</h4>" +
-                              "<h4 class=texto_propiedades2>" + etapa + "</h4>" +
+                              "<h4 class=texto_propiedades4>" + celo + "</h4>"+
+                              "<h4 class=texto_propiedades4>" + ciclo + "</h4>" +
+                              "<h4 class=texto_propiedades2>" + etapa + "</h2>" +
                               "<h4 class=texto_propiedades3>" + response[i].fields.edad_anios+ anios +
                                 + response[i].fields.edad_meses+ meses +
                                 + response[i].fields.edad_dias+ dias +"</h4>" +
@@ -137,13 +186,28 @@
 
 {% block presentation %}
 <div class="presentacion_principal">
-    <h3>Lista de Ganados Hembras de Reproducción</h3>
-    <h4>Listado de ganados registrados en la ganadería..</h4>
+    <h3>Lista de Ganados Hembras</h3>
+    <h4>Listado de ganados registrados en la ganadería</h4>
     <input type="text" class="busqueda" id="busqueda"  placeholder="RP, nombre o año de nacimiento" >
     <div class="message_results">
       
     </div>
 </div>
+<nav>
+    <ul class="menu">
+   <li><a href="#"><i class="icon-home"></i>Filtrar</a>
+   <ul class="sub-menu">
+   <li><a href="{% url 'list_cattle_terneras' %}">Ternera</a></li>
+   <li><a href="{% url 'list_cattle_media' %}">Vacona Media</a></li>
+   <li><a href="{% url 'list_cattle_fierro' %}">Vacona Fierro</a></li>
+   <li><a href="{% url 'list_cattle_vientre' %}">Vacona Vientre</a></li>
+   <li><a href="{% url 'list_cattle_vaca' %}">Vaca</a></li>
+   <li><a href="{% url 'list_cattle' %}">Todos</a></li>
+   <center><li><a href="{% url 'list_down_cattle' %}">Dados de Baja</a></li></center>
+   </ul>
+   </li>
+  
+  </nav>
 {% endblock %}
 
 {% block content %}

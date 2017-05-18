@@ -38,9 +38,14 @@
                 
                 var link_edit_cattle_male = '{% url 'edit_cattle_male' 'NEWVALUESTUB' %}';
                 link_edit_cattle_male = link_edit_cattle_male.replace('NEWVALUESTUB', response[i].pk);
+
+                var link_down_cattle = '{% url 'add_down_cattle' 'NEWVALUESTUB' %}';
+                link_down_cattle = link_down_cattle.replace('NEWVALUESTUB', response[i].pk);
                 
                 var menu = "<a href='"+link_edit_cattle_male+"'>"+
-                          "<li>Actualizar</li></a>";
+                          "<li>Actualizar</li></a>"+
+                          "<a href='"+link_down_cattle+"'>"+
+                          "<li>Dar de Baja</li></a>";
                 
 
                 $('.account_list').append(

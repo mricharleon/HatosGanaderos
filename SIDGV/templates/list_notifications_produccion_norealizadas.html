@@ -1,0 +1,164 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+
+{% block title %}Notificaciones Producción no Realizadas{% endblock %}
+
+{% block js %}
+<script type='text/javascript'>
+
+var number_search=5;
+  
+function ccarga_datos(){
+  
+    $.ajax({
+          data: {'number_search': number_search},
+          type:'GET',
+          contentType: 'application/json; charset=utf-8',
+          dateType:'json',
+          url:'/ajax/add_list_notifications_produccion_no_realizadas/',
+          beforeSend: function(objeto){
+            
+          },
+          
+          success:function(response2){
+            var resultado='';
+            var d = new Date();
+
+            var m_names = new Array("Enero", "Febrero", "Marzo", 
+            "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", 
+            "Octubre", "Noviembre", "Deciembre");
+
+
+            if(response2!=''){
+              for (var i = 0; i < response2.length; i++) {     
+
+                var d = new Date(response2[i].fields.inicio);
+                var curr_date = d.getDate();
+                var curr_month = d.getMonth();
+                var curr_year = d.getFullYear();
+                fecha_inicio = (curr_date + " de " + m_names[curr_month] 
+                + " de " + curr_year);
+                var d2 = new Date(response2[i].fields.fin);
+                var curr_date2 = d2.getDate();
+                var curr_month2 = d2.getMonth();
+                var curr_year2 = d2.getFullYear();
+                fecha_fin = (curr_date2 + " de " + m_names[curr_month2] 
+                + " de " + curr_year2);
+                
+                /*creando urls*/
+                var link_accept_notification = '{% url 'realizedNotification' 'NEWVALUESTUB' %}';
+                link_accept_notification = link_accept_notification.replace('NEWVALUESTUB', response2[i].pk);
+                $('.list-view').append(
+                  "<li>"+
+                    "<a>"+ 
+                      "<span class=destinatario>"+response2[i].fields.name+"</span><br>"+
+                        "<p>"+response2[i].fields.cattle+"("+response2[i].fields.cattle_rp+")</p>"+
+                        "<p><b>Inicio:</b> " +fecha_inicio+ "</p>" +
+                        "<p><b>Fin:</b> " +fecha_fin+ "</p>" +
+                    "</a>"+
+                    "<div class=contextual55>"+
+                      "<a href='"+link_accept_notification+"'>Realizada</a><br/>"+
+                    "</div>"+
+                  "</li>"
+                ); 
+                if (response2[i].fields.hide_button == '1'){
+                  $("#div_hide_button").hide();
+                }
+              }
+              number_search = number_search + 5;
+            }else{
+              $("#div_hide_button").hide();
+            }
+          },
+
+          error: function(objeto, error){
+            
+          },
+
+        });
+}
+
+</script>
+{% endblock %}
+
+{% block presentation %}
+{% comment %}Dirty hack. Will use django-guardian in the future.{% endcomment %}
+    <div class="presentacionSignup">
+      <h3>Notificaciones</h3>
+      <h4>{{user.username|capfirst}}, administra tus notificaciones</h4>
+        <ul id="profile-nav">
+            <li><a href="{% url 'list_notifications_produccion_realizadas' %}">Realizadas <span class="burbuja">{{ number_produccion_realizadas }}</span></a></li>
+            <li><a href="{% url 'list_notifications_produccion_norealizadas' %}">No Realizadas <span class="burbuja">{{ number_produccion_norealizadas }} </span></a></li>
+            <li><a href="{% url 'list_notifications_produccion' %}">Pendientes <span class="burbuja">{{ number_produccion }} </span></a></li>
+
+            <li><a href="{% url 'list_notifications' %}">Regresar</a></li>
+        </ul>
+    </div>
+{% endblock presentation %}
+
+{% block content %}
+<div class="formSignup">
+  <span class="crearCuenta">
+      Notificaciones de Producción no Realizadas
+  </span>
+
+  
+  <div id="details">
+
+  <ul id="messages" class="list-view">
+  
+      <div id="comentarios">
+      </div>      
+      {% for message in notifications %}
+        <li id="c{{message.name}}">
+          <a >
+            <!--<img src="{{ STATIC_URL }}img/logo.png" class="avatar2" />-->
+            <span class="destinatario">{{message.get_name_display}}</span><br>
+            
+            <p>
+                {{ message.ident_cattle.identificacion_simple.nombre }}
+                {{ message.ident_cattle.identificacion_ecuador.nombre }}
+                {{ message.ident_medicament.name }}
+              
+                ({{ message.ident_cattle.identificacion_simple.rp }}
+                {{ message.ident_cattle.identificacion_ecuador.rp }}
+                {{ message.ident_medicament.amount }} {{ message.ident_medicament.get_unit_display }} )
+                <p>
+                  {{ message.ident_medicament.expiration_date }}
+                </p>
+            </p>
+            <p><b>Inicio:</b>
+                {{ message.start_date }}
+            </p>
+            <p>
+                <b>Fin:</b>
+                {{ message.end_date }}
+            </p>
+              
+          </a>
+
+          {% if message.get_name_display == 'Registro de ordeño' %}
+            <div class="contextual55">
+              <a href="{% url 'realizedNotification' message.id %}">Realizada</a><br/>
+            </div>
+          {% endif %}
+          
+        </li>
+        
+      {% endfor %}
+
+  </ul>
+
+  <center> 
+    <div id="div_hide_button">
+      <input type="button" id="hide_button" onclick="ccarga_datos()" value="+" />
+      <br>
+        <span style="color:#ccc;">
+          Cargar más
+        </span>
+    </div>
+  </center>
+
+</div>
+{% endblock %}

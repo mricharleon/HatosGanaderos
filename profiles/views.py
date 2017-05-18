@@ -54,7 +54,7 @@ def agrega_ganaderia_config(request):
 					form2 = GanaderiaForm(request.POST, instance=ganaderia_perfil)
 					if form.is_valid() and form2.is_valid():
 						form = form.save(commit=False)
-						form.etapa_vientre = form.etapa_vacona
+						form.etapa_vaca = form.etapa_vacona_vientre
 						form.save()
 						form2.save()
 
@@ -76,7 +76,7 @@ def agrega_ganaderia_config(request):
 				
 				form_ganaderia = form2.save(commit=False)
 				form = form.save(commit=False)
-				form.etapa_vientre = form.etapa_vacona
+				form.etapa_vaca = form.etapa_vacona_vientre
 				form.save()
 				c = Configuracion.objects.get(id=form.id)
 				form_ganaderia.configuracion = c

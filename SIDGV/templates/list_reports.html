@@ -26,7 +26,7 @@
             if(response!=''){
               for (var i = 0; i < response.length; i++) {
                 var link_report_female = '{% url 'view_report_female' 'NEWVALUESTUB' %}';
-                link_report_female= link_report_female.replace('NEWVALUESTUB', response[i].pk);
+                link_report_female= link_report_female.replace('NEWVALUESTUB', response[i].fields.rp);
                 $('.content').append(
                     "<a href='"+link_report_female+"'>"+ 
                           "<div class='searching_cattle close_reveal_modal2' >"+ 
@@ -59,7 +59,7 @@
         <h3>Reportes Hembras</h3>
         <h4>Genera tus reportes</h4>
         <ul id="profile-nav">
-          <li><a href="{% url 'list_cattle' %}">Reporte Machos</a></li>
+          <li><a href="{% url 'list_reports' %}">Reporte Hembras</a></li>
         </ul>
     </div>
 {% endblock presentation %}

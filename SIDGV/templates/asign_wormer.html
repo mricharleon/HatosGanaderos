@@ -12,7 +12,7 @@
         listCattle.push(new_cattle);
     }
 
-    function removeCattleFood(id){
+    function removeCattleWormer(id){
         var indice = $.inArray( id, listCattle );
         listCattle = $.grep(listCattle, function(value) {
                 return value != id;
@@ -25,13 +25,13 @@
         }
     }
 
-    function assignCattleWormer(id, nombre){
-        var link = 'onclick="removeCattleFood(pk)"';
+    function assignCattleWormer(id, rp, nombre){
+        var link = 'onclick="removeCattleWormer(pk)"';
         link = link.replace('pk', id);
         var link2 = 'class="pk"';
         link2 = link2.replace('pk', id);
         
-        $('.tags').append('<li '+link2+'> #'+id+' '+nombre+'<span '+link+' >X</span></li>')
+        $('.tags').append('<li '+link2+'> #'+rp+' '+nombre+'<span '+link+' >X</span></li>')
         listAssignCattleWormer(id);
         $('#'+id+'').parent().empty();
 
@@ -67,8 +67,9 @@
 
                     var name = response[i].fields.nombre.charAt(0).toUpperCase() + response[i].fields.nombre.slice(1); 
                     
-                    var link = 'onclick="assignCattleWormer(pk, nombre)"';
+                    var link = 'onclick="assignCattleWormer(pk, rp, nombre)"';
                     link = link.replace('pk', response[i].pk);
+                    link = link.replace('rp', response[i].fields.rp);
                     link = link.replace("nombre", "'"+response[i].fields.nombre+"'");            
 
                     $('.content').append(
@@ -168,7 +169,7 @@
 
 {% block presentation %}
     <div class="presentacion_principal">
-        <h3>Lista de Ganados a Asignar Desparacitador</h3>
+        <h3>Lista de Ganados a Asignar Desparasitador</h3>
         <input type="text" class="busqueda" id="busqueda"  placeholder="RP, Nombre o año de nacimiento" >
         <span class="btnAssign" onclick="assignCattleWormerFinal({{id_wormer}});">Asignar</span>
     <div class="message_results">
@@ -197,7 +198,7 @@
 
 <div class="panel_assign_cattle">
     <div class="container_assign_cattle">
-          <span class="title_container">
+          <span class="crearCuenta">
               Seleccionar Ganados
           </span>
         <div class="content">

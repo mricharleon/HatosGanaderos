@@ -38,24 +38,32 @@ urlpatterns = patterns('',
 
     # real time of the messages
     url(r'^alert_messages/$', 'messages.views.alert_messages', name='alert_messages'),
-
-    # farm
     url(r'^agrega_ganaderia_config/$', 'profiles.views.agrega_ganaderia_config', name='agrega_ganaderia_config'),
 
     # ganados
     url(r'^add_cattle/$', 'ganados.views.add_cattle', name='add_cattle'),
+    url(r'^add_down_cattle/(?P<id_cattle>[\.\w-]+)/$', 'ganados.views.add_down_cattle', name='add_down_cattle'),
+    url(r'^list_down_cattle/$', 'ganados.views.list_down_cattle', name='list_down_cattle'),
     url(r'^list_cattle/$', 'ganados.views.list_cattle', name='list_cattle'),
+    url(r'^list_cattle_terneras/$', 'ganados.views.list_cattle_terneras', name='list_cattle_terneras'),
+    url(r'^list_cattle_media/$', 'ganados.views.list_cattle_media', name='list_cattle_media'),
+    url(r'^list_cattle_fierro/$', 'ganados.views.list_cattle_fierro', name='list_cattle_fierro'),
+    url(r'^list_cattle_vientre/$', 'ganados.views.list_cattle_vientre', name='list_cattle_vientre'),
+    url(r'^list_cattle_vaca/$', 'ganados.views.list_cattle_vaca', name='list_cattle_vaca'),
     url(r'^list_cattle_male/$', 'ganados.views.list_cattle_male', name='list_cattle_male'),
     url(r'^edita_ganado/(?P<ganado_id>[\.\w-]+)/$', 'ganados.views.edita_ganado', name='edita_ganado'),
     url(r'^edit_cattle_male/(?P<cattle_id>[\.\w-]+)/$', 'ganados.views.edit_cattle_male', name='edit_cattle_male'),
     url(r'^edita_ganado_celo/(?P<ganado_id>[\.\w-]+)/$', 'ganados.views.edita_ganado_celo', name='edita_ganado_celo'),
 
-    url(r'^lista_ganado_produccion/(?P<username>[\.\w-]+)/$', 'ganados.views.lista_ganado_produccion', name='lista_ganado_produccion'),
-    url(r'^agrega_ganado_ordenio/(?P<username>[\.\w-]+)/(?P<ganado_id>[\.\w-]+)/$', 'ganados.views.agrega_ganado_ordenio', name='agrega_ganado_ordenio'),
-    url(r'^edita_ganado_ordenio/(?P<username>[\.\w-]+)/(?P<ganado_id>[\.\w-]+)/(?P<num_ordenio>[\.\w-]+)/$', 'ganados.views.edita_ganado_ordenio', name='edita_ganado_ordenio'),
+    url(r'^lista_ganado_produccion/$', 'ganados.views.lista_ganado_produccion', name='lista_ganado_produccion'),
+    url(r'^agrega_ganado_ordenio/(?P<ganado_id>[\.\w-]+)/$', 'ganados.views.agrega_ganado_ordenio', name='agrega_ganado_ordenio'),
+    url(r'^edita_ganado_ordenio/(?P<ganado_id>[\.\w-]+)/(?P<num_ordenio>[\.\w-]+)/$', 'ganados.views.edita_ganado_ordenio', name='edita_ganado_ordenio'),
+
+    url(r'^deferEtapa/(?P<notification_id>[\.\w-]+)/$', 'ganados.views.deferEtapa', name='deferEtapa'),
 
     # inseminacion
     url(r'^add_insemination/$', 'ganados.views.add_insemination', name='add_insemination'),
+    url(r'^add_down_insemination/(?P<id_sperm>[\.\w-]+)/$', 'ganados.views.add_down_insemination', name='add_down_insemination'),
     url(r'^list_insemination/$', 'ganados.views.list_insemination', name='list_insemination'),
     url(r'^edit_insemination/(?P<insemination_id>[\.\w-]+)/$', 'ganados.views.edit_insemination', name='edit_insemination'),
 
@@ -88,15 +96,25 @@ urlpatterns = patterns('',
     # notificaciones
     url(r'^list_notifications/$', 'notifications.views.list_notifications', name='list_notifications'),
     url(r'^list_notifications_reproduccion/$', 'notifications.views.list_notifications_reproduccion', name='list_notifications_reproduccion'),
+    url(r'^list_notifications_reproduccion_realizadas/$', 'notifications.views.list_notifications_reproduccion_realizadas', name='list_notifications_reproduccion_realizadas'),
+    url(r'^list_notifications_reproduccion_norealizadas/$', 'notifications.views.list_notifications_reproduccion_norealizadas', name='list_notifications_reproduccion_norealizadas'),
     url(r'^list_notifications_produccion/$', 'notifications.views.list_notifications_produccion', name='list_notifications_produccion'),
+    url(r'^list_notifications_produccion_realizadas/$', 'notifications.views.list_notifications_produccion_realizadas', name='list_notifications_produccion_realizadas'),
+    url(r'^list_notifications_produccion_norealizadas/$', 'notifications.views.list_notifications_produccion_norealizadas', name='list_notifications_produccion_norealizadas'),
     url(r'^list_notifications_sanidad/$', 'notifications.views.list_notifications_sanidad', name='list_notifications_sanidad'),
+    url(r'^list_notifications_sanidad_realizadas/$', 'notifications.views.list_notifications_sanidad_realizadas', name='list_notifications_sanidad_realizadas'),
+    url(r'^list_notifications_sanidad_norealizadas/$', 'notifications.views.list_notifications_sanidad_norealizadas', name='list_notifications_sanidad_norealizadas'),
     url(r'^list_notifications_alimentacion/$', 'notifications.views.list_notifications_alimentacion', name='list_notifications_alimentacion'),
+    url(r'^list_notifications_alimentacion_realizadas/$', 'notifications.views.list_notifications_alimentacion_realizadas', name='list_notifications_alimentacion_realizadas'),
+    url(r'^list_notifications_alimentacion_norealizadas/$', 'notifications.views.list_notifications_alimentacion_norealizadas', name='list_notifications_alimentacion_norealizadas'),
     url(r'^realized_notification/(?P<notification_id>[\.\w-]+)/$', 'notifications.views.realizedNotification', name='realizedNotification'),
+    url(r'^realized_notification_before/(?P<notification_id>[\.\w-]+)/(?P<cattle_id>[\.\w-]+)/$', 'notifications.views.realizedNotificationBefore', name='realizedNotificationBefore'),
+
 
     # reportes
     url(r'^list_reports/$', 'reports.views.list_reports', name='list_reports'),    
     url(r'^view_report_female/(?P<id_cattle>[\.\w-]+)/$', 'reports.views.view_report_female', name='view_report_female'),    
-    #url(r'^generate_pdf/$', 'reports.views.generate_pdf', name='generate_pdf'),    
+    url(r'^generate_pdf/(?P<cattle_id>[\.\w-]+)/$', 'reports.views.generatePdf', name='generate_pdf'),    
     #url(r'^list_report_reproduccion/$', 'reports.views.list_report_reproduccion', name='list_report_reproduccion'),    
 
     url(r'^docs/.*', 'reports.views.docs', name='docs'),  

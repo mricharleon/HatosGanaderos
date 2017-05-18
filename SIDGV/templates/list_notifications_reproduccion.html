@@ -4,9 +4,6 @@
 
 {% block title %}Notificaciones Reproducción{% endblock %}
 
-{% block js %}
-
-{% endblock js %}
 
 {% block presentation %}
 {% comment %}Dirty hack. Will use django-guardian in the future.{% endcomment %}
@@ -14,11 +11,10 @@
       <h3>Notificaciones</h3>
       <h4>{{user.username|capfirst}}, administra tus notificaciones</h4>
         <ul id="profile-nav">
-            <li><a href="{% url 'list_notifications_reproduccion' %}">Reproducción <span class="burbuja">{{number_reproduccion}}</span></a></li>
-            <li><a href="{% url 'list_notifications_sanidad' %}">Sanidad <span class="burbuja">{{number_sanidad}} </span></a></li>
-            <li><a href="{% url 'list_notifications_produccion' %}">Producción <span class="burbuja">{{number_produccion}} </span></a></li>
-            <li><a href="{% url 'list_notifications_alimentacion' %}">Alimentación <span class="burbuja"> {{number_alimentacion}} </span></a></li>
-            <li><a href="{% url 'list_notifications' %}">Todas <span class="burbuja">{{number_todas}} </span></a></li>
+            <li><a href="{% url 'list_notifications_reproduccion_realizadas' %}">Realizadas <span class="burbuja">{{ number_reproduccion_realizadas }}</span></a></li>
+            <li><a href="{% url 'list_notifications_reproduccion_norealizadas' %}">No Realizadas <span class="burbuja">{{ number_reproduccion_norealizadas }} </span></a></li>
+
+            <li><a href="{% url 'list_notifications' %}">Todas</a></li>
         </ul>
     </div>
 {% endblock presentation %}
@@ -28,6 +24,8 @@
   <span class="crearCuenta">
       Notificaciones de Reproducción
   </span>
+
+  <div id="donutchart"></div>
   
   <div id="details">
 
@@ -45,9 +43,11 @@
                 {{ message.ident_cattle.identificacion_simple.nombre }}
                 {{ message.ident_cattle.identificacion_ecuador.nombre }}
                 {{ message.ident_medicament.name }}
+                {{ message.ident_sperm.name }}
               
                 ({{ message.ident_cattle.identificacion_simple.rp }}
                 {{ message.ident_cattle.identificacion_ecuador.rp }}
+                {{ message.ident_sperm.rp }}
                 {{ message.ident_medicament.amount }} {{ message.ident_medicament.get_unit_display }} )
                 <p>
                   {{ message.ident_medicament.expiration_date }}
@@ -69,4 +69,28 @@
   </ul>
 
 </div>
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+  google.load("visualization", "1", {packages:["corechart"]});
+  google.setOnLoadCallback(drawChart);
+  function drawChart() {
+    var data = google.visualization.arrayToDataTable([
+      ['estado', 'cantidad'],
+      ['Realizadas',      {{ number_reproduccion_realizadas }}],
+      ['No Realizadas',  {{ number_reproduccion_norealizadas }}],
+      ['Pendientes',  {{ number_reproduccion }}],
+    ]);
+
+    var options = {
+      title: '¿Cómo Administras tus Notificaciones?',
+      pieHole: 0.2,
+    };
+
+    var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+    chart.draw(data, options);
+  }
+</script>
 {% endblock %}

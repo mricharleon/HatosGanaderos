@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load url from future %}
+
+{% block title %} Dar de Baja {% endblock %}
+
+
+{% block presentation %}
+    <div class="presentacionSignup">
+        <h3>Dar de Baja al Ganado</h3>
+        <h4>Bienvenido a dar de baja tus ganados.</h4>
+        <ul id="profile-nav">
+          <li><a href="{% url 'list_cattle' %}">Listar Hembras</a></li>
+          <li><a href="{% url 'list_cattle_male' %}">Listar Machos</a></li>
+          <li><a href="{% url 'list_insemination' %}">Listar Esperma</a></li>
+        </ul>
+    </div>
+{% endblock presentation %}
+
+{% block content %}
+
+<div class="formSignup">
+  <span class="crearCuenta">
+      Dar de baja al Ganado 
+  </span>
+
+  <div class="account_list">
+    <div class="cinta">
+      <a href="">
+        <div style='height:100% !important;'>
+          <span class="id_cattle">
+            <img src="{{MEDIA_URL}}{{cattle.imagen}}" alt="">                
+            <h4 class="texto_propiedades1">
+              {{cattle.identificacion_simple.nombre |capfirst}}
+              {{cattle.identificacion_ecuador.nombre |capfirst}}
+            </h4>
+            <h4 class="texto_propiedades3">
+              {{cattle.edad_anios}} {{cattle.edad_anios |pluralize:' año, años'}}
+              , 
+              {{cattle.edad_meses }} {{cattle.edad_meses |pluralize:' mes, meses'}}
+              y
+              {{cattle.edad_dias}} {{cattle.edad_dias |pluralize:' día, días'}}
+            </h4>
+          </span>
+        </div>
+      </a>
+      <p>
+        <span>
+          {{cattle.identificacion_simple.rp}}
+          {{cattle.identificacion_ecuador.rp}}
+        </span>
+      </p>
+    </div>    
+  </div>
+
+
+   <form action="" enctype="multipart/form-data" method="post">     
+      {% csrf_token %}
+
+      <section class="container">
+        <div class="user">
+          <img src="{{STATIC_URL}}img/help.png"/>
+          <ul>
+            <h5 class="sep">{{formDownCattleForm.date.label_tag}}</h5>
+          </ul>
+        </div>
+      </section>
+      {{formDownCattleForm.date.errors}}
+      {{formDownCattleForm.date}}
+
+      <section class="container">
+        <div class="user">
+          <img src="{{STATIC_URL}}img/help.png"/>
+          <ul>
+            <h5 class="sep">{{formDownCattleForm.cause_down.label_tag}}</h5>
+          </ul>
+        </div>
+      </section>
+      <label for="select" class="select">
+        {{formDownCattleForm.cause_down.errors}}
+        {{formDownCattleForm.cause_down}}
+      </label>
+     
+      <section class="container">
+        <div class="user">
+          <img src="{{STATIC_URL}}img/help.png"/>
+          <ul>
+            <h5 class="sep">{{formDownCattleForm.observations.label_tag}}</h5>
+          </ul>
+        </div>
+      </section>
+      {{formDownCattleForm.observations.errors}}
+      {{formDownCattleForm.observations}}
+
+      <input type="submit" value="{% trans "Save" %}" />
+    </form>
+</div>
+
+{% endblock %}

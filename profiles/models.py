@@ -42,10 +42,16 @@ class Configuracion(models.Model):
     etapa_ternera = models.IntegerField("Edad máxima de una ternera", 
                                             max_length=2
                                             )
-    etapa_vacona = models.IntegerField("Edad máxima de una vacona", 
+    etapa_vacona_media = models.IntegerField("Edad máxima de una vacona media", 
                                             max_length=2
                                             )
-    etapa_vientre = models.IntegerField("Edad minima de una vientre", 
+    etapa_vacona_fierro = models.IntegerField("Edad máxima de una vacona fierro", 
+                                            max_length=2
+                                            )
+    etapa_vacona_vientre = models.IntegerField("Edad máxima de una vacona vientre", 
+                                            max_length=2
+                                            )
+    etapa_vaca = models.IntegerField("Edad máxima de una vaca", 
                                             max_length=2
                                             )
     periodo_gestacion = models.IntegerField("Dias de periodo de gestacion", 
@@ -63,6 +69,8 @@ class Configuracion(models.Model):
     numero_ordenios = models.IntegerField("Numero de ordeños", 
                                             max_length=1
                                             )
+    initial_rp = models.IntegerField("Número RP inicial",
+                                            max_length=6)
 
     def __unicode__(self):
         return 'Configuración'

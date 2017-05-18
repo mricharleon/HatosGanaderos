@@ -101,7 +101,7 @@
 										<hr>
 										<a class="items" href="{% url 'add_cattle' %}">Reproducción</a>
 										<a class="items" href="{% url 'add_wormer' %}">Sanidad</a>
-										<a class="items" href="{% url 'lista_ganado_produccion' user.username %}">Producción</a>
+										<a class="items" href="{% url 'lista_ganado_produccion' %}">Producción</a>
 										<a class="items" href="{% url 'add_food' %}">Alimentación</a>
 										<a class="items" href="{% url 'messages_list' %}">Mensajería</a>
 										<a class="items" href="{% url 'list_notifications' %}">Notificaciones</a>
@@ -244,7 +244,7 @@
 		          },
 
 		        });
-					bucle = setTimeout(function(){refresh()}, 50000);
+					bucle = setTimeout(function(){refresh()}, 60000);
 			}
 			
 			refresh();

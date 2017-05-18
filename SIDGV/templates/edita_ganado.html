@@ -12,14 +12,11 @@
     <h4>Ahora podras actualizar los datos de tu ganado.</h4>
     <ul id="profile-nav">
       {% for c in ganado.ciclos.all %}
-        {% if c.nombre != 3 and c.is_active %}
+        {% if c.nombre == 0 and c.is_active %}
             <li><a href="{% url 'edita_ganado_celo' id_cattle %}">Editar Celo</a></li>
         {% endif %}
       {% endfor %}
       <li><a href="{% url 'list_cattle' %}">Listar Hembras</a></li>
-      <li><a href="{% url 'list_cattle_male' %}">Listar Machos</a></li>
-      <li><a href="{% url 'add_insemination' %}">Registrar Esperma</a></li>
-      <li><a href="{% url 'list_insemination' %}">Listar Esperma</a></li>
     </ul>
        
 </div>
@@ -29,7 +26,7 @@
 {% block content %}
 <div class="formSignup">
   <span class="crearCuenta">
-      Editar Ganado  [{{id_cattle}}]
+      Editar Ganado  [{{ganado.identificacion_simple.rp}}{{ganado.identificacion_ecuador.rp}}]
   </span>
    <form action="" enctype="multipart/form-data" method="post">     
       
@@ -48,7 +45,7 @@
         {{form}}
       {% endfor %}
 
-      
+{% load static %}
       
       <section class="container">
         <div class="user">
@@ -59,7 +56,10 @@
         </div>
       </section>
       {{formGanado.imagen.errors}}
-      {{formGanado.imagen}}
+      <img src="{{formGanado.instance.imagen.url}}" style="margin-left:6px; width:75px; border-radius:5px; box-shadow: 0px 0px 7px #aaa;"/>
+      <center>{{formGanado.imagen}}</center>
+      
+      
       
       <section class="container">
         <div class="user">
@@ -148,7 +148,6 @@
 
         
         <input type="submit" value="{% trans "Save" %}" />
-        <a href="{% url 'userena_profile_detail' user.username %}"><input type="button" value="Atrás" /></a>
         
     </form>
 </div>

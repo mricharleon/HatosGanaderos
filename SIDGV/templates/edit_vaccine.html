@@ -122,6 +122,7 @@
           {{form_vaccine.amount_application.errors}}
           {{form_vaccine.amount_application}}
 
+
           <section class="container">
             <div class="user">
               <img src="{{STATIC_URL}}img/help.png"/>
@@ -135,16 +136,21 @@
             {{form_vaccine.option_number_application}}
           </label>
 
-          <section class="container">
-            <div class="user">
-              <img src="{{STATIC_URL}}img/help.png"/>
-              <ul>
-                <h5 class="sep">{{form_vaccine.number_application.label_tag}}</h5>
-              </ul>
-            </div>
-          </section>
-          {{form_vaccine.number_application.errors}}
-          {{form_vaccine.number_application}}
+
+          {% if form_vaccine.instance.option_number_application == 1 %}
+            <span style='display:none;'>{{form_vaccine.number_application}}</span>
+          {% else %}
+            <section class="container">
+                <div class="user">
+                  <img src="{{STATIC_URL}}img/help.png"/>
+                  <ul>
+                    <h5 class="sep">{{form_vaccine.number_application.label_tag}}</h5>
+                  </ul>
+                </div>
+            </section>
+            {{form_vaccine.number_application.errors}}
+            {{form_vaccine.number_application}}
+          {% endif %}
 
           <section class="container">
             <div class="user">

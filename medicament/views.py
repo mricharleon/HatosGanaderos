@@ -53,7 +53,7 @@ def list_wormer(request):
 	user = request.user
 	number_message = number_messages(request, user.username)
 
-	medicaments = Medicament.objects.filter(is_wormer=True, farm_id=user)
+	medicaments = Medicament.objects.filter(is_wormer=True, farm_id=user).order_by('name')
 	
 	return render_to_response('list_wormer.html',
 								{'medicaments': medicaments,
@@ -123,7 +123,7 @@ def add_vaccine(request):
 def list_vaccine(request):
 	user = request.user
 	number_message = number_messages(request, user.username)
-	medicaments = Medicament.objects.filter(is_vaccine=True, farm_id=user)
+	medicaments = Medicament.objects.filter(is_vaccine=True, farm_id=user).order_by('name')
 
 	return render_to_response('list_vaccine.html',
 								{'vaccines': medicaments,
@@ -143,6 +143,7 @@ def edit_vaccine(request, id_medicament):
 		if form_medicament.is_valid():
 			form_medicament = form_medicament.save(commit=False)
 			form_medicament.farm = medicament.farm
+			form_medicament.is_active=True
 			form_medicament.save()
 			return redirect(reverse('list_vaccine'))
 

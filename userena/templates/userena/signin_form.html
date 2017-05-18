@@ -1,0 +1,56 @@
+{% extends 'userena/base_userena.html' %}
+{% load i18n %}
+{% load url from future %}
+
+{% block title %}{% trans "Signin" %}{% endblock %}
+
+{% block presentation %}
+<div class="presentacionSignup">
+    <h3>Inicia con tu cuenta</h3>
+        <h4>Y disfruta administrando tus registros de producción, alimentación, sanidad y producción. Además alertas y sugerencias oportunas.</h4>
+</div>
+{% endblock presentation %}
+
+{% block content %}
+<div class="formSignup">
+<span class="crearCuenta">
+    Iniciar Sesión
+</span>
+  <form action="" method="post">
+    {% csrf_token %}
+
+      {{ form.non_field_errors }}
+      
+
+
+
+      {% for field in form %}
+      {{ field.errors }}
+      {% comment %} Displaying checkboxes differently {% endcomment %}
+      {% if field.name == 'remember_me' %}
+      <p class="checkbox">
+      <label for="id_{{ field.name }}">{{ field }} {{ field.label }}</label>
+      </p>
+      {% else %}
+      <p>
+      <section class="container">
+            <div class="user">
+              <img src="{{STATIC_URL}}img/help.png"/>
+              <ul>
+                <h5 class="sep">{{field.label_tag}}</h5>
+              </ul>
+            </div>
+        </section>
+        {{field.errors}}
+        {{field}}
+      </p>
+      {% endif %}
+      {% endfor %}
+
+    <input type="submit" value="{% trans "Signin" %}" />
+    <a href="/"><input type="button" value="Atrás" /></a>
+    <p class="forgot-password"><a href="{% url 'userena_password_reset' %}" title="{% trans 'Forgot your password?' %}">{% trans "Forgot your password?" %}</a></p>
+    {% if next %}<input type="hidden" name="next" value="{{ next }}" />{% endif %}
+  </form>
+</div>
+{% endblock %}

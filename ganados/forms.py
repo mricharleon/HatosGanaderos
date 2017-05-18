@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django import forms
 from django.utils.translation import ugettext_lazy as _
-from ganados.models import Identificacion_Simple, Identificacion_Ecuador, Ganado, Etapa, Celo, Ordenio, Verification, Attempt, Gestacion, ProblemaGestacion, Insemination
+from ganados.models import Identificacion_Simple, Identificacion_Ecuador, Ganado, Etapa, Celo, Ordenio, Verification, Attempt, Gestacion, ProblemaGestacion, Insemination, DownCattle, DownInsemination, DeferEtapa
 
 from userena.forms import SignupForm
 
@@ -184,5 +184,41 @@ class problemGestacionForm(forms.ModelForm):
                   }),
                 'observaciones': forms.Textarea(attrs={
                                   'placeholder': 'Observaciones'
+                  })
+    }
+
+class downCattleForm(forms.ModelForm):
+  class Meta:
+    model = DownCattle
+    widgets = {
+                'date': forms.TextInput(attrs={
+                    'placeholder': 'Fecha de la baja',
+                    'class': 'datetimepicker2'
+                  }),
+                'observations': forms.Textarea(attrs={
+                    'placeholder': 'Observaciones'
+                  })
+    }
+
+class downInseminationForm(forms.ModelForm):
+  class Meta:
+    model = DownInsemination
+    widgets = {
+                'date': forms.TextInput(attrs={
+                    'placeholder': 'Fecha de la baja',
+                    'class': 'datetimepicker2'
+                  }),
+                'observations': forms.Textarea(attrs={
+                    'placeholder': 'Observaciones'
+                  })
+    }
+
+class deferEtapaForm(forms.ModelForm):
+  class Meta:
+    model = DeferEtapa
+    exclude = ['is_active', 'cattle_id']
+    widgets = {
+                'observations': forms.Textarea(attrs={
+                    'placeholder': 'Observaciones'
                   })
     }

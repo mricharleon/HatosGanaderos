@@ -27,13 +27,9 @@ class Food(models.Model):
                                             default=0)
     farm = models.ForeignKey(Ganaderia, related_name='farm_foods')
     PHASE_CHOICES = (
-        (0, 'Ternera(o)'),
-        (1, 'Vacona'),  
-        (2, 'Vientre')  ,
-        (3, 'Ternera(o) y Vacona'),
-        (4, 'Ternera(o) y Vientre'),
-        (5, 'Vacona y Vientre'),
-        (6, 'Todas')
+        (0, 'Terneras(os)'),
+        (1, 'Adultos'),
+        (2, 'Todas')
         )
     phase = models.PositiveSmallIntegerField('Etapa', 
                                             choices=PHASE_CHOICES,
