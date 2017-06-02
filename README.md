@@ -1,8 +1,41 @@
 # HatosGanaderos #
-Sistema web de Administración y Control de Ganados Vacunos através de **agentes inteligentes deliberativos**, brinda la posibilidad de gestionar el ganado en cuatro aspectos fundamentales de una entidad ganadera: Reproducción, Alimentación, Sanidad y Producción. A través de tecnologías como **Python, Django, NodeJs, ishout.js, Django Realtime, PostgreSQL, SPADE, etc.** 
+Sistema web de Administración y Control de Ganados Vacunos através de **agentes inteligentes deliberativos**, brinda la posibilidad de gestionar el ganado en cuatro aspectos fundamentales de una entidad ganadera: Reproducción, Alimentación, Sanidad y Producción. A través de tecnologías como **Python, Django, NodeJs, ishout.js, Django Realtime, PostgreSQL, SPADE, etc.**
 
-## Instalación de Hatos Ganaderos ##
-Para realizar la instalación se debe preparar un entorno de ejecución:
+## Instalación con Docker (Recomendada)
+Se requiere tener instalado **Docker** en su equipo
+
+### Clonar proyecto
+> Configurar credenciales de CORREO y OPBEAT  [SIDGV/settings.py]
+
+```shell
+$ git clone https://github.com/mricharleon/HatosGanaderos.git
+```
+
+### Iniciar docker-compose
+> Ingresa en HatosGanaderos
+
+```bash
+$ make start
+```
+
+### Cargar data inicial
+```bash
+$ make db
+```
+
+### Iniciar spade (Agentes deliberativos)
+```bash
+$ make spade
+```
+
+> **LISTO!** - Ingresa a http://localhost en tu navegador (***user:*** admin, ***pass:*** admin)
+
+
+
+------------
+
+
+## Instalación manual
 
 #### Instalar Python ####
 El lenguaje de programación que requiere el sistema es Python en su versión 2.7.
@@ -28,7 +61,7 @@ Asignar permisos a usuario
 
     ALTER ROLE user_hg WITH SUPERUSER;
 
-Crear BD 
+Crear BD
 
     CREATE DATABASE bd_hg WITH OWNER user_hg;
     \q
@@ -59,7 +92,7 @@ Es una librería necesaria para el envio de notificaciones en tiempo real.
 Para servir los datos estáticos del sistema HatosGanaderos se hace uso de nginx.
 
     sudo apt-get install nginx
-    
+
 Configurar el archivo de configuración de nginx:
 
     sudo vim /etc/nginx/sites-avalaible/default
@@ -77,7 +110,7 @@ Para servir los datos dinámicos del sistema HatosGanaderos se hace uso de gunic
     sudo apt-get install gunicorn
 
 #### Clonar el proyecto ####
-	
+
 Clonar el proyecto dentro del entorno virtual(~/HatosGanaderos/) activado
 
     git clone https://github.com/mricharleon/HatosGanaderos.git
@@ -85,7 +118,8 @@ Clonar el proyecto dentro del entorno virtual(~/HatosGanaderos/) activado
 Instalar librerias con pip
 
     pip install -r requirements.txt
-    Copiar la carpeta userena en entorno virtual (lib/python2.7/site-packages)
+
+  > Copiar la carpeta userena en entorno virtual (lib/python2.7/site-packages)
 
 ## Ejecución del sistema  ##
 Para la ejecución del sistema web HatosGanaderos se requiere seguir los siguientes pasos:
@@ -93,7 +127,7 @@ Para la ejecución del sistema web HatosGanaderos se requiere seguir los siguien
 **Importante**
 Configurar el settings.py del proyecto como:
 
- * La dirección ip de tu máquina(en el archivo se especifica donde modifiques)
+> Credenciales de CORREO y OPBEAT(Opcional)
 
 Crear datos por defecto en la BD
 
@@ -121,10 +155,4 @@ Ahora si con estos pasos a ejecutar el sistema web HatosGanaderos
 
 **Cuarta terminal**
 
-    gunicorn ~/HatosGanaderos/HatosGanaderos/SIDGV.wsgi:application -w3
-
-
-
-## Contacto ##
-
-Para mayor información sobre como probar el sistema, comunicarse a mrleonr@unl.edu.ec
+    gunicorn SIDGV.wsgi:application -w4

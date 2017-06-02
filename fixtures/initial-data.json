@@ -1,0 +1,28 @@
+[
+{
+    "pk": 1,
+    "model": "auth.user",
+    "fields": {
+        "username": "admin",
+        "first_name": "",
+        "last_name": "",
+        "is_active": true,
+        "is_superuser": true,
+        "is_staff": true,
+        "last_login": "2017-06-02T02:56:13.796Z",
+        "groups": [],
+        "user_permissions": [],
+        "password": "pbkdf2_sha256$12000$Chf2a4w9gvUM$3QKylSi0kKBlk3QpM4GE2oINXIm/1EH8pwnYMk9Ob24=",
+        "email": "",
+        "date_joined": "2017-06-02T02:54:07Z"
+    }
+},
+{
+    "pk": 1,
+    "model": "sites.site",
+    "fields": {
+        "domain": "localhost",
+        "name": "localhost"
+    }
+}
+]

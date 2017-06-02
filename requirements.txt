@@ -8,12 +8,13 @@ html2text==2015.6.21
 html5lib==0.999999
 isodate==0.5.4
 pexpect==3.3
-Pillow==2.3.0
+Pillow==4.1.1
 psycopg2==2.5.3
 pyparsing==2.0.3
 pytz==2012rc0
+python-dateutil==2.6.0
 rdflib==4.2.1
-reportlab==3.0
+reportlab==3.4.0
 six==1.9.0
 South==0.8.4
 SPADE==2.2.1

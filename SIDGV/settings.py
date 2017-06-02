@@ -1,11 +1,12 @@
 # Django settings for Userena SIDGV project.
 # -*- encoding: utf-8 -*-
-DEBUG = False
-TEMPLATE_DEBUG = DEBUG
-
-ALLOWED_HOSTS = ['*']
-
 import os
+
+if os.getenv('DEBUG') in ('False',):
+    DEBUG = False
+    ALLOWED_HOSTS = ['*']
+else:
+    DEBUG = True
 
 settings_dir = os.path.dirname(__file__)
 PROJECT_ROOT = os.path.abspath(os.path.dirname(settings_dir))
@@ -19,11 +20,11 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'bd_hg',
-        'USER': 'user_hg',
-        'PASSWORD': '',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
+        'NAME': os.environ['DB_NAME'],
+        'USER': os.environ['DB_USER'],
+        'PASSWORD': os.environ['DB_PASS'],
+        'HOST': os.environ['DB_SERVICE'],
+        'PORT': os.environ['DB_PORT'],
     }
 }
 
@@ -59,12 +60,9 @@ USE_L10N = True
 USE_TZ = True
 MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'public/media/')
 MEDIA_URL = '/media/'
-#STATIC_ROOT = os.path.join(PROJECT_ROOT, '/static/')
 
 STATIC_ROOT = os.sep.join(os.path.abspath(__file__).split(os.sep)[:-2] + ['static'])
 STATIC_URL = '/static/'
-
-#STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 
 STATICFILES_DIRS = (
     os.path.join(PROJECT_ROOT, 'SIDGV/static/'),
@@ -117,8 +115,6 @@ AUTH_PROFILE_MODULE = 'profiles.Profile'
 USERENA_DISABLE_PROFILE_LIST = True
 USERENA_MUGSHOT_SIZE = 140
 
-
-
 ROOT_URLCONF = 'SIDGV.urls'
 WSGI_APPLICATION = 'SIDGV.wsgi.application'
 
@@ -146,7 +142,7 @@ INSTALLED_APPS = (
     'notifications',
     'reports',
     #'webServices.wsGanados',
-    'drealtime', 
+    'drealtime',
     'messages',
     'medicament',
     'mockups',
@@ -158,14 +154,13 @@ INSTALLED_APPS = (
     'opbeat.contrib.django',
 )
 
-# Para estadisticas y control (Crear cuenta)
+# Para estadisticas y control (Crear cuenta - opbeat.com)
 OPBEAT = {
     "ORGANIZATION_ID": "",
     "APP_ID": "",
     "SECRET_TOKEN": "",
     'DEBUG': True,
 }
-
 
 #TEST_RUNNER = 'django_coverage.coverage_runner.CoverageRunner'
 # django_nose
@@ -175,7 +170,6 @@ TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 ISHOUT_CLIENT_ADDR = '127.0.0.1:5500' #modificar
 ISHOUT_API_ADDR = '127.0.0.1:6600'
 ISHOUT_HTTPS = False
-
 
 CRON_CLASSES = [
     "ganados.cron.CronJobProduccion",
@@ -187,7 +181,7 @@ CRON_CLASSES = [
 USE_TLS = False
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-SSL_DOMAIN = 'http://127.0.0.1:1200' #modificar
+SSL_DOMAIN = 'http://127.0.0.1:8000' #modificar
 SSL_SECTIONS = (
     '/list_cattle',
     '/agrega_ganaderia_config',
@@ -216,17 +210,14 @@ SESSION_COOKIE_SECURE = False
 CRSF_COOKIE_SECURE = True
 SESSION_EXPIRE_AT_BROWSER_CLOSE=True
 
-
 # para graficar la BD
 GRAPH_MODELS={'all_applications':False,
                 'group_models':True,
             }
 
-
 SOUTH_MIGRATION_MODULES = {
         'easy_thumbnails': 'easy_thumbnails.south_migrations',
     }
-
 
 LOGGING = {
     'version': 1,
@@ -258,7 +249,7 @@ ANONYMOUS_USER_ID = -1
 # Test runner
 TEST_RUNNER = 'django_coverage.coverage_runner.CoverageRunner'
 
-#correo
+# enviar email
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = ''
 EMAIL_HOST_PASSWORD = ''

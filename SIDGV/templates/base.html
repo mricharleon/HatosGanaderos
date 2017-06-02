@@ -1,317 +1,310 @@
 <!doctype html>
 <html lang="es">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	
-	<link rel="shortcut icon" href="{{ MEDIA_URL }}favicon.ico" type="image/x-icon" />
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-	<link rel="stylesheet" href="{{STATIC_URL}}css/normalize.css">
-	{% load static from staticfiles %}
-	<link rel="stylesheet" href="{% static "css/style.css" %}">	
+    <link rel="shortcut icon" href="{{ STATIC_URL }}img/favicon.ico" type="image/x-icon" />
 
-	<!--<link rel="stylesheet" href="{{STATIC_URL}}css/stjyle.css">-->
-	<link rel="stylesheet" href="{{STATIC_URL}}css/landing_page.css">
-	<link rel="stylesheet" href="{{STATIC_URL}}css/font-awesome.min.css">
-	
+    <link rel="stylesheet" href="{{STATIC_URL}}css/normalize.css">
+    <link rel="stylesheet" href="{{STATIC_URL}}css/style.css">
+    <link rel="stylesheet" href="{{STATIC_URL}}css/landing_page.css">
+    <link rel="stylesheet" href="{{STATIC_URL}}css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/jquery.datetimepicker.css"/>
 
-	<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/jquery.datetimepicker.css"/>
+    <!--fuentes-->
+    <!--<link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>-->
+    <!--modal reveal-->
+    <link rel="stylesheet" href="{{STATIC_URL}}css/reveal.css">
 
-	<!--fuentes-->
-	<!--<link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>-->
-	<!--modal reveal-->
-	<link rel="stylesheet" href="{{STATIC_URL}}css/reveal.css">
+    <title>{% block title %}{% endblock %}</title>
 
-	
-	<title>{% block title %}{% endblock %}</title>
-	
-</head>
-<body>
-<header class="header">
-	<div class="logo left">
-		<a href="/" alt='Home'><img src="{{STATIC_URL}}img/logo.png" alt="SID_GV">
-	</div>
+  </head>
+  <body>
+    <header class="header">
+      <div class="logo left">
+        <a href="/" alt='Home'><img src="{{STATIC_URL}}img/logo.png" alt="SID_GV">
+      </div>
 
-	{% if user.is_authenticated %}
-		<div class="titular2">
-			<h1 class="titulo">HatosGanaderos</h1>
-			<h1 class="subtitulo">Sistema que mejora tu ganadería</h1>
-		</div>
-	{% else %}
-		<div class="titular">
-			<h1 class="titulo">HatosGanaderos</h1>
-			<h1 class="subtitulo">Sistema que mejora tu ganadería</h1>
-		</div>		
-	{% endif %}
-	</a>
+      {% if user.is_authenticated %}
+      <div class="titular2">
+        <h1 class="titulo">HatosGanaderos</h1>
+        <h1 class="subtitulo">Sistema que mejora tu ganadería</h1>
+      </div>
+      {% else %}
+      <div class="titular">
+        <h1 class="titulo">HatosGanaderos</h1>
+        <h1 class="subtitulo">Sistema que mejora tu ganadería</h1>
+      </div>
+      {% endif %}
+        </a>
 
-	{% block header %} 
-	<nav>
-		{% block nav %}
-		{% if user.is_authenticated %}
-			<div class="usuario">
-				
-					<a href="{% url 'list_notifications' %}">
-						{% if number_todas > 0 %}
-							<span id="notifications" style="visibility:visible">{{number_todas}}</span>
-						{% else %}
-							<span id="notifications">{{number_todas}}</span>
-						{% endif %}
-					</a>
-				
-					<a href="{% url 'messages_list' %}">
-						{% if number_messages > 0 %}
-							<span id="messages2" style="visibility:visible">{{number_messages}}</span>
-						{% else %}
-							<span id="messages2"></span>
-						{% endif %}
-					</a>
+        {% block header %}
+        <nav>
+          {% block nav %}
+          {% if user.is_authenticated %}
+          <div class="usuario">
 
-				<figure class="avatar">
-					<img class="mugshot" src="{{ user.profile_user.get_mugshot_url }}" />
-				</figure>
-				<div class="menu" href="#">
-					<div class="menu_expan">
+            <a href="{% url 'list_notifications' %}">
+              {% if number_todas > 0 %}
+              <span id="notifications" style="visibility:visible">{{number_todas}}</span>
+              {% else %}
+              <span id="notifications">{{number_todas}}</span>
+              {% endif %}
+            </a>
 
-						<div class="espacio_menu1">
-							<div class="titulo_menu_expan">Módulos</div>
-							<hr>
-							<a class="items" href="{% url 'add_cattle' %}">Reproducción</a>
-							<a class="items" href="{% url 'add_wormer' %}">Sanidad</a>
-							<a class="items" href="{% url 'lista_ganado_produccion' %}">Producción</a>
-							<a class="items" href="{% url 'add_food' %}">Alimentación</a>
-							<a class="items" href="{% url 'messages_list' %}">Mensajería</a>
-							<a class="items" href="{% url 'list_notifications' %}">Notificaciones</a>
-							<a class="items" href="{% url 'list_reports' %}">Reportes</a>
-						</div>
-						
-						<div class="espacio_menu2">
-							<div class="titulo_menu_expan">Configuración</div>
-							<hr>
-							<a class="items" href="{% url 'userena_profile_detail' user.username %}">Mi Cuenta</a>
-							{% if user.is_staff %}
-								<a class="items" href="{% url 'add_profile' %}">Técnicos</a>
-							{% endif %}
-						</div>
+            <a href="{% url 'messages_list' %}">
+              {% if number_messages > 0 %}
+              <span id="messages2" style="visibility:visible">{{number_messages}}</span>
+              {% else %}
+              <span id="messages2"></span>
+              {% endif %}
+            </a>
 
-						<div class="espacio_menu3">
-							<div class="titulo_menu_expan">Sesión</div>
-							<hr>
-							<a class="items" href="{% url 'userena_signout' %}">Salir</a>
-						</div>
+            <figure class="avatar">
+              <img class="mugshot" src="{{ user.profile_user.get_mugshot_url }}" />
+            </figure>
+            <div class="menu" href="#">
+              <div class="menu_expan">
 
-					</div>
-				</div>
-			</div>
-		{% else %}
-		{% endif %}
-		{% endblock nav %}
-	</nav>
-	{% endblock header %}
-</header>	
+                <div class="espacio_menu1">
+                  <div class="titulo_menu_expan">Módulos</div>
+                  <hr>
+                  <a class="items" href="{% url 'add_cattle' %}">Reproducción</a>
+                  <a class="items" href="{% url 'add_wormer' %}">Sanidad</a>
+                  <a class="items" href="{% url 'lista_ganado_produccion' %}">Producción</a>
+                  <a class="items" href="{% url 'add_food' %}">Alimentación</a>
+                  <a class="items" href="{% url 'messages_list' %}">Mensajería</a>
+                  <a class="items" href="{% url 'list_notifications' %}">Notificaciones</a>
+                  <a class="items" href="{% url 'list_reports' %}">Reportes</a>
+                </div>
 
-<section>
-	
-	<article>
-		{% block presentation %} 
+                <div class="espacio_menu2">
+                  <div class="titulo_menu_expan">Configuración</div>
+                  <hr>
+                  <a class="items" href="{% url 'userena_profile_detail' user.username %}">Mi Cuenta</a>
+                  {% if user.is_staff %}
+                  <a class="items" href="{% url 'add_profile' %}">Técnicos</a>
+                  {% endif %}
+                </div>
 
-		{% endblock %}
-	</article>
+                <div class="espacio_menu3">
+                  <div class="titulo_menu_expan">Sesión</div>
+                  <hr>
+                  <a class="items" href="{% url 'userena_signout' %}">Salir</a>
+                </div>
 
-	<article>
-		{% block content %}
-			
-			
-		{% endblock %}
-	</article>
+              </div>
+            </div>
+          </div>
+          {% else %}
+          {% endif %}
+          {% endblock nav %}
+        </nav>
+        {% endblock header %}
+    </header>
 
-</section>
+    <section>
 
-<footer>
-	{% block footer %}
+      <article>
+        {% block presentation %}
 
-		
-	{% endblock %}
-</footer>
-	<script src="{{STATIC_URL}}js/jquery-1.4.4.min.js" type="text/javascript"></script>
-	<script src="{{STATIC_URL}}js/jquery.reveal.js" type="text/javascript"></script>
+        {% endblock %}
+      </article>
 
-	{% block js %} {% endblock js %}
+      <article>
+        {% block content %}
 
-	<script type="text/javascript" src="{{STATIC_URL}}js/jquery-2.1.1.min.js"></script>
-	<!--<script type="text/javascript" src="{{STATIC_URL}}js/web_services.js"></script>-->
 
-	<!--datetime picker-->
-	<script src="{{STATIC_URL}}js/jquery.datetimepicker.js"></script>
-	
- 
-<script>
+        {% endblock %}
+      </article>
+
+    </section>
+
+    <footer>
+      {% block footer %}
+
+
+      {% endblock %}
+    </footer>
+    <script src="{{STATIC_URL}}js/jquery-1.4.4.min.js" type="text/javascript"></script>
+    <script src="{{STATIC_URL}}js/jquery.reveal.js" type="text/javascript"></script>
+
+    {% block js %} {% endblock js %}
+
+    <script type="text/javascript" src="{{STATIC_URL}}js/jquery-2.1.1.min.js"></script>
+    <!--<script type="text/javascript" src="{{STATIC_URL}}js/web_services.js"></script>-->
+
+    <!--datetime picker-->
+    <script src="{{STATIC_URL}}js/jquery.datetimepicker.js"></script>
+
+
+    <script>
 $('#default_datetimepicker').datetimepicker({
-	formatTime:'H:i',
-	formatDate:'d.m.Y',
-	defaultDate:'8.12.1986', // it's my birthday
-	defaultTime:'10:00'
+  formatTime:'H:i',
+  formatDate:'d.m.Y',
+  defaultDate:'8.12.1986', // it's my birthday
+  defaultTime:'10:00'
 });
 
 $('#datetimepicker10').datetimepicker({
-	step:5,
-	inline:true
+  step:5,
+  inline:true
 });
 $('#datetimepicker_mask').datetimepicker({
-	mask:'9999/19/39 29:59'
+  mask:'9999/19/39 29:59'
 });
 $('.datetimepicker').datetimepicker();
 $('.datetimepicker').datetimepicker({
-	format:'d/m/Y H:i',
-	timepicker:true,
-	value:'',
-	step:60
+  format:'d/m/Y H:i',
+  timepicker:true,
+  value:'',
+  step:60
 });
 $('#datetimepicker1').datetimepicker({
-	datepicker:false,
-	format:'H:i',
-	step:5
+  datepicker:false,
+  format:'H:i',
+  step:5
 });
 $('.datetimepicker2').datetimepicker({
-	lang:'es',
-	timepicker:false,
-	format:'d/m/Y',
-	formatDate:'Y/m/d',
+  lang:'es',
+  timepicker:false,
+  format:'d/m/Y',
+  formatDate:'Y/m/d',
 });
 $('#datetimepicker3').datetimepicker({
-	inline:true
+  inline:true
 });
 $('#datetimepicker4').datetimepicker();
 $('#open').click(function(){
-	$('#datetimepicker4').datetimepicker('show');
+  $('#datetimepicker4').datetimepicker('show');
 });
 $('#close').click(function(){
-	$('#datetimepicker4').datetimepicker('hide');
+  $('#datetimepicker4').datetimepicker('hide');
 });
 $('#reset').click(function(){
-	$('#datetimepicker4').datetimepicker('reset');
+  $('#datetimepicker4').datetimepicker('reset');
 });
 $('#datetimepicker5').datetimepicker({
-	datepicker:false,
-	allowTimes:['12:00','13:00','15:00','17:00','17:05','17:20','19:00','20:00'],
-	step:5
+  datepicker:false,
+  allowTimes:['12:00','13:00','15:00','17:00','17:05','17:20','19:00','20:00'],
+  step:5
 });
 $('#datetimepicker6').datetimepicker();
 $('#destroy').click(function(){
-	if( $('#datetimepicker6').data('xdsoft_datetimepicker') ){
-		$('#datetimepicker6').datetimepicker('destroy');
-		this.value = 'create';
-	}else{
-		$('#datetimepicker6').datetimepicker();
-		this.value = 'destroy';
-	}
+  if( $('#datetimepicker6').data('xdsoft_datetimepicker') ){
+    $('#datetimepicker6').datetimepicker('destroy');
+    this.value = 'create';
+  }else{
+    $('#datetimepicker6').datetimepicker();
+    this.value = 'destroy';
+  }
 });
 var logic = function( currentDateTime ){
-	if( currentDateTime.getDay()==6 ){
-		this.setOptions({
-			minTime:'11:00'
-		});
-	}else
-		this.setOptions({
-			minTime:'8:00'
-		});
+  if( currentDateTime.getDay()==6 ){
+    this.setOptions({
+      minTime:'11:00'
+    });
+  }else
+    this.setOptions({
+      minTime:'8:00'
+    });
 };
 $('#datetimepicker7').datetimepicker({
-	onChangeDateTime:logic,
-	onShow:logic
+  onChangeDateTime:logic,
+  onShow:logic
 });
 $('#datetimepicker8').datetimepicker({
-	onGenerate:function( ct ){
-		$(this).find('.xdsoft_date')
-			.toggleClass('xdsoft_disabled');
-	},
-	minDate:'-1970/01/2',
-	maxDate:'+1970/01/2',
-	timepicker:false
+  onGenerate:function( ct ){
+    $(this).find('.xdsoft_date')
+      .toggleClass('xdsoft_disabled');
+  },
+  minDate:'-1970/01/2',
+  maxDate:'+1970/01/2',
+  timepicker:false
 });
 $('#datetimepicker9').datetimepicker({
-	onGenerate:function( ct ){
-		$(this).find('.xdsoft_date.xdsoft_weekend')
-			.addClass('xdsoft_disabled');
-	},
-	weekends:['01.01.2014','02.01.2014','03.01.2014','04.01.2014','05.01.2014','06.01.2014'],
-	timepicker:false
+  onGenerate:function( ct ){
+    $(this).find('.xdsoft_date.xdsoft_weekend')
+      .addClass('xdsoft_disabled');
+  },
+  weekends:['01.01.2014','02.01.2014','03.01.2014','04.01.2014','05.01.2014','06.01.2014'],
+  timepicker:false
 });
 var dateToDisable = new Date();
-	dateToDisable.setDate(dateToDisable.getDate() + 2);
+dateToDisable.setDate(dateToDisable.getDate() + 2);
 $('#datetimepicker11').datetimepicker({
-	beforeShowDay: function(date) {
-		if (date.getMonth() == dateToDisable.getMonth() && date.getDate() == dateToDisable.getDate()) {
-			return [false, ""]
-		}
+  beforeShowDay: function(date) {
+    if (date.getMonth() == dateToDisable.getMonth() && date.getDate() == dateToDisable.getDate()) {
+      return [false, ""]
+    }
 
-		return [true, ""];
-	}
+    return [true, ""];
+  }
 });
 $('#datetimepicker12').datetimepicker({
-	beforeShowDay: function(date) {
-		if (date.getMonth() == dateToDisable.getMonth() && date.getDate() == dateToDisable.getDate()) {
-			return [true, "custom-date-style"];
-		}
+  beforeShowDay: function(date) {
+    if (date.getMonth() == dateToDisable.getMonth() && date.getDate() == dateToDisable.getDate()) {
+      return [true, "custom-date-style"];
+    }
 
-		return [true, ""];
-	}
+    return [true, ""];
+  }
 });
-</script>
+    </script>
 
-{% load drealtimetags %}
-{% ishout_js %}
-<script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
-<script type='text/javascript'>
-	
-	    // use .on() to add a listener. you can add as many listeners as you want.
-	    ishout.on('alertchannel', function(data){
-	      var dt = eval('(' + data.msg + ')');
-	      if(data.number_messages > 0){
-	      	$("#messages2").css("visibility", "visible");
-	      	$('#messages2').html(data.number_messages);
-	      }else{
-	      	$("#messages2").css("visibility", "visible");
-	      }
-	    }).on('notifications', function(data){
-	      if(data.number_notifications > 0){
-	      	$("#notifications").css("visibility", "visible");
-	      	$('#notifications').html(data.number_notifications);
-	      }else{
-	      	$("#notifications").css("visibility", "hidden");
-	      }
-	    }).init();
+    {% load drealtimetags %}
+    {% ishout_js %}
+    <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type='text/javascript'>
 
-	    // .init() will authenticate against the ishout.js server, and open the WebSocket connection.
-	    //ishout.init();
-  </script>
-	
-<script>
-	function refresh() {
-		$.ajax({
-		  data: '',
-          type:'GET',
-          contentType: 'application/json; charset=utf-8',
-          dateType:'json',
-          url:'/ajax/refresh/',
-          beforeSend: function(objeto){
-          },
-          
-          success:function(response){
-            	console.log("Llame a la funcion refresh(). XD");
-            	
-          },
+// use .on() to add a listener. you can add as many listeners as you want.
+ishout.on('alertchannel', function(data){
+  var dt = eval('(' + data.msg + ')');
+  if(data.number_messages > 0){
+    $("#messages2").css("visibility", "visible");
+    $('#messages2').html(data.number_messages);
+  }else{
+    $("#messages2").css("visibility", "visible");
+  }
+}).on('notifications', function(data){
+  if(data.number_notifications > 0){
+    $("#notifications").css("visibility", "visible");
+    $('#notifications').html(data.number_notifications);
+  }else{
+    $("#notifications").css("visibility", "hidden");
+  }
+}).init();
 
-          error: function(objeto, error){
-          },
+// .init() will authenticate against the ishout.js server, and open the WebSocket connection.
+//ishout.init();
+    </script>
 
-        });
-		bucle = setTimeout(function(){refresh()}, 60000);
-	}
-	
-	refresh();
-	//refresh = setTimeout(function(){refresh()}, milisengundos);
+    <script>
+function refresh() {
+  $.ajax({
+    data: '',
+    type:'GET',
+    contentType: 'application/json; charset=utf-8',
+    dateType:'json',
+    url:'/ajax/refresh/',
+    beforeSend: function(objeto){
+    },
 
-</script>
-</body>
+    success:function(response){
+      //console.log("Llame a la funcion refresh(). XD");
+    },
+
+    error: function(objeto, error){
+    },
+
+  });
+  bucle = setTimeout(function(){refresh()}, 60000);
+}
+
+refresh();
+//refresh = setTimeout(function(){refresh()}, milisengundos);
+
+    </script>
+  </body>
 </html>
