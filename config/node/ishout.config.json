@@ -1,4 +1,4 @@
 {
-  "redisHost":"redis"
-
+  "redisHost":"redis",
+  "apiHost":"node"
 }

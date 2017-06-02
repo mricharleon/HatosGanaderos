@@ -16,42 +16,42 @@
                 <drawCenteredString x="10.5cm" y="27cm">Reporte Generado por HatosGanaderos</drawCenteredString>
                 <setFont name="Helvetica" size="13"/>
                 <drawCenteredString x="10.5cm" y="26.5cm">{{website}}</drawCenteredString>
-                
+
                 <fill color="#3b5b86"/>
                 <setFont name="Helvetica-Bold" size="8"/>
                 <drawCenteredString x="10.5cm" y="25.4cm">( {{date}} )</drawCenteredString>
-                
+
                 <lineMode width="0.1"/>
                 <fill color="#333333"/>
                 <lines>1.5cm 2cm 19.5cm 2cm</lines>
                 <setFont name="Helvetica" size="9"/>
                 <drawCentredString x="10.5cm" y="1.5cm">- <pageNumber/> -</drawCentredString>
             </pageGraphics>
-    
+
             <frame id="content" x1="1.5cm" y1="2cm" width="18cm" height="23cm" />
         </pageTemplate>
-        
+
         <!--encabezado y pie de página-->
         <pageTemplate id="contentPage">
             <pageGraphics>
                 <lineMode width="0.1"/>
                 <fill color="#333333"/>
                 <lines>1.5cm 27cm 19.5cm 27cm</lines>
-                
+
                 <fill color="#333333"/>
                 <setFont name="Helvetica" size="8"/>
                 <drawString x="1.5cm" y="27.1cm">Reporte de HatosGanaderos  ({{name}})</drawString>
                 <drawCenteredString x="18.7cm" y="27.1cm">{{date}}</drawCenteredString>
                 <fill color="#ff0000"/>
                 <circle x="16.5cm" y="27.1cm" radius="0.1cm"/>
-                
+
                 <lineMode width="0.1"/>
                 <fill color="#333333"/>
                 <lines>1.5cm 2cm 19.5cm 2cm</lines>
                 <setFont name="Helvetica" size="9"/>
                 <drawCentredString x="10.5cm" y="1.5cm">- <pageNumber/> -</drawCentredString>
             </pageGraphics>
-    
+
             <frame id="content" x1="1.5cm" y1="2cm" width="18cm" height="24cm" />
         </pageTemplate>
     </template>
@@ -69,7 +69,7 @@
             <lineStyle kind="LINEBELOW" colorName="silver" start="0,1" stop="-1,-2" />
             <lineStyle kind="LINEAFTER" colorName="silver" start="0,1" stop="-2,-1" />
             <blockFont name="Helvetica" size="9" start="0,1" stop="-1,-1" />
-            
+
             <blockTopPadding length="3" start="0,0" stop="-1,0" />
             <blockBottomPadding length="3" start="0,0" stop="-1,0" />
             <blockLeftPadding length="7" start="0,0" stop="-1,0" />
@@ -78,32 +78,32 @@
             <blockTextColor colorName="white" start="0,0" stop="-1,0" />
             <blockBackground colorName="#3b5b86" start="0,0" stop="-1,0" />
         </blockTableStyle>
-        <paraStyle 
+        <paraStyle
             name="style.centered"
             fontName="Helvetica"
             fontSize="14"
             alignment="center" />
 
-        <paraStyle 
+        <paraStyle
             name="style.center"
             fontName="Helvetica"
             fontSize="12"
             spaceBefore="1cm"
             alignment="center" />
 
-        <paraStyle 
+        <paraStyle
             name="style.centerFarm"
             fontName="Helvetica"
             fontSize="15"
             spaceBefore=".4cm"
             alignment="center" />
-        <paraStyle 
+        <paraStyle
             name="style.centerFarmAdress"
             fontName="Helvetica"
             fontSize="11"
             spaceBefore=".2cm"
             alignment="center" />
-        <paraStyle 
+        <paraStyle
             name="style.right"
             fontName="Helvetica"
             fontSize="11"
@@ -115,8 +115,8 @@
         <!-- Contains all flowable elements of the document. -->
         <!-- They fill up the frames defined in the template section. -->
 
-        <imageAndFlowables imageName="logo.png" imageWidth="3.93cm" imageHeight="3.93cm"
-         imageTopPadding="2cm" imageLeftPadding="7.1cm" imageSide="left">         
+        <imageAndFlowables imageName="static/img/logo.png" imageWidth="3.93cm" imageHeight="3.93cm"
+         imageTopPadding="2cm" imageLeftPadding="7.1cm" imageSide="left">
         </imageAndFlowables>
 
         <para style="style.centered">
@@ -138,7 +138,7 @@
         <!--datos informativos del ganado-->
         <para style="style.right">
             <font size="10" color="#3b5b86">
-                Nombre: 
+                Nombre:
             </font>
                 {{nombre}}
 
@@ -186,14 +186,14 @@
         </para>
 
 
-        
+
         <setNextTemplate name="contentPage" />
         <nextFrame />
-        
+
         <para>
             MÓDULO DE REPRODUCCIÓN
         </para>
-            
+
         <blockTable style="reproduccionTable">
             <tr>
                 <td>Celos</td>
@@ -212,7 +212,7 @@
         <para>
             MÓDULO DE PRODUCCIÓN
         </para>
-            
+
         <blockTable style="reproduccionTable">
             <tr>
                 <td>Promedio de Leche Diaria</td>
@@ -227,7 +227,7 @@
         <para>
             MÓDULO DE ALIMENTACIÓN
         </para>
-            
+
         <blockTable style="reproduccionTable">
             <tr>
                 <td>Alimentos Consumidos</td>
@@ -236,16 +236,16 @@
                 {{for i in food}}
                     <td>{{i}}</td>
                 {{endfor}}
-                
+
             </tr>
         </blockTable>
-        
+
         <spacer length="1cm" />
 
         <para>
             MÓDULO DE SANIDAD
         </para>
-            
+
         <blockTable style="reproduccionTable">
             <tr>
                 <td>Desparasitadores Administrados</td>
@@ -259,10 +259,10 @@
                 {{for ii in vaccine}}
                     <td>{{ii}}</td>
                 {{endfor}}
-                
+
             </tr>
         </blockTable>
-        
+
         <spacer length="1cm" />
         <!--
         <blockTable style="reproduccionTable">

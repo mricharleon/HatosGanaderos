@@ -17,7 +17,6 @@ import os
 
 os.environ['HTTPS'] = "on"
 
-#os.environ.setdefault("DJANGO_SETTINGS_MODULE", "SIDGV_2.settings")
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "SIDGV.settings")
 
 # This application object is used by any WSGI server configured to use this

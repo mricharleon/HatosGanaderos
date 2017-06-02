@@ -10,9 +10,14 @@ facebook = #4862A3
 twitter = #55ACEE
 googleplus = #DF5138
 menu = #25B9D5
-menu_claro = rgba(37, 185, 213, .1) 
+menu_claro = rgba(37, 185, 213, .1)
 amarillo = #F7D443
 naranja = #E05421
+
+body section {
+  color: #333;
+  margin-top: 120px;
+}
 
 .burbuja {
 	width: 100%;
@@ -122,13 +127,13 @@ a
 				width 51px
 				z-index 3
 				box-sizing content-box !important
-		
+
 		#notifications
 			margin 20px 0 0 0 !important
 			&:after
 				content " \e601"
 				font-family 'notificaciones'
-				font-size 11px	
+				font-size 11px
 				font-weight bold
 
 		#messages2
@@ -136,7 +141,7 @@ a
 			&:after
 				content " \e602"
 				font-family 'notificaciones'
-				font-size 11px	
+				font-size 11px
 				font-weight bold
 
 
@@ -157,7 +162,7 @@ a
 			width 48px
 			&:hover
 				box-shadow 0px 0px 6px red
-					
+
 		.menu
 			background-color menu
 			border-radius 0 5px 5px 0
@@ -226,8 +231,8 @@ a
 				font-weight bold
 				text-align left
 			hr {
-				border: 0; 
-				height: 0; 
+				border: 0;
+				height: 0;
 				border-top: 1px double #aaa;
 				width 85%
 				text-align center
@@ -235,14 +240,14 @@ a
 
 			}
 			hr:after {
-				position: relative; 
-				top: -18px; 
-				content:"\25cf\25cf\25cf"; 
+				position: relative;
+				top: -18px;
+				content:"\25cf\25cf\25cf";
 				font-size: 10px;
-				line-height: 34px; 
+				line-height: 34px;
 				color #777
 			}
- 
+
 			.items
 				background blanco
 				border-left 3px solid naranja
@@ -294,10 +299,10 @@ fieldset
 	box-shadow 0px 0px 5px #ccc
 	margin 10px 5px 0px 5px
 
-fieldset > legend 
+fieldset > legend
 	background #8D0168
 	color #fff
-	padding 5px 7px 
+	padding 5px 7px
 	font-size 15px
 	font-weight bold
 	border-radius 5px
@@ -316,7 +321,7 @@ fieldset > legend
 	height 100%
 	margin-bottom 15px
 	margin-top 80px
-	padding 10px 20px 15px 20px	
+	padding 10px 20px 15px 20px
 	text-align center
 	transition: all .5s;
 	h3
@@ -341,7 +346,7 @@ fieldset > legend
 	height 100%
 	margin-top 85px
 	margin-bottom 15px
-	padding 20px 20px 25px 20px	
+	padding 20px 20px 25px 20px
 	text-align center
 	transition: all .5s;
 	h3
@@ -362,7 +367,7 @@ fieldset > legend
 		.img_portada
 			visibility hidden
 			width 0%
-			img 
+			img
 				border 4px solid blanco
 				box-shadow 0 0 30px 0px gris_medio
 				border-radius 50%
@@ -371,14 +376,14 @@ fieldset > legend
 .presentacionSignup
 	background #EEEEEE
 	color gris_oscuro
-	padding 0px	
+	padding 0px
 	width 30%
 	position fixed
 	float left
-	margin 85px 2% 20px 0
+	margin 0px 2% 20px 0
 	text-align right
 	transition all 0.5s
-	
+
 	h3
 		border-right 5px solid azul_oscuro
 		font-weight normal
@@ -393,13 +398,13 @@ fieldset > legend
 		font-size 15px
 		margin 0
 		padding 0px 10px 0px 10px
-		
+
 .formSignup
 	background #F8F8F8
 	border 1px solid #F0F0F0
 	color gris_oscuro
 	float right
-	margin 85px 0 20px 0
+	margin 0px 0 20px 0
 	padding 0
 	transition all 0.5s
 	width 62%
@@ -411,7 +416,7 @@ fieldset > legend
 	color black
 	display block
 	margin-bottom 5px
-	padding 3% 
+	padding 3%
 	text-align center
 	width 94%
 
@@ -462,14 +467,14 @@ label
 	margin-right 5%
 	padding 15px
 	text-align center
-	a	
-		text-shadow 0px 0px 5px blanco		
+	a
+		text-shadow 0px 0px 5px blanco
 		color naranja
 		font-size 20px
 		text-decoration none
 		&:hover
-			text-shadow 0px 0px 5px amarillo		
-			
+			text-shadow 0px 0px 5px amarillo
+
 #id_mugshot
 .helptext
 	color #676767;
@@ -532,7 +537,7 @@ label
 }
 
 #profile-nav li{
-	float: none; 
+	float: none;
   	width: 100%;
   	transition: all 8s ease 0s;
   	word-wrap break-word
@@ -541,19 +546,19 @@ label
 
 
 #profile-nav li a{
-  display: block; 
-  width: 100%; 
-  padding: 13px; 
-  border-right: 5px solid; 
-  position: relative; 
+  display: block;
+  width: 100%;
+  padding: 13px;
+  border-right: 5px solid;
+  position: relative;
   z-index: 2;
   text-decoration: none;
   color: #444;
-  box-sizing: border-box;  
-  -moz-box-sizing: border-box;  
-  -webkit-box-sizing: border-box; 
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
 }
-	
+
 #profile-nav li a:hover{ border-bottom: 0px; color: #fff;}
 #profile-nav li:first-child a{ border-right: 5px solid #3698C9; }
 #profile-nav li:nth-child(2) a{ border-right: 5px solid #00AE87; }
@@ -562,16 +567,16 @@ label
 #profile-nav li:nth-child(5) a{ border-right: 5px solid #DF3345; }
 #profile-nav li:last-child a{ border-right: 5px solid #888; }
 
-#profile-nav li a:before { 
+#profile-nav li a:before {
   content: "";
-  height: 100%; 
-  right: 0; 
-  top: 0; 
-  width: 0px;  
-  position: absolute; 
-  transition: all 0.3s ease 0s; 
-  -webkit-transition: all 0.3s ease 0s; 
-  -o-transition-duration: 0.3s; 
+  height: 100%;
+  right: 0;
+  top: 0;
+  width: 0px;
+  position: absolute;
+  transition: all 0.3s ease 0s;
+  -webkit-transition: all 0.3s ease 0s;
+  -o-transition-duration: 0.3s;
   z-index: -1;
 }
 
@@ -585,9 +590,9 @@ label
 
 // fin prueba radial menu
 
-			
 
-#details	
+
+#details
 	padding 5px
 	text-align center
 	img
@@ -601,12 +606,12 @@ label
 		border-radius 10% !important
 		width 40px !important
 		margin 0 -40px !important
-		padding 0 !important		
+		padding 0 !important
 		position absolute !important
 
 .account_list
 	color gris_oscuro
-	margin 0	
+	margin 0
 	padding 0 5px 0 5px
 	text-align center
 	.context_menu
@@ -633,7 +638,7 @@ label
 				color #333
 				li
 					border-right 3px solid transparent
-					bottom 0	
+					bottom 0
 					transition all .3s
 					cursor pointer
 					list-style none
@@ -649,7 +654,7 @@ label
 			ul
 				li
 					visibility visible
-		
+
 
 	a
 		div
@@ -672,11 +677,11 @@ label
 				border-radius 10px
 				margin-top 10px
 				height 50px
-			
+
 
 .list_profile
 	color gris_oscuro
-	margin 0	
+	margin 0
 	padding 0 5px 0 5px
 
 	a
@@ -704,7 +709,7 @@ label
 				color gris_oscuro
 				font-size 14px
 				margin 0
-			
+
 		&:hover
 			div
 				box-shadow 0 4px 15px gris_oscuro
@@ -712,7 +717,7 @@ label
 
 .account_list2
 	padding 0px 5px 0 5px
-	margin 0	
+	margin 0
 	text-align center
 
 	.context_menu
@@ -738,7 +743,7 @@ label
 				color #333
 				li
 					border-right 3px solid transparent
-					bottom 0	
+					bottom 0
 					transition all .3s
 					cursor pointer
 					list-style none
@@ -777,7 +782,7 @@ label
 				border-radius 10px
 				margin-top 10px
 				width 50px
-			
+
 		&:hover
 			div
 				box-shadow 0 4px 15px gris_oscuro
@@ -828,7 +833,7 @@ label
 	text-shadow 0px 0px 3px white
 
 
-	
+
 // ##############################################################
 // para mensajes
 
@@ -922,9 +927,9 @@ label
 #messages
 	margin 0
 	padding 0
-	
+
 	li
-		background blanco	
+		background blanco
 		border-radius 5px
 		border-bottom 1px solid #bbb
 		border-top 1px solid #bbb
@@ -932,7 +937,7 @@ label
 		margin-bottom 10px
 		padding 5px 5px 0 5px
 		text-align right
-		a 
+		a
 			text-decoration none
 			.avatar
 				border-radius 5px
@@ -955,7 +960,7 @@ label
 					content "\e600"
 					font-family 'visto'
 					font-size 11px
-			p 
+			p
 				color gris_oscuro
 				font-size 13px
 				margin 0
@@ -1030,17 +1035,17 @@ label
 				a
 					max-height: 200px;
 
-	
+
 .formResponseMessage
 	background-color #F5F3F3
-	margin -15px 0 45px 0 
+	margin -15px 0 45px 0
 	padding 0
 	text-align left
 	input[type=submit]
 		border 0
 		float right
 		height 30px
-		margin -15px 3% 0 0 
+		margin -15px 3% 0 0
 
 .destinatario
 	color black
@@ -1064,7 +1069,7 @@ input[type=number]
 	background #F8F8F8
 	border: none;
 	border-bottom 1px solid #bbb
-	box-sizing: border-box;	
+	box-sizing: border-box;
 	color: gris_oscuro;
 	font-family 'Raleway', helvetica;
 	font-size: 15px;
@@ -1203,26 +1208,26 @@ input[type=button]
 footer
 	bottom 0
 	padding 0
-	
+
 	text-align center
 	width 100%
 	.titulo_feedback
 		font-size 16px;
-		
+
 	hr
 		border 1px solid #333
 		margin 4px 0 12px 0
 		padding 0
-		
+
 
 	.feedback
 		background #222
 		bottom 0
 		height 50px
 		margin 0
-		padding 1%		
-		
-		a 
+		padding 1%
+
+		a
 			color white
 			text-decoration none
 
@@ -1337,7 +1342,7 @@ footer
 }
 
 .user h5.sep {
-  margin-top: -7px;  
+  margin-top: -7px;
 }
 
 .user .sep label
@@ -1367,7 +1372,7 @@ footer
 		word-wrap break-word
 	&:hover
 		background naranja
-		h5 
+		h5
 			color blanco
 
 .message_results
@@ -1386,7 +1391,7 @@ input[class='busqueda']
 	border: none;
 	border-radius 4px 4px 0 0
 	border-bottom 2px solid blanco
-	box-sizing: border-box;	
+	box-sizing: border-box;
 	color: blanco;
 	font-family 'Raleway', helvetica;
 	font-size: 15px;
@@ -1409,7 +1414,7 @@ input[class='busqueda']
 .presentacionAssign
 	background #EEEEEE
 	color gris_oscuro
-	padding 0px	
+	padding 0px
 	width 30%
 	float left
 	margin 0 2% 20px 0
@@ -1424,11 +1429,11 @@ input[class='busqueda']
 		word-wrap break-word
 
 
-.container_tags 
+.container_tags
 	margin 0px
 	padding 1px 0px 1px 0px
 	width 100%
-	ul		
+	ul
 		padding 5px
 		list-style none
 
@@ -1499,8 +1504,8 @@ input[class='busqueda']
   -webkit-box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.15), 1px 1px 2px rgba(0, 0, 0, 0.2);
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.15), 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
-.tags 
-	span 
+.tags
+	span
 		position absolute
 		top 1px
 		left 100%
@@ -1536,7 +1541,7 @@ input[class='busqueda']
 	width 62%
 	.content_assign_cattle
 		color gris_oscuro
-		margin 0	
+		margin 0
 		padding 0 5% 0 5%
 
 .title_container
@@ -1547,7 +1552,7 @@ input[class='busqueda']
 	height 25px
 	line-height 1.5
 	margin 0 0 5px 0
-	padding 4px 
+	padding 4px
 	text-align center
 
 
@@ -1589,7 +1594,7 @@ input[class='busqueda']
 				text-align center
 				transition all .3s
 				width 90px
-				
+
 				div.icon_assign_cattle
 					background #263238
 					border-radius 50%
@@ -1608,7 +1613,7 @@ input[class='busqueda']
 
 					&:after
 						font-size 85px
-						line-height 1	
+						line-height 1
 						color blanco
 						content "+"
 						font-family arial
@@ -1633,7 +1638,7 @@ input[class='busqueda']
 	background #115764
 	border-bottom 2px solid blanco
 	border-radius 0 4px 4px 0
-	box-sizing: border-box;	
+	box-sizing: border-box;
 	color blanco
 	cursor pointer
 	font-family: 'Raleway', helvetica;
@@ -1660,13 +1665,13 @@ input[class='busqueda']
 		font-family: Arial, sans-serif;
 		font-weight: 400;
 		margin 0
-	} 
-	
+	}
+
 	.cinta p {
 		display: inline;
-		font-size 13px	
+		font-size 13px
 	}
-	
+
 	.cinta p span {
 		z-index 3
 		position: absolute;
@@ -1685,8 +1690,8 @@ input[class='busqueda']
 		-moz-transform: rotate(-45deg);
 		-o-transform: rotate(-45deg);
 		-ms-transform: rotate(-45deg);
-	} 
-	
+	}
+
 	.cinta p:before {
 		content: "";
 		width: 0;
@@ -1698,7 +1703,7 @@ input[class='busqueda']
 		border: 17px solid;
 		border-color: transparent transparent #C4AD00 transparent;
 	}
-	
+
 	.cinta p:after {
 		content: "";
 		width: 0px;
@@ -1716,25 +1721,25 @@ input[class='busqueda']
 // MENU DE ETAPAS
 // #################################################
 .menu{display:block;}
- 
+
 .menu li{display: inline-block;
 position: relative;
 z-index:100;
 background: #1A7D90}
- 
+
 .menu li a {font-weight:400;
 text-decoration:none;
 padding:5px 8px 5px 8px;
 display:block;
 color:#ffffff;
- 
+
 -webkit-transition: all 0.2s ease-in-out 0s;
    -moz-transition: all 0.2s ease-in-out 0s;
    -o-transition: all 0.2s ease-in-out 0s;
    -ms-transition: all 0.2s ease-in-out 0s;
    transition: all 0.2s ease-in-out 0s;
 }
- 
+
 .menu li a:hover, .menu li:hover > a{color:#ffffff;
 background:#9CA3DA;}
 /* hide the second level menu */
@@ -1748,17 +1753,17 @@ top: 28px;
 left: 0px;
 background: #fff;
 }
- 
+
 /* display second level menu on hover */
 .menu li:hover > ul{ display: block;}
- 
+
 .menu ul li {display:block;
 float: none;
 background:none;
 margin:0;
 padding:0;
 }
- 
+
 .menu ul li a {font-size:14px;
 font-weight:normal;
 display:block;
@@ -1766,7 +1771,7 @@ color:#555;
 border-left:3px solid #ffffff;
 background:#eee;
 }
- 
+
 .menu ul li a:hover, .menu ul li:hover > a{
 background:#ddd;
 border-left:3px solid #9CA3DA;
@@ -1822,7 +1827,7 @@ color:#797979;
 
 
 .info, .exito, .alerta, .error {
-       font-family: 'Raleway', Helvetica, sans-serif; 
+       font-family: 'Raleway', Helvetica, sans-serif;
        font-size:18px;
        font-weight 400
        display none
@@ -1862,7 +1867,7 @@ color:#797979;
 
 
 
-		
+
 
 // #################################################
 // ------------------MEDIA QUERY--------------------
@@ -1870,11 +1875,11 @@ color:#797979;
 // PANTALLA MEDIANA
 // #################################################
 
-@media screen and (min-width: 480px)	
+@media screen and (min-width: 480px)
 	#donutchart
 		width 100%
-		
-	.presentacion		
+
+	.presentacion
 		h3
 			font-size 25px
 		h4
@@ -1883,21 +1888,21 @@ color:#797979;
 	.presentacionSignup
 		background #EEEEEE
 		color gris_oscuro
-		padding 0px	
+		padding 0px
 		width 40%
 
 	.formSignup
 		width 50%
 
 	.crearCuenta
-		padding 2% 
+		padding 2%
 		text-align center
 		width 96%
 
 	.account_list
 		.context_menu
 			height 190px
-			width 125px			
+			width 125px
 		a
 			div
 				height 190px
@@ -1923,7 +1928,7 @@ color:#797979;
 	textarea
 		margin-left 3px
 		width 86%
-		
+
 	.select
 		width 86%
 
@@ -1947,14 +1952,14 @@ color:#797979;
 		border-radius 15px;
 		padding 10px
 		width 200px
-		
+
 
 // pantalla grande
 @media screen and (min-width: 768px)
 
 	#donutchart
 		width 100%
-	
+
 	.header
 		.titular
 		.titular2
@@ -1974,7 +1979,7 @@ color:#797979;
 				visibility visible
 				transition: all .5s;
 
-	.presentacion	
+	.presentacion
 		font-size 19px
 		height 220px
 		padding-top 50px
@@ -1984,7 +1989,7 @@ color:#797979;
 		h4
 			font-size 16px
 		.login_principal
-			
+
 			vertical-align middle
 			width 350px
 		.img_portada
@@ -1993,8 +1998,8 @@ color:#797979;
 			width 50%
 			img
 				height 240px
-				width auto				
-			
+				width auto
+
 
 	.presentacionSignup
 		margin-left 8%
@@ -2010,7 +2015,7 @@ color:#797979;
 		width 48%
 
 	.crearCuenta
-		padding 2% 
+		padding 2%
 		text-align center
 		width 96%
 
@@ -2018,7 +2023,7 @@ color:#797979;
 		padding 0 4% 0 6%
 		.context_menu
 			height 190px
-			width 145px	
+			width 145px
 		a
 			div
 				height 190px
@@ -2044,7 +2049,7 @@ color:#797979;
 
 	.helptext
 		font-size 14px
-	
+
 	.formRegistroEntidad2
 		margin 0 35%
 
@@ -2063,4 +2068,4 @@ color:#797979;
 						top 10px
 						width 85px
 
-	
+

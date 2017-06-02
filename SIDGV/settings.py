@@ -33,14 +33,8 @@ TIME_ZONE = 'America/Guayaquil'
 LANGUAGE_CODE = 'es-EC'
 ugettext = lambda s: s
 LANGUAGES = (
-    ('en', ugettext('English')),
-    ('nl', ugettext('Dutch')),
-    ('fr', ugettext('French')),
-    ('pl', ugettext('Polish')),
-    ('pt', ugettext('Portugese')),
-    ('pt-br', ugettext('Brazilian Portuguese')),
+    #('en', ugettext('English')),
     ('es', ugettext('Spanish')),
-    ('el', ugettext('Greek')),
 )
 LOCALE_PATHS = (
     os.path.join(PROJECT_ROOT, 'locale'),
@@ -168,7 +162,7 @@ TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
 # django realtime
 ISHOUT_CLIENT_ADDR = '127.0.0.1:5500' #modificar
-ISHOUT_API_ADDR = '127.0.0.1:6600'
+ISHOUT_API_ADDR = 'node:6600'
 ISHOUT_HTTPS = False
 
 CRON_CLASSES = [
