@@ -124,9 +124,7 @@ def signup(request, signup_form=SignupForm,
 
     if request.method == 'POST':
         form = signup_form(request.POST, request.FILES)
-        print "antes del if"
         if form.is_valid():
-            print "dentro del if"
 
             user = form.save()
             user.is_staff=True
@@ -137,17 +135,17 @@ def signup(request, signup_form=SignupForm,
             userena_signals.signup_complete.send(sender=None,
                                                  user=user)
 
-            
-            if success_url: 
+
+            if success_url:
                 redirect_to = success_url
-                
-            else: 
+
+            else:
                 redirect_to = reverse('userena_signup_complete',
                                         kwargs={'username': user.username})
-                
+
 
             # A new signed user should logout the old one.
-            
+
             if request.user.is_authenticated():
                 logout(request)
 
@@ -155,12 +153,11 @@ def signup(request, signup_form=SignupForm,
                 not userena_settings.USERENA_ACTIVATION_REQUIRED):
                 user = authenticate(identification=user.email, check_password=False)
                 login(request, user)
-            print redirect_to, "......"
             return redirect(redirect_to)
 
     if not extra_context: extra_context = dict()
     extra_context['form'] = form
-    
+
     return ExtraContextTemplateView.as_view(template_name=template_name,
                                             extra_context=extra_context)(request)
 from django.core.exceptions import ObjectDoesNotExist
@@ -175,7 +172,7 @@ def add_profile(request, signup_form=SignupForm,
         ganaderia = Ganaderia.objects.get(perfil=user)
     except ObjectDoesNotExist:
         return redirect(reverse('agrega_ganaderia_config'))
-    
+
     # If signup is disabled, return 403
     if userena_settings.USERENA_DISABLE_SIGNUP:
         raise PermissionDenied
@@ -438,7 +435,7 @@ def disabled_account(request, username, template_name, extra_context=None):
 
     ``profile``
         Profile of the viewed user.
-    
+
     """
     user = get_object_or_404(get_user_model(), username__iexact=username)
 
@@ -450,7 +447,7 @@ def disabled_account(request, username, template_name, extra_context=None):
     extra_context['profile'] = user.get_profile()
     return ExtraContextTemplateView.as_view(template_name=template_name,
                                             extra_context=extra_context)(request)
-    
+
 @secure_required
 def signin(request, auth_form=AuthenticationForm,
            template_name='userena/signin_form.html',

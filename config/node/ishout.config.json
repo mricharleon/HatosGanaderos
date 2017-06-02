@@ -1,0 +1,4 @@
+{
+  "redisHost":"redis",
+  "apiHost":"node"
+}

@@ -1,0 +1,52 @@
+version: '3'
+services:
+
+  nginx:
+    container_name: nginx01
+    build: ./config/nginx
+    ports:
+      - "80:80"
+    links:
+      - hatosganaderos
+    volumes:
+      - data-app:/usr/src/app
+
+  hatosganaderos:
+    container_name: app01
+    build: .
+    expose:
+      - "8000"
+    ports:
+      - "127.0.0.1:8008:8008"
+    links:
+      - db
+      - node
+    volumes:
+      - data-app:/usr/src/app
+    environment:
+      DEBUG: 'False'
+    command: gunicorn SIDGV.wsgi:application -w 4 -b 0.0.0.0:8000
+
+  db:
+    container_name: db01
+    build: ./config/db
+    volumes:
+      - data-db:/var/lib/postgresql/data
+    expose:
+      - "5432"
+
+  redis:
+    container_name: redis01
+    image: redis
+
+  node:
+    container_name: node01
+    build: ./config/node
+    ports:
+      - "5500:5500"
+    links:
+      - redis
+
+volumes:
+  data-app:
+  data-db:

@@ -20,12 +20,12 @@ urlpatterns = patterns('',
     # (r'^accounts/signup/$',
     #  'userena.views.signup',
     #  {'signup_form': SignupFormExtra}),
-    
+
     # perfiles de tecnicos tambien
     (r'^accounts/', include('userena.urls')),
     #(r'^messages/', include('userena.contrib.umessages.urls')),
     url(r'^$', 'profiles.views.home', name='home'),
-   
+
     (r'^i18n/', include('django.conf.urls.i18n')),
 
 
@@ -112,12 +112,12 @@ urlpatterns = patterns('',
 
 
     # reportes
-    url(r'^list_reports/$', 'reports.views.list_reports', name='list_reports'),    
-    url(r'^view_report_female/(?P<id_cattle>[\.\w-]+)/$', 'reports.views.view_report_female', name='view_report_female'),    
-    url(r'^generate_pdf/(?P<cattle_id>[\.\w-]+)/$', 'reports.views.generatePdf', name='generate_pdf'),    
-    #url(r'^list_report_reproduccion/$', 'reports.views.list_report_reproduccion', name='list_report_reproduccion'),    
+    url(r'^list_reports/$', 'reports.views.list_reports', name='list_reports'),
+    url(r'^view_report_female/(?P<id_cattle>[\.\w-]+)/$', 'reports.views.view_report_female', name='view_report_female'),
+    url(r'^generate_pdf/(?P<cattle_id>[\.\w-]+)/$', 'reports.views.generatePdf', name='generate_pdf'),
+    #url(r'^list_report_reproduccion/$', 'reports.views.list_report_reproduccion', name='list_report_reproduccion'),
 
-    url(r'^docs/.*', 'reports.views.docs', name='docs'),  
+    url(r'^docs/.*', 'reports.views.docs', name='docs'),
     #url(r'^docs/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.DOCS_ROOT}),
     #url(r'^docs/', 'reports.views.docs', ),
 
@@ -126,7 +126,7 @@ urlpatterns = patterns('',
 )
 
 # Add media and static files
-urlpatterns += staticfiles_urlpatterns()
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+#urlpatterns += staticfiles_urlpatterns()
+#urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
