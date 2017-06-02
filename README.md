@@ -6,6 +6,7 @@ Se requiere tener instalado **docker** y **docker-compose** en su equipo
 
 ### Clonar proyecto
 > Configurar credenciales de CORREO [SIDGV/settings.py]
+
 > Configurar credenciales de OPBEAT para ver datos de **performance** y **errors** en tiempo real. [SIDGV/settings.py]
 
 ```shell
@@ -33,7 +34,9 @@ $ make spade
 
 ### Testeado con:
 > Ubuntu 16.04.2 LTS xenial
+
 > Docker version 17.05.0-ce, build 89658be
+
 > docker-compose version 1.13.0, build 1719ceb
 
 
