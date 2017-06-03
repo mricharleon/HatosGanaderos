@@ -1,5 +1,10 @@
+|docs|
+
 # HatosGanaderos #
 Sistema web de Administración y Control de Ganados Vacunos através de **agentes inteligentes deliberativos**, brinda la posibilidad de gestionar el ganado en cuatro aspectos fundamentales de una entidad ganadera: Reproducción, Alimentación, Sanidad y Producción. A través de tecnologías como **Python, Django, NodeJs, ishout.js, Django Realtime, PostgreSQL, SPADE, etc.**
+
+## Documentación
+[ReadTheDocs - HatosGanaderos](http://hatosganaderos.readthedocs.io/es/latest/)
 
 ## Instalación con Docker (Recomendada)
 Se requiere tener instalado **docker** y **docker-compose** en su equipo
