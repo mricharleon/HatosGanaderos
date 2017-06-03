@@ -169,11 +169,3 @@ Ahora si con estos pasos a ejecutar el sistema web HatosGanaderos
 **Cuarta terminal**
 
     gunicorn SIDGV.wsgi:application -w4
-
-
-
-.. |docs| image:: https://readthedocs.org/projects/hatosganaderos/badge/
-    :alt: Documentation Status
-    :scale: 100%
-    :target: http://hatosganaderos.readthedocs.io/
-
