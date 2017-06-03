@@ -8,5 +8,5 @@ Instalación
 
 HatosGanaderos es un sistema web que te ayuda con el control y organización de reproducción, alimentación, sanidad y producción de tu entidad ganadera.
 
-Para instalar seguir el siguiente link con la información pertinente `Click aquí <http://www.python.org/>`_.
+Para instalar seguir el siguiente link con la información pertinente `Click aquí <https://github.com/mricharleon/HatosGanaderos#instalación-con-docker-recomendada>`_.
 
