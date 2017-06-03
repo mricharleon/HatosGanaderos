@@ -17,7 +17,6 @@ db.sqlite3
 
 # docs
 _build
-_static
 _templates
 
 # Unit test / coverage reports
