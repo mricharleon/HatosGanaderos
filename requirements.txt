@@ -31,3 +31,5 @@ django-nose==1.4.1
 django-coverage==1.2.4
 z3c.rml==3.0.0
 preppy==2.4.1
+sphinx==1.6.2
+sphinx-rtd-theme==0.2.4

@@ -9,11 +9,16 @@ __pycache__/
 local_settings.py
 db.sqlite3
 
-#spade
+# spade
 *.xml
 
-#vim
+# vim
 *.swp
+
+# docs
+_build
+_static
+_templates
 
 # Unit test / coverage reports
 htmlcov/

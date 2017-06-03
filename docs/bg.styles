@@ -1,0 +1,11 @@
+pageSetup: {
+    width: "210mm",
+    height: "148mm",
+    margin-top: "5mm",
+    margin-bottom: "3cm",
+    margin-left: "3cm",
+    margin-right: "3cm",
+    margin-gutter: "1cm",
+    spacing-header: "5mm",
+    spacing-footer: "0mm"
+}
