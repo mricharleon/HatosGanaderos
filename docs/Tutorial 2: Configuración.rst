@@ -28,7 +28,7 @@ Paso 1:
 
 			El sistema presenta dos opciones de identificación del ganado:
 
-				#. Norma Ecuador 
+				#. Norma Ecuador
 
 					Posee los siguientes atributos:
 
@@ -76,11 +76,13 @@ Paso 1:
 			El número de meses máximo que puede tener un ganado para que sea considerada vacona.
 
 			.. note::
-				*HatosGanaderos* contempla 3 etapas del ganado:
+				*HatosGanaderos* contempla 5 etapas del ganado:
 
 					- Ternera
-					- Vacona
-					- Vientre 
+					- Vacona media
+          - Vacona fierro
+          - Vacona vientre
+					- Vaca
 
 		- Días de período de gestación
 
@@ -110,7 +112,7 @@ Paso 1:
 
 			Dirección de la entidad ganadera.
 
-	Una vez ingresada la información correcta a la configuración de la ganadería, en la **figura 2.14.** se muestra una captura de pantalla donde se puede observar un botón *Grabar* que se debe presionar para persistir la información proporcionada. 
+	Una vez ingresada la información correcta a la configuración de la ganadería, en la **figura 2.14.** se muestra una captura de pantalla donde se puede observar un botón *Grabar* que se debe presionar para persistir la información proporcionada.
 
 	Y con esto se guardo correctamente la nueva configuración de la entidad ganadera.
 
