@@ -1,0 +1,59 @@
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: HatosGanaderos 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-10-09 22:34-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../notifications.rst:2
+msgid "notifications package"
+msgstr "Módulo de Notificaciones"
+
+#: ../../notifications.rst:5
+msgid "Submodules"
+msgstr ""
+
+#: ../../notifications.rst:8
+msgid "notifications.admin module"
+msgstr ""
+
+#: ../../notifications.rst:16
+msgid "notifications.models module"
+msgstr ""
+
+#: ../../<autodoc>:1
+msgid "Bases: :class:`django.db.models.base.Model`"
+msgstr ""
+
+#: ../../../notifications/models.pydocstring of
+#: notifications.models.Notification:1
+msgid ""
+"Notification(id, start_date, end_date, state, module, ident_cattle_id, "
+"ident_medicament_id, ident_food_id, name)"
+msgstr ""
+
+#: ../../<autodoc>:1
+msgid "Bases: :class:`django.core.exceptions.ObjectDoesNotExist`"
+msgstr ""
+
+#: ../../<autodoc>:1
+msgid "Bases: :class:`django.core.exceptions.MultipleObjectsReturned`"
+msgstr ""
+
+#: ../../notifications.rst:24
+msgid "notifications.tests module"
+msgstr ""
+
+#: ../../notifications.rst:32
+msgid "notifications.views module"
+msgstr ""
+
+#: ../../notifications.rst:41
+msgid "Module contents"
+msgstr ""
