@@ -2,6 +2,9 @@ sudo: required
 
 language: python
 
+cache:
+  - pip
+
 services:
   - docker
 
@@ -18,7 +21,8 @@ before_install:
   - sudo mv docker-compose /usr/local/bin
 
 install:
-  - make restart
+  - make start
 
 script:
   - docker-compose ps
+  # pendiente agregar los test
