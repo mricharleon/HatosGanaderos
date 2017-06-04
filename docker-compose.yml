@@ -26,6 +26,7 @@ services:
     environment:
       DEBUG: 'False'
     command: gunicorn SIDGV.wsgi:application -w 4 -b 0.0.0.0:8000
+    entrypoint: ./wait-for-postgres.sh postgres 5432
 
   db:
     container_name: db01
