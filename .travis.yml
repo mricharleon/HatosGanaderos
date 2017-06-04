@@ -18,9 +18,7 @@ before_install:
   - sudo mv docker-compose /usr/local/bin
 
 install:
-  - make start
+  - make restart
 
 script:
-  - make db
-  - make spade
-    #  - docker-compose ps
+  - docker-compose ps
