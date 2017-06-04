@@ -6,20 +6,20 @@ services:
 env:
   DOCKER_COMPOSE_VERSION: 1.13.0
 
-  before_install:
-    - sudo apt-get purge -y docker-engine
-    - sudo apt-get update
-    - sudo apt-get install -y docker-engine
-    - sudo rm /usr/local/bin/docker-compose
-    - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
-    - chmod +x docker-compose
-    - sudo mv docker-compose /usr/local/bin
-    - curl -fsSL https://raw.githubusercontent.com/CWSpear/local-persist/master/scripts/install.sh | sudo bash -s -- --upstart
+before_install:
+  - sudo apt-get purge -y docker-engine
+  - sudo apt-get update
+  - sudo apt-get install -y docker-engine
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+  - curl -fsSL https://raw.githubusercontent.com/CWSpear/local-persist/master/scripts/install.sh | sudo bash -s -- --upstart
 
-  install:
-    - make start
-    - make db
-    - make spade
+install:
+  - make start
+  - make db
+  - make spade
 
-  script:
-    - make spade
+script:
+  - make spade
