@@ -80,8 +80,8 @@ Paso 1:
 
 					- Ternera
 					- Vacona media
-          - Vacona fierro
-          - Vacona vientre
+				        - Vacona fierro
+				        - Vacona vientre
 					- Vaca
 
 		- Días de período de gestación
