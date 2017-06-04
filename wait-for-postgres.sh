@@ -1,7 +1,7 @@
 #!/bin/sh
 
-postgres_host=$1
-postgres_port=$2
+postgres_host=postgres
+postgres_port=5432
 shift 2
 cmd="$@"
 

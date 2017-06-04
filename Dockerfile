@@ -18,3 +18,4 @@ RUN rm -rf /usr/lib/python2.7/dist-packages/userena
 COPY userena /usr/local/lib/python2.7/site-packages/userena
 ADD . /usr/src/app/
 RUN ./manage.py collectstatic -i *.styl --noinput
+CMD wait-for-postgres.sh
