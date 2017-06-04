@@ -1,5 +1,8 @@
 sudo: required
 
+env:
+  CODECLIMATE_REPO_TOKEN: 776d8b1cab464d3e8dbe9100bcf99f9eb45e2715a1f3e8f60ac7b08237bf72d0
+
 language: python
 
 cache:

@@ -1,0 +1,24 @@
+engines:
+  duplication:
+    enabled: true
+    config:
+      languages:
+      - python
+  eslint:
+    enabled: false
+  fixme:
+    enabled: true
+  pep8:
+    enabled: true
+ratings:
+  paths:
+  - "**.py"
+  - "**.js"
+  - "**.jsx"
+exclude_paths:
+- config/
+- test/
+- node_modules/
+- docs/
+- fixtures/
+- userena/
