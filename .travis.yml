@@ -1,5 +1,7 @@
 sudo: required
 
+language: python
+
 services:
   - docker
 
@@ -18,8 +20,9 @@ before_install:
 
 install:
   - make start
-  - make db
-  - make spade
+  - docker-compose ps
+    #- make db
+    #- make spade
 
-script:
-  - make spade
+#script:
+#- make spade
