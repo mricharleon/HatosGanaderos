@@ -21,7 +21,8 @@ spade:
 
 restart:
 	docker-compose down
-	docker volume rm hatosganaderos_data-app ; docker-compose up --build
+	docker volume rm hatosganaderos_data-app ; docker-compose up --build -d
+	make spade
 
 doc-html:
 	docker exec app01 /bin/sh -c "cd docs && make html"

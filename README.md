@@ -1,10 +1,10 @@
-[![Doc Status](https://readthedocs.org/projects/hatosganaderos/badge/?style=flat)](http://hatosganaderos.readthedocs.io)
+[![Build Status](https://travis-ci.org/mricharleon/HatosGanaderos.svg?branch=master)](https://travis-ci.org/mricharleon/HatosGanaderos)
+[![Doc Status](https://readthedocs.org/projects/hatosganaderos/badge/?version=master)](http://hatosganaderos.readthedocs.io)
+[![Code Climate](https://codeclimate.com/github/mricharleon/HatosGanaderos/badges/gpa.svg)](https://codeclimate.com/github/mricharleon/HatosGanaderos)
+[![Test Coverage](https://codeclimate.com/github/mricharleon/HatosGanaderos/badges/coverage.svg)](https://codeclimate.com/github/mricharleon/HatosGanaderos/coverage)
 
 # HatosGanaderos #
 Sistema web de Administración y Control de Ganados Vacunos através de **agentes inteligentes deliberativos**, brinda la posibilidad de gestionar el ganado en cuatro aspectos fundamentales de una entidad ganadera: Reproducción, Alimentación, Sanidad y Producción. A través de tecnologías como **Python, Django, NodeJs, ishout.js, Django Realtime, PostgreSQL, SPADE, etc.**
-
-## Documentación
-[ReadTheDocs - HatosGanaderos](http://hatosganaderos.readthedocs.io/)
 
 ## Instalación con Docker (Recomendada)
 Se requiere tener instalado **docker** y **docker-compose** en su equipo
@@ -44,8 +44,10 @@ $ make spade
 
 > docker-compose version 1.13.0, build 1719ceb
 
-
-------------
+------
+## Documentación
+- [ReadTheDocs - HatosGanaderos](http://hatosganaderos.readthedocs.io/)
+------
 
 
 ## Instalación manual

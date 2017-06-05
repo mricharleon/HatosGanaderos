@@ -1,0 +1,40 @@
+sudo: required
+
+env:
+  CODECLIMATE_REPO_TOKEN: 776d8b1cab464d3e8dbe9100bcf99f9eb45e2715a1f3e8f60ac7b08237bf72d0
+
+language: python
+
+cache:
+  - pip
+  - apt
+
+services:
+  - docker
+
+env:
+  DOCKER_COMPOSE_VERSION: 1.13.0
+
+before_install:
+  - sudo apt-get purge -y docker-engine
+  - sudo apt-get update
+  - sudo apt-get install -y docker-engine
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+
+install:
+  - make start
+
+script:
+  - docker-compose ps
+  # tests
+  - docker exec app01 /bin/sh -c "coverage run --source='.' manage.py test ; coverage report -m"
+
+after_success:
+  - docker exec app01 /bin/sh -c "codeclimate-test-reporter --token $CODECLIMATE_REPO_TOKEN"
+
+addons:
+  code_climate:
+    repo_token: "$CODECLIMATE_REPO_TOKEN"
