@@ -126,6 +126,8 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.admindocs',
     'guardian',
+    'django_nose',
+    'coverage',
     'south',
     'userena',
     #'userena.contrib.umessages',
@@ -143,8 +145,6 @@ INSTALLED_APPS = (
     'django_extensions',
     'djangosecure',
     'django_cron',
-    'django_nose',
-    'django_coverage',
     'opbeat.contrib.django',
 )
 
@@ -239,9 +239,6 @@ LOGGING = {
 
 # Needed for Django guardian
 ANONYMOUS_USER_ID = -1
-
-# Test runner
-TEST_RUNNER = 'django_coverage.coverage_runner.CoverageRunner'
 
 # enviar email
 EMAIL_HOST = 'smtp.gmail.com'

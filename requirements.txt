@@ -28,9 +28,9 @@ django-mockups==0.4.8
 django-secure==1.0.1
 opbeat==3.5.2
 django-nose==1.4.1
-django-coverage==1.2.4
 z3c.rml==3.0.0
 preppy==2.4.1
 sphinx==1.6.2
 sphinx-rtd-theme==0.2.4
 codeclimate-test-reporter
+coverage==4.4
