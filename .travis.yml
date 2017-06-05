@@ -30,7 +30,7 @@ install:
 script:
   - docker-compose ps
   # tests
-  - coverage run --source='.' manage.py test ; coverage report -m
+  - docker exec app01 /bin/sh -c "coverage run --source='.' manage.py test ; coverage report -m"
 
 after_success:
   - codeclimate-test-reporter
