@@ -28,8 +28,10 @@ install:
 
 script:
   - docker-compose ps
-  - codeclimate-test-reporter < coverage/lcov.info
     # pendiente agregar los test
+
+after_success:
+  - codeclimate-test-reporter
 
 addons:
   code_climate:
