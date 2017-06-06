@@ -1,6 +1,7 @@
 [![Build Status](https://travis-ci.org/mricharleon/HatosGanaderos.svg?branch=master)](https://travis-ci.org/mricharleon/HatosGanaderos)
 [![Doc Status](https://readthedocs.org/projects/hatosganaderos/badge/?version=master)](http://hatosganaderos.readthedocs.io)
 [![Code Climate](https://codeclimate.com/github/mricharleon/HatosGanaderos/badges/gpa.svg)](https://codeclimate.com/github/mricharleon/HatosGanaderos)
+[![Coverage Status](https://coveralls.io/repos/github/mricharleon/HatosGanaderos/badge.svg?branch=master)](https://coveralls.io/github/mricharleon/HatosGanaderos?branch=master)
 [![Test Coverage](https://codeclimate.com/github/mricharleon/HatosGanaderos/badges/coverage.svg)](https://codeclimate.com/github/mricharleon/HatosGanaderos/coverage)
 
 # HatosGanaderos #

@@ -2,11 +2,6 @@ sudo: required
 
 language: python
 
-env:
-  - GIT_COMMIT_SHA=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo $TRAVIS_COMMIT; else echo $TRAVIS_PULL_REQUEST_SHA; fi)
-  - GIT_COMMITTED_AT=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then git log -1 --pretty=format:%ct; else git log -1 --skip 1 --pretty=format:%ct; fi)
-  - GIT_BRANCH=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo $TRAVIS_BRANCH; else echo $TRAVIS_PULL_REQUEST_BRANCH; fi)
-
 cache:
   - pip
 
@@ -15,21 +10,21 @@ services:
 
 install:
   - pip install -r requirements.txt
+  - pip install coveralls
 
 before_script:
-  #- psql -c 'create database travis;' -U postgres
-  #- psql -c "create user user_hg with password '12345';"
-  #- psql -c 'alter user user_hg with superuser;'
-  #- psql -c 'create database test_bd_hg with owner user_hg;'
-  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-  - chmod +x ./cc-test-reporter
+  - psql -c 'create database travis;' -U postgres
+  - psql -c "create user user_hg with password '12345';"
+  - psql -c 'alter user user_hg with superuser;'
+  - psql -c 'create database test_bd_hg with owner user_hg;'
 
 script:
   # tests
   - coverage run manage.py test
-  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT; fi
+  #- coverage run --source='.' manage.py test ; coverage report -m
 
 after_success:
+  - coveralls
   #- codeclimate-test-reporter --token $CODECLIMATE_REPO_TOKEN
 
 addons:
