@@ -1,8 +1,5 @@
 sudo: required
 
-env:
-  CODECLIMATE_REPO_TOKEN: 776d8b1cab464d3e8dbe9100bcf99f9eb45e2715a1f3e8f60ac7b08237bf72d0
-
 language: python
 
 cache:
@@ -10,30 +7,22 @@ cache:
   - apt
 
 services:
-  - docker
-
-env:
-  DOCKER_COMPOSE_VERSION: 1.13.0
-
-before_install:
-  - sudo apt-get purge -y docker-engine
-  - sudo apt-get update
-  - sudo apt-get install -y docker-engine
-  - sudo rm /usr/local/bin/docker-compose
-  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
-  - chmod +x docker-compose
-  - sudo mv docker-compose /usr/local/bin
+  - postgres
 
 install:
-  - make start
+  - pip install -r requirements.txt
+
+before_script:
+  - psql -c 'create user user_hg with password "12345";' -U postgres
+  - psql -c 'alter user user_hg with superuser;' -U postgres
+  - psql -c 'create database test_bd_hg with owner user_hg;' -U postgres
 
 script:
-  - docker-compose ps
   # tests
-  - docker exec app01 /bin/sh -c "coverage run --source='.' manage.py test ; coverage report -m"
+  - coverage run --source='.' manage.py test ; coverage report -m
 
 after_success:
-  - docker exec app01 /bin/sh -c "codeclimate-test-reporter --token $CODECLIMATE_REPO_TOKEN"
+  - codeclimate-test-reporter --token $CODECLIMATE_REPO_TOKEN
 
 addons:
   code_climate:
