@@ -33,7 +33,7 @@ TIME_ZONE = 'America/Guayaquil'
 LANGUAGE_CODE = 'es-EC'
 ugettext = lambda s: s
 LANGUAGES = (
-    #('en', ugettext('English')),
+    # ('en', ugettext('English')),
     ('es', ugettext('Spanish')),
 )
 LOCALE_PATHS = (
@@ -79,9 +79,9 @@ TEMPLATE_LOADERS = (
 )
 
 MIDDLEWARE_CLASSES = (
-    #'ssl_redirect.middleware.SSLRedirectMiddleware',
+    # 'ssl_redirect.middleware.SSLRedirectMiddleware',
     # para la seguridad de django secure
-    #'djangosecure.middleware.SecurityMiddleware',
+    # 'djangosecure.middleware.SecurityMiddleware',
     'django.middleware.common.CommonMiddleware',
     'drealtime.middleware.iShoutCookieMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -121,7 +121,7 @@ INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
-    #'django.contrib.messages',
+    # 'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
     'django.contrib.admindocs',
@@ -130,14 +130,14 @@ INSTALLED_APPS = (
     'coverage',
     'south',
     'userena',
-    #'userena.contrib.umessages',
+    # 'userena.contrib.umessages',
     'profiles',
     'easy_thumbnails',
     'ganados',
     'alimentos',
     'notifications',
     'reports',
-    #'webServices.wsGanados',
+    # 'webServices.wsGanados',
     'drealtime',
     'messages',
     'medicament',
@@ -156,12 +156,12 @@ OPBEAT = {
     'DEBUG': True,
 }
 
-#TEST_RUNNER = 'django_coverage.coverage_runner.CoverageRunner'
+# TEST_RUNNER = 'django_coverage.coverage_runner.CoverageRunner'
 # django_nose
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
 # django realtime
-ISHOUT_CLIENT_ADDR = '127.0.0.1:5500' #modificar
+ISHOUT_CLIENT_ADDR = '127.0.0.1:5500'  # modificar
 ISHOUT_API_ADDR = 'node:6600'
 ISHOUT_HTTPS = False
 
@@ -169,13 +169,13 @@ CRON_CLASSES = [
     "ganados.cron.CronJobProduccion",
     "django_cron.cron.FailedRunsNotificationCronJob",
 ]
-#ALLOW_PARALLEL_RUNS = True
-#CRON_CACHE = 'cron_cache'
+# ALLOW_PARALLEL_RUNS = True
+# CRON_CACHE = 'cron_cache'
 
 USE_TLS = False
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-SSL_DOMAIN = 'http://127.0.0.1:8000' #modificar
+SSL_DOMAIN = 'http://127.0.0.1:8000'  # modificar
 SSL_SECTIONS = (
     '/list_cattle',
     '/agrega_ganaderia_config',
@@ -202,12 +202,13 @@ SECURE_BROWSER_XSS_FILTER = True
 SESSION_COOKIE_SECURE = False
 
 CRSF_COOKIE_SECURE = True
-SESSION_EXPIRE_AT_BROWSER_CLOSE=True
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 # para graficar la BD
-GRAPH_MODELS={'all_applications':False,
-                'group_models':True,
-            }
+GRAPH_MODELS={
+        'all_applications': False,
+        'group_models': True,
+        }
 
 SOUTH_MIGRATION_MODULES = {
         'easy_thumbnails': 'easy_thumbnails.south_migrations',
