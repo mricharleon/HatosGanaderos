@@ -26,6 +26,3 @@ script:
 after_success:
   - coveralls
   #- codeclimate-test-reporter --token $CODECLIMATE_REPO_TOKEN
-
-addons:
-  postgresql: "9.6"
