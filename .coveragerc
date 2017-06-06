@@ -1,6 +1,11 @@
 [run]
-omit = ../*migrations*
-       ../*tests*
+omit = */migrations/*
+       */tests/*
+       */admin/*
+       userena/*
+       */__init__.py
+       */settings.py
+       contrib/*
 
 [html]
 directory = coverage_html_report
