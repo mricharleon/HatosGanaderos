@@ -13,9 +13,9 @@ install:
   - pip install -r requirements.txt
 
 before_script:
-  - psql -c 'create user user_hg with password "12345";' -U postgres
-  - psql -c 'alter user user_hg with superuser;' -U postgres
-  - psql -c 'create database test_bd_hg with owner user_hg;' -U postgres
+  - psql -c 'create user user_hg with password "12345";'
+  - psql -c 'alter user user_hg with superuser;'
+  - psql -c 'create database test_bd_hg with owner user_hg;'
 
 script:
   # tests
