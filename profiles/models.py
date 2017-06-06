@@ -14,9 +14,10 @@ class Configuracion(models.Model):
             ('simple', 'Simple'),
             ('norma_ecuador', 'Norma Ecuador')
             )
-    tipo_identificacion = models.CharField("Tipo de identificacion",
+    tipo_identificacion = models.CharField(
+            "Tipo de identificacion",
             max_length=15,
-            choices = IDENTIFICACION_CHOICES,
+            choices=IDENTIFICACION_CHOICES,
             default=0
             )
     celo_frecuencia = models.IntegerField("Frecuencia de celo",
@@ -87,15 +88,17 @@ class Profile(UserenaLanguageBaseProfile):
             (2, _('Female')),
             )
 
-    user = models.OneToOneField(user_model_label,
+    user = models.OneToOneField(
+            user_model_label,
             unique=True,
             verbose_name=_('user'),
-            related_name='profile_user')
+            related_name='profile_user'
+            )
     gender = models.PositiveSmallIntegerField(_('gender'),
             choices=GENDER_CHOICES,
             blank=True,
-            null=True)
-
+            null=True
+            )
     direccion = models.CharField(_('Direccion'), blank=True, max_length=50)
     telefono = models.CharField(_('Telefono'), blank=True, max_length=10)
     # location =  models.CharField(_('location'), max_length=255, blank=True)
