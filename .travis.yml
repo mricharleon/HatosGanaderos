@@ -27,7 +27,7 @@ script:
   - python manage.py migrate django_cron &&\
   - python manage.py migrate guardian
   # tests
-  - coverage run manage.py test
+  - coverage run manage.py test ; coverage report -m
   #- coverage run --source='.' manage.py test ; coverage report -m
 
 after_success:
