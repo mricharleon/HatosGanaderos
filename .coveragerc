@@ -6,6 +6,10 @@ omit = */migrations/*
        */__init__.py
        */settings.py
        contrib/*
+       */virtualenv/*
+
+
+
 
 [html]
 directory = coverage_html_report
