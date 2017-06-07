@@ -17,7 +17,7 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-if os.environ['DB_NAME']:
+if os.getenv('DB_NAME'):
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
