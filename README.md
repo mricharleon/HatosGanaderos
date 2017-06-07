@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/mricharleon/HatosGanaderos.svg?branch=master)](https://travis-ci.org/mricharleon/HatosGanaderos)
 [![Doc Status](https://readthedocs.org/projects/hatosganaderos/badge/?version=master)](http://hatosganaderos.readthedocs.io)
 [![Code Climate](https://codeclimate.com/github/mricharleon/HatosGanaderos/badges/gpa.svg)](https://codeclimate.com/github/mricharleon/HatosGanaderos)
-[![Test Coverage](https://codeclimate.com/github/mricharleon/HatosGanaderos/badges/coverage.svg)](https://codeclimate.com/github/mricharleon/HatosGanaderos/coverage)
+[![Coverage Status](https://coveralls.io/repos/github/mricharleon/HatosGanaderos/badge.svg?branch=master)](https://coveralls.io/github/mricharleon/HatosGanaderos?branch=master)
 
 # HatosGanaderos #
 Sistema web de Administración y Control de Ganados Vacunos através de **agentes inteligentes deliberativos**, brinda la posibilidad de gestionar el ganado en cuatro aspectos fundamentales de una entidad ganadera: Reproducción, Alimentación, Sanidad y Producción. A través de tecnologías como **Python, Django, NodeJs, ishout.js, Django Realtime, PostgreSQL, SPADE, etc.**
