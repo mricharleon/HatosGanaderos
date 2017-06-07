@@ -16,7 +16,7 @@ before_script:
   - psql -c 'create database travis;' -U postgres
   - psql -c "create user user_hg with password '12345';"
   - psql -c 'alter user user_hg with superuser;'
-  - psql -c 'create database test_bd_hg with owner user_hg;'
+  # - psql -c 'create database test_bd_hg with owner user_hg;'
   - psql -c 'create database bd_hg with owner user_hg;'
 
 script:
