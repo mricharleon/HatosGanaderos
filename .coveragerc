@@ -7,9 +7,7 @@ omit = */migrations/*
        */settings.py
        contrib/*
        */virtualenv/*
-
-
-
+       */tests.py
 
 [html]
 directory = coverage_html_report
