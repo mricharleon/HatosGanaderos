@@ -19,6 +19,12 @@ before_script:
   - psql -c 'create database test_bd_hg with owner user_hg;'
 
 script:
+  - python manage.py syncdb --noinput &&\
+  - python manage.py migrate userena &&\
+  - python manage.py migrate easy_thumbnails &&\
+  - python manage.py migrate django_extensions &&\
+  - python manage.py migrate django_cron &&\
+  - python manage.py migrate guardian
   # tests
   - coverage run manage.py test
   #- coverage run --source='.' manage.py test ; coverage report -m
