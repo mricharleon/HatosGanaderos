@@ -11,7 +11,6 @@ services:
 install:
   - pip install -r requirements.txt
   - pip install coveralls
-  - apt install nano
 
 before_script:
   - psql -c 'create database travis;' -U postgres
