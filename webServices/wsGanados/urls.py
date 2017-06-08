@@ -34,8 +34,8 @@ urlpatterns = patterns('webServices.wsGanados.views',
 	url(r'^ajax/add_list_notifications_sanidad_no_realizadas/$', 'ajaxAddListNotificationsSanidadNoRealizadas', name='ajaxAddListNotificationsSanidadNoRealizadas'),
 	url(r'^ajax/add_list_notifications_sanidad_realizadas/$', 'ajaxAddListNotificationsSanidadRealizadas', name='ajaxAddListNotificationsSanidadRealizadas'),
 	url(r'^ajax/add_list_notifications_alimentacion_no_realizadas/$', 'ajaxAddListNotificationsAlimentacionNoRealizadas', name='ajaxAddListNotificationsAlimentacionNoRealizadas'),
-	
+
 	# refresh
 	url(r'^ajax/refresh/$', 'ajaxRefresh', name='ajaxRefresh'),
-	
+
 )

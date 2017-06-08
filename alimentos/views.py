@@ -36,7 +36,7 @@ def add_food(request):
 			formAliment.is_active = True
 			formAliment.save()
 			return redirect(reverse('list_food'))
-		
+
 	elif request.method == 'GET':
 		formAlimento = alimentoForm()
 
@@ -84,17 +84,17 @@ def edit_food(request, alimento_id):
 		{'formAlimento': formAlimento,
 		 'alimento_id': alimento_id,
 		  'number_messages': number_message},
-		context_instance=RequestContext(request))	
+		context_instance=RequestContext(request))
 
 @login_required
 def asigna_alimento(request, alimento_id):
 	user = request.user
 	number_message = number_messages(request, user.username)
-	
+
 	return render_to_response('asigna_alimento.html',
 		{'id_food': alimento_id,
 		 'number_messages': number_message},
 		context_instance=RequestContext(request))
 
 
-	
+

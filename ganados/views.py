@@ -31,7 +31,7 @@ def add_down_cattle(request, id_cattle):
 			return redirect(reverse('add_cattle'))
 	else:
 		formDownCattleForm = downCattleForm()
-	return render_to_response('add_down_cattle.html', 
+	return render_to_response('add_down_cattle.html',
 		{'formDownCattleForm': formDownCattleForm,
 		 'cattle': cattle},
 		 context_instance=RequestContext(request))
@@ -41,7 +41,7 @@ def list_down_cattle(request):
 	farm = Ganaderia.objects.get(perfil=user)
 	cattles = Ganado.objects.filter(ganaderia=farm).exclude(down_cattle=None)
 	formDownCattleForm = downCattleForm()
-	return render_to_response('list_down_cattle.html', 
+	return render_to_response('list_down_cattle.html',
 		{'cattles': cattles},
 		 context_instance=RequestContext(request))
 
@@ -55,7 +55,7 @@ def add_down_insemination(request, id_sperm):
 			return redirect(reverse('add_cattle'))
 	else:
 		formDownInseminationForm = downInseminationForm()
-	return render_to_response('add_down_insemination.html', 
+	return render_to_response('add_down_insemination.html',
 		{'formDownInseminationForm': formDownInseminationForm,
 		 'sperm': sperm},
 		 context_instance=RequestContext(request))
@@ -68,7 +68,7 @@ metodo lista_ganado_produccion
 def lista_ganado_produccion(request):
 	user = request.user
 	number_message = number_messages(request, user.username)
-	
+
 	return render_to_response('lista_ganado_produccion.html',
 		{'number_messages': number_message},
 		context_instance=RequestContext(request))
@@ -103,7 +103,7 @@ def agrega_ganado_ordenio(request, ganado_id):
 			# verifico que es ordenio unico
 			if (formOrdenio.unique_ordenio) & (num_ordenios==1):
 				formOrdenio.numero_ordenio = num_ordenios
-				formOrdenio.total = formOrdenio.cantidad 
+				formOrdenio.total = formOrdenio.cantidad
 				formOrdenio.ganado = ganado
 				formOrdenio.fecha = fecha_hoy
 				formOrdenio.save()
@@ -148,7 +148,7 @@ def agrega_ganado_ordenio(request, ganado_id):
 		 'num_ordenios': num_ordenios,
 		 'total_ordenios': total_ordenios,
 		 'msj': msj,
-		 'range': rangee, 
+		 'range': rangee,
 		 'number_messages': number_message},
 		context_instance=RequestContext(request))
 
@@ -168,7 +168,7 @@ def edita_ganado_ordenio(request, ganado_id, num_ordenio):
 			cont_ordenios += 1
 			id = ordenio.id
 			cantidad = ordenio.total
-	
+
 
 	if request.method == 'POST':
 		# verifico si esta activo unique_ordenio
@@ -205,7 +205,7 @@ def edita_ganado_ordenio(request, ganado_id, num_ordenio):
 					ordenio2.save()
 				except ObjectDoesNotExist:
 					formOrdenio.total = formOrdenio.cantidad
-		
+
 		formOrdenio.ganado = ganado
 		formOrdenio.fecha = ordenio.fecha
 		formOrdenio.save()
@@ -219,7 +219,7 @@ def edita_ganado_ordenio(request, ganado_id, num_ordenio):
 		if cont_ordenios > cantidad:
 			if (cantidad == 2) & (ordenio.unique_ordenio):
 				rangee = range(2)
-				
+
 		if (ordenio.unique_ordenio):
 			num_ordenios = 1
 			rangee = range(2)
@@ -288,7 +288,7 @@ def list_cattle_vaca(request):
 @login_required
 def list_cattle_male(request):
 	user = request.user
-	number_message = number_messages(request, user.username)	
+	number_message = number_messages(request, user.username)
 	return render_to_response('list_cattles_male.html',
 		{'number_messages': number_message},
 		context_instance=RequestContext(request))
@@ -351,7 +351,7 @@ def edita_ganado(request, ganado_id):
 		identificacion_s = Identificacion_Simple.objects.get(id=ganado.identificacion_simple.id)
 	else:
 		identificacion_e = Identificacion_Ecuador.objects.get(id=ganado.identificacion_ecuador.id)
-	
+
 	ganado = Ganado.objects.get(id=ganado.id)
 
 	if request.method == 'POST':
@@ -363,7 +363,7 @@ def edita_ganado(request, ganado_id):
 				# pauso guardar ganado para agregar atributos
 				form2 = form2.save(commit=False)
 				form2.ganaderia = ganaderia
-				
+
 				form2.identificacion_simple = form.save()
 				anios = calcula_edad_anios(request, form2.nacimiento)
 				meses = calcula_edad_meses(request, form2.nacimiento)
@@ -373,7 +373,7 @@ def edita_ganado(request, ganado_id):
 
 				# saber cual es la ultima etapa de este ganado
 				et_actual = calcula_etapa(request, anios, meses, configuracion.etapa_ternera, configuracion.etapa_vacona_media, configuracion.etapa_vacona_fierro, configuracion.etapa_vacona_vientre, configuracion.etapa_vaca)
-				
+
 				for etapa in et:
 					if etapa.nombre == 0:
 						id = etapa.nombre
@@ -383,7 +383,7 @@ def edita_ganado(request, ganado_id):
 						id = etapa.nombre
 					#etapa.is_active=False
 					etapa.save()
-				
+
 				if id != et_actual:
 					etapa_antigua = ganado.etapas.get(nombre=id, is_active=True)
 					etapa_antigua.is_active = False
@@ -406,7 +406,7 @@ def edita_ganado(request, ganado_id):
 				# pauso guardar ganado para agregar atributos
 				form2 = form2.save(commit=False)
 				form2.ganaderia = ganaderia
-				
+
 				form2.identificacion_ecuador = form.save()
 				anios = calcula_edad_anios(request, form2.nacimiento)
 				meses = calcula_edad_meses(request, form2.nacimiento)
@@ -416,7 +416,7 @@ def edita_ganado(request, ganado_id):
 
 				# saber cual es la ultima etapa de este ganado
 				et_actual = calcula_etapa(request, anios, meses, configuracion.etapa_ternera, configuracion.etapa_vacona_media, configuracion.etapa_vacona_fierro, configuracion.etapa_vacona_vientre, configuracion.etapa_vaca)
-				
+
 				for etapa in et:
 					if etapa.nombre == 0:
 						id = etapa.nombre
@@ -426,7 +426,7 @@ def edita_ganado(request, ganado_id):
 						id = etapa.nombre
 					#etapa.is_active=False
 					etapa.save()
-				
+
 				if id != et_actual:
 					etapa_antigua = ganado.etapas.get(nombre=id, is_active=True)
 					etapa_antigua.is_active = False
@@ -483,7 +483,7 @@ def edit_cattle_male(request, cattle_id):
 				# pauso guardar ganado para agregar atributos
 				form2 = form2.save(commit=False)
 				form2.ganaderia = farm
-				
+
 				form2.identificacion_simple = form.save()
 				anios = calcula_edad_anios(request, form2.nacimiento)
 				meses = calcula_edad_meses(request, form2.nacimiento)
@@ -497,7 +497,7 @@ def edit_cattle_male(request, cattle_id):
 				# pauso guardar ganado para agregar atributos
 				form2 = form2.save(commit=False)
 				form2.ganaderia = farm
-				
+
 				form2.identificacion_ecuador = form.save()
 				anios = calcula_edad_anios(request, form2.nacimiento)
 				meses = calcula_edad_meses(request, form2.nacimiento)
@@ -568,7 +568,7 @@ def edit_insemination(request, insemination_id):
 			formInsemination.save()
 
 			return redirect(reverse('list_insemination'))
-			
+
 	else:
 		formInsemination = inseminationForm(instance=insemination)
 
@@ -579,7 +579,7 @@ def edit_insemination(request, insemination_id):
 		context_instance=RequestContext(request))
 
 @login_required
-def list_insemination(request):	
+def list_insemination(request):
 	user = request.user
 	number_message = number_messages(request, user.username)
 	return render_to_response('list_insemination.html',
@@ -596,11 +596,11 @@ def add_cattle(request):
 	except ObjectDoesNotExist:
 		return redirect(reverse('agrega_ganaderia_config'))
 	configuration = Configuracion.objects.get(id=farm.configuracion_id)
-	
+
 	if request.method == 'POST':
 
 		formGanado = ganadoForm(request.POST, request.FILES)
-		
+
 		if configuration.tipo_identificacion == 'simple':
 			formIdentificacion = tipoSimpleForm(request.POST)
 			if formIdentificacion.is_valid() and formGanado.is_valid():
@@ -626,7 +626,7 @@ def add_cattle(request):
 						insemination.save()
 					except ObjectDoesNotExist:
 						pass
-					
+
 
 				# crea objeto etapa
 				date = datetime.date.today()
@@ -638,10 +638,10 @@ def add_cattle(request):
 					meses = calcula_edad_meses(request, formGanado.nacimiento)
 					et.nombre = calcula_etapa(request, anios, meses, configuration.etapa_ternera, configuration.etapa_vacona_media, configuration.etapa_vacona_fierro, configuration.etapa_vacona_vientre, configuration.etapa_vaca)
 					et.observaciones='ninguna observacion'
-								
+
 				formGanado.ganaderia = farm
-				
-				
+
+
 				formIdentificacion.save()
 				formGanado.identificacion_simple = formIdentificacion
 				formGanado.edad_anios = calcula_edad_anios(request, formGanado.nacimiento)
@@ -677,9 +677,9 @@ def add_cattle(request):
 					meses = calcula_edad_meses(request, formGanado.nacimiento)
 					et.nombre = calcula_etapa(request, anios, meses, configuration.etapa_ternera, configuration.etapa_vacona_media, configuration.etapa_vacona_fierro, configuration.etapa_vacona_vientre, configuration.etapa_vaca)
 					et.observaciones='ninguna observacion'
-								
+
 				formGanado.ganaderia = farm
-				
+
 				formIdentificacion = formIdentificacion.save(commit=False)
 				if Ganado.objects.filter(ganaderia=farm).count() > 0:
 					cattle = Ganado.objects.filter(ganaderia=farm).order_by('id').reverse()[:1]
@@ -721,7 +721,7 @@ def add_cattle(request):
 		{'formIdentificacion': formIdentificacion,
 		 'formGanado': formGanado,
 		 'number_messages': number_message},
-		context_instance=RequestContext(request))	
+		context_instance=RequestContext(request))
 
 @login_required
 def edita_ganado_celo(request, ganado_id):
@@ -763,10 +763,10 @@ def edita_ganado_celo(request, ganado_id):
 						c.save()
 
 						return redirect(reverse('list_cattle'))
-				
+
 			else:
 				form = editaGanadoCeloForm(instance=celo_ganado)
-		
+
 	else:
 		form = editaGanadoCeloForm()
 		if request.method == 'POST':
@@ -801,7 +801,7 @@ def add_service(request, id_cattle):
 	user = request.user
 	number_message = number_messages(request, user.username)
 	cattle = Ganado.objects.get(id=id_cattle)
-	
+
 	if request.method == 'POST':
 		farm = Ganaderia.objects.get(perfil=user)
 		formAttempt = attemptForm(request.POST)
@@ -839,7 +839,7 @@ def add_service(request, id_cattle):
 				attempt.save()
 
 			return redirect(reverse('list_cattle'))
-			
+
 	elif request.method == 'GET':
 		v = Verification.objects.filter(is_active=True, cattle=id_cattle).count()
 		if v > 0:
@@ -874,19 +874,19 @@ def verify_attempt(request, id_attempt):
 	attempt = Attempt.objects.get(id=id_attempt)
 
 	if request.method == 'POST':
-		formAttempt = verifyAttemptForm(request.POST, instance=attempt) 
+		formAttempt = verifyAttemptForm(request.POST, instance=attempt)
 		if formAttempt.is_valid():
-			
+
 			formAttempt = formAttempt.save(commit=False)
 			formAttempt.save()
-			
+
 			ganado = Ganado.objects.get(id=attempt.verification.cattle.id)
 			# si fue correcto
 			if formAttempt.state == 0:
 				attempt.verification.is_active=False
 				attempt.verification.save()
-				
-				
+
+
 				# agrego el nuevo ciclo
 				ciclo = Ciclo.objects.get(ganado_id=ganado.id, is_active=True, nombre=0)
 				ciclo.is_active = False
@@ -912,7 +912,7 @@ def verify_attempt(request, id_attempt):
 				gestacion.is_active = True
 				gestacion.ganado = ganado
 				gestacion.save()
-				
+
 				return redirect(reverse('list_cattle'))
 
 			# compruebo si es el ultimo intento
@@ -933,7 +933,7 @@ def verify_attempt(request, id_attempt):
 				celo.save()
 
 
-			id_cattle = attempt.verification.cattle_id 
+			id_cattle = attempt.verification.cattle_id
 			return redirect(reverse('add_attempt_service', kwargs={'id_cattle': id_cattle}))
 	else:
 		formVerifyAttempt = verifyAttemptForm(instance=attempt)
@@ -995,7 +995,7 @@ def gestacion(request, id_cattle):
 		 'rp_cattle': rp_cattle,
 		 'number_messages': number_message},
 		context_instance=RequestContext(request))
-	
+
 
 @login_required
 def problem_gestacion(request, id_cattle):
@@ -1015,10 +1015,10 @@ def problem_gestacion(request, id_cattle):
 				# desactivar el anterior o anteriores ciclos
 				if ganado.ciclos.all():
 					for cicl in ganado.ciclos.all():
-						if cicl.nombre != 2: 
+						if cicl.nombre != 2:
 							cicl.is_active = False
 							cicl.save()
-				
+
 				# nuevo ciclo vacio
 				ciclo = Ciclo()
 				ciclo.nombre = 0
@@ -1035,10 +1035,10 @@ def problem_gestacion(request, id_cattle):
 				# desactivar el anterior ciclo
 				if ganado.ciclos.all():
 					for cicl in ganado.ciclos.all():
-						if cicl.nombre != 2: 
+						if cicl.nombre != 2:
 							cicl.is_active = False
 							cicl.save()
-				
+
 				# nuevo ciclo vacio
 				ciclo = Ciclo()
 				ciclo.nombre = 1
@@ -1202,10 +1202,10 @@ def deferEtapa(request, notification_id):
 				formDeferEtapa.cattle_id = notification.ident_cattle
 				formDeferEtapa.save()
 
-					
+
 			notification.end_date = notification.end_date + relativedelta(days=formDeferEtapa.number_days)
 			notification.save()
-			
+
 			return redirect(reverse('list_notifications'))
 
 	else:
@@ -1213,5 +1213,5 @@ def deferEtapa(request, notification_id):
 		formDeferEtapa = deferEtapaForm()
 	return render_to_response('deferEtapa.html',
 				{'formDeferEtapa': formDeferEtapa,
-				 'notification': notification},				
+				 'notification': notification},
 				context_instance=RequestContext(request))

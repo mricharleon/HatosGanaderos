@@ -54,7 +54,7 @@ class DownCattle(models.Model):
                                         choices=CAUSE_DOWN_CHOICES,
                                         )
     observations = models.TextField('Observaciones')
-    
+
     def __unicode__(self):
         return self.date + " - " + self.cause_down
 
@@ -110,7 +110,7 @@ class Ganado(models.Model):
                             blank=True,
                             null=True,
                             default=0)
-    observaciones = models.TextField(max_length=125)    
+    observaciones = models.TextField(max_length=125)
     edad_anios = models.IntegerField()
     edad_meses = models.IntegerField()
     edad_dias = models.IntegerField()
@@ -138,7 +138,7 @@ class Attempt(models.Model):
         (0, 'Correcto'),
         (1, 'Incorrecto')
     )
-    state = models.PositiveSmallIntegerField('Estado', 
+    state = models.PositiveSmallIntegerField('Estado',
                         choices=STATE_CHOICES,
                         blank=True,
                         null=True)
@@ -162,7 +162,7 @@ class Ordenio(models.Model):
     observaciones = models.TextField('Observaciones', max_length=150, blank=True, null=True)
     ganado = models.ForeignKey(Ganado, null=True, related_name='ordenios')
     unique_ordenio = models.BooleanField(u'Guardar único ordeño', blank=True)
-    
+
     def __unicode__(self):
         return self.fecha
 
@@ -271,7 +271,7 @@ class DownInsemination(models.Model):
                                         choices=CAUSE_DOWN_CHOICES,
                                         )
     observations = models.TextField('Observaciones')
-    
+
     def __unicode__(self):
         return self.date + " - " + self.cause_down
 

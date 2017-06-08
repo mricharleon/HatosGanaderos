@@ -41,10 +41,10 @@ def list_notifications_reproduccion(request):
 	farm = Ganaderia.objects.get(perfil=user)
 	notifications = Notification.objects.filter( state=2, module=0, farm=farm ).order_by('-end_date')
 	number_reproduccion = Notification.objects.filter( state=2, module=0, farm=farm ).count()
-	
+
 	number_reproduccion_realizadas = Notification.objects.filter( state=1, module=0, farm=farm ).count()
 	number_reproduccion_norealizadas = Notification.objects.filter( state=0, module=0, farm=farm ).count()
-	
+
 	return render_to_response('list_notifications_reproduccion.html',
 				{'notifications': notifications,
 				 'number_messages': number_message,
@@ -60,10 +60,10 @@ def list_notifications_reproduccion_realizadas(request):
 	farm = Ganaderia.objects.get(perfil=user)
 	notifications = Notification.objects.filter( state=1, module=0, farm=farm ).order_by('-end_date')[:5]
 	number_reproduccion = Notification.objects.filter( state=2, module=0, farm=farm ).count()
-	
+
 	number_reproduccion_realizadas = Notification.objects.filter( state=1, module=0, farm=farm ).count()
 	number_reproduccion_norealizadas = Notification.objects.filter( state=0, module=0, farm=farm ).count()
-	
+
 	return render_to_response('list_notifications_reproduccion_realizadas.html',
 				{'notifications': notifications,
 				 'number_messages': number_message,
@@ -79,10 +79,10 @@ def list_notifications_reproduccion_norealizadas(request):
 	farm = Ganaderia.objects.get(perfil=user)
 	notifications = Notification.objects.filter( state=0, module=0, farm=farm ).order_by('-end_date')
 	number_reproduccion = Notification.objects.filter( state=2, module=0, farm=farm ).count()
-	
+
 	number_reproduccion_realizadas = Notification.objects.filter( state=1, module=0, farm=farm ).count()
 	number_reproduccion_norealizadas = Notification.objects.filter( state=0, module=0, farm=farm ).count()
-	
+
 	return render_to_response('list_notifications_reproduccion_norealizadas.html',
 				{'notifications': notifications,
 				 'number_messages': number_message,
@@ -102,7 +102,7 @@ def list_notifications_produccion(request):
 
 	number_produccion_realizadas = Notification.objects.filter( state=1, module=3, farm=farm ).count()
 	number_produccion_norealizadas = Notification.objects.filter( state=0, module=3, farm=farm ).count()
-	
+
 	return render_to_response('list_notifications_produccion.html',
 				{'notifications': notifications,
 				 'number_messages': number_message,
@@ -121,7 +121,7 @@ def list_notifications_produccion_realizadas(request):
 
 	number_produccion_realizadas = Notification.objects.filter( state=1, module=3, farm=farm ).count()
 	number_produccion_norealizadas = Notification.objects.filter( state=0, module=3, farm=farm ).count()
-	
+
 	return render_to_response('list_notifications_produccion_realizadas.html',
 				{'notifications': notifications,
 				 'number_messages': number_message,
@@ -140,7 +140,7 @@ def list_notifications_produccion_norealizadas(request):
 
 	number_produccion_realizadas = Notification.objects.filter( state=1, module=3, farm=farm ).count()
 	number_produccion_norealizadas = Notification.objects.filter( state=0, module=3, farm=farm ).count()
-	
+
 	return render_to_response('list_notifications_produccion_norealizadas.html',
 				{'notifications': notifications,
 				 'number_messages': number_message,
@@ -160,7 +160,7 @@ def list_notifications_sanidad(request):
 
 	number_sanidad_realizadas = Notification.objects.filter( state=1, module=2, farm=farm ).count()
 	number_sanidad_norealizadas = Notification.objects.filter( state=0, module=2, farm=farm ).count()
-	
+
 	return render_to_response('list_notifications_sanidad.html',
 				{'notifications': notifications,
 				 'number_messages': number_message,
@@ -179,7 +179,7 @@ def list_notifications_sanidad_realizadas(request):
 
 	number_sanidad_realizadas = Notification.objects.filter( state=1, module=2, farm=farm ).count()
 	number_sanidad_norealizadas = Notification.objects.filter( state=0, module=2, farm=farm ).count()
-	
+
 	return render_to_response('list_notifications_sanidad_realizadas.html',
 				{'notifications': notifications,
 				 'number_messages': number_message,
@@ -198,7 +198,7 @@ def list_notifications_sanidad_norealizadas(request):
 
 	number_sanidad_realizadas = Notification.objects.filter( state=1, module=2, farm=farm ).count()
 	number_sanidad_norealizadas = Notification.objects.filter( state=0, module=2, farm=farm ).count()
-	
+
 	return render_to_response('list_notifications_sanidad_norealizadas.html',
 				{'notifications': notifications,
 				 'number_messages': number_message,
@@ -217,7 +217,7 @@ def list_notifications_alimentacion(request):
 
 	number_alimentacion_realizadas = Notification.objects.filter( state=1, module=1, farm=farm ).count()
 	number_alimentacion_norealizadas = Notification.objects.filter( state=0, module=1, farm=farm ).count()
-	
+
 	return render_to_response('list_notifications_alimentacion.html',
 				{'notifications': notifications,
 				 'number_messages': number_message,
@@ -236,7 +236,7 @@ def list_notifications_alimentacion_realizadas(request):
 
 	number_alimentacion_realizadas = Notification.objects.filter( state=1, module=1, farm=farm ).count()
 	number_alimentacion_norealizadas = Notification.objects.filter( state=0, module=1, farm=farm ).count()
-	
+
 	return render_to_response('list_notifications_alimentacion_realizadas.html',
 				{'notifications': notifications,
 				 'number_messages': number_message,
@@ -255,7 +255,7 @@ def list_notifications_alimentacion_norealizadas(request):
 
 	number_alimentacion_realizadas = Notification.objects.filter( state=1, module=1, farm=farm ).count()
 	number_alimentacion_norealizadas = Notification.objects.filter( state=0, module=1, farm=farm ).count()
-	
+
 	return render_to_response('list_notifications_alimentacion_norealizadas.html',
 				{'notifications': notifications,
 				 'number_messages': number_message,
