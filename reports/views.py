@@ -162,7 +162,7 @@ def generatePdf(request, cattle_id):
     			index=wormer.index(aux)
     			i+=1
     			wormer[index]=str(w.medicament.name+' - '+str(w.medicament.amount_application)+' '+w.medicament.get_unit_display()+'.')+' (X'+str(i)+')'
-    	
+
 
     # ... and do the preprocessing.
     table=[]
@@ -191,10 +191,10 @@ def generatePdf(request, cattle_id):
         food,
         wormer,
         vaccine)
-    
+
     # Finally generate the *.pdf output ...
     pdf = rml2pdf.parseString(rmlText)
-    
+
     # Create the HttpResponse object with the appropriate PDF headers.
     response = HttpResponse(pdf, content_type='application/pdf')
     response['Content-Disposition'] = 'inline; filename="somefilename.pdf"'
@@ -227,7 +227,7 @@ def view_report_female(request, id_cattle):
 			~Q(problema=problem_gestacion)
 		).count()
 	total_problems_births =ProblemaGestacion.objects.filter(id=cattle.id).count()
-	
+
 	if configuration.tipo_identificacion=='simple':
 		try:
 			cattle_mother = Ganado.objects.get(identificacion_simple__rp=cattle.identificacion_simple.rp_madre)
@@ -308,8 +308,8 @@ def view_report_female(request, id_cattle):
 			index = vaccine.index(aux)
 			i += 1
 			vaccine[index] = str(v.medicament.name+' - '+str(v.medicament.amount_application)+' '+v.medicament.get_unit_display()+'.')+' (X'+str(i)+')'
-		
-	
+
+
 
 	return render_to_response('view_report_female.html',
 		{'cattle': cattle,
@@ -323,7 +323,7 @@ def view_report_female(request, id_cattle):
 		 'vaccine': vaccine,
 		 'number_messages': number_message,
 		 'etapa': etapa},
-		context_instance=RequestContext(request))	
+		context_instance=RequestContext(request))
 
 
- 
+

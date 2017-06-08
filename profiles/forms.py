@@ -28,7 +28,7 @@ class ConfiguracionForm(forms.ModelForm):
                   'periodo_vacio':forms.TextInput(attrs={}),
                   'numero_ordenios':forms.TextInput(attrs={}),
                   'initial_rp':forms.TextInput(attrs={}),
-                  
+
         }
 
 class GanaderiaForm(forms.ModelForm):
@@ -41,10 +41,10 @@ class GanaderiaForm(forms.ModelForm):
         }
 
 class SignupFormExtra(SignupForm):
-    """ 
+    """
     A form to SIDGVnstrate how to add extra fields to the signup form, in this
     case adding the first and last name.
-    
+
 
     """
     first_name = forms.CharField(label=_(u'First name'),
@@ -57,12 +57,12 @@ class SignupFormExtra(SignupForm):
 
     def __init__(self, *args, **kw):
         """
-        
+
         A bit of hackery to get the first name and last name at the top of the
         form instead at the end.
-        
+
         """
-        
+
         super(SignupFormExtra, self).__init__(*args, **kw)
         # Put the first and last name at the top
         new_order = self.fields.keyOrder[:-2]
@@ -71,7 +71,7 @@ class SignupFormExtra(SignupForm):
         self.fields.keyOrder = new_order
 
     def save(self):
-        """ 
+        """
         Override the save method to save the first and last name to the user
         field.
 

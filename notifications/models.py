@@ -27,32 +27,32 @@ class Notification(models.Model):
     										choices=MODULE_CHOICES
     										)
     NAME_CHOICES = (
-        #reproduccion
-		(0, 'Ganado en celo'), #ya
-        (1, 'Registro del servicio'), #ya
-        (2, u'Verificación del celo'), #ya
-        (3, 'Fecha de posible parto'), #ya
-        (4, 'Cantidad reducida de pajuelas'), #ya
-        #produccion
-        (5, u'Registro de ordeño'), #ya
-        #sanidad
-        (6, 'Cantidad reducida de la vacuna'), #ya
-        (7, 'Cantidad reducida del desparasitador'), #ya
-        (8, u'Fecha próxima de vencimiento de la vacuna'), #ya
-        (9, u'Fecha próxima de vencimiento del desparasitador'), #ya
-        (10, u'Fecha próxima de aplicación de la vacuna'), #ya
-        (11, u'Fecha próxima de aplicación del desparasitador'), #ya
-        #alimentacion
-        (12, 'Cantidad reducida del alimento'), #ya
-        (13, u'Fecha próxima de vencimiento del alimento'), #ya
-        (14, u'Fecha próxima de aplicación del alimento'), #ya
-        #reproduccion
-        (15, 'Cambio de etapa a Vacona Media'), #ya
-        (16, 'Cambio de etapa a Vacona Fierro'), #ya
-        (17, 'Cambio de etapa a Vacona Vientre'), #ya
-        (18, 'Cambio de etapa a Vaca'), #ya
-        (19, 'Cambio de edad'), #ya
-        (20, 'Cambio a ciclo seco'), #ya
+        # reproduccion
+		(0, 'Ganado en celo'),
+        (1, 'Registro del servicio'),
+        (2, u'Verificación del celo'),
+        (3, 'Fecha de posible parto'),
+        (4, 'Cantidad reducida de pajuelas'),
+        # produccion
+        (5, u'Registro de ordeño'),
+        # sanidad
+        (6, 'Cantidad reducida de la vacuna'),
+        (7, 'Cantidad reducida del desparasitador'),
+        (8, u'Fecha próxima de vencimiento de la vacuna'),
+        (9, u'Fecha próxima de vencimiento del desparasitador'),
+        (10, u'Fecha próxima de aplicación de la vacuna'),
+        (11, u'Fecha próxima de aplicación del desparasitador'),
+        # alimentacion
+        (12, 'Cantidad reducida del alimento'),
+        (13, u'Fecha próxima de vencimiento del alimento'),
+        (14, u'Fecha próxima de aplicación del alimento'),
+        # reproduccion
+        (15, 'Cambio de etapa a Vacona Media'),
+        (16, 'Cambio de etapa a Vacona Fierro'),
+        (17, 'Cambio de etapa a Vacona Vientre'),
+        (18, 'Cambio de etapa a Vaca'),
+        (19, 'Cambio de edad'),
+        (20, 'Cambio a ciclo seco'),
         )
 
     ident_cattle = models.ForeignKey(Ganado, related_name='notification_cattle', blank=True, null=True)

@@ -19,18 +19,18 @@ class Medicament(models.Model):
     amount = models.FloatField('Cantidad de medicina')
     SEX_CHOICES = (
         (0, 'Hembra'),
-        (1, 'Macho'),  
-        (2, 'Hembra y Macho')      
+        (1, 'Macho'),
+        (2, 'Hembra y Macho')
         )
-    sex = models.PositiveSmallIntegerField('Sexo a aplicar', 
+    sex = models.PositiveSmallIntegerField('Sexo a aplicar',
                                             choices=SEX_CHOICES,
                                             default=0)
     farm = models.ForeignKey(Ganaderia, related_name='medicaments')
     application_age = models.IntegerField(u'Edad de Aplicación')
     TIME_APPLICATION_AGE_CHOICES = (
         (0, u'Aplicación en días'),
-        (1, 'Aplicación en meses'),  
-        (2, u'Aplicación en años')      
+        (1, 'Aplicación en meses'),
+        (2, u'Aplicación en años')
         )
     time_application_age = models.PositiveSmallIntegerField('Unidad de tiempo',
                             choices=TIME_APPLICATION_AGE_CHOICES,
@@ -47,8 +47,8 @@ class Medicament(models.Model):
     interval = models.IntegerField('Intervalo de tiempo')
     TIME_INTERVAL_CHOICES = (
         (0, u'Intervalo en días'),
-        (1, 'Intervalo en meses'),  
-        (2, u'Intervalo en años')      
+        (1, 'Intervalo en meses'),
+        (2, u'Intervalo en años')
         )
     time_interval = models.PositiveSmallIntegerField('Unidad de tiempo',
                             choices=TIME_INTERVAL_CHOICES,
@@ -82,4 +82,4 @@ class ApplicationMedicament(models.Model):
         )
     status = models.PositiveSmallIntegerField('Estado',
                             choices=STATUS_CHOICES,
-                            )   
+                            )

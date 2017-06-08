@@ -73,8 +73,8 @@ class etapaForm(forms.ModelForm):
 class ganadoForm(forms.ModelForm):
     class Meta:
         model = Ganado
-        exclude = ['ganaderia', 
-                   'identificacion_simple', 
+        exclude = ['ganaderia',
+                   'identificacion_simple',
                    'identificacion_ecuador',
                    'edad',
                    'etapa',
@@ -99,7 +99,7 @@ class ganadoForm(forms.ModelForm):
                     'live_weight': forms.TextInput(attrs={
                                     'placeholder': '¿Cuál es el peso vivo?'
                     }),
-        }      
+        }
 
 class editaGanadoCeloForm(forms.ModelForm):
   class Meta:
@@ -175,7 +175,7 @@ class gestacionForm(forms.ModelForm):
     }
 
 class problemGestacionForm(forms.ModelForm):
-  class Meta: 
+  class Meta:
     model = ProblemaGestacion
     widgets = {
                 'fecha_problema': forms.TextInput(attrs={

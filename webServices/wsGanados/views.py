@@ -2384,7 +2384,7 @@ class BeliefSanidad:
 					if ApplicationMedicament.objects.filter(cattle=c, medicament=v).count() > 0: # no es la primera vacuna
 						av = ApplicationMedicament.objects.filter(cattle=c, medicament=v)
 						av_final = av.reverse()[:1]
-						
+
 						if av.count() < v.number_application: # controla que no se pase del maximo de aplicaciones
 							if v.time_interval==0: # comprueba que la vacuna siguiente sea en dias
 								for i in range(av.count(), v.number_application+1): # recorre el numero total de aplicaciones que se deben dar
@@ -2408,8 +2408,8 @@ class BeliefSanidad:
 									if (date_now == three_days_after) | (date_now==one_day_before): # comprueba que sea el dia de aplicar
 										self.beliefs_application_vaccine.append(v.id)
 										self.beliefs_application_vaccine2.append(c.id)
-										break # termina el for							
-						
+										break # termina el for
+
 					else: # es la vacuna inicial
 						if v.time_application_age==0: # comprueba que la vacuna inicial sea en dias
 							date_now = c.nacimiento + relativedelta(days=v.application_age)
@@ -2480,7 +2480,7 @@ class BeliefSanidad:
 					if ApplicationMedicament.objects.filter(cattle=c, medicament=v).count() > 0: # no es la primera vacuna
 						av = ApplicationMedicament.objects.filter(cattle=c, medicament=v)
 						av_final = av.reverse()[:1]
-						
+
 						if av.count() < v.number_application: # controla que no se pase del maximo de aplicaciones
 							if v.time_interval==0: # comprueba que la vacuna siguiente sea en dias
 								for i in range(av.count(), v.number_application+1): # recorre el numero total de aplicaciones que se deben dar
@@ -2504,8 +2504,8 @@ class BeliefSanidad:
 									if (date_now == three_days_after) | (date_now==one_day_before): # comprueba que sea el dia de aplicar
 										self.beliefs_application_vaccine.append(v.id)
 										self.beliefs_application_vaccine2.append(c.id)
-										break # termina el for							
-						
+										break # termina el for
+
 					else: # es la vacuna inicial
 						if v.time_application_age==0: # comprueba que la vacuna inicial sea en dias
 							date_now = c.nacimiento + relativedelta(days=v.application_age)
@@ -2585,7 +2585,7 @@ class IntentionSanidad:
 	def assignNotification(self, d, datee, name):
 		user = User.objects.get(id=user_name)
 		farm = Ganaderia.objects.get(perfil=user)
-		
+
 		notification = Notification()
 		notification.start_date = datetime.date.today()
 		notification.end_date = datee
@@ -2612,7 +2612,7 @@ class IntentionSanidad:
 	def assignNotification2(self, c, d, datee, name):
 		user = User.objects.get(id=user_name)
 		farm = Ganaderia.objects.get(perfil=user)
-		
+
 		notification = Notification()
 		notification.start_date = datetime.date.today()
 		notification.end_date = datee
@@ -2742,7 +2742,7 @@ class IntentionSanidad:
 								notifi = Notification.objects.get(ident_medicament_id=d, name=10, end_date__gt=three_day_before, ident_cattle=b)
 							except ObjectDoesNotExist:
 								self.assignNotification2(b, d, datee, 10)
-		
+
 		if (Notification.objects.filter(state=2, end_date=one_day_before, name=10).count() > 0):
 			Notification.objects.filter(state=2, end_date=one_day_before, name=10).update(state=0)
 
@@ -2770,10 +2770,10 @@ class IntentionSanidad:
 								notifi = Notification.objects.get(ident_medicament_id=d, name=11, end_date__gt=three_day_before, ident_cattle=b)
 							except ObjectDoesNotExist:
 								self.assignNotification2(b, d, datee, 11)
-		
+
 		if (Notification.objects.filter(state=2, end_date=one_day_before, name=11).count() > 0):
 			Notification.objects.filter(state=2, end_date=one_day_before, name=11).update(state=0)
-		
+
 
 
 class AgentSanidad(spade.Agent.Agent):
@@ -2787,9 +2787,9 @@ class AgentSanidad(spade.Agent.Agent):
 			beliefs = BeliefSanidad()
 			desires = DesireSanidad()
 			intention = IntentionSanidad()
-						
+
 			msg2 = self._receive(block=True,timeout=1)
-			list_beliefs_ordenio_celo = msg2.getContent().split(',') 
+			list_beliefs_ordenio_celo = msg2.getContent().split(',')
 			agent2 = list_beliefs_ordenio_celo[0]
 			del(list_beliefs_ordenio_celo[0])
 
@@ -2810,11 +2810,11 @@ class AgentSanidad(spade.Agent.Agent):
 										list_medicaments_cattle.append(str(cattle_app.id))
 
 				msg_to_reproduccion.addReceiver(spade.AID.aid(agent2+"@127.0.0.1",["xmpp://"+agent2+"@127.0.0.1"]))
-				
+
 				if list_beliefs_ordenio_celo == []:
 					list_beliefs_ordenio_celo = [n for n in list_beliefs_ordenio_celo if n not in list_medicaments_cattle]
 					msg_to_reproduccion.setContent( character.join(list_beliefs_ordenio_celo) )
-				else:	
+				else:
 					list_beliefs_ordenio_celo = [n for n in list_medicaments_cattle if n not in list_beliefs_ordenio_celo]
 					msg_to_reproduccion.setContent( character.join(list_medicaments_cattle) )
 
@@ -2823,7 +2823,7 @@ class AgentSanidad(spade.Agent.Agent):
 				msg_to_reproduccion.addReceiver(spade.AID.aid(agent2+"@127.0.0.1",["xmpp://"+agent2+"@127.0.0.1"]))
 				msg_to_reproduccion.setContent( '' )
 				self.myAgent.send(msg_to_reproduccion)
-			
+
 			if 6 in desires.desires:
 				intention.sendNotificationAmountVaccine(beliefs.beliefs_amount_vaccine)
 			if 7 in desires.desires:
@@ -2841,17 +2841,17 @@ class AgentSanidad(spade.Agent.Agent):
 			sys.exit(0)
 
 	def _setup(self):
-		
+
 		template = spade.Behaviour.ACLTemplate()
 		template.setSender(spade.AID.aid("agent_reproduccion@127.0.0.1",["xmpp://agent_reproduccion@127.0.0.1"]))
 		t = spade.Behaviour.MessageTemplate(template)
 		self.addBehaviour(self.BehaviourSanidad(),t)
-		
+
 		template2 = spade.Behaviour.ACLTemplate()
 		template2.setSender(spade.AID.aid("agent_produccion@127.0.0.1",["xmpp://agent_produccion@127.0.0.1"]))
 		t2 = spade.Behaviour.MessageTemplate(template2)
 		self.addBehaviour(self.BehaviourSanidad(),t2)
-		
+
 		b = self.BehaviourSanidad()
 		self.addBehaviour(b, None)
 
@@ -2864,7 +2864,7 @@ class BeliefProduccion:
 		user = User.objects.get(id=user_name)
 		farm = Ganaderia.objects.get(perfil=user)
 
-		cattle = Ganado.objects.filter( 
+		cattle = Ganado.objects.filter(
 			Q(ganaderia=farm, genero=1, etapas__is_active=True, down_cattle=None) &
 			(
 				Q(ciclos__nombre='2', ciclos__is_active=True)
@@ -2874,7 +2874,7 @@ class BeliefProduccion:
 				Q(etapas__nombre='4')
 			)
 		)
-		
+
 		for c in cattle:
 			self.beliefs_ordenio.append(str(c.id))
 
@@ -2936,11 +2936,11 @@ class AgentProduccion(spade.Agent.Agent):
 		def onStart(self):
 			print "inicio del BehaviourProduccion . . ."
 
-		def _process(self):			
+		def _process(self):
 			beliefs = BeliefProduccion()
 			desires = DesireProduccion()
 			intention = IntentionProduction()
-			
+
 			character = ','
 			msg = spade.ACLMessage.ACLMessage()
 			msg.setPerformative("request")
@@ -2962,7 +2962,7 @@ class AgentProduccion(spade.Agent.Agent):
 		template.setSender(spade.AID.aid("agent_sanidad@127.0.0.1",["xmpp://agent_sanidad@127.0.0.1"]))
 		t = spade.Behaviour.MessageTemplate(template)
 		self.addBehaviour(self.BehaviourProduccion(), t)
-		
+
 		b = self.BehaviourProduccion()
 		self.addBehaviour(b, None)
 
@@ -3005,19 +3005,19 @@ class BeliefAlimentacion:
 						if c.etapas.filter(is_active=True, nombre=0).count() > 0:
 							for e in c.etapas.filter(is_active=True, nombre=0):
 								while control:
-									date_now = e.fecha_inicio + relativedelta(days=(f.interval*i))	
+									date_now = e.fecha_inicio + relativedelta(days=(f.interval*i))
 									if (date_now == date.today()) | (date_now==one_day_before): # si es el día de la primera alimentacion
 										self.beliefs_application_food.append(f.id)
 										self.beliefs_application_food2.append(c.id)
 										control = False # termina el while
 									elif(date_now > date.today()):
 										control = False
-									i+=1				
+									i+=1
 					elif f.time_interval==1: # comprueba que el alimento inicial sea en meses
 						if c.etapas.filter(is_active=True, nombre=0).count() > 0:
 							for e in c.etapas.filter(is_active=True, nombre=0):
 								while control:
-									date_now = e.fecha_inicio + relativedelta(months=(f.interval*i))	
+									date_now = e.fecha_inicio + relativedelta(months=(f.interval*i))
 									if (date_now == date.today()) | (date_now==one_day_before): # si es el día de la primera alimentacion
 										self.beliefs_application_food.append(f.id)
 										self.beliefs_application_food2.append(c.id)
@@ -3029,7 +3029,7 @@ class BeliefAlimentacion:
 						if c.etapas.filter(is_active=True, nombre=0).count() > 0:
 							for e in c.etapas.filter(is_active=True, nombre=0):
 								while control:
-									date_now = e.fecha_inicio + relativedelta(years=(f.interval*i))	
+									date_now = e.fecha_inicio + relativedelta(years=(f.interval*i))
 									if (date_now == date.today()) | (date_now==one_day_before): # si es el día de la primera alimentacion
 										self.beliefs_application_food.append(f.id)
 										self.beliefs_application_food2.append(c.id)
@@ -3037,26 +3037,26 @@ class BeliefAlimentacion:
 									elif(date_now > date.today()):
 										control = False
 									i+=1
-					
+
 				elif f.phase==1: # si es para adultos
 					i = 1 # contador
 					if f.time_interval==0: # comprueba que el alimento inicial sea en dias
 						if c.etapas.filter(is_active=True).exclude(nombre=0).count() > 0:
 							for e in c.etapas.filter(is_active=True).exclude(nombre=0):
 								while control:
-									date_now = e.fecha_inicio + relativedelta(days=(f.interval*i))	
+									date_now = e.fecha_inicio + relativedelta(days=(f.interval*i))
 									if (date_now == date.today()) | (date_now==one_day_before): # si es el día de la primera alimentacion
 										self.beliefs_application_food.append(f.id)
 										self.beliefs_application_food2.append(c.id)
 										control = False # termina el while
 									elif(date_now > date.today()):
 										control = False
-									i+=1	
+									i+=1
 					elif f.time_interval==1: # comprueba que el alimento inicial sea en meses
 						if c.etapas.filter(is_active=True).exclude(nombre=0).count() > 0:
 							for e in c.etapas.filter(is_active=True).exclude(nombre=0):
 								while control:
-									date_now = e.fecha_inicio + relativedelta(months=(f.interval*i))	
+									date_now = e.fecha_inicio + relativedelta(months=(f.interval*i))
 									if (date_now == date.today()) | (date_now==one_day_before): # si es el día de la primera alimentacion
 										self.beliefs_application_food.append(f.id)
 										self.beliefs_application_food2.append(c.id)
@@ -3068,7 +3068,7 @@ class BeliefAlimentacion:
 						if c.etapas.filter(is_active=True).exclude(nombre=0).count() > 0:
 							for e in c.etapas.filter(is_active=True).exclude(nombre=0):
 								while control:
-									date_now = e.fecha_inicio + relativedelta(years=(f.interval*i))	
+									date_now = e.fecha_inicio + relativedelta(years=(f.interval*i))
 									if (date_now == date.today()) | (date_now==one_day_before): # si es el día de la primera alimentacion
 										self.beliefs_application_food.append(f.id)
 										self.beliefs_application_food2.append(c.id)
@@ -3082,19 +3082,19 @@ class BeliefAlimentacion:
 						if c.etapas.all() > 0:
 							for e in c.etapas.all():
 								while control:
-									date_now = e.fecha_inicio + relativedelta(days=(f.interval*i))	
+									date_now = e.fecha_inicio + relativedelta(days=(f.interval*i))
 									if (date_now == date.today()) | (date_now==one_day_before): # si es el día de la primera alimentacion
 										self.beliefs_application_food.append(f.id)
 										self.beliefs_application_food2.append(c.id)
 										control = False # termina el while
 									elif(date_now > date.today()):
 										control = False
-									i+=1	
+									i+=1
 					elif f.time_interval==1: # comprueba que el alimento inicial sea en meses
 						if c.etapas.all() > 0:
 							for e in c.etapas.all():
 								while control:
-									date_now = e.fecha_inicio + relativedelta(months=(f.interval*i))	
+									date_now = e.fecha_inicio + relativedelta(months=(f.interval*i))
 									if (date_now == date.today()) | (date_now==one_day_before): # si es el día de la primera alimentacion
 										self.beliefs_application_food.append(f.id)
 										self.beliefs_application_food2.append(c.id)
@@ -3106,7 +3106,7 @@ class BeliefAlimentacion:
 						if c.etapas.all() > 0:
 							for e in c.etapas.all():
 								while control:
-									date_now = e.fecha_inicio + relativedelta(years=(f.interval*i))	
+									date_now = e.fecha_inicio + relativedelta(years=(f.interval*i))
 									if (date_now == date.today()) | (date_now==one_day_before): # si es el día de la primera alimentacion
 										self.beliefs_application_food.append(f.id)
 										self.beliefs_application_food2.append(c.id)
@@ -3154,7 +3154,7 @@ class IntentionAlimentacion:
 	def assignNotification2(self, c, d, datee, name):
 		user = User.objects.get(id=user_name)
 		farm = Ganaderia.objects.get(perfil=user)
-		
+
 		notification = Notification()
 		notification.start_date = datetime.date.today()
 		notification.end_date = datee
@@ -3226,7 +3226,7 @@ class IntentionAlimentacion:
 		for i in range(0,l):
 			d = beliefs_application_food[i]
 			b = beliefs_application_food2[i]
-		
+
 			try:
 				notifi = Notification.objects.get(ident_food_id=d, start_date=date.today(), end_date=date.today(), name=14, ident_cattle=b)
 			except ObjectDoesNotExist:
@@ -3298,7 +3298,7 @@ class BeliefReproduccion:
 					self.beliefs_service.append(c.id)
 		except ObjectDoesNotExist:
 			pass
-		
+
 		one_day_after = date.today() + relativedelta(days=1)
 		two_day_before = date.today() - relativedelta(days=2)
 
@@ -3353,7 +3353,7 @@ class BeliefReproduccion:
 								self.beliefs_media.append(m.id)
 						elif ( ( m.nacimiento + relativedelta(months=configuration.etapa_vacona_media) ) - relativedelta(days=10) == date.today() ) or ( ( m.nacimiento + relativedelta(months=configuration.etapa_vacona_media) ) + relativedelta(days=1) == date.today() ):
 							self.beliefs_media.append(m.id)
-						
+
 		except ObjectDoesNotExist:
 			pass
 
@@ -3369,7 +3369,7 @@ class BeliefReproduccion:
 								self.beliefs_fierro.append(f.id)
 						elif ( ( f.nacimiento + relativedelta(months=configuration.etapa_vacona_fierro) ) - relativedelta(days=10) == date.today() ) or ( ( f.nacimiento + relativedelta(months=configuration.etapa_vacona_fierro) ) + relativedelta(days=1) == date.today() ):
 							self.beliefs_fierro.append(f.id)
-						
+
 		except ObjectDoesNotExist:
 			pass
 
@@ -3384,12 +3384,12 @@ class BeliefReproduccion:
 							defer = DeferEtapa.objects.get(cattle_id=v, is_active=True)
 							if ((v.nacimiento + relativedelta(months=configuration.etapa_vacona_vientre)) + relativedelta(days=defer.number_days+1) == date.today()):
 								self.beliefs_vientre.append(v.id)
-						
+
 		except ObjectDoesNotExist:
 			pass
 
 		try:
-			cattles = Ganado.objects.filter(ganaderia=farm, genero=1, ciclos__nombre=2, down_cattle=None) 
+			cattles = Ganado.objects.filter(ganaderia=farm, genero=1, ciclos__nombre=2, down_cattle=None)
 			for c in cattles:
 				for i in c.ciclos.all():
 					if ((i.nombre==2) & (i.is_active==True)):
@@ -3528,7 +3528,7 @@ class IntentionReproduccion:
 						except ObjectDoesNotExist:
 							pass
 
-					if ( date.today() == date_celo ): # si hoy == a la fecha de celo 
+					if ( date.today() == date_celo ): # si hoy == a la fecha de celo
 						try:
 							notifi = Notification.objects.get(ident_cattle_id=c, state=2, start_date=date.today(), module=0, name=0)
 						except ObjectDoesNotExist:
@@ -3551,7 +3551,7 @@ class IntentionReproduccion:
 				elif ((date_parto != 'verificacion') & (date_parto != None)):  # si existe una previa gestacion (!=)
 					days_after_parto = configuration.celo_despues_parto
 					days_after_parto_error = configuration.celo_despues_parto_error
-					
+
 					date_celo = date_parto + relativedelta( days=(days_after_parto - days_after_parto_error) )
 					end_date_celo = date_parto + relativedelta( days=(days_after_parto + days_after_parto_error) )
 
@@ -3563,7 +3563,7 @@ class IntentionReproduccion:
 						pass
 
 					if (date.today() >= date_celo) & (date.today() <= end_date_celo): # si hoy == a la fecha de celo luego del parto
-						
+
 						notifi = Notification.objects.filter(Q(ident_cattle_id=c, module=0, name=0) & (Q(state=2) | Q(state=1))).order_by('end_date')[:1]
 						for i in notifi:
 							if (date.today() > i.end_date):
@@ -3601,7 +3601,7 @@ class IntentionReproduccion:
 					date_now_ciclo = start_date_ciclo + relativedelta(days=end_days)
 
 					date_now_celo = False
-					
+
 					if c.celos.all():
 						for ce in c.celos.all():
 							celo = Celo.objects.filter(ganado=c).reverse()[:1]
@@ -3625,7 +3625,7 @@ class IntentionReproduccion:
 							end_date = start_date + duration_celo
 						else:
 							duration_celo = start_date + relativedelta(days=days_frequency_celo_error*2)
-							end_date = duration_celo 
+							end_date = duration_celo
 
 						try:
 							notifi = Notification.objects.get(ident_cattle_id=c, start_date=date.today(), end_date=end_date, module=0, name=0)
@@ -3897,7 +3897,7 @@ class IntentionReproduccion:
 							deferEtap = DeferEtapa.objects.get(cattle_id_id=d, is_active=True)
 							deferEtap.is_active = False
 							deferEtap.save()
-						
+
 						# crea la nueva etapa
 						etapa = Etapa()
 						etapa.fecha_inicio = date.today()
@@ -3918,7 +3918,7 @@ class IntentionReproduccion:
 								if (date.today() + relativedelta(days=1) ) <= notifi.end_date:
 									break
 							except ObjectDoesNotExist:
-								self.assignNotification(d, datee, 15)	
+								self.assignNotification(d, datee, 15)
 				except ObjectDoesNotExist:
 					try:
 						notifi = Notification.objects.get(ident_cattle_id=d, state=2, module=0, name=15)
@@ -3984,7 +3984,7 @@ class IntentionReproduccion:
 						try:
 							notifi = Notification.objects.get(ident_cattle_id=d, state=2, module=0, name=16)
 						except ObjectDoesNotExist:
-							self.assignNotification(d, datee, 16)	
+							self.assignNotification(d, datee, 16)
 				except ObjectDoesNotExist:
 					try:
 						notifi = Notification.objects.get(ident_cattle_id=d, state=2, module=0, name=16)
@@ -4116,7 +4116,7 @@ class IntentionReproduccion:
 						try:
 							notifi = Notification.objects.get(ident_cattle_id=d, state=2, module=0, name=18)
 						except ObjectDoesNotExist:
-							self.assignNotification(d, datee, 18)	
+							self.assignNotification(d, datee, 18)
 				except ObjectDoesNotExist:
 					try:
 						notifi = Notification.objects.get(ident_cattle_id=d, state=2, module=0, name=18)
@@ -4190,8 +4190,8 @@ class IntentionReproduccion:
 
 				except ObjectDoesNotExist:
 					self.assignNotification(d, datee, 20)
-			
-			
+
+
 
 
 import time
@@ -4272,7 +4272,7 @@ def ajaxRefresh(request):
 	a = AgentAlimentacion("agent_alimentacion@127.0.0.1", "secret")
 	a.start()
 
-	
+
 
 	data = serializers.serialize('json', '')
 
