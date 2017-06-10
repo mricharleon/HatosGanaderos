@@ -36,8 +36,10 @@ class GanaderiaForm(forms.ModelForm):
         model = Ganaderia
         fields = ('nombreEntidad', 'direccion')
         widgets = {
-                'nombreEntidad':forms.TextInput(attrs={'placeholder': 'Nombre de la ganadería'}),
-                'direccion':forms.TextInput(attrs={'placeholder': 'Direccion de la ganadería'}),
+                'nombreEntidad':forms.TextInput(attrs={
+                    'placeholder': 'Nombre de la ganadería'}),
+                'direccion':forms.TextInput(attrs={
+                    'placeholder': 'Direccion de la ganadería'}),
                 }
 
 class SignupFormExtra(SignupForm):
@@ -46,12 +48,12 @@ class SignupFormExtra(SignupForm):
     case adding the first and last name.
     """
     first_name = forms.CharField(label=_(u'First name'),
-            max_length=30,
-            required=False)
+        max_length=30,
+        required=False)
 
     last_name = forms.CharField(label=_(u'Last name'),
-            max_length=30,
-            required=False)
+        max_length=30,
+        required=False)
 
     def __init__(self, *args, **kw):
         """
