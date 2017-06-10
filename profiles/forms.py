@@ -11,24 +11,24 @@ class ConfiguracionForm(forms.ModelForm):
         model = Configuracion
         exclude = ['etapa_vaca']
         widgets = {
-                'celo_frecuencia':forms.TextInput(attrs={}),
-                'celo_frecuencia_error':forms.TextInput(attrs={}),
-                'celo_duracion':forms.TextInput(attrs={}),
-                'celo_duracion_error':forms.TextInput(attrs={}),
-                'celo_despues_parto':forms.TextInput(attrs={}),
-                'celo_despues_parto_error':forms.TextInput(attrs={}),
-                'intentos_verificacion_celo':forms.TextInput(attrs={}),
-                'etapa_ternera':forms.TextInput(attrs={}),
-                'etapa_vacona_media':forms.TextInput(attrs={}),
-                'etapa_vacona_fierro':forms.TextInput(attrs={}),
-                'etapa_vacona_vientre':forms.TextInput(attrs={}),
-                'etapa_vaca':forms.TextInput(attrs={}),
-                'periodo_gestacion':forms.TextInput(attrs={}),
-                'periodo_seco':forms.TextInput(attrs={}),
-                'periodo_lactancia':forms.TextInput(attrs={}),
-                'periodo_vacio':forms.TextInput(attrs={}),
-                'numero_ordenios':forms.TextInput(attrs={}),
-                'initial_rp':forms.TextInput(attrs={}),
+                'celo_frecuencia': forms.TextInput(attrs={}),
+                'celo_frecuencia_error': forms.TextInput(attrs={}),
+                'celo_duracion': forms.TextInput(attrs={}),
+                'celo_duracion_error': forms.TextInput(attrs={}),
+                'celo_despues_parto': forms.TextInput(attrs={}),
+                'celo_despues_parto_error': forms.TextInput(attrs={}),
+                'intentos_verificacion_celo': forms.TextInput(attrs={}),
+                'etapa_ternera': forms.TextInput(attrs={}),
+                'etapa_vacona_media': forms.TextInput(attrs={}),
+                'etapa_vacona_fierro': forms.TextInput(attrs={}),
+                'etapa_vacona_vientre': forms.TextInput(attrs={}),
+                'etapa_vaca': forms.TextInput(attrs={}),
+                'periodo_gestacion': forms.TextInput(attrs={}),
+                'periodo_seco': forms.TextInput(attrs={}),
+                'periodo_lactancia': forms.TextInput(attrs={}),
+                'periodo_vacio': forms.TextInput(attrs={}),
+                'numero_ordenios': forms.TextInput(attrs={}),
+                'initial_rp': forms.TextInput(attrs={}),
                 }
 
 class GanaderiaForm(forms.ModelForm):
@@ -36,11 +36,12 @@ class GanaderiaForm(forms.ModelForm):
         model = Ganaderia
         fields = ('nombreEntidad', 'direccion')
         widgets = {
-                'nombreEntidad':forms.TextInput(attrs={
+                'nombreEntidad': forms.TextInput(attrs={
                     'placeholder': 'Nombre de la ganadería'}),
-                'direccion':forms.TextInput(attrs={
+                'direccion': forms.TextInput(attrs={
                     'placeholder': 'Direccion de la ganadería'}),
                 }
+
 
 class SignupFormExtra(SignupForm):
     """
