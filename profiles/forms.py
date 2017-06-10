@@ -48,12 +48,12 @@ class SignupFormExtra(SignupForm):
     case adding the first and last name.
     """
     first_name = forms.CharField(label=_(u'First name'),
-        max_length=30,
-        required=False)
+                                 max_length=30,
+                                 required=False)
 
     last_name = forms.CharField(label=_(u'Last name'),
-        max_length=30,
-        required=False)
+                                max_length=30,
+                                required=False)
 
     def __init__(self, *args, **kw):
         """
