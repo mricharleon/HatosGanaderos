@@ -1,3 +1,4 @@
+[![Join the chat at https://gitter.im/mricharleon/HatosGanaderos](https://badges.gitter.im/mricharleon/HatosGanaderos.svg)](https://gitter.im/HatosGanaderos/Lobby?utm_source=share-link&utm_medium=link&utm_campaign=share-link)
 [![Build Status](https://travis-ci.org/mricharleon/HatosGanaderos.svg?branch=master)](https://travis-ci.org/mricharleon/HatosGanaderos)
 [![Doc Status](https://readthedocs.org/projects/hatosganaderos/badge/?version=master)](http://hatosganaderos.readthedocs.io)
 [![Code Climate](https://codeclimate.com/github/mricharleon/HatosGanaderos/badges/gpa.svg)](https://codeclimate.com/github/mricharleon/HatosGanaderos)
