@@ -4,6 +4,18 @@ upstream app_upstream {
 
 server {
   listen 80;
+  rewrite ^ https://$http_host$request_uri? permanent;    # force redirect http to https
+   server_tokens off;
+}
+
+server {
+  listen 443;
+  ssl on;
+  ssl_certificate /usr/src/app/nginx.crt;        # path to your cacert.pem
+   ssl_certificate_key /usr/src/app/nginx.key;    # path to your privkey.pem
+  server_tokens off;
+  fastcgi_param   HTTPS               on;
+  fastcgi_param   HTTP_SCHEME         https;
 
   charset utf-8;
   client_max_body_size 200M;
