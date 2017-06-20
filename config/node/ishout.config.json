@@ -1,4 +1,6 @@
 {
   "redisHost":"redis",
-  "apiHost":"node"
+  "apiHost":"node",
+  "sslKey":"/src/key.key",
+  "sslCert":"/src/crt.crt"
 }

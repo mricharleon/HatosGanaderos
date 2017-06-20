@@ -11,6 +11,9 @@ ENV DB_PORT=5432
 # Necesario para generar documentación en formato LatexPDF
 #RUN apt-get install texlive-formats-extra && \
 #apt-get install latexmk
+RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+-subj "/C=''/ST=''/L=''/O=''/CN=''" -keyout nginx.key -out nginx.crt
+
 ADD requirements.txt /usr/src/app
 RUN pip install -r requirements.txt
 ADD userena /usr/src/app

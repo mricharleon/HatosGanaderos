@@ -174,7 +174,7 @@ TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 # django realtime
 ISHOUT_CLIENT_ADDR = '127.0.0.1:5500'  # modificar
 ISHOUT_API_ADDR = 'node:6600'
-ISHOUT_HTTPS = False
+ISHOUT_HTTPS = True
 
 CRON_CLASSES = [
     "ganados.cron.CronJobProduccion",

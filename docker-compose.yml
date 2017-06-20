@@ -6,6 +6,7 @@ services:
     build: ./config/nginx
     ports:
       - "80:80"
+      - "443:443"
     links:
       - hatosganaderos
     volumes:
